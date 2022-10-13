@@ -1,15 +1,15 @@
-import Login from '../../pages/Login/Login'
-import Register from '../../pages/Register/Register'
+import { LoginAsync } from '../../pages/Login/LoginAsync'
+import { RegisterAsync } from '../../pages/Register/RegisterAsync'
 import * as routes from './consts'
 
 const publicRoutes = [
    {
       path: routes.ROUTE_REGISTER,
-      Component: Register,
+      Component: RegisterAsync,
    },
    {
       path: routes.ROUTE_LOGIN,
-      Component: Login,
+      Component: LoginAsync,
    }
 ]
 
