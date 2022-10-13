@@ -1,4 +1,5 @@
 {
    "button": "ENG",
-   "main": "test"
+   "main": "test",
+   "toggle": "toggle"
 }

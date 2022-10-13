@@ -18,7 +18,7 @@ function App() {
     <div className={cls('app', theme === 'default' ? '' : 'dark')}>
       {t('main')}
       <button onClick={toggleLang}>{t('button')}</button>
-      <button onClick={toggleTheme}>toggle</button>
+      <button onClick={toggleTheme}>{t('toggle')}</button>
     </div>
   );
 }
