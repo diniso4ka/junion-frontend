@@ -21,7 +21,11 @@
     "build": "react-scripts build",
     "deploy": "gh-pages -d build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint:js": "eslint \"**/*.{js,jsx}\" ",
+    "lint:js:fix": "eslint \"**/*.{js,jsx}\" --fix",
+    "lint:css": "npx stylelint \"**/*.css\" ",
+    "lint:css:fix": "npx stylelint \"**/*.css\" --fix"
   },
   "browserslist": {
     "production": [
@@ -36,6 +40,15 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^4.0.0"
+    "eslint": "^8.22.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-react": "^7.31.10",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-simple-import-sort": "^8.0.0",
+    "gh-pages": "^4.0.0",
+    "stylelint": "^14.14.0",
+    "stylelint-config-standard": "^29.0.0"
   }
 }

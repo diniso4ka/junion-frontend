@@ -1,12 +1,8 @@
 :root {
-   --font-family-main: Consolas, 'Times New Roman', serif;
+    --font-family-main: consolas, "Times New Roman", serif;
+    --font-size-s: 16px;
+    --font-size-m: 24px;
+    --font-size-l: 32px;
 
-   --font-size-m: 16px;
-   --font-size-l: 24px;
-   --font-size-l: 32px;
-
-
-
-   /* Размеры */
-
+    /* Размеры */
 }
