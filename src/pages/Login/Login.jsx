@@ -2,7 +2,7 @@ import React from 'react'
 import cls from 'classnames'
 import s from './Login.module.css'
 
-function Login() {
+const Login = () => {
     return (
         <main className={s.wrapper}>
             <div className={s.login_block}>
