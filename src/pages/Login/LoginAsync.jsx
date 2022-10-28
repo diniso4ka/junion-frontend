@@ -1,4 +1,3 @@
-import React from 'react';
-import * as routes from '../../app/routes/consts';
+import React from 'react'
 
-export const LoginAsync = React.lazy(() => import(routes.ROUTE_LOGIN));
+export const LoginAsync = React.lazy(() => import('./Login'))
