@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkjunion_project=self.webpackChunkjunion_project||[]).push([[613],{613:function(e,n,r){r.r(n),r.d(n,{default:function(){return i}});r(791);var t="Register_wrapper__bipDS",u=r(184),i=function(){return(0,u.jsx)("div",{className:t,children:"Register"})}}}]);
+//# sourceMappingURL=613.06e386bb.chunk.js.map

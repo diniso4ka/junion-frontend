@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkjunion_project=self.webpackChunkjunion_project||[]).push([[245],{245:function(n,e,r){r.r(e),r.d(e,{default:function(){return i}});r(791);var u="Login_wrapper__-8AzN",c=r(184),i=function(){return(0,c.jsx)("main",{className:u,children:"Login"})}}}]);
+//# sourceMappingURL=245.2029ce3d.chunk.js.map
