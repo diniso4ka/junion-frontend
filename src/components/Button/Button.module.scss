@@ -1,0 +1,21 @@
+.button {
+    width: 200px;
+    height: 48px;
+    border-radius: 12px;
+    border: none;
+    background-color: var(--button-primary-color);
+
+    font-family: var(--font-family-main);
+    font-size: var(--font-size-s);
+    color: var(--white-color);
+    cursor: pointer;
+}
+
+.secondary {
+    background-color: var(--button-secondary-color);
+}
+
+.outline {
+    background-color: transparent;
+    border: 1px solid var(--button-border-color);
+}

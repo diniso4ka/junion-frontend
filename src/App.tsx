@@ -3,11 +3,10 @@ import cls from 'classnames'
 import './styles/index.scss'
 import { useTranslation } from 'react-i18next'
 import AppRouter from './Providers/AppRouter'
-import { Link } from 'react-router-dom'
-import * as routes from './shared/config/consts'
+
 import Header from './features/Header/Header'
 
-const App = () => {
+const App: React.FC = () => {
     const [theme, setTheme] = React.useState('default')
     const { t, i18n } = useTranslation()
     const toggleTheme = () => {
@@ -29,7 +28,9 @@ const App = () => {
             {/*</button>*/}
             {/*<Link to={routes.ROUTE_LOGIN}>LOGIN</Link>*/}
             {/*<Link to={routes.ROUTE_REGISTER}>REGISTER</Link>*/}
-            <AppRouter />
+            <React.Suspense fallback={<div>...loading</div>}>
+                <AppRouter />
+            </React.Suspense>
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 
@@ -10,11 +10,9 @@ import { BrowserRouter } from 'react-router-dom'
 const rootElement = document.getElementById('root')
 const root = ReactDOM.createRoot(rootElement!)
 root.render(
-    <Suspense fallback='loading'>
-        <BrowserRouter>
-            <Provider store={store}>
-                <App />
-            </Provider>
-        </BrowserRouter>
-    </Suspense>
+    <BrowserRouter>
+        <Provider store={store}>
+            <App />
+        </Provider>
+    </BrowserRouter>
 )

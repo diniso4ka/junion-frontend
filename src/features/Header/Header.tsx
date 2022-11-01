@@ -4,17 +4,39 @@ import cls from 'classnames'
 import s from './Header.module.scss'
 
 import * as routes from '../../shared/config/consts'
-import { Link } from 'react-router-dom'
+import { Link } from 'components'
+import logo from 'shared/assets/images/logo/logoMini.png'
+import { useLocation } from 'react-router'
 
-const Header = () => {
+const Header: React.FC = () => {
+    const location = useLocation()
+    console.log(location)
+    const links = [
+        { label: 'Log In', path: routes.ROUTE_LOGIN },
+        { label: 'Sign Up', path: routes.ROUTE_REGISTER },
+    ]
+
     return (
         <header className={s.wrapper}>
             <div className={s.contentWrapper}>
-                <div className={s.link}>
-                    <Link className={s.linke} to={routes.ROUTE_LOGIN}>
-                        Log In
-                    </Link>
-                </div>
+                <img src={logo} />
+                <nav className={s.links}>
+                    {links.map(link => (
+                        <div className={s.navItem}>
+                            <Link
+                                className={
+                                    location.pathname === link.path
+                                        ? 'active'
+                                        : ''
+                                }
+                                variant={'outline'}
+                                to={link.path}
+                            >
+                                {link.label}
+                            </Link>
+                        </div>
+                    ))}
+                </nav>
             </div>
         </header>
     )

@@ -1,15 +1,26 @@
 .wrapper {
-    height: var(--header-height-desctop);
+    font-family: var(--font-family-main);
+    height: var(--header-height-desktop);
     background-color: var(--white-color);
     width: 100vw;
 }
 
-.link {
-    //font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 300;
-    font-size: var(--font-size-s);
+.contentWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    max-width: var(--wrapper-width-desktop);
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.navItem {
     display: inline-block;
-    cursor: pointer;
-    margin-top: 10px;
+    margin-right: 40px;
+    margin-bottom: 10px;
+}
+.navItem:last-child {
+    margin-right: 0;
 }

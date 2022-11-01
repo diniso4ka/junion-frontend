@@ -1,3 +1,4 @@
 import React from 'react'
 
-export const LoginAsync = React.lazy(() => import('./Login'))
+export const LoginAsync: React.LazyExoticComponent<() => JSX.Element> =
+    React.lazy(() => import('./Login'))

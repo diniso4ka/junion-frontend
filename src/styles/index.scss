@@ -4,6 +4,7 @@
 @use 'variables/global';
 
 .app {
+    font-family: var(--font-family-main);
     font: var(--font-m);
     background: var(--bg-color);
     color: var(--primary-color);
