@@ -6,9 +6,9 @@ import './shared/config/i18n'
 import { Provider } from 'react-redux'
 import { store } from './store/store'
 import { BrowserRouter } from 'react-router-dom'
-import AppRouter from './Providers/AppRouter'
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
+const rootElement = document.getElementById('root')
+const root = ReactDOM.createRoot(rootElement!)
 root.render(
     <Suspense fallback='loading'>
         <BrowserRouter>

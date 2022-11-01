@@ -1,0 +1,15 @@
+.wrapper {
+    height: var(--header-height-desctop);
+    background-color: var(--white-color);
+    width: 100vw;
+}
+
+.link {
+    //font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 300;
+    font-size: var(--font-size-s);
+    display: inline-block;
+    cursor: pointer;
+    margin-top: 10px;
+}

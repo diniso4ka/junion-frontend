@@ -1,6 +1,6 @@
 import React from 'react'
 import cls from 'classnames'
-import s from './Sidebar.module.css'
+import s from './Sidebar.module.scss'
 
 const Sidebar = () => {
     return <aside>Sidebar</aside>
