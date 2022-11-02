@@ -11,16 +11,13 @@ interface ILinkProps {
     to: string
 }
 
-export const Link: React.FC<ILinkProps> = ({
-    children,
-    to,
-    variant = 'primary',
-    className,
-}) => {
-    const classes = cls(s.link, s[variant], className)
-    return (
-        <div className={classes}>
-            <LinkButton to={to}>{children}</LinkButton>
-        </div>
-    )
-}
+export const Link: React.FC<ILinkProps> = React.memo(
+    ({ children, to, variant = 'primary', className }) => {
+        const classes = cls(s.link, s[variant], className)
+        return (
+            <div className={classes}>
+                <LinkButton to={to}>{children}</LinkButton>
+            </div>
+        )
+    }
+)

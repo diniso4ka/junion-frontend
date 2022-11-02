@@ -10,25 +10,27 @@ interface IButtonProps {
     onClick?: () => void
 }
 
-export const Button: React.FC<IButtonProps> = ({
-    children,
-    type = 'button',
-    variant = 'primary',
-    className,
-    onClick,
-}) => {
-    const onToggleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault()
-        onClick?.()
+export const Button: React.FC<IButtonProps> = React.memo(
+    ({
+        children,
+        type = 'button',
+        variant = 'primary',
+        className,
+        onClick,
+    }) => {
+        const onToggleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+            e.preventDefault()
+            onClick?.()
+        }
+        const classnames = cls(s.button, s[variant], className)
+        return (
+            <button
+                type={type}
+                className={classnames}
+                onClick={e => onToggleClick(e)}
+            >
+                {children}
+            </button>
+        )
     }
-    const classnames = cls(s.button, s[variant], className)
-    return (
-        <button
-            type={type}
-            className={classnames}
-            onClick={e => onToggleClick(e)}
-        >
-            {children}
-        </button>
-    )
-}
+)
