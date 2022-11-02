@@ -4,6 +4,10 @@
     margin: 140px auto;
 }
 
+.message {
+    height: 22px;
+}
+
 .formItem {
     margin: 0 0 14px 0;
     height: 70px;
@@ -12,4 +16,20 @@
 .formButton {
     margin-top: 15px;
     float: right;
+}
+
+.helper {
+    font-size: var(--font-size-ms);
+    background-repeat: no-repeat;
+    padding-left: 18px;
+}
+
+.helperError {
+    background-image: url('/shared/assets/images/helpers/error.svg');
+}
+
+.helperWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

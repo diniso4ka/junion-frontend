@@ -3,24 +3,55 @@ import cls from 'classnames'
 import s from './Login.module.scss'
 import { Button, Input } from 'components'
 import { ILoginData } from './types'
+import { loginValidation } from '../../shared/helpers/validations/loginValidation'
+import { IValidationResponseType } from '../../shared/helpers/validations/types'
 
 const Login = () => {
-    const [emailValue, setEmailValue] = React.useState('')
-    const [passwordValue, setPasswordValue] = React.useState('')
+    const [emailValue, setEmailValue] = React.useState<string>('test@test.test')
+    const [passwordValue, setPasswordValue] =
+        React.useState<string>('Test1textfe%')
+
+    const [errorMessage, setErrorMessage] = React.useState<string>('')
+    const [validaionErrors, setValidaionErrors] =
+        React.useState<IValidationResponseType>({
+            email: '',
+            password: '',
+        })
     const [loginData, setLoginData] = React.useState<ILoginData>({
-        email: 'email',
-        password: 'password',
+        email: '',
+        password: '',
     })
 
     const onSubmitForm = () => {
-        setLoginData({
+        const errors = loginValidation({
             email: emailValue,
             password: passwordValue,
         })
+        if (errors) {
+            setValidaionErrors({
+                email: errors.email || undefined,
+                password: errors.password || undefined,
+            })
+        } else {
+            setLoginData({
+                email: emailValue,
+                password: passwordValue,
+            })
+            setTimeout(
+                () =>
+                    setErrorMessage(
+                        'Your account name or password is incorrect'
+                    ),
+                2000
+            )
+        }
     }
 
     return (
         <main className={s.wrapper}>
+            <div className={s.message}>
+                <p className={cls(s.helper, s.helperError)}>{errorMessage}</p>
+            </div>
             <div className={s.formItem}>
                 <Input
                     onChange={e => setEmailValue(e.target.value)}
@@ -28,13 +59,9 @@ const Login = () => {
                     placeHolder={'E-mail address'}
                     variant={'primary'}
                     type={'text'}
-                    helperText={
-                        loginData?.email
-                            ? ''
-                            : 'Please, enter the email address'
-                    }
+                    helperText={validaionErrors?.email}
                     helperClass={'error'}
-                    error={loginData?.email ? false : true}
+                    error={!!validaionErrors?.email}
                 />
             </div>
             <div className={s.formItem}>
@@ -44,11 +71,9 @@ const Login = () => {
                     placeHolder={'Password'}
                     variant={'primary'}
                     type={'password'}
-                    helperText={
-                        loginData?.password ? '' : 'Please, enter the password'
-                    }
+                    helperText={validaionErrors?.password}
                     helperClass={'error'}
-                    error={loginData?.password ? false : true}
+                    error={!!validaionErrors?.password}
                     forgotPass={true}
                 />
             </div>
