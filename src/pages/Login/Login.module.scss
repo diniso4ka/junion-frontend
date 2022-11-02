@@ -1,3 +1,14 @@
 .wrapper {
     color: var(--primary-color);
+    width: var(--form-width-desktop);
+    margin: 140px auto;
+}
+
+.formItem {
+    margin: 0 0 14px 0;
+}
+
+.formButton {
+    margin-top: 15px;
+    float: right;
 }

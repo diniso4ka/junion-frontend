@@ -1,0 +1,81 @@
+import React from 'react'
+import cls from 'classnames'
+import s from './Input.module.scss'
+
+import eye from 'shared/assets/images/password-icons/codicon_eye.svg'
+import eyeClosed from 'shared/assets/images/password-icons/codicon_eye-closed.svg'
+import { Link } from '../Link'
+
+interface IInputProps {
+    type: 'text' | 'password'
+    placeHolder: string
+    variant?: 'primary' | 'secondary' | 'outline'
+    classname?: string
+    helperText?: string
+    helperClass?: 'error' | 'hint' | 'success'
+    error: boolean
+}
+
+export const Input: React.FC<IInputProps> = React.memo(
+    ({
+        type = 'text',
+        placeHolder,
+        variant = 'primary',
+        classname,
+        error,
+        helperText,
+        helperClass = 'hint',
+        ...rest
+    }) => {
+        const [visible, setVisible] = React.useState<boolean>(false)
+        const helperTextClass = cls({
+            [s.helperError]: helperClass === 'error',
+            [s.helperHint]: helperClass === 'hint',
+            [s.helperSuccess]: helperClass === 'success',
+        })
+        const classnames = cls(s.input, s[variant], classname, {
+            [s.error]: error,
+        })
+        const onToggleVisible = () => {
+            setVisible(!visible)
+        }
+        return (
+            <div className={s.wrapper}>
+                <div className={s.inputWrapper}>
+                    <input
+                        type={
+                            type === 'text'
+                                ? 'text'
+                                : type === 'password' && visible
+                                ? 'text'
+                                : 'password'
+                        }
+                        className={classnames}
+                        placeholder={placeHolder}
+                    />
+                    <div className={s.rightImage}>
+                        {type === 'password' &&
+                            (visible ? (
+                                <img src={eye} onClick={onToggleVisible} />
+                            ) : (
+                                <img
+                                    src={eyeClosed}
+                                    onClick={onToggleVisible}
+                                />
+                            ))}
+                    </div>
+                </div>
+                <div className={s.helperWrapper}>
+                    <p className={cls(s.helper, helperTextClass)}>
+                        {helperText}
+                    </p>
+                    {type === 'password' && (
+                        <Link variant={'secondary'} to={'/forgot '}>
+                            Forgot you Password?
+                        </Link>
+                    )}
+                </div>
+            </div>
+        )
+    }
+)
