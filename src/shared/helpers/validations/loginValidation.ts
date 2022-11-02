@@ -1,7 +1,7 @@
-import { ILoginData } from 'pages/Login/types'
 import { mailRegex, passwordRegex } from './validationRegex'
+import { ILoginReqData } from './types'
 
-export const loginValidation = (data: ILoginData) => {
+export const loginValidation = (data: ILoginReqData) => {
     const { email, password } = data
     const errors = {} as typeof data
 

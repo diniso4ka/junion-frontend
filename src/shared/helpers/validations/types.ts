@@ -1,4 +1,4 @@
-export interface IValidationResponseType {
+export interface IValidationResponseData {
     email: string | undefined
     password: string | undefined
     correctPassword?: string | undefined
@@ -10,4 +10,8 @@ export interface IRegisterReqData {
     password: string | null
     correctPassword: string | null
     username: string | null
+}
+export interface ILoginReqData {
+    email: string | null
+    password: string | null
 }

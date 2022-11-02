@@ -2,22 +2,23 @@ import React from 'react'
 import cls from 'classnames'
 import s from './Login.module.scss'
 import { Button, Input } from 'components'
-import { ILoginData } from './types'
-import { loginValidation } from '../../shared/helpers/validations/loginValidation'
-import { IValidationResponseType } from '../../shared/helpers/validations/types'
+
+import { loginValidation } from 'shared/helpers/validations/loginValidation'
+import {
+    IValidationResponseData,
+    ILoginReqData,
+} from 'shared/helpers/validations/types'
 
 const Login = () => {
-    const [emailValue, setEmailValue] = React.useState<string>('test@test.test')
-    const [passwordValue, setPasswordValue] =
-        React.useState<string>('Test1textfe%')
-
+    const [emailValue, setEmailValue] = React.useState<string>('')
+    const [passwordValue, setPasswordValue] = React.useState<string>('')
     const [errorMessage, setErrorMessage] = React.useState<string>('')
     const [validaionErrors, setValidaionErrors] =
-        React.useState<IValidationResponseType>({
+        React.useState<IValidationResponseData>({
             email: '',
             password: '',
         })
-    const [loginData, setLoginData] = React.useState<ILoginData>({
+    const [loginData, setLoginData] = React.useState<ILoginReqData>({
         email: '',
         password: '',
     })

@@ -4,7 +4,7 @@ import s from './Register.module.scss'
 import { Button, Input } from '../../components'
 import {
     IRegisterReqData,
-    IValidationResponseType,
+    IValidationResponseData,
 } from '../../shared/helpers/validations/types'
 import { registerValidation } from '../../shared/helpers/validations/registerValidation'
 
@@ -15,17 +15,9 @@ const Register = () => {
         React.useState<string>('')
     const [usernameValue, setUsernameValue] = React.useState<string>('')
     const [validaionErrors, setValidaionErrors] =
-        React.useState<IValidationResponseType>({
-            email: '',
-            password: '',
-            correctPassword: '',
-        })
-    const [registerData, setRegisterData] = React.useState<IRegisterReqData>({
-        email: '',
-        password: '',
-        correctPassword: '',
-        username: '',
-    })
+        React.useState<IValidationResponseData | null>()
+    const [registerData, setRegisterData] =
+        React.useState<IRegisterReqData | null>()
 
     const onSubmitForm = () => {
         const errors = registerValidation({
