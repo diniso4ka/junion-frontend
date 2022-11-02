@@ -8,6 +8,8 @@ import { Link } from '../Link'
 
 interface IInputProps {
     type: 'text' | 'password'
+    value: string
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
     placeHolder: string
     variant?: 'primary' | 'secondary' | 'outline'
     classname?: string
@@ -20,6 +22,8 @@ interface IInputProps {
 export const Input: React.FC<IInputProps> = React.memo(
     ({
         type = 'text',
+        value,
+        onChange,
         placeHolder,
         variant = 'primary',
         classname,
@@ -44,6 +48,8 @@ export const Input: React.FC<IInputProps> = React.memo(
             <div className={s.wrapper}>
                 <div className={s.inputWrapper}>
                     <input
+                        value={value}
+                        onChange={e => onChange(e)}
                         autoComplete={'off'}
                         type={
                             type === 'text'
@@ -68,9 +74,13 @@ export const Input: React.FC<IInputProps> = React.memo(
                     </div>
                 </div>
                 <div className={s.helperWrapper}>
-                    <p className={cls(s.helper, helperTextClass)}>
-                        {helperText}
-                    </p>
+                    {helperText ? (
+                        <p className={cls(s.helper, helperTextClass)}>
+                            {helperText}
+                        </p>
+                    ) : (
+                        <div></div>
+                    )}
                     {type === 'password' && forgotPass && (
                         <Link variant={'secondary'} to={'/forgot '}>
                             Forgot you Password?
