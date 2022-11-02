@@ -19,9 +19,6 @@ const Login = () => {
         })
     }
 
-    React.useEffect(() => {
-        console.log(loginData)
-    }, [loginData])
     return (
         <main className={s.wrapper}>
             <div className={s.formItem}>
