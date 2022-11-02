@@ -13,7 +13,8 @@ interface IInputProps {
     classname?: string
     helperText?: string
     helperClass?: 'error' | 'hint' | 'success'
-    error: boolean
+    error?: boolean
+    forgotPass?: boolean
 }
 
 export const Input: React.FC<IInputProps> = React.memo(
@@ -25,7 +26,7 @@ export const Input: React.FC<IInputProps> = React.memo(
         error,
         helperText,
         helperClass = 'hint',
-        ...rest
+        forgotPass = false,
     }) => {
         const [visible, setVisible] = React.useState<boolean>(false)
         const helperTextClass = cls({
@@ -43,6 +44,7 @@ export const Input: React.FC<IInputProps> = React.memo(
             <div className={s.wrapper}>
                 <div className={s.inputWrapper}>
                     <input
+                        autoComplete={'off'}
                         type={
                             type === 'text'
                                 ? 'text'
@@ -69,7 +71,7 @@ export const Input: React.FC<IInputProps> = React.memo(
                     <p className={cls(s.helper, helperTextClass)}>
                         {helperText}
                     </p>
-                    {type === 'password' && (
+                    {type === 'password' && forgotPass && (
                         <Link variant={'secondary'} to={'/forgot '}>
                             Forgot you Password?
                         </Link>

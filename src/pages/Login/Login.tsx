@@ -1,7 +1,7 @@
 import React from 'react'
 import cls from 'classnames'
 import s from './Login.module.scss'
-import { Button, Input, Link } from 'components'
+import { Button, Input } from 'components'
 
 const Login = () => {
     return (
@@ -15,7 +15,7 @@ const Login = () => {
                         '6 to 20 characters. Only letters, numbers or sumbols'
                     }
                     helperClass={'error'}
-                    error={false}
+                    error={true}
                 />
             </div>
             <div className={s.formItem}>
@@ -24,8 +24,9 @@ const Login = () => {
                     variant={'primary'}
                     type={'password'}
                     helperText={'Please, enter the Password'}
-                    helperClass={'success'}
+                    helperClass={'hint'}
                     error={false}
+                    forgotPass={true}
                 />
             </div>
             <div className={s.formButton}>
