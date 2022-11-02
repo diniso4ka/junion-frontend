@@ -8,7 +8,7 @@ export const registerValidation = (data: IRegisterReqData) => {
 
     if (email) {
         if (!mailRegex(email)) {
-            errors.email = 'Specify correct email address'
+            errors.email = 'Your email address  is incorrect'
         }
     } else {
         errors.email = 'Please, enter the email address'
@@ -16,7 +16,8 @@ export const registerValidation = (data: IRegisterReqData) => {
 
     if (password) {
         if (!passwordRegex(password)) {
-            errors.password = 'Please, enter the correct password'
+            errors.password =
+                'The password setting does not meet the requirements'
         }
     } else {
         errors.password = 'Please, enter the password'
