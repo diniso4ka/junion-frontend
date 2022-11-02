@@ -10,7 +10,6 @@ import { useLocation } from 'react-router'
 
 const Header: React.FC = () => {
     const location = useLocation()
-    console.log(location)
     const links = [
         { label: 'Log In', path: routes.ROUTE_LOGIN },
         { label: 'Sign Up', path: routes.ROUTE_REGISTER },
@@ -22,12 +21,11 @@ const Header: React.FC = () => {
                 <img src={logo} />
                 <nav className={s.links}>
                     {links.map(link => (
-                        <div className={s.navItem}>
+                        <div key={link.path} className={s.navItem}>
                             <Link
+                                key={link.path}
                                 className={
-                                    location.pathname === link.path
-                                        ? 'active'
-                                        : ''
+                                    location.pathname === link.path && s.active
                                 }
                                 variant={'outline'}
                                 to={link.path}

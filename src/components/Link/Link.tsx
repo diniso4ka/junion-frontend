@@ -17,7 +17,7 @@ export const Link: React.FC<ILinkProps> = ({
     variant = 'primary',
     className,
 }) => {
-    const classes = cls(s.link, s[variant], className && s[className])
+    const classes = cls(s.link, s[variant], className)
     return (
         <div className={classes}>
             <LinkButton to={to}>{children}</LinkButton>
