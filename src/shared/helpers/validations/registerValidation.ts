@@ -1,6 +1,5 @@
 import { mailRegex, passwordRegex, usernameRegex } from './validationRegex'
 import { IRegisterReqData } from './types'
-import { use } from 'i18next'
 
 export const registerValidation = (data: IRegisterReqData) => {
     const { email, password, correctPassword, username } = data
