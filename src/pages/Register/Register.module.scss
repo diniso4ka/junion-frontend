@@ -1,15 +1,29 @@
 .wrapper {
     color: var(--primary-color);
-    width: var(--form-width-desktop);
+    width: fit-content;
     margin: 140px auto;
+    font-family: var(--font-family-main);
+    justify-content: end;
 }
 
 .formItem {
     margin: 0 0 14px 0;
     height: 70px;
+    width: fit-content;
+    display: flex;
+    align-items: center;
 }
 
 .formButton {
     margin-top: 15px;
     float: right;
+}
+
+.label {
+    white-space: nowrap;
+    font-size: var(--font-size-vs);
+    margin-right: 16px;
+    padding-bottom: 15px;
+    width: 140px;
+    text-align: end;
 }

@@ -15,3 +15,20 @@ export const passwordRegex = (password: string | undefined) => {
         )
     }
 }
+
+export const usernameRegex = (username: string | undefined) => {
+    if (username) {
+        const result = username.match(
+            /^(([A-Za-z]+[\-\']?)*([A-Za-z]+)?\s)+([A-Za-z]+[\-\']?)*([A-Za-z]+)?$/
+        )
+        if (result) {
+            const splitUsername = username.toLowerCase().split(' ')
+            const capitalizeFirstLetter = splitUsername.map(
+                item => item.charAt(0).toUpperCase() + item.slice(1)
+            )
+            return capitalizeFirstLetter
+        } else {
+            return result
+        }
+    }
+}
