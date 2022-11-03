@@ -7,41 +7,52 @@ import {
     IValidationResponseData,
 } from '../../shared/helpers/validations/types'
 import { registerValidation } from '../../shared/helpers/validations/registerValidation'
+import { useAppDispatch } from '../../store/types'
+import { thunkFetchRegister } from '../../store/slices/user/userSlice'
 
 const Register = () => {
-    const [emailValue, setEmailValue] = React.useState<string>('')
-    const [passwordValue, setPasswordValue] = React.useState<string>('')
+    const [emailValue, setEmailValue] =
+        React.useState<string>('denis@gmail.com')
+    const [passwordValue, setPasswordValue] =
+        React.useState<string>('Denis123!@#')
     const [correctPasswordValue, setCorrectPasswordValue] =
-        React.useState<string>('')
-    const [usernameValue, setUsernameValue] = React.useState<string>('')
+        React.useState<string>('Denis123!@#')
+    const [usernameValue, setUsernameValue] = React.useState<string>('DENIS')
     const [validaionErrors, setValidaionErrors] =
         React.useState<IValidationResponseData | null>()
     const [registerData, setRegisterData] =
         React.useState<IRegisterReqData | null>()
+
+    const dispatch = useAppDispatch()
 
     const onSubmitForm = () => {
         const errors = registerValidation({
             email: emailValue,
             password: passwordValue,
             correctPassword: correctPasswordValue,
-            username: usernameValue,
+            name: usernameValue,
         })
         if (errors) {
             setValidaionErrors({
                 email: errors.email || undefined,
                 password: errors.password || undefined,
                 correctPassword: errors.correctPassword || undefined,
-                username: errors.username || undefined,
+                name: errors.name || undefined,
             })
         } else {
             setRegisterData({
                 email: emailValue,
                 password: passwordValue,
-                correctPassword: correctPasswordValue,
-                username: usernameValue,
+                name: usernameValue,
             })
         }
     }
+
+    React.useEffect(() => {
+        if (registerData) {
+            dispatch(thunkFetchRegister(registerData))
+        }
+    }, [registerData])
 
     return (
         <div className={s.wrapper}>
@@ -92,9 +103,9 @@ const Register = () => {
                     placeHolder={'Enter first and last name'}
                     variant={'primary'}
                     type={'text'}
-                    helperText={validaionErrors?.username}
+                    helperText={validaionErrors?.name}
                     helperClass={'error'}
-                    error={!!validaionErrors?.username}
+                    error={!!validaionErrors?.name}
                 />
             </div>
             <div className={s.formButton}>

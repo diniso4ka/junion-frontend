@@ -8,20 +8,19 @@ import {
     IValidationResponseData,
     ILoginReqData,
 } from 'shared/helpers/validations/types'
+import { useAppDispatch, useAppSelector } from '../../store/types'
+import { thunkFetchLogin } from '../../store/slices/user/userSlice'
 
-const Login = () => {
+const Login: React.FC = () => {
     const [emailValue, setEmailValue] = React.useState<string>('')
     const [passwordValue, setPasswordValue] = React.useState<string>('')
     const [errorMessage, setErrorMessage] = React.useState<string>('')
     const [validaionErrors, setValidaionErrors] =
-        React.useState<IValidationResponseData>({
-            email: '',
-            password: '',
-        })
-    const [loginData, setLoginData] = React.useState<ILoginReqData>({
-        email: '',
-        password: '',
-    })
+        React.useState<IValidationResponseData | null>()
+    const [loginData, setLoginData] = React.useState<ILoginReqData | null>()
+
+    const dispatch = useAppDispatch()
+    const { incorrect } = useAppSelector(state => state.user.errors)
 
     const onSubmitForm = () => {
         const errors = loginValidation({
@@ -34,24 +33,32 @@ const Login = () => {
                 password: errors.password || undefined,
             })
         } else {
+            setValidaionErrors({
+                email: '',
+                password: '',
+            })
             setLoginData({
                 email: emailValue,
                 password: passwordValue,
             })
-            setTimeout(
-                () =>
-                    setErrorMessage(
-                        'Your account name or password is incorrect'
-                    ),
-                2000
-            )
         }
     }
+
+    React.useEffect(() => {
+        if (loginData) {
+            dispatch(
+                thunkFetchLogin({
+                    email: 'fewsfdwfe@mail.ru',
+                    password: '123',
+                })
+            )
+        }
+    }, [loginData])
 
     return (
         <main className={s.wrapper}>
             <div className={s.message}>
-                <p className={cls(s.helper, s.helperError)}>{errorMessage}</p>
+                <p className={cls(s.helper, s.helperError)}>{incorrect}</p>
             </div>
             <div className={s.formItem}>
                 <Input

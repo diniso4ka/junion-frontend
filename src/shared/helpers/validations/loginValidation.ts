@@ -13,12 +13,7 @@ export const loginValidation = (data: ILoginReqData) => {
         errors.email = 'Please, enter the email address'
     }
 
-    if (password) {
-        if (!passwordRegex(password)) {
-            errors.password =
-                'The password setting does not meet the requirements'
-        }
-    } else {
+    if (!password) {
         errors.password = 'Please, enter the password'
     }
 

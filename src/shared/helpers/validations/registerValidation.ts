@@ -2,7 +2,7 @@ import { mailRegex, passwordRegex, usernameRegex } from './validationRegex'
 import { IRegisterReqData } from './types'
 
 export const registerValidation = (data: IRegisterReqData) => {
-    const { email, password, correctPassword, username } = data
+    const { email, password, correctPassword, name } = data
     const errors = {} as typeof data
 
     if (email) {
@@ -32,12 +32,12 @@ export const registerValidation = (data: IRegisterReqData) => {
             'The two passwords you entered are inconsistent. Enter again'
     }
 
-    if (username) {
-        if (!usernameRegex(username)) {
-            errors.username = 'Please enter 1-60 alphabetical characters'
+    if (name) {
+        if (!usernameRegex(name)) {
+            errors.name = 'Please enter 1-60 alphabetical characters'
         }
     } else {
-        errors.username = 'Please enter 1-60 alphabetical characters'
+        errors.name = 'Please enter 1-60 alphabetical characters'
     }
 
     if (errors && Object.keys(errors).length === 0) {
