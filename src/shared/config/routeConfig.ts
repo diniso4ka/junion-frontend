@@ -1,7 +1,9 @@
 import * as routes from './consts'
+
 import { RegisterAsync } from '../../pages/Register/RegisterAsync'
 import { LoginAsync } from '../../pages/Login/LoginAsync'
 import Logo from '../../pages/Logo/Logo'
+import Main from '../../pages/Main/Main'
 
 export const publicRoutes = [
     {
@@ -18,4 +20,9 @@ export const publicRoutes = [
     },
 ]
 
-const privateRoutes = []
+export const privateRoutes = [
+    {
+        path: routes.ROUTE_MAIN,
+        Component: Main,
+    },
+]

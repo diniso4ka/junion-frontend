@@ -1,6 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
-import { fetchLogin, fetchRegister } from '../../../shared/api/requests'
+import {
+    fetchAuthMe,
+    fetchLogin,
+    fetchLogout,
+    fetchRegister,
+} from '../../../shared/api/requests'
 
 import { Status } from '../../types'
 import { IUserData } from './types'
@@ -13,7 +18,6 @@ export const thunkFetchRegister = createAsyncThunk(
     'users/registerStatus',
     async (data: IRegisterReqData) => {
         const res = await fetchRegister(data)
-        console.log(res)
         return res
     }
 )
@@ -21,7 +25,22 @@ export const thunkFetchLogin = createAsyncThunk(
     'users/loginStatus',
     async (data: ILoginReqData) => {
         const res = await fetchLogin(data)
-        console.log(res)
+        return res
+    }
+)
+
+export const thunkFetchLogout = createAsyncThunk(
+    'users/logoutStatus',
+    async () => {
+        const res = await fetchLogout()
+        return res
+    }
+)
+
+export const thunkFetchAuthMe = createAsyncThunk(
+    'users/authMeStatus',
+    async () => {
+        const res = await fetchAuthMe()
         return res
     }
 )
@@ -52,33 +71,52 @@ const userSlice = createSlice({
     reducers: {},
     extraReducers: builder => {
         builder.addCase(thunkFetchRegister.pending, (state, action) => {
-            state.user.data = null
             state.user.status = Status.LOADING
         }),
             builder.addCase(thunkFetchRegister.fulfilled, (state, action) => {
-                state.user.data = null
-                console.log(action)
                 state.user.status = Status.SUCCESS
             }),
             builder.addCase(thunkFetchRegister.rejected, (state, action) => {
-                state.user.data = null
                 state.user.status = Status.ERROR
             }),
             builder.addCase(thunkFetchLogin.pending, (state, action) => {
-                state.user.data = null
                 state.errors.incorrect = null
                 state.user.status = Status.LOADING
             }),
             builder.addCase(thunkFetchLogin.fulfilled, (state, action) => {
-                state.user.data = null
                 state.errors.incorrect = null
-                console.log(action)
+                if (action.payload?.data?.message === 'login successfull')
+                    localStorage.setItem(
+                        'token',
+                        JSON.stringify(action.payload.data.token)
+                    )
                 state.user.status = Status.SUCCESS
             }),
-            builder.addCase(thunkFetchLogin.rejected, (state, action) => {
-                state.user.data = null
+            builder.addCase(thunkFetchLogin.rejected, state => {
                 state.errors.incorrect =
                     'Your account name or password is incorrect'
+                state.user.status = Status.ERROR
+            }),
+            builder.addCase(thunkFetchAuthMe.pending, state => {
+                state.user.data = null
+                state.user.status = Status.LOADING
+            }),
+            builder.addCase(thunkFetchAuthMe.fulfilled, (state, action) => {
+                state.user.data = action.payload.data.user
+                state.user.status = Status.SUCCESS
+            }),
+            builder.addCase(thunkFetchAuthMe.rejected, state => {
+                state.user.data = null
+                state.user.status = Status.ERROR
+            }),
+            builder.addCase(thunkFetchLogout.pending, state => {
+                state.user.data = null
+                state.user.status = Status.LOADING
+            }),
+            builder.addCase(thunkFetchLogout.fulfilled, state => {
+                state.user.status = Status.SUCCESS
+            }),
+            builder.addCase(thunkFetchLogout.rejected, state => {
                 state.user.status = Status.ERROR
             })
     },

@@ -5,17 +5,18 @@ import { Button, Input } from '../../components'
 import {
     IRegisterReqData,
     IValidationResponseData,
-} from '../../shared/helpers/validations/types'
-import { registerValidation } from '../../shared/helpers/validations/registerValidation'
-import { useAppDispatch } from '../../store/types'
-import { thunkFetchRegister } from '../../store/slices/user/userSlice'
+} from 'shared/helpers/validations/types'
+import { registerValidation } from 'shared/helpers/validations/registerValidation'
+import { useAppDispatch } from 'store/types'
+import { thunkFetchRegister } from 'store/slices/user/userSlice'
 
 const Register = () => {
-    const [emailValue, setEmailValue] = React.useState<string>('')
-    const [passwordValue, setPasswordValue] = React.useState<string>('')
+    const [emailValue, setEmailValue] = React.useState<string>('denis@mail.ru')
+    const [passwordValue, setPasswordValue] =
+        React.useState<string>('Denis123!@#')
     const [correctPasswordValue, setCorrectPasswordValue] =
-        React.useState<string>('')
-    const [usernameValue, setUsernameValue] = React.useState<string>('')
+        React.useState<string>('Denis123!@#')
+    const [usernameValue, setUsernameValue] = React.useState<string>('Denis R')
     const [validaionErrors, setValidaionErrors] =
         React.useState<IValidationResponseData | null>()
     const [registerData, setRegisterData] =

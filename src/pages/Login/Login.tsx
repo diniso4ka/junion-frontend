@@ -9,11 +9,15 @@ import {
     ILoginReqData,
 } from 'shared/helpers/validations/types'
 import { useAppDispatch, useAppSelector } from '../../store/types'
-import { thunkFetchLogin } from '../../store/slices/user/userSlice'
+import {
+    thunkFetchAuthMe,
+    thunkFetchLogin,
+} from '../../store/slices/user/userSlice'
 
 const Login: React.FC = () => {
-    const [emailValue, setEmailValue] = React.useState<string>('')
-    const [passwordValue, setPasswordValue] = React.useState<string>('')
+    const [emailValue, setEmailValue] = React.useState<string>('denis@mail.ru')
+    const [passwordValue, setPasswordValue] =
+        React.useState<string>('Denis123!@#')
     const [validaionErrors, setValidaionErrors] =
         React.useState<IValidationResponseData | null>()
     const [loginData, setLoginData] = React.useState<ILoginReqData | null>()
@@ -44,15 +48,15 @@ const Login: React.FC = () => {
         }
     }
 
-    React.useEffect(() => {
+    const onLogIn = async () => {
         if (loginData) {
-            dispatch(
-                thunkFetchLogin({
-                    email: 'fewsfdwfe@mail.ru',
-                    password: '123',
-                })
-            )
+            await dispatch(thunkFetchLogin(loginData))
+            await dispatch(thunkFetchAuthMe())
         }
+    }
+
+    React.useEffect(() => {
+        onLogIn()
     }, [loginData])
 
     return (
