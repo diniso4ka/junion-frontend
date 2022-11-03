@@ -15,34 +15,29 @@ import {
 } from '../../store/slices/user/userSlice'
 
 const Login: React.FC = () => {
-    const [emailValue, setEmailValue] = React.useState<string>('')
-    const [passwordValue, setPasswordValue] = React.useState<string>('')
     const [validaionErrors, setValidaionErrors] =
         React.useState<IValidationResponseData | null>()
     const [loginData, setLoginData] = React.useState<ILoginReqData | null>()
+    const [loginValue, setLoginValue] = React.useState<ILoginReqData>({
+        email: '',
+        password: '',
+    })
 
     const dispatch = useAppDispatch()
     const { incorrect } = useAppSelector(state => state.user.errors)
 
     const onSubmitForm = () => {
         const errors = loginValidation({
-            email: emailValue,
-            password: passwordValue,
+            ...loginValue,
         })
         if (errors) {
             setValidaionErrors({
-                email: errors.email || undefined,
-                password: errors.password || undefined,
+                ...errors,
             })
         } else {
-            setPasswordValue('')
-            setValidaionErrors({
-                email: '',
-                password: '',
-            })
+            setValidaionErrors(null)
             setLoginData({
-                email: emailValue,
-                password: passwordValue,
+                ...loginValue,
             })
         }
     }
@@ -65,8 +60,13 @@ const Login: React.FC = () => {
             </div>
             <div className={s.formItem}>
                 <Input
-                    onChange={e => setEmailValue(e.target.value)}
-                    value={emailValue}
+                    onChange={e =>
+                        setLoginValue(prev => ({
+                            ...prev,
+                            email: e.target.value,
+                        }))
+                    }
+                    value={loginValue.email}
                     placeHolder={'E-mail address'}
                     variant={'primary'}
                     type={'text'}
@@ -77,8 +77,13 @@ const Login: React.FC = () => {
             </div>
             <div className={s.formItem}>
                 <Input
-                    onChange={e => setPasswordValue(e.target.value)}
-                    value={passwordValue}
+                    onChange={e =>
+                        setLoginValue(prev => ({
+                            ...prev,
+                            password: e.target.value,
+                        }))
+                    }
+                    value={loginValue.password}
                     placeHolder={'Password'}
                     variant={'primary'}
                     type={'password'}

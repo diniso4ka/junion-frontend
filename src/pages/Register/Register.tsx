@@ -3,6 +3,7 @@ import cls from 'classnames'
 import s from './Register.module.scss'
 import { Button, Input } from '../../components'
 import {
+    ILoginReqData,
     IRegisterReqData,
     IValidationResponseData,
 } from 'shared/helpers/validations/types'
@@ -11,44 +12,42 @@ import { useAppDispatch } from 'store/types'
 import { thunkFetchRegister } from 'store/slices/user/userSlice'
 import { useNavigate } from 'react-router'
 import * as routes from 'shared/config/consts'
+import { passwordRegex } from '../../shared/helpers/validations/validationRegex'
 
 const Register = () => {
-    const [emailValue, setEmailValue] = React.useState<string>('')
-    const [passwordValue, setPasswordValue] = React.useState<string>('')
-    const [correctPasswordValue, setCorrectPasswordValue] =
-        React.useState<string>('')
-    const [usernameValue, setUsernameValue] = React.useState<string>('')
     const [validaionErrors, setValidaionErrors] =
         React.useState<IValidationResponseData | null>()
+    const [passwordFocus, setPasswordFocus] = React.useState(false)
+    const [passwordValidation, setPasswordValidation] =
+        React.useState<boolean>(false)
     const [registerData, setRegisterData] =
         React.useState<IRegisterReqData | null>()
+    const [registerValue, setRegisterValue] = React.useState<IRegisterReqData>({
+        email: '',
+        password: '',
+        correctPassword: '',
+        name: '',
+    })
 
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
     const onSubmitForm = async () => {
-        const errors = registerValidation({
-            email: emailValue,
-            password: passwordValue,
-            correctPassword: correctPasswordValue,
-            name: usernameValue,
-        })
+        const errors = registerValidation(registerValue)
         if (errors) {
-            setValidaionErrors({
-                email: errors.email || undefined,
-                password: errors.password || undefined,
-                correctPassword: errors.correctPassword || undefined,
-                name: errors.name || undefined,
-            })
+            setValidaionErrors(errors)
         } else {
             setValidaionErrors(null)
-            await setRegisterData({
-                email: emailValue,
-                password: passwordValue,
-                name: usernameValue,
-            })
+            await setRegisterData(registerValue)
             await navigate(routes.ROUTE_LOGIN)
         }
+    }
+
+    const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setRegisterValue(prev => ({
+            ...prev,
+            password: e.target.value,
+        }))
     }
 
     React.useEffect(() => {
@@ -57,13 +56,22 @@ const Register = () => {
         }
     }, [registerData])
 
+    React.useEffect(() => {
+        setPasswordValidation(!!passwordRegex(registerValue.password))
+    }, [registerValue.password])
+
     return (
         <div className={s.wrapper}>
             <div className={s.formItem}>
                 <label className={s.label}>Email Address</label>
                 <Input
-                    onChange={e => setEmailValue(e.target.value)}
-                    value={emailValue}
+                    onChange={e =>
+                        setRegisterValue(prev => ({
+                            ...prev,
+                            email: e.target.value,
+                        }))
+                    }
+                    value={registerValue.email}
                     placeHolder={'Set the email address as the login name'}
                     variant={'primary'}
                     type={'text'}
@@ -75,21 +83,40 @@ const Register = () => {
             <div className={s.formItem}>
                 <label className={s.label}>Login Password</label>
                 <Input
-                    onChange={e => setPasswordValue(e.target.value)}
-                    value={passwordValue}
+                    onFocus={() => setPasswordFocus(true)}
+                    onBlur={() => setPasswordFocus(false)}
+                    onChange={e => onPasswordChange(e)}
+                    value={registerValue.password}
                     placeHolder={'Enter the password'}
                     variant={'primary'}
                     type={'password'}
-                    helperText={validaionErrors?.password}
-                    helperClass={'error'}
-                    error={!!validaionErrors?.password}
+                    helperText={
+                        passwordFocus
+                            ? '6 to 20 characters. Only letters, numbers or sumbols'
+                            : passwordValidation
+                            ? ''
+                            : validaionErrors?.password
+                    }
+                    helperClass={
+                        passwordValidation
+                            ? 'success'
+                            : passwordFocus
+                            ? 'hint'
+                            : 'error'
+                    }
+                    error={!passwordValidation && !!validaionErrors?.password}
                 />
             </div>
             <div className={s.formItem}>
                 <label className={s.label}>Confirm Password</label>
                 <Input
-                    onChange={e => setCorrectPasswordValue(e.target.value)}
-                    value={correctPasswordValue}
+                    onChange={e =>
+                        setRegisterValue(prev => ({
+                            ...prev,
+                            correctPassword: e.target.value,
+                        }))
+                    }
+                    value={registerValue.correctPassword}
                     placeHolder={'Enter the password again'}
                     variant={'primary'}
                     type={'password'}
@@ -101,8 +128,13 @@ const Register = () => {
             <div className={s.formItem}>
                 <label className={s.label}>Full name</label>
                 <Input
-                    onChange={e => setUsernameValue(e.target.value)}
-                    value={usernameValue}
+                    onChange={e =>
+                        setRegisterValue(prev => ({
+                            ...prev,
+                            name: e.target.value,
+                        }))
+                    }
+                    value={registerValue.name}
                     placeHolder={'Enter first and last name'}
                     variant={'primary'}
                     type={'text'}

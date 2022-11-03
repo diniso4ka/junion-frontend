@@ -6,12 +6,12 @@ export interface IValidationResponseData {
 }
 
 export interface IRegisterReqData {
-    email: string | null
-    password: string | null
-    correctPassword?: string | null
-    name: string | null
+    email: string
+    password: string
+    correctPassword: string
+    name: string
 }
 export interface ILoginReqData {
-    email: string | null
-    password: string | null
+    email: string
+    password: string
 }

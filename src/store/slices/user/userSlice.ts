@@ -102,7 +102,6 @@ const userSlice = createSlice({
             }),
             builder.addCase(thunkFetchAuthMe.pending, state => {
                 state.user.data = null
-                state.initialize = false
                 state.user.status = Status.LOADING
             }),
             builder.addCase(thunkFetchAuthMe.fulfilled, (state, action) => {
@@ -112,7 +111,6 @@ const userSlice = createSlice({
             }),
             builder.addCase(thunkFetchAuthMe.rejected, state => {
                 state.user.data = null
-                state.initialize = true
                 state.user.status = Status.ERROR
             }),
             builder.addCase(thunkFetchLogout.pending, state => {

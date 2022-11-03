@@ -5,11 +5,14 @@ import s from './Input.module.scss'
 import eye from 'shared/assets/images/password-icons/codicon_eye.svg'
 import eyeClosed from 'shared/assets/images/password-icons/codicon_eye-closed.svg'
 import { Link } from '../Link'
+import { onFocus } from '@reduxjs/toolkit/dist/query/core/setupListeners'
 
 interface IInputProps {
     type: 'text' | 'password'
     value: string
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+    onFocus?: () => void
+    onBlur?: () => void
     placeHolder: string
     variant?: 'primary' | 'secondary' | 'outline'
     classname?: string
@@ -31,6 +34,8 @@ export const Input: React.FC<IInputProps> = React.memo(
         helperText,
         helperClass = 'hint',
         forgotPass = false,
+        onFocus,
+        onBlur,
     }) => {
         const [visible, setVisible] = React.useState<boolean>(false)
         const helperTextClass = cls({
@@ -48,6 +53,8 @@ export const Input: React.FC<IInputProps> = React.memo(
             <div className={s.wrapper}>
                 <div className={s.inputWrapper}>
                     <input
+                        onFocus={onFocus}
+                        onBlur={onBlur}
                         value={value}
                         onChange={e => onChange(e)}
                         autoComplete={'off'}

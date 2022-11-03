@@ -21,7 +21,7 @@ const App: React.FC = () => {
         <div className={cls('app', 'default' === 'default' ? '' : 'dark')}>
             <Header />
             <React.Suspense fallback={<div>...loading</div>}>
-                {!data.initialize ? <Preloader /> : <AppRouter />}
+                <AppRouter />
             </React.Suspense>
         </div>
     )
