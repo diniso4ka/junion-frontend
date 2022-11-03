@@ -33,6 +33,7 @@ const Login: React.FC = () => {
                 password: errors.password || undefined,
             })
         } else {
+            setPasswordValue('')
             setValidaionErrors({
                 email: '',
                 password: '',

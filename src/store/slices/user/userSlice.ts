@@ -66,10 +66,12 @@ const userSlice = createSlice({
             }),
             builder.addCase(thunkFetchLogin.pending, (state, action) => {
                 state.user.data = null
+                state.errors.incorrect = null
                 state.user.status = Status.LOADING
             }),
             builder.addCase(thunkFetchLogin.fulfilled, (state, action) => {
                 state.user.data = null
+                state.errors.incorrect = null
                 console.log(action)
                 state.user.status = Status.SUCCESS
             }),
