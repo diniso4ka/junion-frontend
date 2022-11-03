@@ -11,12 +11,11 @@ import { useAppDispatch } from 'store/types'
 import { thunkFetchRegister } from 'store/slices/user/userSlice'
 
 const Register = () => {
-    const [emailValue, setEmailValue] = React.useState<string>('denis@mail.ru')
-    const [passwordValue, setPasswordValue] =
-        React.useState<string>('Denis123!@#')
+    const [emailValue, setEmailValue] = React.useState<string>('')
+    const [passwordValue, setPasswordValue] = React.useState<string>('')
     const [correctPasswordValue, setCorrectPasswordValue] =
-        React.useState<string>('Denis123!@#')
-    const [usernameValue, setUsernameValue] = React.useState<string>('Denis R')
+        React.useState<string>('')
+    const [usernameValue, setUsernameValue] = React.useState<string>('')
     const [validaionErrors, setValidaionErrors] =
         React.useState<IValidationResponseData | null>()
     const [registerData, setRegisterData] =

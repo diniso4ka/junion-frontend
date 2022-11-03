@@ -33,6 +33,7 @@ export const thunkFetchLogout = createAsyncThunk(
     'users/logoutStatus',
     async () => {
         const res = await fetchLogout()
+        console.log(res)
         return res
     }
 )
@@ -53,6 +54,7 @@ interface initialStateType {
     errors: {
         incorrect: string | null
     }
+    initialize: boolean
 }
 
 const initialState: initialStateType = {
@@ -63,6 +65,7 @@ const initialState: initialStateType = {
     errors: {
         incorrect: null,
     },
+    initialize: false,
 }
 
 const userSlice = createSlice({
@@ -99,18 +102,22 @@ const userSlice = createSlice({
             }),
             builder.addCase(thunkFetchAuthMe.pending, state => {
                 state.user.data = null
+                state.initialize = false
                 state.user.status = Status.LOADING
             }),
             builder.addCase(thunkFetchAuthMe.fulfilled, (state, action) => {
                 state.user.data = action.payload.data.user
+                state.initialize = true
                 state.user.status = Status.SUCCESS
             }),
             builder.addCase(thunkFetchAuthMe.rejected, state => {
                 state.user.data = null
+                state.initialize = true
                 state.user.status = Status.ERROR
             }),
             builder.addCase(thunkFetchLogout.pending, state => {
                 state.user.data = null
+                window.localStorage.removeItem('token')
                 state.user.status = Status.LOADING
             }),
             builder.addCase(thunkFetchLogout.fulfilled, state => {

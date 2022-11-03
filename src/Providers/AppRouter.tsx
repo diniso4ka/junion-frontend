@@ -7,6 +7,7 @@ import { useAppSelector } from '../store/types'
 
 const AppRouter = () => {
     const { data } = useAppSelector(state => state.user.user)
+
     return !data ? (
         <Routes>
             {publicRoutes.map(({ path, Component }) => (

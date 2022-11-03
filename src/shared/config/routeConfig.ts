@@ -1,18 +1,18 @@
 import * as routes from './consts'
 
-import { RegisterAsync } from '../../pages/Register/RegisterAsync'
-import { LoginAsync } from '../../pages/Login/LoginAsync'
 import Logo from '../../pages/Logo/Logo'
 import Main from '../../pages/Main/Main'
+import Login from '../../pages/Login/Login'
+import Register from '../../pages/Register/Register'
 
 export const publicRoutes = [
     {
         path: routes.ROUTE_REGISTER,
-        Component: RegisterAsync,
+        Component: Register,
     },
     {
         path: routes.ROUTE_LOGIN,
-        Component: LoginAsync,
+        Component: Login,
     },
     {
         path: routes.ROUTE_LOGO,
