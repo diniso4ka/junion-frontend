@@ -9,6 +9,8 @@ import {
 import { registerValidation } from 'shared/helpers/validations/registerValidation'
 import { useAppDispatch } from 'store/types'
 import { thunkFetchRegister } from 'store/slices/user/userSlice'
+import { useNavigate } from 'react-router'
+import * as routes from 'shared/config/consts'
 
 const Register = () => {
     const [emailValue, setEmailValue] = React.useState<string>('')
@@ -22,8 +24,9 @@ const Register = () => {
         React.useState<IRegisterReqData | null>()
 
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
-    const onSubmitForm = () => {
+    const onSubmitForm = async () => {
         const errors = registerValidation({
             email: emailValue,
             password: passwordValue,
@@ -38,11 +41,13 @@ const Register = () => {
                 name: errors.name || undefined,
             })
         } else {
-            setRegisterData({
+            setValidaionErrors(null)
+            await setRegisterData({
                 email: emailValue,
                 password: passwordValue,
                 name: usernameValue,
             })
+            await navigate(routes.ROUTE_LOGIN)
         }
     }
 

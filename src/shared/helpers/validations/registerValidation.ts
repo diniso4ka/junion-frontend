@@ -23,6 +23,7 @@ export const registerValidation = (data: IRegisterReqData) => {
     }
 
     if (correctPassword) {
+        console.log(!!(password === correctPassword))
         if (!(password === correctPassword)) {
             errors.correctPassword =
                 'The two passwords you entered are inconsistent. Enter again'
