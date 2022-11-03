@@ -20,6 +20,8 @@ const Register = () => {
     const [passwordFocus, setPasswordFocus] = React.useState(false)
     const [passwordValidation, setPasswordValidation] =
         React.useState<boolean>(false)
+    const [correctPasswordValidation, setCorrectPasswordValidation] =
+        React.useState<boolean>(true)
     const [registerData, setRegisterData] =
         React.useState<IRegisterReqData | null>()
     const [registerValue, setRegisterValue] = React.useState<IRegisterReqData>({
@@ -35,7 +37,8 @@ const Register = () => {
     const onSubmitForm = async () => {
         const errors = registerValidation(registerValue)
         if (errors) {
-            setValidaionErrors(errors)
+            console.log(errors)
+            setValidaionErrors({ ...errors })
         } else {
             setValidaionErrors(null)
             await setRegisterData(registerValue)
@@ -49,6 +52,14 @@ const Register = () => {
             password: e.target.value,
         }))
     }
+    const onCorrectPasswordChange = (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        setRegisterValue(prev => ({
+            ...prev,
+            correctPassword: e.target.value,
+        }))
+    }
 
     React.useEffect(() => {
         if (registerData) {
@@ -59,6 +70,12 @@ const Register = () => {
     React.useEffect(() => {
         setPasswordValidation(!!passwordRegex(registerValue.password))
     }, [registerValue.password])
+
+    React.useEffect(() => {
+        setCorrectPasswordValidation(
+            registerValue.password === registerValue.correctPassword
+        )
+    }, [registerValue.correctPassword])
 
     return (
         <div className={s.wrapper}>
@@ -91,10 +108,12 @@ const Register = () => {
                     variant={'primary'}
                     type={'password'}
                     helperText={
-                        passwordFocus
+                        !registerValue.password
+                            ? validaionErrors?.password
+                            : passwordFocus
                             ? '6 to 20 characters. Only letters, numbers or sumbols'
-                            : passwordValidation
-                            ? ''
+                            : !passwordValidation
+                            ? 'The password setting does not meet the requirements'
                             : validaionErrors?.password
                     }
                     helperClass={
@@ -104,25 +123,33 @@ const Register = () => {
                             ? 'hint'
                             : 'error'
                     }
-                    error={!passwordValidation && !!validaionErrors?.password}
+                    error={
+                        !!registerValue.password ||
+                        !!passwordValidation ||
+                        !!validaionErrors?.password
+                    }
                 />
             </div>
             <div className={s.formItem}>
                 <label className={s.label}>Confirm Password</label>
                 <Input
-                    onChange={e =>
-                        setRegisterValue(prev => ({
-                            ...prev,
-                            correctPassword: e.target.value,
-                        }))
-                    }
+                    onChange={e => onCorrectPasswordChange(e)}
                     value={registerValue.correctPassword}
                     placeHolder={'Enter the password again'}
                     variant={'primary'}
                     type={'password'}
-                    helperText={validaionErrors?.correctPassword}
+                    helperText={
+                        (!!registerValue.correctPassword &&
+                            !correctPasswordValidation &&
+                            'The two passwords you entered are inconsistent. Enter again') ||
+                        validaionErrors?.correctPassword
+                    }
                     helperClass={'error'}
-                    error={!!validaionErrors?.correctPassword}
+                    error={
+                        (!!registerValue.correctPassword &&
+                            !correctPasswordValidation) ||
+                        !!validaionErrors?.correctPassword
+                    }
                 />
             </div>
             <div className={s.formItem}>
