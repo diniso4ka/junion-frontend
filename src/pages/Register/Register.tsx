@@ -3,26 +3,25 @@ import cls from 'classnames'
 import s from './Register.module.scss'
 import { Button, Input } from '../../components'
 import {
-    ILoginReqData,
     IRegisterReqData,
     IValidationResponseData,
 } from 'shared/helpers/validations/types'
-import { registerValidation } from 'shared/helpers/validations/registerValidation'
+import {
+    correctPasswordValidation,
+    passwordValidation,
+    registerValidation,
+} from 'shared/helpers/validations/registerValidation'
 import { useAppDispatch } from 'store/types'
 import { thunkFetchRegister } from 'store/slices/user/userSlice'
 import { useNavigate } from 'react-router'
 import * as routes from 'shared/config/consts'
-import { passwordRegex } from '../../shared/helpers/validations/validationRegex'
-import { passwordValidationMessages } from '../../shared/config/messages'
+import { passwordValidationMessages } from '../../shared/helpers/validations/messages'
 
 const Register = () => {
     const [validaionErrors, setValidaionErrors] =
         React.useState<IValidationResponseData | null>()
     const [passwordFocus, setPasswordFocus] = React.useState(false)
-    const [passwordValidation, setPasswordValidation] =
-        React.useState<boolean>(false)
-    const [correctPasswordValidation, setCorrectPasswordValidation] =
-        React.useState<boolean>(true)
+    const [submitForm, setSubmitForm] = React.useState(false)
     const [registerData, setRegisterData] =
         React.useState<IRegisterReqData | null>()
     const [registerValue, setRegisterValue] = React.useState<IRegisterReqData>({
@@ -36,9 +35,9 @@ const Register = () => {
     const navigate = useNavigate()
 
     const onSubmitForm = async () => {
+        setSubmitForm(true)
         const errors = registerValidation(registerValue)
         if (errors) {
-            console.log(errors)
             setValidaionErrors({ ...errors })
         } else {
             setValidaionErrors(null)
@@ -46,6 +45,11 @@ const Register = () => {
             await navigate(routes.ROUTE_LOGIN)
         }
     }
+    React.useEffect(() => {
+        if (registerData) {
+            dispatch(thunkFetchRegister(registerData))
+        }
+    }, [registerData])
 
     const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setRegisterValue(prev => ({
@@ -63,19 +67,36 @@ const Register = () => {
     }
 
     React.useEffect(() => {
-        if (registerData) {
-            dispatch(thunkFetchRegister(registerData))
+        const error = passwordValidation(registerValue.password)
+        if (error) {
+            setValidaionErrors(prev =>
+                prev
+                    ? { ...prev, password: error }
+                    : { password: error, email: '' }
+            )
+        } else {
+            setValidaionErrors(prev =>
+                prev ? { ...prev, password: '' } : { password: '', email: '' }
+            )
         }
-    }, [registerData])
-
-    React.useEffect(() => {
-        setPasswordValidation(!!passwordRegex(registerValue.password))
     }, [registerValue.password])
 
     React.useEffect(() => {
-        setCorrectPasswordValidation(
-            registerValue.password === registerValue.correctPassword
+        const error = correctPasswordValidation(
+            registerValue.password,
+            registerValue.correctPassword
         )
+        if (error) {
+            setValidaionErrors(prev =>
+                prev
+                    ? { ...prev, correctPassword: error }
+                    : { correctPassword: error, email: '', password: '' }
+            )
+        } else {
+            setValidaionErrors(prev =>
+                prev ? { ...prev, password: '' } : { password: '', email: '' }
+            )
+        }
     }, [registerValue.correctPassword])
 
     return (
@@ -111,25 +132,19 @@ const Register = () => {
                     helperText={
                         passwordFocus
                             ? passwordValidationMessages.hint
-                            : !!registerValue.password
-                            ? !!passwordValidation
-                                ? ''
-                                : validaionErrors?.password
-                            : !!passwordValidation
+                            : submitForm
                             ? validaionErrors?.password
                             : ''
                     }
                     helperClass={
-                        passwordValidation
-                            ? 'success'
-                            : passwordFocus
-                            ? 'hint'
+                        passwordFocus
+                            ? !validaionErrors?.password
+                                ? 'success'
+                                : 'hint'
                             : 'error'
                     }
                     error={
-                        !!registerValue.password
-                            ? !passwordValidation
-                            : !!validaionErrors?.password
+                        submitForm && validaionErrors?.password ? true : false
                     }
                 />
             </div>
@@ -142,16 +157,16 @@ const Register = () => {
                     variant={'primary'}
                     type={'password'}
                     helperText={
-                        !!registerValue.correctPassword
-                            ? !correctPasswordValidation
-                                ? passwordValidationMessages.correct
-                                : ''
+                        !!registerValue.correctPassword ||
+                        (submitForm && validaionErrors?.correctPassword)
+                            ? passwordValidationMessages.correct
                             : ''
                     }
                     helperClass={'error'}
                     error={
-                        !!registerValue.correctPassword
-                            ? !correctPasswordValidation
+                        !!registerValue.correctPassword ||
+                        (submitForm && validaionErrors?.correctPassword)
+                            ? true
                             : false
                     }
                 />

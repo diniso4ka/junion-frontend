@@ -1,9 +1,6 @@
 import { mailRegex } from './validationRegex'
 import { ILoginReqData } from './types'
-import {
-    mailValidationMessages,
-    passwordValidationMessages,
-} from '../../config/messages'
+import { mailValidationMessages, passwordValidationMessages } from './messages'
 
 export const loginValidation = (data: ILoginReqData) => {
     const { email, password } = data

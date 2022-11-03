@@ -3,7 +3,37 @@ import { IRegisterReqData } from './types'
 import {
     mailValidationMessages,
     passwordValidationMessages,
-} from 'shared/config/messages'
+} from 'shared/helpers/validations/messages'
+import { errors } from 'workbox-build/build/lib/errors'
+
+export const passwordValidation = (password: string) => {
+    let error
+    if (password) {
+        if (!passwordRegex(password)) {
+            error = passwordValidationMessages.incorrect
+            return error
+        }
+    } else {
+        error = passwordValidationMessages.empty
+        return error
+    }
+}
+
+export const correctPasswordValidation = (
+    password: string,
+    correctPassword: string
+) => {
+    let error
+    if (correctPassword) {
+        if (!(password === correctPassword)) {
+            error = passwordValidationMessages.correct
+            return error
+        }
+    } else {
+        error = passwordValidationMessages.correct
+        return error
+    }
+}
 
 export const registerValidation = (data: IRegisterReqData) => {
     const { email, password, correctPassword, name } = data
@@ -27,12 +57,10 @@ export const registerValidation = (data: IRegisterReqData) => {
 
     if (correctPassword) {
         if (!(password === correctPassword)) {
-            errors.correctPassword =
-                'The two passwords you entered are inconsistent. Enter again'
+            errors.correctPassword = passwordValidationMessages.correct
         }
     } else {
-        errors.correctPassword =
-            'The two passwords you entered are inconsistent. Enter again'
+        errors.correctPassword = passwordValidationMessages.correct
     }
 
     if (name) {
