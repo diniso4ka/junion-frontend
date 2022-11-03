@@ -13,6 +13,7 @@ import { thunkFetchRegister } from 'store/slices/user/userSlice'
 import { useNavigate } from 'react-router'
 import * as routes from 'shared/config/consts'
 import { passwordRegex } from '../../shared/helpers/validations/validationRegex'
+import { passwordValidationMessages } from '../../shared/config/messages'
 
 const Register = () => {
     const [validaionErrors, setValidaionErrors] =
@@ -108,13 +109,15 @@ const Register = () => {
                     variant={'primary'}
                     type={'password'}
                     helperText={
-                        !registerValue.password
+                        passwordFocus
+                            ? passwordValidationMessages.hint
+                            : !!registerValue.password
+                            ? !!passwordValidation
+                                ? ''
+                                : validaionErrors?.password
+                            : !!passwordValidation
                             ? validaionErrors?.password
-                            : passwordFocus
-                            ? '6 to 20 characters. Only letters, numbers or sumbols'
-                            : !passwordValidation
-                            ? 'The password setting does not meet the requirements'
-                            : validaionErrors?.password
+                            : ''
                     }
                     helperClass={
                         passwordValidation
@@ -124,9 +127,9 @@ const Register = () => {
                             : 'error'
                     }
                     error={
-                        !!registerValue.password ||
-                        !!passwordValidation ||
-                        !!validaionErrors?.password
+                        !!registerValue.password
+                            ? !passwordValidation
+                            : !!validaionErrors?.password
                     }
                 />
             </div>
@@ -139,16 +142,17 @@ const Register = () => {
                     variant={'primary'}
                     type={'password'}
                     helperText={
-                        (!!registerValue.correctPassword &&
-                            !correctPasswordValidation &&
-                            'The two passwords you entered are inconsistent. Enter again') ||
-                        validaionErrors?.correctPassword
+                        !!registerValue.correctPassword
+                            ? !correctPasswordValidation
+                                ? passwordValidationMessages.correct
+                                : ''
+                            : ''
                     }
                     helperClass={'error'}
                     error={
-                        (!!registerValue.correctPassword &&
-                            !correctPasswordValidation) ||
-                        !!validaionErrors?.correctPassword
+                        !!registerValue.correctPassword
+                            ? !correctPasswordValidation
+                            : false
                     }
                 />
             </div>

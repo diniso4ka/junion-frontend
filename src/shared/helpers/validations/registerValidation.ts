@@ -1,5 +1,9 @@
 import { mailRegex, passwordRegex, usernameRegex } from './validationRegex'
 import { IRegisterReqData } from './types'
+import {
+    mailValidationMessages,
+    passwordValidationMessages,
+} from 'shared/config/messages'
 
 export const registerValidation = (data: IRegisterReqData) => {
     const { email, password, correctPassword, name } = data
@@ -7,19 +11,18 @@ export const registerValidation = (data: IRegisterReqData) => {
 
     if (email) {
         if (!mailRegex(email)) {
-            errors.email = 'Your email address  is incorrect'
+            errors.email = mailValidationMessages.incorrect
         }
     } else {
-        errors.email = 'Please, enter the email address'
+        errors.email = mailValidationMessages.empty
     }
 
     if (password) {
         if (!passwordRegex(password)) {
-            errors.password =
-                'The password setting does not meet the requirements'
+            errors.password = passwordValidationMessages.incorrect
         }
     } else {
-        errors.password = 'Please, enter the password'
+        errors.password = passwordValidationMessages.empty
     }
 
     if (correctPassword) {

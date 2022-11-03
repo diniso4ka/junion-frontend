@@ -1,5 +1,9 @@
-import { mailRegex, passwordRegex } from './validationRegex'
+import { mailRegex } from './validationRegex'
 import { ILoginReqData } from './types'
+import {
+    mailValidationMessages,
+    passwordValidationMessages,
+} from '../../config/messages'
 
 export const loginValidation = (data: ILoginReqData) => {
     const { email, password } = data
@@ -7,14 +11,14 @@ export const loginValidation = (data: ILoginReqData) => {
 
     if (email) {
         if (!mailRegex(email)) {
-            errors.email = 'Your email address  is incorrect'
+            errors.email = mailValidationMessages.incorrect
         }
     } else {
-        errors.email = 'Please, enter the email address'
+        errors.email = mailValidationMessages.empty
     }
 
     if (!password) {
-        errors.password = 'Please, enter the password'
+        errors.password = passwordValidationMessages.empty
     }
 
     if (errors && Object.keys(errors).length === 0) {
