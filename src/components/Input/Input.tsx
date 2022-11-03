@@ -5,7 +5,7 @@ import s from './Input.module.scss'
 import eye from 'shared/assets/images/password-icons/codicon_eye.svg'
 import eyeClosed from 'shared/assets/images/password-icons/codicon_eye-closed.svg'
 import { Link } from '../Link'
-import { onFocus } from '@reduxjs/toolkit/dist/query/core/setupListeners'
+import { ROUTE_ENTEREMAIL } from 'shared/config/consts'
 
 interface IInputProps {
     type: 'text' | 'password'
@@ -89,7 +89,7 @@ export const Input: React.FC<IInputProps> = React.memo(
                         <div></div>
                     )}
                     {type === 'password' && forgotPass && (
-                        <Link variant={'secondary'} to={'/forgot '}>
+                        <Link variant={'secondary'} to={ROUTE_ENTEREMAIL}>
                             Forgot you Password?
                         </Link>
                     )}
