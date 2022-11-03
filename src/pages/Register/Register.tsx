@@ -86,6 +86,7 @@ const Register = () => {
             registerValue.password,
             registerValue.correctPassword
         )
+        console.log(error)
         if (error) {
             setValidaionErrors(prev =>
                 prev
@@ -93,11 +94,18 @@ const Register = () => {
                     : { correctPassword: error, email: '', password: '' }
             )
         } else {
+            console.log('clear')
             setValidaionErrors(prev =>
-                prev ? { ...prev, password: '' } : { password: '', email: '' }
+                prev
+                    ? { ...prev, correctPassword: '' }
+                    : { password: '', email: '', correctPassword: '' }
             )
         }
     }, [registerValue.correctPassword])
+
+    React.useEffect(() => {
+        console.log(validaionErrors)
+    }, [validaionErrors])
 
     return (
         <div className={s.wrapper}>
@@ -157,15 +165,13 @@ const Register = () => {
                     variant={'primary'}
                     type={'password'}
                     helperText={
-                        !!registerValue.correctPassword ||
-                        (submitForm && validaionErrors?.correctPassword)
+                        !!validaionErrors?.correctPassword && submitForm
                             ? passwordValidationMessages.correct
                             : ''
                     }
                     helperClass={'error'}
                     error={
-                        !!registerValue.correctPassword ||
-                        (submitForm && validaionErrors?.correctPassword)
+                        !!validaionErrors?.correctPassword && submitForm
                             ? true
                             : false
                     }
