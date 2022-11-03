@@ -1,8 +1,6 @@
 import React from 'react'
 import cls from 'classnames'
 import s from './SendLink.module.scss'
-import { Button, Input } from '../../../components'
-import { useNavigate } from 'react-router'
 
 const SendLink = () => {
     return (
