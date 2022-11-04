@@ -39,7 +39,6 @@ const Header: React.FC = () => {
                         links.map(link => (
                             <div key={link.path} className={s.navItem}>
                                 <Link
-                                    key={link.path}
                                     className={
                                         location.pathname === link.path &&
                                         s.active
