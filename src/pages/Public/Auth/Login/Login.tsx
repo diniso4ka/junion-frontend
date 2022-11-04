@@ -1,18 +1,20 @@
 import React from 'react'
 import cls from 'classnames'
 import s from './Login.module.scss'
-import { Button, Input } from 'components'
 
 import { loginValidation } from 'shared/helpers/validations/loginValidation'
 import {
     IValidationResponseData,
     ILoginReqData,
 } from 'shared/helpers/validations/types'
-import { useAppDispatch, useAppSelector } from '../../store/types'
+
+import { useAppDispatch, useAppSelector } from '../../../../app/store/types'
 import {
     thunkFetchAuthMe,
     thunkFetchLogin,
-} from '../../store/slices/user/userSlice'
+} from '../../../../app/store/slices/user/userSlice'
+
+import { Button, Input } from 'components'
 
 const Login: React.FC = () => {
     const [validaionErrors, setValidaionErrors] =
@@ -68,8 +70,6 @@ const Login: React.FC = () => {
                     }
                     value={loginValue.email}
                     placeHolder={'E-mail address'}
-                    variant={'primary'}
-                    type={'text'}
                     helperText={validaionErrors?.email}
                     helperClass={'error'}
                     error={!!validaionErrors?.email}
@@ -85,7 +85,6 @@ const Login: React.FC = () => {
                     }
                     value={loginValue.password}
                     placeHolder={'Password'}
-                    variant={'primary'}
                     type={'password'}
                     helperText={validaionErrors?.password}
                     helperClass={'error'}

@@ -3,7 +3,7 @@ import cls from 'classnames'
 import s from './EnterEmail.module.scss'
 import { Button, Input } from 'components'
 import { useNavigate } from 'react-router'
-import { ROUTE_SENDLINK } from 'shared/config/consts'
+import { ROUTE_SENDLINK } from 'shared/routes/consts'
 import { mailRegex } from 'shared/helpers/validations/validationRegex'
 
 const EnterEmail = () => {

@@ -1,9 +1,9 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 
-import { privateRoutes, publicRoutes } from '../shared/config/routeConfig'
-import * as routes from 'shared/config/consts'
+import { privateRoutes, publicRoutes } from '../../../shared/routes/routeConfig'
+import * as routes from 'shared/routes/consts'
 
-import { useAppSelector } from '../store/types'
+import { useAppSelector } from '../../store/types'
 
 const AppRouter = () => {
     const { data } = useAppSelector(state => state.user.user)

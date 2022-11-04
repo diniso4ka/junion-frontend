@@ -5,10 +5,10 @@ import s from './Input.module.scss'
 import eye from 'shared/assets/images/password-icons/codicon_eye.svg'
 import eyeClosed from 'shared/assets/images/password-icons/codicon_eye-closed.svg'
 import { Link } from '../Link'
-import { ROUTE_ENTEREMAIL } from 'shared/config/consts'
+import { ROUTE_ENTEREMAIL } from 'shared/routes/consts'
 
 interface IInputProps {
-    type: 'text' | 'password'
+    type?: 'text' | 'password'
     value: string
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
     onFocus?: () => void

@@ -1,7 +1,7 @@
 import React from 'react'
 import cls from 'classnames'
 import s from './Register.module.scss'
-import { Button, Input } from '../../components'
+import { Button, Input } from '../../../../components'
 import {
     IRegisterReqData,
     IValidationResponseData,
@@ -11,11 +11,11 @@ import {
     passwordValidation,
     registerValidation,
 } from 'shared/helpers/validations/registerValidation'
-import { useAppDispatch } from 'store/types'
-import { thunkFetchRegister } from 'store/slices/user/userSlice'
+import { useAppDispatch } from 'app/store/types'
+import { thunkFetchRegister } from 'app/store/slices/user/userSlice'
 import { useNavigate } from 'react-router'
-import * as routes from 'shared/config/consts'
-import { passwordValidationMessages } from '../../shared/helpers/validations/messages'
+import * as routes from 'shared/routes/consts'
+import { passwordValidationMessages } from '../../../../shared/helpers/validations/messages'
 
 const Register = () => {
     const [validaionErrors, setValidaionErrors] =
@@ -45,11 +45,6 @@ const Register = () => {
             await navigate(routes.ROUTE_LOGIN)
         }
     }
-    React.useEffect(() => {
-        if (registerData) {
-            dispatch(thunkFetchRegister(registerData))
-        }
-    }, [registerData])
 
     const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setRegisterValue(prev => ({
@@ -66,7 +61,7 @@ const Register = () => {
         }))
     }
 
-    React.useEffect(() => {
+    const passwordValidationFunc = () => {
         const error = passwordValidation(registerValue.password)
         if (error) {
             setValidaionErrors(prev =>
@@ -79,14 +74,13 @@ const Register = () => {
                 prev ? { ...prev, password: '' } : { password: '', email: '' }
             )
         }
-    }, [registerValue.password])
+    }
 
-    React.useEffect(() => {
+    const correctPasswordValidationFunc = () => {
         const error = correctPasswordValidation(
             registerValue.password,
             registerValue.correctPassword
         )
-        console.log(error)
         if (error) {
             setValidaionErrors(prev =>
                 prev
@@ -94,18 +88,27 @@ const Register = () => {
                     : { correctPassword: error, email: '', password: '' }
             )
         } else {
-            console.log('clear')
             setValidaionErrors(prev =>
                 prev
                     ? { ...prev, correctPassword: '' }
                     : { password: '', email: '', correctPassword: '' }
             )
         }
-    }, [registerValue.correctPassword])
+    }
 
     React.useEffect(() => {
-        console.log(validaionErrors)
-    }, [validaionErrors])
+        if (registerData) {
+            dispatch(thunkFetchRegister(registerData))
+        }
+    }, [registerData])
+
+    React.useEffect(() => {
+        passwordValidationFunc()
+    }, [registerValue.password])
+
+    React.useEffect(() => {
+        correctPasswordValidationFunc()
+    }, [registerValue.correctPassword])
 
     return (
         <div className={s.wrapper}>
@@ -120,8 +123,6 @@ const Register = () => {
                     }
                     value={registerValue.email}
                     placeHolder={'Set the email address as the login name'}
-                    variant={'primary'}
-                    type={'text'}
                     helperText={validaionErrors?.email}
                     helperClass={'error'}
                     error={!!validaionErrors?.email}
@@ -135,7 +136,6 @@ const Register = () => {
                     onChange={e => onPasswordChange(e)}
                     value={registerValue.password}
                     placeHolder={'Enter the password'}
-                    variant={'primary'}
                     type={'password'}
                     helperText={
                         passwordFocus
@@ -162,7 +162,6 @@ const Register = () => {
                     onChange={e => onCorrectPasswordChange(e)}
                     value={registerValue.correctPassword}
                     placeHolder={'Enter the password again'}
-                    variant={'primary'}
                     type={'password'}
                     helperText={
                         !!validaionErrors?.correctPassword && submitForm
@@ -188,8 +187,6 @@ const Register = () => {
                     }
                     value={registerValue.name}
                     placeHolder={'Enter first and last name'}
-                    variant={'primary'}
-                    type={'text'}
                     helperText={validaionErrors?.name}
                     helperClass={'error'}
                     error={!!validaionErrors?.name}

@@ -3,13 +3,13 @@ import React from 'react'
 import cls from 'classnames'
 import s from './Header.module.scss'
 
-import * as routes from '../../shared/config/consts'
+import * as routes from '../../shared/routes/consts'
 import { Button, Link } from 'components'
 import logo from 'shared/assets/images/logo/logoMini.png'
 import { useLocation } from 'react-router'
 import { Link as LinkButton } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../../store/types'
-import { thunkFetchLogout } from '../../store/slices/user/userSlice'
+import { useAppDispatch, useAppSelector } from '../../app/store/types'
+import { thunkFetchLogout } from '../../app/store/slices/user/userSlice'
 
 const Header: React.FC = () => {
     const { data } = useAppSelector(state => state.user.user)

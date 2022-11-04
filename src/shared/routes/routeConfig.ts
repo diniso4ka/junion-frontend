@@ -1,11 +1,11 @@
 import * as routes from './consts'
 
-import Logo from '../../pages/Logo/Logo'
-import Main from '../../pages/Main/Main'
-import Login from '../../pages/Login/Login'
-import Register from '../../pages/Register/Register'
-import EnterEmail from '../../pages/ForgotPassword/EnterEmail/EnterEmail'
-import SendLink from '../../pages/ForgotPassword/SendLink/SendLink'
+import Logo from '../../pages/Public/Logo/Logo'
+import Main from '../../pages/Private/Main/Main'
+import Login from '../../pages/Public/Auth/Login/Login'
+import Register from '../../pages/Public/Auth/Register/Register'
+import EnterEmail from '../../pages/Public/ForgotPassword/EnterEmail/EnterEmail'
+import SendLink from '../../pages/Public/ForgotPassword/SendLink/SendLink'
 
 export const publicRoutes = [
     {

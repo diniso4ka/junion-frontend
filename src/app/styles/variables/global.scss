@@ -1,0 +1,42 @@
+:root {
+    --font-family-main: 'Montserrat', sans-serif;
+    //--font-size-ms: 12px;
+    //--font-size-vs: 14px;
+    //--font-size-s: 16px;
+    //--font-size-m: 24px;
+    //--font-size-l: 32px;
+
+    --font-size-xs: 8px;
+    --font-line-xs: 16px;
+    --font-xs: var(--font-size-xs) / var(--font-line-xs) /
+        var(--font-family-main);
+
+    --font-size-s: 12px;
+    --font-line-s: 20px;
+    --font-s: var(--font-size-s) / var(--font-line-s) / var(--font-family-main);
+
+    --font-size-m: 14px;
+    --font-line-m: 22px;
+    --font-m: var(--font-size-m) / var(--font-line-m) / var(--font-family-main);
+
+    --font-size-l: 16px;
+    --font-line-l: 24px;
+    --font-l: var(--font-size-l) / var(--font-line-l) / var(--font-family-main);
+
+    --font-size-xl: 24px;
+    --font-line-xl: 32px;
+    --font-xl: var(--font-size-xl) / var(--font-line-xl) /
+        var(--font-family-main);
+
+    --font-size-xxl: 36px;
+    --font-line-xxl: 44px;
+    --font-xxl: var(--font-size-xxl) / var(--font-line-xxl) /
+        var(--font-family-main);
+
+    /* Размеры */
+    --wrapper-width-desktop: 1360px;
+    --form-width-desktop: 380px;
+    --fullform-width-desktop: 550px;
+
+    --header-height-desktop: 120px;
+}

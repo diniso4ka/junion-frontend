@@ -5,14 +5,14 @@ import {
     fetchLogin,
     fetchLogout,
     fetchRegister,
-} from '../../../shared/api/requests'
+} from '../../../../shared/api/requests'
 
 import { Status } from '../../types'
 import { IUserData } from './types'
 import {
     ILoginReqData,
     IRegisterReqData,
-} from '../../../shared/helpers/validations/types'
+} from '../../../../shared/helpers/validations/types'
 
 export const thunkFetchRegister = createAsyncThunk(
     'users/registerStatus',

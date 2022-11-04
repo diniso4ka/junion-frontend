@@ -2,23 +2,24 @@ import React from 'react'
 import cls from 'classnames'
 import './styles/index.scss'
 
-import { Status, useAppDispatch, useAppSelector } from './store/types'
+import { useAppDispatch } from './store/types'
 import { thunkFetchAuthMe } from './store/slices/user/userSlice'
 
-import AppRouter from './Providers/AppRouter'
-import Header from './features/Header/Header'
-import { Preloader } from './components/Preloader/Preloader'
+import AppRouter from './providers/router/AppRouter'
+import Header from '../features/Header/Header'
+import { useTheme } from './providers/ThemeProvider/useTheme'
+import { Theme } from './providers/ThemeProvider/ThemeContext'
 
 const App: React.FC = () => {
     const dispatch = useAppDispatch()
-    const data = useAppSelector(state => state.user)
+    const { theme } = useTheme()
 
     React.useEffect(() => {
         dispatch(thunkFetchAuthMe())
     }, [])
 
     return (
-        <div className={cls('app', 'default' === 'default' ? '' : 'dark')}>
+        <div className={cls('app', theme === Theme.LIGHT ? 'default' : 'dark')}>
             <Header />
             <React.Suspense fallback={<div>...loading</div>}>
                 <AppRouter />
