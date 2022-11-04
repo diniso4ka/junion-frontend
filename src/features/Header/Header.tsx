@@ -3,21 +3,21 @@ import React from 'react'
 import cls from 'classnames'
 import s from './Header.module.scss'
 
-import * as routes from '../../shared/routes/consts'
 import { Button, Link } from 'components'
 import logo from 'shared/assets/images/logo/logoMini.png'
 import { useLocation } from 'react-router'
 import { Link as LinkButton } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../app/store/types'
 import { thunkFetchLogout } from '../../app/store/slices/user/userSlice'
+import { routeConfig } from '../../shared/config/routeConfig/routeConfig'
 
 const Header: React.FC = () => {
     const { data } = useAppSelector(state => state.user.user)
     const dispatch = useAppDispatch()
     const location = useLocation()
     const links = [
-        { label: 'Log In', path: routes.ROUTE_LOGIN },
-        { label: 'Sign Up', path: routes.ROUTE_REGISTER },
+        { label: 'Log In', path: routeConfig.LOGIN },
+        { label: 'Sign Up', path: routeConfig.REGISTER },
     ]
 
     const onClickLogout = () => {
@@ -27,10 +27,10 @@ const Header: React.FC = () => {
     return (
         <header className={s.wrapper}>
             <div className={s.contentWrapper}>
-                {location.pathname === '/' ? (
+                {location.pathname === routeConfig.MAIN ? (
                     <div></div>
                 ) : (
-                    <LinkButton to={routes.ROUTE_LOGO}>
+                    <LinkButton to={routeConfig.MAIN}>
                         <img src={logo} />
                     </LinkButton>
                 )}

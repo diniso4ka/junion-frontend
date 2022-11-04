@@ -3,8 +3,8 @@ import cls from 'classnames'
 import s from './EnterEmail.module.scss'
 import { Button, Input } from 'components'
 import { useNavigate } from 'react-router'
-import { ROUTE_SENDLINK } from 'shared/routes/consts'
 import { mailRegex } from 'shared/helpers/validations/validationRegex'
+import { routeConfig } from '../../../../shared/config/routeConfig/routeConfig'
 
 const EnterEmail = () => {
     const navigate = useNavigate()
@@ -16,7 +16,7 @@ const EnterEmail = () => {
             if (!mailRegex(emailValue)) {
                 setEmailValiadtion(' Your email address  is incorrect')
             } else {
-                setTimeout(() => navigate(ROUTE_SENDLINK), 1000)
+                setTimeout(() => navigate(routeConfig.SENDLINK), 1000)
             }
         } else {
             setEmailValiadtion('Please, set the email')

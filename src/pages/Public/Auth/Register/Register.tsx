@@ -14,8 +14,8 @@ import {
 import { useAppDispatch } from 'app/store/types'
 import { thunkFetchRegister } from 'app/store/slices/user/userSlice'
 import { useNavigate } from 'react-router'
-import * as routes from 'shared/routes/consts'
 import { passwordValidationMessages } from '../../../../shared/helpers/validations/messages'
+import { routeConfig } from '../../../../shared/config/routeConfig/routeConfig'
 
 const Register = () => {
     const [validaionErrors, setValidaionErrors] =
@@ -42,7 +42,7 @@ const Register = () => {
         } else {
             setValidaionErrors(null)
             await setRegisterData(registerValue)
-            await navigate(routes.ROUTE_LOGIN)
+            await navigate(routeConfig.LOGIN)
         }
     }
 

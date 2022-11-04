@@ -1,7 +1,10 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 
-import { privateRoutes, publicRoutes } from 'shared/routes/routeConfig'
-import * as routes from 'shared/routes/consts'
+import {
+    privateRoutes,
+    publicRoutes,
+    routeConfig,
+} from 'shared/config/routeConfig/routeConfig'
 
 import { useAppSelector } from 'app/store/types'
 
@@ -13,14 +16,14 @@ const AppRouter = () => {
             {publicRoutes.map(({ path, Component }) => (
                 <Route key={path} path={path} element={<Component />} />
             ))}
-            <Route path={'*'} element={<Navigate to={routes.ROUTE_LOGO} />} />
+            <Route path={'*'} element={<Navigate to={routeConfig.MAIN} />} />
         </Routes>
     ) : (
         <Routes>
             {privateRoutes.map(({ path, Component }) => (
                 <Route key={path} path={path} element={<Component />} />
             ))}
-            <Route path={'*'} element={<Navigate to={routes.ROUTE_MAIN} />} />
+            <Route path={'*'} element={<Navigate to={routeConfig.MAIN} />} />
         </Routes>
     )
 }
