@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { ButtonHTMLAttributes } from 'react'
 import cls from 'classnames'
 import s from './Button.module.scss'
 
-interface IButtonProps {
+interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode
     type?: 'button' | 'submit'
     variant?: 'primary' | 'secondary' | 'outline'
@@ -17,6 +17,7 @@ export const Button: React.FC<IButtonProps> = React.memo(
         variant = 'primary',
         className,
         onClick,
+        ...rest
     }) => {
         const onToggleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
             e.preventDefault()
@@ -28,6 +29,7 @@ export const Button: React.FC<IButtonProps> = React.memo(
                 type={type}
                 className={classnames}
                 onClick={e => onToggleClick(e)}
+                {...rest}
             >
                 {children}
             </button>

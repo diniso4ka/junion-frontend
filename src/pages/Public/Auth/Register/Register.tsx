@@ -124,7 +124,6 @@ const Register = () => {
                     value={registerValue.email}
                     placeHolder={'Set the email address as the login name'}
                     helperText={validaionErrors?.email}
-                    helperClass={'error'}
                     error={!!validaionErrors?.email}
                 />
             </div>
@@ -168,7 +167,6 @@ const Register = () => {
                             ? passwordValidationMessages.correct
                             : ''
                     }
-                    helperClass={'error'}
                     error={
                         !!validaionErrors?.correctPassword && submitForm
                             ? true
@@ -188,7 +186,6 @@ const Register = () => {
                     value={registerValue.name}
                     placeHolder={'Enter first and last name'}
                     helperText={validaionErrors?.name}
-                    helperClass={'error'}
                     error={!!validaionErrors?.name}
                 />
             </div>

@@ -6,5 +6,5 @@ export const passwordValidationMessages = {
 }
 export const mailValidationMessages = {
     incorrect: 'Your email address  is incorrect',
-    empty: ' Please, set the login password',
+    empty: 'Please, enter the email address',
 }
