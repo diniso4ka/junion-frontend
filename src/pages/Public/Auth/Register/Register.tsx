@@ -42,7 +42,7 @@ const Register = () => {
         } else {
             setValidaionErrors(null)
             await setRegisterData(registerValue)
-            await navigate(routeConfig.LOGIN)
+            // await navigate(routeConfig.LOGIN)
         }
     }
 
