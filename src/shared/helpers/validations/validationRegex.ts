@@ -10,9 +10,12 @@ export const mailRegex = (mail: string | undefined) => {
 
 export const passwordRegex = (password: string | undefined) => {
     if (password) {
-        return password.match(
-            /^.*(?=.{6,20})(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!#$%&? "]).*$/
-        )
+        return {
+            valid: password.match(
+                /^.*(?=.{6,20})(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%.?/&!-]).*$/
+            ),
+            tabs: /\s/g.test(password),
+        }
     }
 }
 

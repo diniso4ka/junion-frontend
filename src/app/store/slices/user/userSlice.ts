@@ -53,6 +53,7 @@ interface initialStateType {
     }
     errors: {
         incorrect: string | null
+        wrongSuperCode: boolean
     }
     initialize: boolean
 }
@@ -64,6 +65,7 @@ const initialState: initialStateType = {
     },
     errors: {
         incorrect: null,
+        wrongSuperCode: false,
     },
     initialize: false,
 }
@@ -77,9 +79,15 @@ const userSlice = createSlice({
             state.user.status = Status.LOADING
         }),
             builder.addCase(thunkFetchRegister.fulfilled, (state, action) => {
+                if (
+                    action.payload.response.data.message === 'wrong super code'
+                ) {
+                    state.errors.wrongSuperCode = true
+                }
                 state.user.status = Status.SUCCESS
             }),
             builder.addCase(thunkFetchRegister.rejected, (state, action) => {
+                console.log(action)
                 state.user.status = Status.ERROR
             }),
             builder.addCase(thunkFetchLogin.pending, (state, action) => {

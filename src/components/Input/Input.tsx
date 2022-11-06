@@ -11,6 +11,7 @@ interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
     type?: 'text' | 'password'
     placeHolder: string
     variant?: 'primary' | 'secondary' | 'outline'
+    sizeContainer?: 'primary' | 'secondary'
     classname?: string
     helperText?: string
     helperClass?: 'error' | 'hint' | 'success'
@@ -22,6 +23,7 @@ export const Input: React.FC<IInputProps> = React.memo(
     ({
         type = 'text',
         variant = 'primary',
+        sizeContainer = 'primary',
         classname,
         error = 'error',
         helperText,
@@ -35,9 +37,15 @@ export const Input: React.FC<IInputProps> = React.memo(
             [s.helperHint]: helperClass === 'hint',
             [s.helperSuccess]: helperClass === 'success',
         })
-        const classnames = cls(s.input, s[variant], classname, {
-            [s.error]: error,
-        })
+        const classnames = cls(
+            s.input,
+            s[variant],
+            s[sizeContainer],
+            classname,
+            {
+                [s.error]: error,
+            }
+        )
         const onToggleVisible = () => {
             setVisible(!visible)
         }

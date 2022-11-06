@@ -11,16 +11,20 @@ import {
     passwordValidation,
     registerValidation,
 } from 'shared/helpers/validations/registerValidation'
-import { useAppDispatch } from 'app/store/types'
+import { useAppDispatch, useAppSelector } from 'app/store/types'
 import { thunkFetchRegister } from 'app/store/slices/user/userSlice'
 import { useNavigate } from 'react-router'
-import { passwordValidationMessages } from 'shared/helpers/validations/messages'
-import { routeConfig } from '../../../../shared/config/routeConfig/routeConfig'
+import {
+    passwordValidationMessages,
+    superCodeValidationMessages,
+} from 'shared/helpers/validations/messages'
 
 const Register = () => {
+    const asyncErrors = useAppSelector(state => state.user.errors)
     const [validaionErrors, setValidaionErrors] =
-        React.useState<IValidationResponseData | null>()
+        React.useState<IValidationResponseData | null>({})
     const [passwordFocus, setPasswordFocus] = React.useState(false)
+    const [superCodeFocus, setSuperCodeFocus] = React.useState(false)
     const [submitForm, setSubmitForm] = React.useState(false)
     const [registerData, setRegisterData] =
         React.useState<IRegisterReqData | null>()
@@ -29,6 +33,7 @@ const Register = () => {
         password: '',
         correctPassword: '',
         name: '',
+        superCode: '',
     })
 
     const dispatch = useAppDispatch()
@@ -41,8 +46,12 @@ const Register = () => {
             setValidaionErrors({ ...errors })
         } else {
             setValidaionErrors(null)
-            await setRegisterData(registerValue)
-            // await navigate(routeConfig.LOGIN)
+            await setRegisterData({
+                email: registerValue.email,
+                password: registerValue.password,
+                name: registerValue.name,
+                superCode: registerValue.superCode,
+            })
         }
     }
 
@@ -64,15 +73,9 @@ const Register = () => {
     const passwordValidationFunc = () => {
         const error = passwordValidation(registerValue.password)
         if (error) {
-            setValidaionErrors(prev =>
-                prev
-                    ? { ...prev, password: error }
-                    : { password: error, email: '' }
-            )
+            setValidaionErrors(prev => ({ ...prev, password: error }))
         } else {
-            setValidaionErrors(prev =>
-                prev ? { ...prev, password: '' } : { password: '', email: '' }
-            )
+            setValidaionErrors(prev => ({ ...prev, password: '' }))
         }
     }
 
@@ -82,18 +85,15 @@ const Register = () => {
             registerValue.correctPassword
         )
         if (error) {
-            setValidaionErrors(prev =>
-                prev
-                    ? { ...prev, correctPassword: error }
-                    : { correctPassword: error, email: '', password: '' }
-            )
+            setValidaionErrors(prev => ({ ...prev, correctPassword: error }))
         } else {
-            setValidaionErrors(prev =>
-                prev
-                    ? { ...prev, correctPassword: '' }
-                    : { password: '', email: '', correctPassword: '' }
-            )
+            setValidaionErrors(prev => ({ ...prev, correctPassword: '' }))
         }
+    }
+
+    const onBlurPassword = () => {
+        registerValue.password = registerValue.password.trimStart().trimEnd()
+        setPasswordFocus(false)
     }
 
     React.useEffect(() => {
@@ -131,7 +131,7 @@ const Register = () => {
                 <label className={s.label}>Login Password</label>
                 <Input
                     onFocus={() => setPasswordFocus(true)}
-                    onBlur={() => setPasswordFocus(false)}
+                    onBlur={onBlurPassword}
                     onChange={e => onPasswordChange(e)}
                     value={registerValue.password}
                     placeHolder={'Enter the password'}
@@ -167,11 +167,7 @@ const Register = () => {
                             ? passwordValidationMessages.correct
                             : ''
                     }
-                    error={
-                        !!validaionErrors?.correctPassword && submitForm
-                            ? true
-                            : false
-                    }
+                    error={!!validaionErrors?.correctPassword && submitForm}
                 />
             </div>
             <div className={s.formItem}>
@@ -190,10 +186,55 @@ const Register = () => {
                 />
             </div>
             <div className={s.formButton}>
+                <div className={s.formItem}>
+                    <label className={s.label}>Super Code</label>
+                    <Input
+                        onFocus={() => setSuperCodeFocus(true)}
+                        onBlur={() => setSuperCodeFocus(false)}
+                        onChange={e =>
+                            setRegisterValue(prev => ({
+                                ...prev,
+                                superCode: e.target.value,
+                            }))
+                        }
+                        value={registerValue.superCode}
+                        placeHolder={'Enter the Super Code'}
+                        error={
+                            !!validaionErrors?.superCode && submitForm
+                                ? true
+                                : false
+                        }
+                        helperClass={
+                            superCodeFocus
+                                ? !validaionErrors?.superCode
+                                    ? 'success'
+                                    : 'hint'
+                                : 'error'
+                        }
+                        sizeContainer={'secondary'}
+                    />
+                </div>
                 <Button onClick={onSubmitForm} className={s.button}>
                     Sign Up
                 </Button>
             </div>
+            <p
+                className={cls(
+                    s.helper,
+                    superCodeFocus
+                        ? s.hint
+                        : (!!validaionErrors?.superCode && s.error) ||
+                              (asyncErrors.wrongSuperCode && s.error)
+                )}
+            >
+                {superCodeFocus
+                    ? superCodeValidationMessages.hint
+                    : !!validaionErrors?.superCode && submitForm
+                    ? superCodeValidationMessages.incorrect
+                    : asyncErrors.wrongSuperCode
+                    ? superCodeValidationMessages.incorrect
+                    : ''}
+            </p>
         </div>
     )
 }

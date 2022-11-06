@@ -3,11 +3,14 @@ import api from './instance'
 import { endpoints } from './endpoints'
 
 export const fetchRegister = async (data: IRegisterReqData) => {
-    const res = await api.post(endpoints.users.register, {
-        ...data,
-        superCode: '777',
-    })
-    return res
+    try {
+        const res = await api.post(endpoints.users.register, {
+            ...data,
+        })
+        return res
+    } catch (err) {
+        return err
+    }
 }
 export const fetchLogin = async (data: ILoginReqData) => {
     const res = await api.post(endpoints.users.login, {

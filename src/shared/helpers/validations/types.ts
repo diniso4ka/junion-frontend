@@ -1,15 +1,17 @@
 export interface IValidationResponseData {
-    email: string | undefined
-    password: string | undefined
-    correctPassword?: string | undefined
-    name?: string | undefined
+    email?: string
+    password?: string
+    correctPassword?: string
+    name?: string
+    superCode?: string
 }
 
 export interface IRegisterReqData {
     email: string
     password: string
-    correctPassword: string
+    correctPassword?: string
     name: string
+    superCode: string
 }
 export interface ILoginReqData {
     email: string

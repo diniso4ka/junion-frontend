@@ -2,14 +2,16 @@ import { mailRegex, passwordRegex, usernameRegex } from './validationRegex'
 import { IRegisterReqData } from './types'
 import {
     mailValidationMessages,
+    nameValidationMessages,
     passwordValidationMessages,
+    superCodeValidationMessages,
 } from 'shared/helpers/validations/messages'
-import { errors } from 'workbox-build/build/lib/errors'
 
 export const passwordValidation = (password: string) => {
     let error
     if (password) {
-        if (!passwordRegex(password)) {
+        const { valid, tabs } = passwordRegex(password)
+        if (!valid || tabs) {
             error = passwordValidationMessages.incorrect
             return error
         }
@@ -36,7 +38,7 @@ export const correctPasswordValidation = (
 }
 
 export const registerValidation = (data: IRegisterReqData) => {
-    const { email, password, correctPassword, name } = data
+    const { email, password, correctPassword, name, superCode } = data
     const errors = {} as typeof data
 
     if (email) {
@@ -65,10 +67,14 @@ export const registerValidation = (data: IRegisterReqData) => {
 
     if (name) {
         if (!usernameRegex(name)) {
-            errors.name = 'Please enter 1-60 alphabetical characters'
+            errors.name = nameValidationMessages.incorrect
         }
     } else {
-        errors.name = 'Please enter 1-60 alphabetical characters'
+        errors.name = nameValidationMessages.incorrect
+    }
+
+    if (!superCode) {
+        errors.superCode = superCodeValidationMessages.incorrect
     }
 
     if (errors && Object.keys(errors).length === 0) {
@@ -77,3 +83,13 @@ export const registerValidation = (data: IRegisterReqData) => {
         return errors
     }
 }
+
+// if (password) {
+//     const { valid, tabs } = passwordRegex(password)
+//
+//     if (tabs || !valid) {
+//         errors.password = passwordValidationMessages.incorrect
+//     }
+// } else {
+//     errors.password = passwordValidationMessages.empty
+// }

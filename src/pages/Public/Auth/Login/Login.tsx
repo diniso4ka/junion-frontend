@@ -43,7 +43,6 @@ const Login: React.FC = () => {
             })
         }
     }
-
     const onLogIn = async () => {
         if (loginData) {
             await dispatch(thunkFetchLogin(loginData))
