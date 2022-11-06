@@ -1,7 +1,7 @@
 .wrapper {
     color: var(--primary-color);
     width: 550px;
-    margin: 140px auto;
+    margin: clamp(5rem, 2.273rem + 13.64vw, 12.5rem) auto;
     font-family: var(--font-family-main);
     justify-content: end;
 }
