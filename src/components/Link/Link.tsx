@@ -1,22 +1,21 @@
 import React from 'react'
-import { Link as LinkButton } from 'react-router-dom'
+import { Link as LinkButton, LinkProps } from 'react-router-dom'
 
 import cls from 'classnames'
 import s from './Link.module.scss'
 
-interface ILinkProps {
+interface ILinkProps extends LinkProps {
     children: React.ReactNode
     variant?: 'primary' | 'secondary' | 'outline'
     className?: string
-    to: string
 }
 
 export const Link: React.FC<ILinkProps> = React.memo(
-    ({ children, to, variant = 'primary', className }) => {
+    ({ children, variant = 'primary', className, ...rest }) => {
         const classes = cls(s.link, s[variant], className)
         return (
             <div className={classes}>
-                <LinkButton to={to}>{children}</LinkButton>
+                <LinkButton {...rest}>{children}</LinkButton>
             </div>
         )
     }

@@ -14,7 +14,7 @@ import {
 import { useAppDispatch } from 'app/store/types'
 import { thunkFetchRegister } from 'app/store/slices/user/userSlice'
 import { useNavigate } from 'react-router'
-import { passwordValidationMessages } from '../../../../shared/helpers/validations/messages'
+import { passwordValidationMessages } from 'shared/helpers/validations/messages'
 import { routeConfig } from '../../../../shared/config/routeConfig/routeConfig'
 
 const Register = () => {
