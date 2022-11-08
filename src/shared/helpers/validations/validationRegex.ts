@@ -26,6 +26,9 @@ export const usernameRegex = (username: string | undefined) => {
         )
         if (result) {
             const splitUsername = username.toLowerCase().split(' ')
+            if (splitUsername.length > 2) {
+                return false
+            }
             const capitalizeFirstLetter = splitUsername.map(
                 item => item.charAt(0).toUpperCase() + item.slice(1)
             )

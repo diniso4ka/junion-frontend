@@ -8,11 +8,8 @@ import {
     ILoginReqData,
 } from 'shared/helpers/validations/types'
 
-import { useAppDispatch, useAppSelector } from '../../../../app/store/types'
-import {
-    thunkFetchAuthMe,
-    thunkFetchLogin,
-} from '../../../../app/store/slices/user/userSlice'
+import { useAppDispatch, useAppSelector } from 'app/store/types'
+import { thunkFetchAuthMe, thunkFetchLogin } from 'app/store/slices/user/thunk'
 
 import { Button, Input } from 'components'
 
@@ -56,45 +53,47 @@ const Login: React.FC = () => {
 
     return (
         <main className={s.wrapper}>
-            <div className={s.message}>
-                <p className={cls(s.helper, s.helperError)}>{incorrect}</p>
-            </div>
-            <div className={s.formItem}>
-                <Input
-                    onChange={e =>
-                        setLoginValue(prev => ({
-                            ...prev,
-                            email: e.target.value,
-                        }))
-                    }
-                    value={loginValue.email}
-                    placeHolder={'E-mail address'}
-                    helperText={validaionErrors?.email}
-                    helperClass={'error'}
-                    error={!!validaionErrors?.email}
-                />
-            </div>
-            <div className={s.formItem}>
-                <Input
-                    onChange={e =>
-                        setLoginValue(prev => ({
-                            ...prev,
-                            password: e.target.value,
-                        }))
-                    }
-                    value={loginValue.password}
-                    placeHolder={'Password'}
-                    type={'password'}
-                    helperText={validaionErrors?.password}
-                    helperClass={'error'}
-                    error={!!validaionErrors?.password}
-                    forgotPass={true}
-                />
-            </div>
-            <div className={s.formButton}>
-                <Button onClick={onSubmitForm} className={s.button}>
-                    Log In
-                </Button>
+            <div className={s.contentWrapper}>
+                <div className={s.message}>
+                    <p className={cls(s.helper, s.helperError)}>{incorrect}</p>
+                </div>
+                <div className={s.formItem}>
+                    <Input
+                        onChange={e =>
+                            setLoginValue(prev => ({
+                                ...prev,
+                                email: e.target.value,
+                            }))
+                        }
+                        value={loginValue.email}
+                        placeHolder={'E-mail address'}
+                        helperText={validaionErrors?.email}
+                        helperClass={'error'}
+                        error={!!validaionErrors?.email}
+                    />
+                </div>
+                <div className={s.formItem}>
+                    <Input
+                        onChange={e =>
+                            setLoginValue(prev => ({
+                                ...prev,
+                                password: e.target.value,
+                            }))
+                        }
+                        value={loginValue.password}
+                        placeHolder={'Password'}
+                        type={'password'}
+                        helperText={validaionErrors?.password}
+                        helperClass={'error'}
+                        error={!!validaionErrors?.password}
+                        forgotPass={true}
+                    />
+                </div>
+                <div className={s.formButton}>
+                    <Button onClick={onSubmitForm} className={s.button}>
+                        Log In
+                    </Button>
+                </div>
             </div>
         </main>
     )

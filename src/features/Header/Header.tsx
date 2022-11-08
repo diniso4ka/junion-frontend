@@ -8,7 +8,7 @@ import logo from 'shared/assets/images/logo/logoMini.png'
 import { useLocation } from 'react-router'
 import { Link as LinkButton } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../app/store/types'
-import { thunkFetchLogout } from '../../app/store/slices/user/userSlice'
+import { thunkFetchLogout } from '../../app/store/slices/user/thunk'
 import { routeConfig } from '../../shared/config/routeConfig/routeConfig'
 
 const Header: React.FC = () => {

@@ -12,8 +12,10 @@ import {
     registerValidation,
 } from 'shared/helpers/validations/registerValidation'
 import { useAppDispatch, useAppSelector } from 'app/store/types'
-import { thunkFetchRegister } from 'app/store/slices/user/userSlice'
-import { useNavigate } from 'react-router'
+import {
+    thunkFetchAuthMe,
+    thunkFetchRegister,
+} from 'app/store/slices/user/thunk'
 import {
     passwordValidationMessages,
     superCodeValidationMessages,
@@ -23,21 +25,25 @@ const Register = () => {
     const asyncErrors = useAppSelector(state => state.user.errors)
     const [validaionErrors, setValidaionErrors] =
         React.useState<IValidationResponseData | null>({})
-    const [passwordFocus, setPasswordFocus] = React.useState(false)
-    const [superCodeFocus, setSuperCodeFocus] = React.useState(false)
-    const [submitForm, setSubmitForm] = React.useState(false)
+
+    const [passwordFocus, setPasswordFocus] = React.useState<boolean>(false)
+    const [superCodeFocus, setSuperCodeFocus] = React.useState<boolean>(false)
+    const [inputFocus, setInputFocus] = React.useState<boolean>(false)
+
+    const [submitForm, setSubmitForm] = React.useState<boolean>(false)
     const [registerData, setRegisterData] =
         React.useState<IRegisterReqData | null>()
     const [registerValue, setRegisterValue] = React.useState<IRegisterReqData>({
-        email: '',
-        password: '',
-        correctPassword: '',
-        name: '',
-        superCode: '',
+        email: 'wqe@wqe.ru',
+        password: 'Qweqwe123!@#',
+        correctPassword: 'Qweqwe123!@#',
+        name: 'adwad wadw',
+        superCode: '77',
     })
 
     const dispatch = useAppDispatch()
-    const navigate = useNavigate()
+
+    // При сабмите формы
 
     const onSubmitForm = async () => {
         setSubmitForm(true)
@@ -55,6 +61,13 @@ const Register = () => {
         }
     }
 
+    const onRegister = async registerData => {
+        await dispatch(thunkFetchRegister(registerData))
+        await dispatch(thunkFetchAuthMe())
+    }
+
+    // Ивенты onChange
+
     const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setRegisterValue(prev => ({
             ...prev,
@@ -69,6 +82,8 @@ const Register = () => {
             correctPassword: e.target.value,
         }))
     }
+
+    //Валидация паролей
 
     const passwordValidationFunc = () => {
         const error = passwordValidation(registerValue.password)
@@ -91,16 +106,35 @@ const Register = () => {
         }
     }
 
+    // Ивенты на unfocus
+
     const onBlurPassword = () => {
         registerValue.password = registerValue.password.trimStart().trimEnd()
         setPasswordFocus(false)
     }
+    const onBlur = () => {
+        registerValue.email = registerValue.email.trimStart().trimEnd()
+        registerValue.correctPassword = registerValue.correctPassword
+            .trimStart()
+            .trimEnd()
+        registerValue.name = registerValue.name.trimStart().trimEnd()
+        setInputFocus(!inputFocus)
+    }
+
+    const onBlurSuperCode = () => {
+        registerValue.superCode = registerValue.superCode.trimStart().trimEnd()
+        setSuperCodeFocus(false)
+    }
+
+    //Запрос при успешной валидации
 
     React.useEffect(() => {
         if (registerData) {
-            dispatch(thunkFetchRegister(registerData))
+            onRegister(registerData)
         }
     }, [registerData])
+
+    //Валидация паролей в реальном времени
 
     React.useEffect(() => {
         passwordValidationFunc()
@@ -112,129 +146,136 @@ const Register = () => {
 
     return (
         <div className={s.wrapper}>
-            <div className={s.formItem}>
-                <label className={s.label}>Email Address</label>
-                <Input
-                    onChange={e =>
-                        setRegisterValue(prev => ({
-                            ...prev,
-                            email: e.target.value,
-                        }))
-                    }
-                    value={registerValue.email}
-                    placeHolder={'Set the email address as the login name'}
-                    helperText={validaionErrors?.email}
-                    error={!!validaionErrors?.email}
-                />
-            </div>
-            <div className={s.formItem}>
-                <label className={s.label}>Login Password</label>
-                <Input
-                    onFocus={() => setPasswordFocus(true)}
-                    onBlur={onBlurPassword}
-                    onChange={e => onPasswordChange(e)}
-                    value={registerValue.password}
-                    placeHolder={'Enter the password'}
-                    type={'password'}
-                    helperText={
-                        passwordFocus
-                            ? passwordValidationMessages.hint
-                            : submitForm
-                            ? validaionErrors?.password
-                            : ''
-                    }
-                    helperClass={
-                        passwordFocus
-                            ? !validaionErrors?.password
-                                ? 'success'
-                                : 'hint'
-                            : 'error'
-                    }
-                    error={
-                        submitForm && validaionErrors?.password ? true : false
-                    }
-                />
-            </div>
-            <div className={s.formItem}>
-                <label className={s.label}>Confirm Password</label>
-                <Input
-                    onChange={e => onCorrectPasswordChange(e)}
-                    value={registerValue.correctPassword}
-                    placeHolder={'Enter the password again'}
-                    type={'password'}
-                    helperText={
-                        !!validaionErrors?.correctPassword && submitForm
-                            ? passwordValidationMessages.correct
-                            : ''
-                    }
-                    error={!!validaionErrors?.correctPassword && submitForm}
-                />
-            </div>
-            <div className={s.formItem}>
-                <label className={s.label}>Full name</label>
-                <Input
-                    onChange={e =>
-                        setRegisterValue(prev => ({
-                            ...prev,
-                            name: e.target.value,
-                        }))
-                    }
-                    value={registerValue.name}
-                    placeHolder={'Enter first and last name'}
-                    helperText={validaionErrors?.name}
-                    error={!!validaionErrors?.name}
-                />
-            </div>
-            <div className={s.formButton}>
+            <form className={s.contentWrapper}>
                 <div className={s.formItem}>
-                    <label className={s.label}>Super Code</label>
+                    <label className={s.label}>Email Address</label>
                     <Input
-                        onFocus={() => setSuperCodeFocus(true)}
-                        onBlur={() => setSuperCodeFocus(false)}
+                        onBlur={onBlur}
                         onChange={e =>
                             setRegisterValue(prev => ({
                                 ...prev,
-                                superCode: e.target.value,
+                                email: e.target.value,
                             }))
                         }
-                        value={registerValue.superCode}
-                        placeHolder={'Enter the Super Code'}
-                        error={
-                            !!validaionErrors?.superCode && submitForm
-                                ? true
-                                : false
+                        value={registerValue.email}
+                        placeHolder={'Set the email address as the login name'}
+                        helperText={validaionErrors?.email}
+                        error={!!validaionErrors?.email}
+                    />
+                </div>
+                <div className={s.formItem}>
+                    <label className={s.label}>Login Password</label>
+                    <Input
+                        onFocus={() => setPasswordFocus(true)}
+                        onBlur={onBlurPassword}
+                        onChange={e => onPasswordChange(e)}
+                        value={registerValue.password}
+                        placeHolder={'Enter the password'}
+                        type={'password'}
+                        helperText={
+                            passwordFocus
+                                ? passwordValidationMessages.hint
+                                : submitForm
+                                ? validaionErrors?.password
+                                : ''
                         }
                         helperClass={
-                            superCodeFocus
-                                ? !validaionErrors?.superCode
+                            passwordFocus
+                                ? !validaionErrors?.password
                                     ? 'success'
                                     : 'hint'
                                 : 'error'
                         }
-                        sizeContainer={'secondary'}
+                        error={
+                            submitForm && validaionErrors?.password
+                                ? true
+                                : false
+                        }
                     />
                 </div>
-                <Button onClick={onSubmitForm} className={s.button}>
-                    Sign Up
-                </Button>
-            </div>
-            <p
-                className={cls(
-                    s.helper,
-                    superCodeFocus
-                        ? s.hint
-                        : (!!validaionErrors?.superCode && s.error) ||
-                              (asyncErrors.wrongSuperCode && s.error)
-                )}
-            >
-                {superCodeFocus
-                    ? superCodeValidationMessages.hint
-                    : !!validaionErrors?.superCode && submitForm
-                    ? superCodeValidationMessages.incorrect
-                    : asyncErrors.wrongSuperCode
-                    ? superCodeValidationMessages.incorrect
-                    : ''}
-            </p>
+                <div className={s.formItem}>
+                    <label className={s.label}>Confirm Password</label>
+                    <Input
+                        onChange={e => onCorrectPasswordChange(e)}
+                        onBlur={onBlur}
+                        value={registerValue.correctPassword}
+                        placeHolder={'Enter the password again'}
+                        type={'password'}
+                        helperText={
+                            !!validaionErrors?.correctPassword && submitForm
+                                ? passwordValidationMessages.correct
+                                : ''
+                        }
+                        error={!!validaionErrors?.correctPassword && submitForm}
+                    />
+                </div>
+                <div className={s.formItem}>
+                    <label className={s.label}>Full name</label>
+                    <Input
+                        onBlur={onBlur}
+                        onChange={e =>
+                            setRegisterValue(prev => ({
+                                ...prev,
+                                name: e.target.value,
+                            }))
+                        }
+                        value={registerValue.name}
+                        placeHolder={'Enter first and last name'}
+                        helperText={validaionErrors?.name}
+                        error={!!validaionErrors?.name}
+                    />
+                </div>
+                <div className={s.formButton}>
+                    <div className={s.formItem}>
+                        <label className={s.label}>Super Code</label>
+                        <Input
+                            onFocus={() => setSuperCodeFocus(true)}
+                            onBlur={() => onBlurSuperCode}
+                            onChange={e =>
+                                setRegisterValue(prev => ({
+                                    ...prev,
+                                    superCode: e.target.value,
+                                }))
+                            }
+                            value={registerValue.superCode}
+                            placeHolder={'Enter the Super Code'}
+                            error={
+                                !!validaionErrors?.superCode && submitForm
+                                    ? true
+                                    : false
+                            }
+                            helperClass={
+                                superCodeFocus
+                                    ? !validaionErrors?.superCode
+                                        ? 'success'
+                                        : 'hint'
+                                    : 'error'
+                            }
+                            sizeContainer={'secondary'}
+                        />
+                    </div>
+                    <Button onClick={onSubmitForm} className={s.button}>
+                        Sign Up
+                    </Button>
+                </div>
+                <p
+                    className={cls(
+                        s.helper,
+                        superCodeFocus
+                            ? s.hint
+                            : (!!validaionErrors?.superCode && s.error) ||
+                                  (asyncErrors.wrongSuperCode && s.error)
+                    )}
+                >
+                    {superCodeFocus
+                        ? superCodeValidationMessages.hint
+                        : !!validaionErrors?.superCode && submitForm
+                        ? superCodeValidationMessages.incorrect
+                        : asyncErrors.wrongSuperCode
+                        ? superCodeValidationMessages.incorrect
+                        : ''}
+                </p>
+            </form>
         </div>
     )
 }

@@ -7,7 +7,9 @@ import logo from 'shared/assets/images/logo/logo.svg'
 const Logo = () => {
     return (
         <div className={s.wrapper}>
-            <img src={logo} />
+            <div className={s.contentWrapper}>
+                <img src={logo} />
+            </div>
         </div>
     )
 }

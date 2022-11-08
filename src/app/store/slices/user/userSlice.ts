@@ -1,50 +1,16 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-
-import {
-    fetchAuthMe,
-    fetchLogin,
-    fetchLogout,
-    fetchRegister,
-} from '../../../../shared/api/requests'
+import { createSlice } from '@reduxjs/toolkit'
 
 import { Status } from '../../types'
 import { IUserData } from './types'
+
+import { saveTokenInLocalStorage } from './helpers'
+import { passwordValidationMessages } from 'shared/helpers/validations/messages'
 import {
-    ILoginReqData,
-    IRegisterReqData,
-} from '../../../../shared/helpers/validations/types'
-
-export const thunkFetchRegister = createAsyncThunk(
-    'users/registerStatus',
-    async (data: IRegisterReqData) => {
-        const res = await fetchRegister(data)
-        return res
-    }
-)
-export const thunkFetchLogin = createAsyncThunk(
-    'users/loginStatus',
-    async (data: ILoginReqData) => {
-        const res = await fetchLogin(data)
-        return res
-    }
-)
-
-export const thunkFetchLogout = createAsyncThunk(
-    'users/logoutStatus',
-    async () => {
-        const res = await fetchLogout()
-        console.log(res)
-        return res
-    }
-)
-
-export const thunkFetchAuthMe = createAsyncThunk(
-    'users/authMeStatus',
-    async () => {
-        const res = await fetchAuthMe()
-        return res
-    }
-)
+    thunkFetchAuthMe,
+    thunkFetchLogin,
+    thunkFetchLogout,
+    thunkFetchRegister,
+} from './thunk'
 
 interface initialStateType {
     user: {
@@ -79,9 +45,9 @@ const userSlice = createSlice({
             state.user.status = Status.LOADING
         }),
             builder.addCase(thunkFetchRegister.fulfilled, (state, action) => {
-                if (
-                    action.payload.response.data.message === 'wrong super code'
-                ) {
+                if (action.payload.status === 201) {
+                    saveTokenInLocalStorage(action)
+                } else {
                     state.errors.wrongSuperCode = true
                 }
                 state.user.status = Status.SUCCESS
@@ -96,16 +62,13 @@ const userSlice = createSlice({
             }),
             builder.addCase(thunkFetchLogin.fulfilled, (state, action) => {
                 state.errors.incorrect = null
-                if (action.payload?.data?.message === 'login successfull')
-                    localStorage.setItem(
-                        'token',
-                        JSON.stringify(action.payload.data.token)
-                    )
-                state.user.status = Status.SUCCESS
+                if (action.payload?.data?.message === 'login successfull') {
+                    saveTokenInLocalStorage(action)
+                    state.user.status = Status.SUCCESS
+                }
             }),
             builder.addCase(thunkFetchLogin.rejected, state => {
-                state.errors.incorrect =
-                    'Your account name or password is incorrect'
+                state.errors.incorrect = passwordValidationMessages.incorrect
                 state.user.status = Status.ERROR
             }),
             builder.addCase(thunkFetchAuthMe.pending, state => {

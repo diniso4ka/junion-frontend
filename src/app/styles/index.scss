@@ -10,3 +10,7 @@
     color: var(--primary-color);
     min-height: 100vh;
 }
+
+.pageWrapper {
+    height: calc(100vh - var(--header-height-desktop));
+}

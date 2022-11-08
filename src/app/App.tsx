@@ -3,7 +3,7 @@ import cls from 'classnames'
 import './styles/index.scss'
 
 import { useAppDispatch } from './store/types'
-import { thunkFetchAuthMe } from './store/slices/user/userSlice'
+import { thunkFetchAuthMe } from './store/slices/user/thunk'
 
 import AppRouter from './providers/router/AppRouter'
 import Header from '../features/Header/Header'
@@ -21,9 +21,11 @@ const App: React.FC = () => {
     return (
         <div className={cls('app', theme === Theme.LIGHT ? 'default' : 'dark')}>
             <Header />
-            <React.Suspense fallback={<div>...loading</div>}>
-                <AppRouter />
-            </React.Suspense>
+            <div className='pageWrapper'>
+                <React.Suspense fallback={<div>...loading</div>}>
+                    <AppRouter />
+                </React.Suspense>
+            </div>
         </div>
     )
 }

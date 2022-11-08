@@ -1,7 +1,13 @@
 .wrapper {
+    height: var(--height-90);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contentWrapper {
     color: var(--primary-color);
     width: var(--form-width-desktop);
-    margin: clamp(2.5rem, -1.136rem + 18.18vw, 12.5rem) auto;
     font-family: var(--font-family-main);
     justify-content: end;
 }

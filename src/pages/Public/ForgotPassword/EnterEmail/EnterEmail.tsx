@@ -25,27 +25,29 @@ const EnterEmail = () => {
 
     return (
         <div className={s.wrapper}>
-            <h2 className={s.title}>Retrieve password</h2>
-            <p className={cls(s.helper, s.helperHint)}>
-                Enter the email address provided during registration
-            </p>
-            <div className={s.formItem}>
-                <Input
-                    onChange={e => setEmailValue(e.target.value)}
-                    value={emailValue}
-                    placeHolder={'Set the email address'}
-                    variant={'primary'}
-                    type={'text'}
-                    helperClass={'error'}
-                    helperText={emailValiadtion}
-                    error={!!emailValiadtion}
-                />
-            </div>
+            <div className={s.contentWrapper}>
+                <h2 className={s.title}>Retrieve password</h2>
+                <p className={cls(s.helper, s.helperHint)}>
+                    Enter the email address provided during registration
+                </p>
+                <div className={s.formItem}>
+                    <Input
+                        onChange={e => setEmailValue(e.target.value)}
+                        value={emailValue}
+                        placeHolder={'Set the email address'}
+                        variant={'primary'}
+                        type={'text'}
+                        helperClass={'error'}
+                        helperText={emailValiadtion}
+                        error={!!emailValiadtion}
+                    />
+                </div>
 
-            <div className={s.formButton}>
-                <Button onClick={onClickGetTheLink} className={s.button}>
-                    Get the link
-                </Button>
+                <div className={s.formButton}>
+                    <Button onClick={onClickGetTheLink} className={s.button}>
+                        Get the link
+                    </Button>
+                </div>
             </div>
         </div>
     )
