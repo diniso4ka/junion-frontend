@@ -1,7 +1,7 @@
 import React from 'react'
 import cls from 'classnames'
 import s from './Register.module.scss'
-import { Button, Input } from '../../../../components'
+import { Button, Input } from 'components'
 import {
     IRegisterReqData,
     IValidationResponseData,
@@ -34,11 +34,11 @@ const Register = () => {
     const [registerData, setRegisterData] =
         React.useState<IRegisterReqData | null>()
     const [registerValue, setRegisterValue] = React.useState<IRegisterReqData>({
-        email: 'wqe@wqe.ru',
-        password: 'Qweqwe123!@#',
-        correctPassword: 'Qweqwe123!@#',
-        name: 'adwad wadw',
-        superCode: '77',
+        email: '',
+        password: '',
+        correctPassword: '',
+        name: '',
+        superCode: '',
     })
 
     const dispatch = useAppDispatch()
