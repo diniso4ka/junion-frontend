@@ -20,7 +20,6 @@ export const passwordRegex = (password: string | undefined) => {
 }
 
 export const usernameRegex = (username: string | undefined) => {
-    console.log(username)
     if (username) {
         const splitOnSybmolsUsername = username.split('')
         if (
