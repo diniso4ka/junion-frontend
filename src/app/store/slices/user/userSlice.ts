@@ -16,24 +16,24 @@ interface initialStateType {
     user: {
         data: IUserData | null
         status: Status
+        initialize: boolean
     }
     errors: {
         incorrect: string | null
         wrongSuperCode: boolean
     }
-    initialize: boolean
 }
 
 const initialState: initialStateType = {
     user: {
         data: null,
         status: Status.LOADING,
+        initialize: false,
     },
     errors: {
         incorrect: null,
         wrongSuperCode: false,
     },
-    initialize: false,
 }
 
 const userSlice = createSlice({
@@ -49,11 +49,11 @@ const userSlice = createSlice({
                     saveTokenInLocalStorage(action)
                 } else {
                     state.errors.wrongSuperCode = true
+                    state.user.status = Status.SUCCESS
                 }
                 state.user.status = Status.SUCCESS
             }),
             builder.addCase(thunkFetchRegister.rejected, (state, action) => {
-                console.log(action)
                 state.user.status = Status.ERROR
             }),
             builder.addCase(thunkFetchLogin.pending, (state, action) => {
@@ -77,24 +77,18 @@ const userSlice = createSlice({
             }),
             builder.addCase(thunkFetchAuthMe.fulfilled, (state, action) => {
                 state.user.data = action.payload.data.user
-                state.initialize = true
                 state.user.status = Status.SUCCESS
             }),
             builder.addCase(thunkFetchAuthMe.rejected, state => {
                 state.user.data = null
-                state.user.status = Status.ERROR
+                state.user.status = Status.SUCCESS
             }),
             builder.addCase(thunkFetchLogout.pending, state => {
                 state.user.data = null
                 window.localStorage.removeItem('token')
-                state.user.status = Status.LOADING
             }),
-            builder.addCase(thunkFetchLogout.fulfilled, state => {
-                state.user.status = Status.SUCCESS
-            }),
-            builder.addCase(thunkFetchLogout.rejected, state => {
-                state.user.status = Status.ERROR
-            })
+            builder.addCase(thunkFetchLogout.fulfilled, state => {}),
+            builder.addCase(thunkFetchLogout.rejected, state => {})
     },
 })
 

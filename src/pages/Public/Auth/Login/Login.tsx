@@ -8,7 +8,7 @@ import {
     ILoginReqData,
 } from 'shared/helpers/validations/types'
 
-import { useAppDispatch, useAppSelector } from 'app/store/types'
+import { Status, useAppDispatch, useAppSelector } from 'app/store/types'
 import { thunkFetchAuthMe, thunkFetchLogin } from 'app/store/slices/user/thunk'
 
 import { Button, Input } from 'components'
@@ -23,6 +23,7 @@ const Login: React.FC = () => {
     })
 
     const dispatch = useAppDispatch()
+    const status = useAppSelector(state => state.user.user.status)
     const { incorrect } = useAppSelector(state => state.user.errors)
 
     const onSubmitForm = () => {
@@ -90,7 +91,11 @@ const Login: React.FC = () => {
                     />
                 </div>
                 <div className={s.formButton}>
-                    <Button onClick={onSubmitForm} className={s.button}>
+                    <Button
+                        isLoading={status === Status.LOADING && true}
+                        onClick={onSubmitForm}
+                        className={s.button}
+                    >
                         Log In
                     </Button>
                 </div>

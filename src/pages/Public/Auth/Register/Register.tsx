@@ -11,7 +11,7 @@ import {
     passwordValidation,
     registerValidation,
 } from 'shared/helpers/validations/registerValidation'
-import { useAppDispatch, useAppSelector } from 'app/store/types'
+import { Status, useAppDispatch, useAppSelector } from 'app/store/types'
 import {
     thunkFetchAuthMe,
     thunkFetchRegister,
@@ -42,10 +42,12 @@ const Register = () => {
     })
 
     const dispatch = useAppDispatch()
-
+    const status = useAppSelector(state => state.user.user.status)
+    console.log(status)
     // При сабмите формы
 
     const onSubmitForm = async () => {
+        console.log(status)
         setSubmitForm(true)
         const errors = registerValidation(registerValue)
         if (errors) {
@@ -254,7 +256,11 @@ const Register = () => {
                             sizeContainer={'secondary'}
                         />
                     </div>
-                    <Button onClick={onSubmitForm} className={s.button}>
+                    <Button
+                        isLoading={status === Status.LOADING && true}
+                        onClick={onSubmitForm}
+                        className={s.button}
+                    >
                         Sign Up
                     </Button>
                 </div>
