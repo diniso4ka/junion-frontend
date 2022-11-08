@@ -12,5 +12,5 @@
 }
 
 .pageWrapper {
-    height: calc(100vh - var(--header-height-desktop));
+    min-height: calc(100vh - var(--header-height-desktop));
 }

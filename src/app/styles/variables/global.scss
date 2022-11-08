@@ -36,5 +36,8 @@
 
     --header-height-desktop: 120px;
 
-    --height-90: 90%;
+    /* Отступы */
+
+    --margin-top-form-m: clamp(1rem, 0.143rem + 4.29vw, 4rem);
+    --margin-top-form-l: clamp(2rem, 0.071rem + 9.64vw, 8.75rem);
 }

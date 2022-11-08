@@ -79,13 +79,3 @@ export const registerValidation = (data: IRegisterReqData) => {
         return errors
     }
 }
-
-// if (password) {
-//     const { valid, tabs } = passwordRegex(password)
-//
-//     if (tabs || !valid) {
-//         errors.password = passwordValidationMessages.incorrect
-//     }
-// } else {
-//     errors.password = passwordValidationMessages.empty
-// }
