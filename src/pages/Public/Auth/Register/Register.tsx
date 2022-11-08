@@ -43,11 +43,9 @@ const Register = () => {
 
     const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.user.user.status)
-    console.log(status)
     // При сабмите формы
 
     const onSubmitForm = async () => {
-        console.log(status)
         setSubmitForm(true)
         const errors = registerValidation(registerValue)
         if (errors) {
@@ -62,7 +60,6 @@ const Register = () => {
             })
         }
     }
-
     const onRegister = async registerData => {
         await dispatch(thunkFetchRegister(registerData))
         await dispatch(thunkFetchAuthMe())
@@ -141,6 +138,9 @@ const Register = () => {
     React.useEffect(() => {
         passwordValidationFunc()
     }, [registerValue.password])
+    React.useEffect(() => {
+        console.log(validaionErrors)
+    }, [validaionErrors.password])
 
     React.useEffect(() => {
         correctPasswordValidationFunc()
@@ -148,7 +148,7 @@ const Register = () => {
 
     return (
         <div className={s.wrapper}>
-            <form className={s.contentWrapper}>
+            <div className={s.contentWrapper}>
                 <div className={s.formItem}>
                     <label className={s.label}>Email Address</label>
                     <Input
@@ -281,7 +281,7 @@ const Register = () => {
                         ? superCodeValidationMessages.incorrect
                         : ''}
                 </p>
-            </form>
+            </div>
         </div>
     )
 }
