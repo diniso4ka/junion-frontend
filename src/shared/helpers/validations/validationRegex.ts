@@ -20,21 +20,25 @@ export const passwordRegex = (password: string | undefined) => {
 }
 
 export const usernameRegex = (username: string | undefined) => {
+    console.log(username)
     if (username) {
-        const result = username.match(
-            /^(([A-Za-z]+[\-\']?)*([A-Za-z]+)?\s)+([A-Za-z]+[\-\']?)*([A-Za-z]+)?$/
-        )
-        if (result) {
-            const splitUsername = username.toLowerCase().split(' ')
-            if (splitUsername.length > 2) {
-                return false
-            }
-            const capitalizeFirstLetter = splitUsername.map(
-                item => item.charAt(0).toUpperCase() + item.slice(1)
-            )
-            return capitalizeFirstLetter
-        } else {
-            return result
+        const splitOnSybmolsUsername = username.split('')
+        if (
+            splitOnSybmolsUsername.length > 20 ||
+            splitOnSybmolsUsername.length < 3
+        ) {
+            return false
         }
+
+        const splitOnWordsUsername = username.split(' ')
+        if (splitOnWordsUsername.length > 3) {
+            return false
+        }
+
+        const splitUsername = username.toLowerCase().split(' ')
+        const capitalizeFirstLetter = splitUsername.map(
+            item => item.charAt(0).toUpperCase() + item.slice(1)
+        )
+        return capitalizeFirstLetter
     }
 }

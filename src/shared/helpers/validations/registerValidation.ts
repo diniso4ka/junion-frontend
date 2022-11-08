@@ -51,6 +51,8 @@ export const registerValidation = (data: IRegisterReqData) => {
 
     if (password) {
         errors.password = passwordValidation(password)
+    } else {
+        errors.password = passwordValidationMessages.empty
     }
 
     if (correctPassword) {

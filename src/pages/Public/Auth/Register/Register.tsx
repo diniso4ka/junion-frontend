@@ -138,9 +138,6 @@ const Register = () => {
     React.useEffect(() => {
         passwordValidationFunc()
     }, [registerValue.password])
-    React.useEffect(() => {
-        console.log(validaionErrors)
-    }, [validaionErrors.password])
 
     React.useEffect(() => {
         correctPasswordValidationFunc()
