@@ -18,8 +18,8 @@ const Login: FC = () => {
         useState<IValidationResponseData | null>()
     const [loginData, setLoginData] = useState<ILoginReqData | null>()
     const [loginValue, setLoginValue] = useState<ILoginReqData>({
-        email: 'denis@mail.ru',
-        password: 'Denis123!@#',
+        email: '',
+        password: '',
     })
 
     const dispatch = useAppDispatch()

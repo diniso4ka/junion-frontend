@@ -1,0 +1,13 @@
+.Sidebar {
+    width: 180px;
+    height: calc(100vh - var(--header-height-desktop));
+    background-color: black;
+    overflow: hidden;
+    background-color: var(--bg-third-color);
+
+    transition: width 0.3s ease-in-out;
+}
+
+.collapsed {
+    width: 60px;
+}

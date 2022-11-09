@@ -13,4 +13,7 @@
 
 .pageWrapper {
     min-height: calc(100vh - var(--header-height-desktop));
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }

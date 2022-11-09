@@ -9,9 +9,9 @@ import avatar from 'shared/assets/images/user/User.svg'
 import arrow from 'shared/assets/images/icons/Arrow.svg'
 import { useLocation } from 'react-router'
 import { Link as LinkButton } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../../app/store/types'
-import { thunkFetchLogout } from '../../app/store/slices/user/thunk'
-import { routeConfig } from '../../shared/config/routeConfig/routeConfig'
+import { useAppDispatch, useAppSelector } from 'app/store/types'
+import { thunkFetchLogout } from 'app/store/slices/user/thunk'
+import { routeConfig } from 'shared/config/routeConfig/routeConfig'
 
 const Header: React.FC = () => {
     const [isOpened, setIsOpened] = useState(false)
@@ -64,7 +64,7 @@ const Header: React.FC = () => {
                         <div className={s.user}>
                             <div className={s.userInfo}>
                                 <img src={avatar} />
-                                <label>Ivan Ivanov</label>
+                                <label>{data.name}</label>
                             </div>
                             <img
                                 onClick={() => setIsOpened(!isOpened)}

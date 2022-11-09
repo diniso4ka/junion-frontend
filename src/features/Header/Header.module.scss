@@ -38,6 +38,7 @@
 
 .user {
     display: flex;
+    height: fit-content;
 }
 
 .userInfo {
@@ -46,10 +47,13 @@
     flex-direction: column;
     justify-items: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .arrow {
+    margin-left: 10px;
     transition: transform 0.3s ease-in-out;
+    cursor: pointer;
 }
 
 .arrowRotated {
