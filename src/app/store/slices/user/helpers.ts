@@ -1,6 +1,4 @@
-export const saveTokenInLocalStorage = action => {
-    localStorage.setItem(
-        'token',
-        JSON.stringify(action.payload.data.data.token)
-    )
+export const saveTokenInLocalStorage = async payload => {
+    const token = await payload
+    await localStorage.setItem('token', JSON.stringify(token.data.token))
 }

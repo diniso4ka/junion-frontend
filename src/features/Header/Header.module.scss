@@ -31,3 +31,27 @@
     font-weight: 500 !important;
     transition: font-weight 0.3s ease-in-out;
 }
+
+.links {
+    position: relative;
+}
+
+.user {
+    display: flex;
+}
+
+.userInfo {
+    font-size: var(--font-s);
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+
+.arrow {
+    transition: transform 0.3s ease-in-out;
+}
+
+.arrowRotated {
+    transform: rotate(180deg);
+}

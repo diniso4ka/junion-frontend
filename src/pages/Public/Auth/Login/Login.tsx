@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC, useEffect, useState } from 'react'
 import cls from 'classnames'
 import s from './Login.module.scss'
 
@@ -13,17 +13,17 @@ import { thunkFetchAuthMe, thunkFetchLogin } from 'app/store/slices/user/thunk'
 
 import { Button, Input } from 'components'
 
-const Login: React.FC = () => {
+const Login: FC = () => {
     const [validaionErrors, setValidaionErrors] =
-        React.useState<IValidationResponseData | null>()
-    const [loginData, setLoginData] = React.useState<ILoginReqData | null>()
-    const [loginValue, setLoginValue] = React.useState<ILoginReqData>({
-        email: '',
-        password: '',
+        useState<IValidationResponseData | null>()
+    const [loginData, setLoginData] = useState<ILoginReqData | null>()
+    const [loginValue, setLoginValue] = useState<ILoginReqData>({
+        email: 'denis@mail.ru',
+        password: 'Denis123!@#',
     })
 
     const dispatch = useAppDispatch()
-    const status = useAppSelector(state => state.user.user.status)
+    const { status } = useAppSelector(state => state.user.user)
     const { incorrect } = useAppSelector(state => state.user.errors)
 
     const onSubmitForm = () => {
@@ -48,7 +48,7 @@ const Login: React.FC = () => {
         }
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
         onLogIn()
     }, [loginData])
 
@@ -92,7 +92,7 @@ const Login: React.FC = () => {
                 </div>
                 <div className={s.formButton}>
                     <Button
-                        isLoading={status === Status.LOADING && true}
+                        isLoading={status === Status.LOADING}
                         onClick={onSubmitForm}
                         className={s.button}
                     >

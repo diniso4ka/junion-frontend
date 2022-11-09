@@ -6,7 +6,7 @@ import { Preloader } from '../Preloader/Preloader'
 interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode
     type?: 'button' | 'submit'
-    variant?: 'primary' | 'secondary' | 'outline'
+    variant?: 'primary' | 'secondary' | 'outline' | 'text'
     isLoading?: boolean
     className?: string
     onClick?: () => void
