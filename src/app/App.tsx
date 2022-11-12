@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import cls from 'classnames'
 import './styles/index.scss'
 
@@ -26,8 +26,6 @@ const App: React.FC = () => {
         dispatch(thunkFetchAuthMe())
         dispatch(thunkFetchProductList())
     }, [])
-
-    fetchAuthMe().then(res => console.log(res))
 
     return (
         <div className={cls('app', theme === Theme.LIGHT ? 'default' : 'dark')}>

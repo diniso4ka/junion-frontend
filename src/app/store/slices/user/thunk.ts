@@ -10,9 +10,7 @@ import {
 export const thunkFetchRegister = createAsyncThunk(
     'users/registerStatus',
     async (data: IRegisterReqData) => {
-        console.log('fecth')
         const res = await fetchRegister(data)
-        console.log(res)
         return res
     }
 )

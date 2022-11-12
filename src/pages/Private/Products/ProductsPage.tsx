@@ -1,9 +1,9 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import s from './ProductsPage.module.scss'
 import cls from 'classnames'
 import { ProductsTable } from 'features/ProductsTable/ProductsTable'
 import { useAppSelector } from 'app/store/types'
-import { getDate } from '../../../shared/helpers/date/getDate'
+import { getDate } from 'shared/helpers/date/getDate'
 
 const ProductsPage: FC = () => {
     const productsData = useAppSelector(state => state.products.data.items)
