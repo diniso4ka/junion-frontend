@@ -2,15 +2,12 @@ import React from 'react'
 import cls from 'classnames'
 import s from './Register.module.scss'
 import { Button, Input } from 'components'
-import {
-    IRegisterReqData,
-    IValidationResponseData,
-} from 'shared/helpers/validations/types'
+import { IRegisterReqData, IValidationResponseData } from 'shared/types/auth'
 import {
     correctPasswordValidation,
     passwordValidation,
-    registerValidation,
-} from 'shared/helpers/validations/registerValidation'
+} from 'shared/helpers/validations/helpers'
+import { registerValidation } from 'shared/helpers/validations/registerValidation'
 import { Status, useAppDispatch, useAppSelector } from 'app/store/types'
 import {
     thunkFetchAuthMe,
@@ -20,11 +17,12 @@ import {
     passwordValidationMessages,
     superCodeValidationMessages,
 } from 'shared/helpers/validations/messages'
+import { cosmiconfig } from 'cosmiconfig'
 
 const Register = () => {
     const asyncErrors = useAppSelector(state => state.user.errors)
     const [validaionErrors, setValidaionErrors] =
-        React.useState<IValidationResponseData | null>({})
+        React.useState<IValidationResponseData>({})
 
     const [passwordFocus, setPasswordFocus] = React.useState<boolean>(false)
     const [superCodeFocus, setSuperCodeFocus] = React.useState<boolean>(false)
@@ -34,11 +32,11 @@ const Register = () => {
     const [registerData, setRegisterData] =
         React.useState<IRegisterReqData | null>()
     const [registerValue, setRegisterValue] = React.useState<IRegisterReqData>({
-        email: '',
-        password: '',
-        correctPassword: '',
-        name: '',
-        superCode: '',
+        email: 'efe@erf.ru',
+        password: 'efwf@!1',
+        correctPassword: 'efwf@!1',
+        name: 'fewfewf',
+        superCode: '777',
     })
 
     const dispatch = useAppDispatch()
@@ -48,9 +46,11 @@ const Register = () => {
     const onSubmitForm = async () => {
         setSubmitForm(true)
         const errors = registerValidation(registerValue)
+        console.log(errors)
         if (errors) {
             setValidaionErrors({ ...errors })
         } else {
+            console.log('success')
             setValidaionErrors(null)
             await setRegisterData({
                 email: registerValue.email,
@@ -61,6 +61,7 @@ const Register = () => {
         }
     }
     const onRegister = async registerData => {
+        console.log('request')
         await dispatch(thunkFetchRegister(registerData))
         await dispatch(thunkFetchAuthMe())
     }
@@ -129,6 +130,7 @@ const Register = () => {
 
     React.useEffect(() => {
         if (registerData) {
+            console.log('data')
             onRegister(registerData)
         }
     }, [registerData])

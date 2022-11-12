@@ -1,7 +1,4 @@
-import {
-    ILoginReqData,
-    IRegisterReqData,
-} from '../../helpers/validations/types'
+import { ILoginReqData, IRegisterReqData } from '../../types/auth'
 import api from '../instance'
 import { endpoints } from '../endpoints'
 

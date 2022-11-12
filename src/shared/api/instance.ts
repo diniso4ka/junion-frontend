@@ -5,11 +5,11 @@ const api = axios.create({
 })
 
 api.interceptors.request.use(config => {
-    //@ts-ignore
-    config.headers.Authorization = `Bearer ${JSON.parse(
-        //@ts-ignore
+    config.headers.Authorization = `Bearer ${
         localStorage.getItem('token')
-    )}`
+            ? JSON.parse(localStorage.getItem('token'))
+            : ''
+    }`
     return config
 })
 

@@ -16,4 +16,5 @@ export const superCodeValidationMessages = {
 }
 export const nameValidationMessages = {
     incorrect: 'Please enter 1-60 alphabetical characters',
+    empty: 'Please, enter the name',
 }

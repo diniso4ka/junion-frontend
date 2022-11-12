@@ -1,74 +1,33 @@
-import { mailRegex, passwordRegex, usernameRegex } from './validationRegex'
-import { IRegisterReqData } from './types'
+import { IRegisterReqData } from '../../types/auth'
+import { superCodeValidationMessages } from 'shared/helpers/validations/messages'
 import {
-    mailValidationMessages,
-    nameValidationMessages,
-    passwordValidationMessages,
-    superCodeValidationMessages,
-} from 'shared/helpers/validations/messages'
-
-export const passwordValidation = (password: string) => {
-    let error
-    if (password) {
-        const { valid, tabs } = passwordRegex(password)
-        if (!valid || tabs) {
-            error = passwordValidationMessages.incorrect
-            return error
-        }
-    } else {
-        error = passwordValidationMessages.empty
-        return error
-    }
-}
-
-export const correctPasswordValidation = (
-    password: string,
-    correctPassword: string
-) => {
-    let error
-    if (correctPassword) {
-        if (!(password === correctPassword)) {
-            error = passwordValidationMessages.correct
-            return error
-        }
-    } else {
-        error = passwordValidationMessages.correct
-        return error
-    }
-}
+    correctPasswordValidation,
+    mailValidation,
+    passwordValidation,
+    usernameValidation,
+} from './helpers'
 
 export const registerValidation = (data: IRegisterReqData) => {
     const { email, password, correctPassword, name, superCode } = data
     const errors = {} as typeof data
 
-    if (email) {
-        if (!mailRegex(email)) {
-            errors.email = mailValidationMessages.incorrect
-        }
-    } else {
-        errors.email = mailValidationMessages.empty
+    if (!!mailValidation(email)) {
+        errors.email = mailValidation(email)
     }
 
-    if (password) {
+    if (!!passwordValidation(password)) {
         errors.password = passwordValidation(password)
-    } else {
-        errors.password = passwordValidationMessages.empty
     }
 
-    if (correctPassword) {
-        if (!(password === correctPassword)) {
-            errors.correctPassword = passwordValidationMessages.correct
-        }
-    } else {
-        errors.correctPassword = passwordValidationMessages.correct
+    if (!!correctPasswordValidation(password, correctPassword)) {
+        errors.correctPassword = correctPasswordValidation(
+            password,
+            correctPassword
+        )
     }
 
-    if (name) {
-        if (!usernameRegex(name)) {
-            errors.name = nameValidationMessages.incorrect
-        }
-    } else {
-        errors.name = nameValidationMessages.incorrect
+    if (!!usernameValidation(name)) {
+        errors.name = usernameValidation(name)
     }
 
     if (!superCode) {

@@ -3,10 +3,7 @@ import cls from 'classnames'
 import s from './Login.module.scss'
 
 import { loginValidation } from 'shared/helpers/validations/loginValidation'
-import {
-    IValidationResponseData,
-    ILoginReqData,
-} from 'shared/helpers/validations/types'
+import { IValidationResponseData, ILoginReqData } from 'shared/types/auth'
 
 import { Status, useAppDispatch, useAppSelector } from 'app/store/types'
 import { thunkFetchAuthMe, thunkFetchLogin } from 'app/store/slices/user/thunk'
@@ -16,7 +13,7 @@ import { Button, Input } from 'components'
 const Login: FC = () => {
     const [validaionErrors, setValidaionErrors] =
         useState<IValidationResponseData | null>()
-    const [loginData, setLoginData] = useState<ILoginReqData | null>()
+    const [loginData, setLoginData] = useState<ILoginReqData>()
     const [loginValue, setLoginValue] = useState<ILoginReqData>({
         email: '',
         password: '',

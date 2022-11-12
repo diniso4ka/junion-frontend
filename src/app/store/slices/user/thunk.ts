@@ -1,8 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import {
-    ILoginReqData,
-    IRegisterReqData,
-} from 'shared/helpers/validations/types'
+import { ILoginReqData, IRegisterReqData } from 'shared/types/auth'
 import {
     fetchAuthMe,
     fetchLogin,
@@ -13,7 +10,9 @@ import {
 export const thunkFetchRegister = createAsyncThunk(
     'users/registerStatus',
     async (data: IRegisterReqData) => {
+        console.log('fecth')
         const res = await fetchRegister(data)
+        console.log(res)
         return res
     }
 )
