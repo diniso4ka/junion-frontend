@@ -1,0 +1,16 @@
+.TableRow {
+    background-color: var(--white-color);
+    font-family: var(--font-family-main);
+}
+.items {
+    display: grid;
+    grid-template-columns: 6% 6% 12% 18% 10% 10% 10% 18% 10%;
+    padding: 31px 0 8px 0;
+    margin: 0 18px;
+    border-bottom: 1px solid #dedede;
+}
+
+.item {
+    font-size: var(--font-size-m);
+    list-style: none;
+}

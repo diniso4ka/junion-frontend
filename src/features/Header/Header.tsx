@@ -31,10 +31,10 @@ const Header: React.FC = () => {
         <header className={s.wrapper}>
             {!data ? (
                 <div className={s.contentWrapper}>
-                    {location.pathname === routeConfig.MAIN ? (
+                    {location.pathname === routeConfig.HOME ? (
                         <div></div>
                     ) : (
-                        <LinkButton to={routeConfig.MAIN}>
+                        <LinkButton to={routeConfig.HOME}>
                             <img src={logo} />
                         </LinkButton>
                     )}
@@ -57,7 +57,7 @@ const Header: React.FC = () => {
                 </div>
             ) : (
                 <div className={s.contentWrapper}>
-                    <LinkButton to={routeConfig.MAIN}>
+                    <LinkButton to={routeConfig.HOME}>
                         <img src={logo} />
                     </LinkButton>
                     <nav className={s.links}>

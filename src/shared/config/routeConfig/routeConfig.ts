@@ -1,4 +1,14 @@
-import { EnterEmail, Login, Logo, HomePage, Register, SendLink } from 'pages'
+import {
+    EnterEmail,
+    Login,
+    Logo,
+    Home,
+    Register,
+    SendLink,
+    Categories,
+    Products,
+    Vendors,
+} from 'pages'
 import React from 'react'
 
 export enum routeConfig {
@@ -6,7 +16,10 @@ export enum routeConfig {
     LOGIN = '/login',
     ENTEREMAIL = '/fpel',
     SENDLINK = '/fpsl',
-    MAIN = '/',
+    HOME = '/',
+    CATEGORIES = '/categories',
+    PRODUCTS = '/products',
+    VENDORS = '/vendors',
 }
 export interface routesProps {
     path: string
@@ -23,7 +36,7 @@ export const publicRoutes: routesProps[] = [
         Component: Login,
     },
     {
-        path: routeConfig.MAIN,
+        path: routeConfig.HOME,
         Component: Logo,
     },
     {
@@ -38,7 +51,19 @@ export const publicRoutes: routesProps[] = [
 
 export const privateRoutes: routesProps[] = [
     {
-        path: routeConfig.MAIN,
-        Component: HomePage,
+        path: routeConfig.HOME,
+        Component: Home,
+    },
+    {
+        path: routeConfig.CATEGORIES,
+        Component: Categories,
+    },
+    {
+        path: routeConfig.PRODUCTS,
+        Component: Products,
+    },
+    {
+        path: routeConfig.VENDORS,
+        Component: Vendors,
     },
 ]

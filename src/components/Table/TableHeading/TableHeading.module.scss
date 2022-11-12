@@ -1,0 +1,14 @@
+.TableHeading {
+    background-color: var(--bg-third-color);
+    font-family: var(--font-family-main);
+}
+.items {
+    display: grid;
+    grid-template-columns: 6% 6% 12% 18% 10% 10% 10% 18% 10%;
+    padding: 8px 18px;
+}
+.item {
+    text-decoration: none;
+    list-style: none;
+    font-size: var(--font-size-m);
+}
