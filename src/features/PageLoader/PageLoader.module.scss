@@ -1,0 +1,7 @@
+.PageLoader {
+    width: 100%;
+    height: calc(80vh - var(--header-height-desktop));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

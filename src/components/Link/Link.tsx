@@ -6,7 +6,7 @@ import s from './Link.module.scss'
 
 interface ILinkProps extends LinkProps {
     children: React.ReactNode
-    variant?: 'primary' | 'secondary' | 'outline'
+    variant?: 'primary' | 'secondary' | 'outline' | 'clear'
     className?: string
 }
 

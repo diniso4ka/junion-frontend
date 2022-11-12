@@ -16,24 +16,24 @@ interface initialStateType {
     user: {
         data: IUserData | null
         status: Status
-        initialize: boolean
     }
     errors: {
         incorrect: string | null
         wrongSuperCode: boolean
     }
+    initialize: boolean
 }
 
 const initialState: initialStateType = {
     user: {
         data: null,
         status: Status.LOADING,
-        initialize: false,
     },
     errors: {
         incorrect: null,
         wrongSuperCode: false,
     },
+    initialize: false,
 }
 
 const userSlice = createSlice({
@@ -46,7 +46,6 @@ const userSlice = createSlice({
         }),
             builder.addCase(thunkFetchRegister.fulfilled, (state, action) => {
                 if (action.payload.status === 201) {
-                    console.log(action.payload)
                     saveTokenInLocalStorage(action.payload)
                 } else {
                     state.errors.wrongSuperCode = true
@@ -77,6 +76,9 @@ const userSlice = createSlice({
                 state.user.status = Status.LOADING
             }),
             builder.addCase(thunkFetchAuthMe.fulfilled, (state, action) => {
+                if (!state.initialize) {
+                    state.initialize = true
+                }
                 if (action.payload.data) {
                     state.user.data = action.payload.data.user
                 }

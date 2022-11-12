@@ -46,7 +46,7 @@ const Header: React.FC = () => {
                                         location.pathname === link.path &&
                                         s.active
                                     }
-                                    variant={'outline'}
+                                    variant={'clear'}
                                     to={link.path}
                                 >
                                     {link.label}

@@ -3,7 +3,7 @@ import cls from 'classnames'
 import s from './HomePage.module.scss'
 import { List } from 'components'
 import { getDate } from 'shared/helpers/date/getDate'
-import { useAppSelector } from '../../../app/store/types'
+import { useAppSelector } from 'app/store/types'
 
 const HomePage: React.FC = () => {
     const products = useAppSelector(state => state.products.data)

@@ -9,11 +9,14 @@ import AppRouter from './providers/router/AppRouter'
 import Header from '../features/Header/Header'
 import { useTheme } from './providers/ThemeProvider/useTheme'
 import { Theme } from './providers/ThemeProvider/ThemeContext'
-import Sidebar from '../features/Sidebar/Sidebar'
+import Sidebar from 'features/Sidebar/Sidebar'
 import { thunkFetchProductList } from './store/slices/products/thunk'
+
+import { PageLoader } from 'features/PageLoader/PageLoader'
 
 const App: React.FC = () => {
     const data = useAppSelector(state => state.user.user.data)
+    const initialize = useAppSelector(state => state.user.initialize)
     const dispatch = useAppDispatch()
     const { theme } = useTheme()
 
@@ -25,12 +28,13 @@ const App: React.FC = () => {
     return (
         <div className={cls('app', theme === Theme.LIGHT ? 'default' : 'dark')}>
             <Header />
-            <div className='pageWrapper'>
-                {data ? <Sidebar /> : null}
-                <React.Suspense fallback={<div>...loading</div>}>
+            {!initialize && <PageLoader />}
+            {initialize && (
+                <div className='pageWrapper'>
+                    {data && <Sidebar />}
                     <AppRouter />
-                </React.Suspense>
-            </div>
+                </div>
+            )}
         </div>
     )
 }
