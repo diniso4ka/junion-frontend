@@ -1,6 +1,9 @@
-import { ILoginReqData, IRegisterReqData } from '../helpers/validations/types'
-import api from './instance'
-import { endpoints } from './endpoints'
+import {
+    ILoginReqData,
+    IRegisterReqData,
+} from '../../helpers/validations/types'
+import api from '../instance'
+import { endpoints } from '../endpoints'
 
 export const fetchRegister = async (data: IRegisterReqData) => {
     const res = await api.post(endpoints.users.register, {

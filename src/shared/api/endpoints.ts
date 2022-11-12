@@ -5,4 +5,7 @@ export const endpoints = {
         me: '/users/current',
         logout: '/users/logout',
     },
+    products: {
+        list: '/products',
+    },
 }

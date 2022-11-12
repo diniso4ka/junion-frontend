@@ -10,6 +10,7 @@ import Header from '../features/Header/Header'
 import { useTheme } from './providers/ThemeProvider/useTheme'
 import { Theme } from './providers/ThemeProvider/ThemeContext'
 import Sidebar from '../features/Sidebar/Sidebar'
+import { thunkFetchProductList } from './store/slices/products/thunk'
 
 const App: React.FC = () => {
     const data = useAppSelector(state => state.user.user.data)
@@ -18,6 +19,7 @@ const App: React.FC = () => {
 
     React.useEffect(() => {
         dispatch(thunkFetchAuthMe())
+        dispatch(thunkFetchProductList())
     }, [])
 
     return (

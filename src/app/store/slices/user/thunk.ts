@@ -8,7 +8,7 @@ import {
     fetchLogin,
     fetchLogout,
     fetchRegister,
-} from 'shared/api/requests'
+} from 'shared/api/requests/user'
 
 export const thunkFetchRegister = createAsyncThunk(
     'users/registerStatus',

@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import { Status } from '../../types'
-import { IUserData } from './types'
+import { IUserData } from 'shared/types/user'
 
-import { saveTokenInLocalStorage } from './helpers'
+import { saveTokenInLocalStorage } from 'shared/helpers/localStorage/localStorage'
 import { passwordValidationMessages } from 'shared/helpers/validations/messages'
 import {
     thunkFetchAuthMe,

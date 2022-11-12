@@ -2,7 +2,7 @@ import { FC } from 'react'
 import s from './DroppedMenu.module.scss'
 import cls from 'classnames'
 import { Button } from '../Button'
-import { IUserData } from '../../app/store/slices/user/types'
+import { IUserData } from '../../shared/types/user'
 
 interface DroppedMenuProps {
     data?: IUserData
