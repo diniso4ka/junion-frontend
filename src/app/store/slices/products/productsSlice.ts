@@ -4,12 +4,18 @@ import { thunkFetchProductList } from './thunk'
 import { IProductsResData } from 'shared/types/products'
 
 interface initialStateType {
-    products: IProductsResData[]
+    data: {
+        quantity: number
+        items: IProductsResData[]
+    }
     status: Status
 }
 
 const initialState: initialStateType = {
-    products: [],
+    data: {
+        quantity: 0,
+        items: [],
+    },
     status: Status.LOADING,
 }
 
@@ -19,18 +25,19 @@ const productsSlice = createSlice({
     reducers: {},
     extraReducers: builder => {
         builder.addCase(thunkFetchProductList.pending, (state, action) => {
-            state.products = []
+            state.data.items = []
             state.status = Status.LOADING
         }),
             builder.addCase(
                 thunkFetchProductList.fulfilled,
                 (state, action) => {
-                    state.products = action.payload.data
+                    state.data.items = action.payload.data.result
+                    state.data.quantity = action.payload.data.qty
                     state.status = Status.SUCCESS
                 }
             ),
             builder.addCase(thunkFetchProductList.rejected, (state, action) => {
-                state.products = []
+                state.data.items = []
                 state.status = Status.ERROR
             })
     },

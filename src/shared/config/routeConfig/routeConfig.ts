@@ -1,4 +1,4 @@
-import { EnterEmail, Login, Logo, Main, Register, SendLink } from 'pages'
+import { EnterEmail, Login, Logo, HomePage, Register, SendLink } from 'pages'
 import React from 'react'
 
 export enum routeConfig {
@@ -39,6 +39,6 @@ export const publicRoutes: routesProps[] = [
 export const privateRoutes: routesProps[] = [
     {
         path: routeConfig.MAIN,
-        Component: Main,
+        Component: HomePage,
     },
 ]

@@ -14,6 +14,7 @@ import { thunkFetchProductList } from './store/slices/products/thunk'
 
 const App: React.FC = () => {
     const data = useAppSelector(state => state.user.user.data)
+    const products = useAppSelector(state => state.products.data)
     const dispatch = useAppDispatch()
     const { theme } = useTheme()
 
@@ -21,13 +22,15 @@ const App: React.FC = () => {
         dispatch(thunkFetchAuthMe())
         dispatch(thunkFetchProductList())
     }, [])
+    React.useEffect(() => {
+        console.log(products)
+    }, [products])
 
     return (
         <div className={cls('app', theme === Theme.LIGHT ? 'default' : 'dark')}>
             <Header />
             <div className='pageWrapper'>
                 {data ? <Sidebar /> : null}
-
                 <React.Suspense fallback={<div>...loading</div>}>
                     <AppRouter />
                 </React.Suspense>
