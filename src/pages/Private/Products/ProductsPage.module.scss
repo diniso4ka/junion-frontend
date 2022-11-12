@@ -1,7 +1,14 @@
 .ProductsPage {
     width: 100%;
+    font-family: var(--font-family-main);
 }
 
 .table {
     margin-top: 100px;
+}
+
+.date {
+    font-style: normal;
+    font-weight: 400;
+    font-size: var(--font-size-l);
 }

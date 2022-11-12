@@ -1,0 +1,23 @@
+.List {
+    max-width: 450px;
+    background-color: var(--white-color);
+    padding: 41px 20px;
+    border-radius: 10px;
+    font-family: var(--font-family-main);
+}
+
+.title {
+    margin-bottom: 24px;
+    font-weight: 500;
+    font-size: var(--font-size-l);
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 22px;
+}
+
+.value {
+    font-size: var(--font-size-xl);
+}

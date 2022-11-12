@@ -1,0 +1,28 @@
+.HomePage {
+    margin-top: 4%;
+    width: 100%;
+    font-family: var(--font-family-main);
+}
+
+.information {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 1000px;
+    margin: 0 auto 35px auto;
+}
+
+.items {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 114px;
+    justify-content: center;
+    flex: 1 1 auto;
+}
+
+.item {
+    flex: 1 1 auto;
+}

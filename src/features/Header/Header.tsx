@@ -3,7 +3,7 @@ import { useState } from 'react'
 import cls from 'classnames'
 import s from './Header.module.scss'
 
-import { Button, DroppedMenu, Link } from 'components'
+import { DroppedMenu, Link } from 'components'
 import logo from 'shared/assets/images/logo/logoMini.png'
 import avatar from 'shared/assets/images/user/User.svg'
 import arrow from 'shared/assets/images/icons/Arrow.svg'
