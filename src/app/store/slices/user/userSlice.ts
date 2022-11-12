@@ -85,6 +85,9 @@ const userSlice = createSlice({
                 state.user.status = Status.SUCCESS
             }),
             builder.addCase(thunkFetchAuthMe.rejected, state => {
+                if (!state.initialize) {
+                    state.initialize = true
+                }
                 state.user.data = null
                 state.user.status = Status.ERROR
             }),
