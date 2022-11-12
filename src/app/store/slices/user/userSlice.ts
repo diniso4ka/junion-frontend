@@ -45,8 +45,8 @@ const userSlice = createSlice({
             state.user.status = Status.LOADING
         }),
             builder.addCase(thunkFetchRegister.fulfilled, (state, action) => {
-                if (action.payload.status === 201) {
-                    saveTokenInLocalStorage(action.payload)
+                if (action.payload.data.user.token) {
+                    saveTokenInLocalStorage(action.payload.data.user.token)
                 } else {
                     state.errors.wrongSuperCode = true
                     state.user.status = Status.SUCCESS
@@ -62,8 +62,8 @@ const userSlice = createSlice({
             }),
             builder.addCase(thunkFetchLogin.fulfilled, (state, action) => {
                 state.errors.incorrect = null
-                if (action.payload?.data?.message === 'login successfull') {
-                    saveTokenInLocalStorage(action.payload)
+                if (!!action.payload.data.token) {
+                    saveTokenInLocalStorage(action.payload.data.token)
                     state.user.status = Status.SUCCESS
                 }
             }),

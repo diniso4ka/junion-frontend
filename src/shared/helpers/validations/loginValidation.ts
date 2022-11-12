@@ -1,6 +1,6 @@
-import { mailRegex } from './validationRegex'
 import { ILoginReqData } from '../../types/auth'
-import { mailValidation, passwordValidation } from './helpers'
+import { mailValidation } from './helpers'
+import { passwordValidationMessages } from './messages'
 
 export const loginValidation = (data: ILoginReqData) => {
     const { email, password } = data
@@ -10,8 +10,8 @@ export const loginValidation = (data: ILoginReqData) => {
         errors.email = mailValidation(email)
     }
 
-    if (!!passwordValidation(password)) {
-        errors.password = passwordValidation(password)
+    if (!password) {
+        errors.password = passwordValidationMessages.empty
     }
 
     if (errors && Object.keys(errors).length === 0) {

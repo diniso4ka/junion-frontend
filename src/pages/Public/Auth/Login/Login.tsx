@@ -12,7 +12,7 @@ import { Button, Input } from 'components'
 
 const Login: FC = () => {
     const [validaionErrors, setValidaionErrors] =
-        useState<IValidationResponseData | null>()
+        useState<IValidationResponseData>()
     const [loginData, setLoginData] = useState<ILoginReqData>()
     const [loginValue, setLoginValue] = useState<ILoginReqData>({
         email: '',

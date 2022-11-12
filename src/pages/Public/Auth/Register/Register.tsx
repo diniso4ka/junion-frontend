@@ -17,7 +17,6 @@ import {
     passwordValidationMessages,
     superCodeValidationMessages,
 } from 'shared/helpers/validations/messages'
-import { cosmiconfig } from 'cosmiconfig'
 
 const Register = () => {
     const asyncErrors = useAppSelector(state => state.user.errors)
@@ -32,11 +31,11 @@ const Register = () => {
     const [registerData, setRegisterData] =
         React.useState<IRegisterReqData | null>()
     const [registerValue, setRegisterValue] = React.useState<IRegisterReqData>({
-        email: 'efe@erf.ru',
-        password: 'efwf@!1',
-        correctPassword: 'efwf@!1',
-        name: 'fewfewf',
-        superCode: '777',
+        email: '',
+        password: '',
+        correctPassword: '',
+        name: '',
+        superCode: '',
     })
 
     const dispatch = useAppDispatch()
@@ -50,7 +49,6 @@ const Register = () => {
         if (errors) {
             setValidaionErrors({ ...errors })
         } else {
-            console.log('success')
             setValidaionErrors(null)
             await setRegisterData({
                 email: registerValue.email,
@@ -61,9 +59,10 @@ const Register = () => {
         }
     }
     const onRegister = async registerData => {
-        console.log('request')
-        await dispatch(thunkFetchRegister(registerData))
-        await dispatch(thunkFetchAuthMe())
+        const res = await dispatch(thunkFetchRegister(registerData))
+        if (res.payload) {
+            dispatch(thunkFetchAuthMe())
+        }
     }
 
     // Ивенты onChange
@@ -130,7 +129,6 @@ const Register = () => {
 
     React.useEffect(() => {
         if (registerData) {
-            console.log('data')
             onRegister(registerData)
         }
     }, [registerData])
