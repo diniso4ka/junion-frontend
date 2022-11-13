@@ -18,7 +18,7 @@ export enum routeConfig {
     SENDLINK = '/fpsl',
     HOME = '/',
     CATEGORIES = '/categories',
-    PRODUCTS = '/products/*',
+    PRODUCTS = '/products',
     VENDORS = '/vendors',
 }
 export interface routesProps {
