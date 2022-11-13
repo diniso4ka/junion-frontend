@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import s from './FilterMenu.module.scss'
 import cls from 'classnames'
 
@@ -11,6 +11,7 @@ import {
 import { IProductsFilter } from 'shared/types/filters'
 
 import { Button, Input } from 'components'
+import { useLocation, useNavigate } from 'react-router'
 
 interface ProfileMenuProps {
     setIsOpen?: (active) => void
@@ -19,17 +20,34 @@ interface ProfileMenuProps {
 }
 
 export const FilterMenu: FC<ProfileMenuProps> = ({ className, setIsOpen }) => {
+    const navigate = useNavigate()
+    const params = useLocation()
+
     const dispatch = useAppDispatch()
     const [filtersValue, setFiltersValue] = useState<IProductsFilter>({})
     const onSubmitFilters = () => {
         const params = createQueryParams(filtersValue)
+        console.log(params)
         if (params) {
             dispatch(thunkFetchFiltredProductList(params))
         } else {
             dispatch(thunkFetchProductList())
         }
+        navigate(`?${params}`)
         setIsOpen(false)
     }
+
+    const defaultFilters = async () => {
+        if (params.search) {
+            const queryParams = params.search.replace('?', '')
+            await dispatch(thunkFetchFiltredProductList(queryParams))
+            await navigate(`?${queryParams}`)
+        }
+    }
+
+    useEffect(() => {
+        defaultFilters()
+    }, [])
 
     return (
         <div className={cls(s.FilterMenu, className)}>

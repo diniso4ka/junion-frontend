@@ -23,7 +23,7 @@ export enum routeConfig {
 }
 export interface routesProps {
     path: string
-    Component: React.FC<{}>
+    Component: React.FC
 }
 
 export const publicRoutes: routesProps[] = [
