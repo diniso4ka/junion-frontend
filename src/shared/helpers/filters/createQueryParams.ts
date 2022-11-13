@@ -11,7 +11,6 @@ export const createQueryParams = data => {
 export const convertQueryParamsInObj = params => {
     const queryParams = {}
     return params.search
-        .replace('?', '')
         .split('&')
         .map(item => item.split('='))
         .map(arr => (queryParams[arr[0]] = arr[1]))

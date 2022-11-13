@@ -2,8 +2,11 @@ import { FC, useEffect, useState } from 'react'
 import s from './FilterMenu.module.scss'
 import cls from 'classnames'
 
-import { useAppDispatch } from 'app/store/types'
-import { createQueryParams } from 'shared/helpers/filters/createQueryParams'
+import { useAppDispatch, useAppSelector } from 'app/store/types'
+import {
+    convertQueryParamsInObj,
+    createQueryParams,
+} from 'shared/helpers/filters/createQueryParams'
 import {
     thunkFetchFiltredProductList,
     thunkFetchProductList,
@@ -12,6 +15,7 @@ import { IProductsFilter } from 'shared/types/filters'
 
 import { Button, Input } from 'components'
 import { useLocation, useNavigate } from 'react-router'
+import { setFilters } from 'app/store/slices/filters/filtersSlice'
 
 interface ProfileMenuProps {
     setIsOpen?: (active) => void
@@ -24,24 +28,28 @@ export const FilterMenu: FC<ProfileMenuProps> = ({ className, setIsOpen }) => {
     const params = useLocation()
 
     const dispatch = useAppDispatch()
+    const filters = useAppSelector(state => state.filters.filters)
     const [filtersValue, setFiltersValue] = useState<IProductsFilter>({})
     const onSubmitFilters = () => {
         const params = createQueryParams(filtersValue)
-        console.log(params)
         if (params) {
+            dispatch(setFilters(params))
             dispatch(thunkFetchFiltredProductList(params))
         } else {
             dispatch(thunkFetchProductList())
         }
-        navigate(`?${params}`)
+
         setIsOpen(false)
     }
 
     const defaultFilters = async () => {
         if (params.search) {
             const queryParams = params.search.replace('?', '')
+            dispatch(setFilters(convertQueryParamsInObj(queryParams)))
             await dispatch(thunkFetchFiltredProductList(queryParams))
             await navigate(`?${queryParams}`)
+        } else if (filters) {
+            navigate(`?${filters}`)
         }
     }
 
