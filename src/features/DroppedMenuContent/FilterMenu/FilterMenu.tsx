@@ -38,7 +38,7 @@ export const FilterMenu: FC<ProfileMenuProps> = ({ className, setIsOpen }) => {
         } else {
             dispatch(thunkFetchProductList())
         }
-
+        navigate(`?${params}`)
         setIsOpen(false)
     }
 
