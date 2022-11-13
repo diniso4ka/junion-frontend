@@ -1,6 +1,6 @@
 import React from 'react'
 import cls from 'classnames'
-import s from './Register.module.scss'
+import s from './RegisterPage.module.scss'
 import { Button, Input } from 'components'
 import { IRegisterReqData, IValidationResponseData } from 'shared/types/auth'
 import {
@@ -18,7 +18,7 @@ import {
     superCodeValidationMessages,
 } from 'shared/helpers/validations/messages'
 
-const Register = () => {
+const RegisterPage = () => {
     const asyncErrors = useAppSelector(state => state.user.errors)
     const [validaionErrors, setValidaionErrors] =
         React.useState<IValidationResponseData>({})
@@ -250,7 +250,7 @@ const Register = () => {
                                         : 'hint'
                                     : 'error'
                             }
-                            sizeContainer={'secondary'}
+                            sizeContainer={'small'}
                         />
                     </div>
                     <Button
@@ -283,4 +283,4 @@ const Register = () => {
     )
 }
 
-export default Register
+export default RegisterPage

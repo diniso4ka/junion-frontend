@@ -42,7 +42,7 @@ const HomePage: React.FC = () => {
     return (
         <div className={cls(s.HomePage, s.wrapper)}>
             <div className={s.information}>
-                <h2>Information board</h2>
+                <h1>Information board</h1>
                 <p>{`${date.mounth} ${date.number}, ${date.year}`}</p>
             </div>
             <div className={s.items}>

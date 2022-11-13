@@ -12,9 +12,15 @@ import { Link as LinkButton } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from 'app/store/types'
 import { thunkFetchLogout } from 'app/store/slices/user/thunk'
 import { routeConfig } from 'shared/config/routeConfig/routeConfig'
+import { ProfileMenu } from '../DroppedMenuContent/ProfileMenu/ProfileMenu'
 
-const Header: React.FC = () => {
-    const [isOpened, setIsOpened] = useState(false)
+interface HeaderProps {
+    isOpened?: boolean
+    setIsOpened?: () => void
+    onClick?: (e) => void
+}
+
+const Header: React.FC<HeaderProps> = ({ isOpened, setIsOpened, onClick }) => {
     const { data } = useAppSelector(state => state.user.user)
     const dispatch = useAppDispatch()
     const location = useLocation()
@@ -61,25 +67,22 @@ const Header: React.FC = () => {
                         <img src={logo} />
                     </LinkButton>
                     <nav className={s.links}>
-                        <div className={s.user}>
+                        <div onClick={onClick} className={s.user}>
                             <div className={s.userInfo}>
                                 <img src={avatar} />
                                 <label>{data.name}</label>
                             </div>
                             <img
-                                onClick={() => setIsOpened(!isOpened)}
+                                onClick={setIsOpened}
                                 className={cls(s.arrow, {
                                     [s.arrowRotated]: isOpened,
                                 })}
                                 src={arrow}
                             />
                         </div>
-                        <DroppedMenu
-                            data={data}
-                            size={'medium'}
-                            isOpened={isOpened}
-                            onClick={onClickLogout}
-                        />
+                        <DroppedMenu size={'medium'} isOpened={isOpened}>
+                            <ProfileMenu data={data} onClick={onClickLogout} />
+                        </DroppedMenu>
                     </nav>
                 </div>
             )}

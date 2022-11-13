@@ -5,13 +5,13 @@ import s from './Input.module.scss'
 import eye from 'shared/assets/images/password-icons/codicon_eye.svg'
 import eyeClosed from 'shared/assets/images/password-icons/codicon_eye-closed.svg'
 import { Link } from '../Link'
-import { routeConfig } from '../../shared/config/routeConfig/routeConfig'
+import { routeConfig } from 'shared/config/routeConfig/routeConfig'
 
 interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
     type?: 'text' | 'password'
-    placeHolder: string
+    placeHolder?: string
     variant?: 'primary' | 'secondary' | 'outline'
-    sizeContainer?: 'primary' | 'secondary'
+    sizeContainer?: 'large' | 'medium' | 'small' | 'adaptive'
     classname?: string
     helperText?: string
     helperClass?: 'error' | 'hint' | 'success'
@@ -23,9 +23,9 @@ export const Input: React.FC<IInputProps> = React.memo(
     ({
         type = 'text',
         variant = 'primary',
-        sizeContainer = 'primary',
+        sizeContainer = 'large',
         classname,
-        error = 'error',
+        error = false,
         helperText,
         helperClass = 'error',
         forgotPass = false,
@@ -53,6 +53,7 @@ export const Input: React.FC<IInputProps> = React.memo(
             <div className={s.wrapper}>
                 <div className={s.inputWrapper}>
                     <input
+                        className={classnames}
                         onChange={e => rest.onChange(e)}
                         autoComplete={'off'}
                         type={
@@ -62,7 +63,6 @@ export const Input: React.FC<IInputProps> = React.memo(
                                 ? 'text'
                                 : 'password'
                         }
-                        className={classnames}
                         {...rest}
                     />
                     <div className={s.rightImage}>

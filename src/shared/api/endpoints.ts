@@ -6,6 +6,7 @@ export const endpoints = {
         logout: '/users/logout',
     },
     products: {
-        list: '/products',
+        list: `/products`,
+        filtredList: params => `/products?${params}`,
     },
 }

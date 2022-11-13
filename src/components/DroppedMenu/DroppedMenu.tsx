@@ -1,27 +1,26 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 import s from './DroppedMenu.module.scss'
 import cls from 'classnames'
-import { Button } from '../Button'
-import { IUserData } from '../../shared/types/user'
+import { IUserData } from 'shared/types/user'
 
 interface DroppedMenuProps {
     data?: IUserData
     size: 'large' | 'medium' | 'small'
     className?: string
     isOpened: boolean
-    onClick: () => void
+    children: ReactNode
 }
 
 export const DroppedMenu: FC<DroppedMenuProps> = ({
-    data,
     className,
     size,
     isOpened,
-    onClick,
+    children,
 }) => {
     return (
         <div
             className={cls(
+                className,
                 s.DroppedMenu,
                 {
                     [s.wrapperLarge]: size === 'large',
@@ -29,17 +28,12 @@ export const DroppedMenu: FC<DroppedMenuProps> = ({
                     [s.wrapperSmall]: size === 'small',
                 },
                 {
-                    [s.opened]: isOpened,
+                    [s.openedMedium]: isOpened && size === 'medium',
+                    [s.openedLarge]: isOpened && size === 'large',
                 }
             )}
         >
-            <label className={s.role}>
-                {data.role.charAt(0).toUpperCase() + data.role.slice(1)}
-            </label>
-            <label className={s.mail}>{data.email}</label>
-            <Button onClick={onClick} variant={'text'}>
-                Log Out
-            </Button>
+            {children}
         </div>
     )
 }

@@ -26,7 +26,11 @@ export const ProductsTable: FC<ProductsTableProps> = ({ className, items }) => {
             <TableHeading type={'products'} headings={headings} />
             <div className={s.items}>
                 {items.map(product => (
-                    <TableRow type={'products'} product={product} />
+                    <TableRow
+                        key={product._id}
+                        type={'products'}
+                        product={product}
+                    />
                 ))}
             </div>
         </div>

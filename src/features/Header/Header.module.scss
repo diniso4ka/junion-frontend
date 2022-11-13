@@ -27,7 +27,7 @@
 }
 
 .active {
-    font-family: 'Montserrat';
+    font-family: var(--font-family-main);
     font-style: normal;
     font-weight: 500 !important;
     transition: font-weight 0.3s ease-in-out;

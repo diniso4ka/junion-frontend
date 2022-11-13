@@ -15,16 +15,34 @@
     border: none;
     padding: 10px 0 0 8px;
     font-size: var(--font-size-m);
+    &.primary:focus {
+    }
+    &.secondary:focus {
+        outline: none;
+        border: none;
+        border-bottom: 1px solid var(--black-color);
+    }
 }
-.primary {
-    width: 380px;
-}
-.secondary {
-    width: 172px;
-}
-
 .primary {
     border: 1px solid var(--button-border-color);
+}
+
+.secondary {
+    border-bottom: 1px solid #dedede;
+    border-radius: 0;
+    height: 40px;
+}
+
+.adaptive {
+    width: 100%;
+}
+
+.medium {
+    width: 380px;
+}
+
+.small {
+    width: 172px;
 }
 
 .input:focus {

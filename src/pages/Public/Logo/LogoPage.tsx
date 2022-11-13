@@ -1,10 +1,10 @@
 import React from 'react'
 import cls from 'classnames'
-import s from './Logo.module.scss'
+import s from './LogoPage.module.scss'
 
 import logo from 'shared/assets/images/logo/logo.svg'
 
-const Logo = () => {
+const LogoPage = () => {
     return (
         <div className={s.wrapper}>
             <div className={s.contentWrapper}>
@@ -14,4 +14,4 @@ const Logo = () => {
     )
 }
 
-export default Logo
+export default LogoPage

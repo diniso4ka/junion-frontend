@@ -1,12 +1,12 @@
 import React from 'react'
 import cls from 'classnames'
-import s from './EnterEmail.module.scss'
+import s from './EnterEmailPage.module.scss'
 import { Button, Input } from 'components'
 import { useNavigate } from 'react-router'
 import { mailRegex } from 'shared/helpers/validations/validationRegex'
 import { routeConfig } from '../../../../shared/config/routeConfig/routeConfig'
 
-const EnterEmail = () => {
+const EnterEmailPage = () => {
     const navigate = useNavigate()
     const [emailValue, setEmailValue] = React.useState<string>('')
     const [emailValiadtion, setEmailValiadtion] = React.useState<string>('')
@@ -53,4 +53,4 @@ const EnterEmail = () => {
     )
 }
 
-export default EnterEmail
+export default EnterEmailPage

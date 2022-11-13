@@ -40,4 +40,26 @@
 
     --margin-top-form-m: clamp(1rem, 0.143rem + 4.29vw, 4rem);
     --margin-top-form-l: clamp(2rem, 0.071rem + 9.64vw, 8.75rem);
+
+    h1 {
+        font-family: var(--font-family-main);
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+    }
+
+    h2 {
+        font-family: var(--font-family-main);
+        font-style: normal;
+        font-weight: 500;
+        font-size: var(--font-size-l);
+    }
+
+    h4 {
+        font-family: var(--font-family-main);
+        font-style: normal;
+        font-weight: 400;
+        font-size: var(--font-size-m);
+        color: var(--black-color);
+    }
 }

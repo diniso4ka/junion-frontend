@@ -1,0 +1,18 @@
+.ProfileMenu {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+
+.role {
+    text-align: center;
+    width: 132px;
+    margin: 24px 0 8px 0;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #dedede;
+}
+
+.mail {
+    margin: 0 0 40px 0;
+}

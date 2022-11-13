@@ -3,12 +3,26 @@
     font-family: var(--font-family-main);
 }
 
+.navigation {
+    display: grid;
+    grid-template-columns: 5% 65% 20% 10%;
+    max-width: 1200px;
+    margin: 25px auto 25px auto;
+    align-items: center;
+}
+
+.search {
+    width: 100%;
+    max-width: 550px;
+    margin: 0 auto;
+}
+
 .table {
-    margin-top: 100px;
 }
 
 .date {
     font-style: normal;
     font-weight: 400;
     font-size: var(--font-size-l);
+    text-align: right;
 }

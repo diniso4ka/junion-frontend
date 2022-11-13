@@ -1,0 +1,43 @@
+.wrapper {
+    position: relative;
+    max-width: 550px;
+}
+
+.helperIcon {
+    position: absolute;
+}
+
+.helperIconLeft {
+    top: 50%;
+    transform: translateY(-50%);
+    left: 5px;
+    padding: 5px;
+    pointer-events: none;
+}
+.helperIconRight {
+    top: 50%;
+    transform: translateY(-50%);
+    right: 7px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.input {
+    width: 100%;
+    height: 40px;
+    border-radius: 8px;
+    border: none;
+    padding: 0 0 0 50px;
+    font-size: var(--font-size-m);
+}
+
+.droppedMenu {
+    margin-top: 1px;
+}
+
+.active {
+    background-color: var(--bg-color);
+    height: 30px;
+    width: 30px;
+    border-radius: 30px;
+}

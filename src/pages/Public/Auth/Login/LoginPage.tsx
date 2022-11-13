@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react'
 import cls from 'classnames'
-import s from './Login.module.scss'
+import s from './LoginPage.module.scss'
 
 import { loginValidation } from 'shared/helpers/validations/loginValidation'
 import { IValidationResponseData, ILoginReqData } from 'shared/types/auth'
@@ -10,7 +10,7 @@ import { thunkFetchAuthMe, thunkFetchLogin } from 'app/store/slices/user/thunk'
 
 import { Button, Input } from 'components'
 
-const Login: FC = () => {
+const LoginPage: FC = () => {
     const [validaionErrors, setValidaionErrors] =
         useState<IValidationResponseData>()
     const [loginData, setLoginData] = useState<ILoginReqData>()
@@ -101,4 +101,4 @@ const Login: FC = () => {
     )
 }
 
-export default Login
+export default LoginPage

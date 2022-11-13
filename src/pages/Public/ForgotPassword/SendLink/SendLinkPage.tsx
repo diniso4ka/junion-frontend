@@ -1,8 +1,8 @@
 import React from 'react'
 import cls from 'classnames'
-import s from './SendLink.module.scss'
+import s from './SendLinkPage.module.scss'
 
-const SendLink = () => {
+const SendLinkPage = () => {
     return (
         <div className={s.wrapper}>
             <div className={s.contentWrapper}>
@@ -16,4 +16,4 @@ const SendLink = () => {
     )
 }
 
-export default SendLink
+export default SendLinkPage
