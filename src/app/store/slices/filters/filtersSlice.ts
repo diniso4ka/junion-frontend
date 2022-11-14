@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { IProductsFilter } from 'shared/types/filters'
+import { createQueryParams } from 'shared/helpers/filters/createQueryParams'
 
 interface initialStateType {
     filters: IProductsFilter
@@ -16,10 +17,21 @@ const filtersSlice = createSlice({
     initialState,
     reducers: {
         setFilters(state, action) {
-            state.filters = action.payload
+            let filters: any = {}
+            for (const i in action.payload) {
+                if (action.payload[i].length > 0) {
+                    filters = { ...filters, [i]: action.payload[i] }
+                }
+            }
+            state.filters = { ...filters }
+            state.queryParams = createQueryParams(filters)
+        },
+        clearFilters(state) {
+            state.filters = {}
+            state.queryParams = ''
         },
     },
 })
 
-export const { setFilters } = filtersSlice.actions
+export const { setFilters, clearFilters } = filtersSlice.actions
 export default filtersSlice.reducer

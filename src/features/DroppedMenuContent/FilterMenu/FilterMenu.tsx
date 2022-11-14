@@ -1,21 +1,20 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import s from './FilterMenu.module.scss'
 import cls from 'classnames'
 
 import { useAppDispatch, useAppSelector } from 'app/store/types'
-import {
-    convertQueryParamsInObj,
-    createQueryParams,
-} from 'shared/helpers/filters/createQueryParams'
+import { useSearchParams } from 'react-router-dom'
+import { createQueryParams } from 'shared/helpers/filters/createQueryParams'
 import {
     thunkFetchFiltredProductList,
     thunkFetchProductList,
 } from 'app/store/slices/products/thunk'
 import { IProductsFilter } from 'shared/types/filters'
 
+import { clearFilters, setFilters } from 'app/store/slices/filters/filtersSlice'
+
 import { Button, Input } from 'components'
-import { useLocation, useNavigate } from 'react-router'
-import { setFilters } from 'app/store/slices/filters/filtersSlice'
+import { clearFiltredItems } from 'app/store/slices/products/productsSlice'
 
 interface ProfileMenuProps {
     setIsOpen?: (active) => void
@@ -24,38 +23,83 @@ interface ProfileMenuProps {
 }
 
 export const FilterMenu: FC<ProfileMenuProps> = ({ className, setIsOpen }) => {
-    const navigate = useNavigate()
-    const params = useLocation()
+    const [searchParams, setSearchParams] = useSearchParams()
 
     const dispatch = useAppDispatch()
-    const filters = useAppSelector(state => state.filters.filters)
-    const [filtersValue, setFiltersValue] = useState<IProductsFilter>({})
+    const filter = useAppSelector(state => state.filters)
+    const [filtersValue, setFiltersValue] = useState<IProductsFilter>({
+        category: '',
+        name: '',
+        price_min: '',
+        price_max: '',
+        owner: '',
+        vendor: '',
+    })
     const onSubmitFilters = () => {
+        dispatch(setFilters(filtersValue))
         const params = createQueryParams(filtersValue)
         if (params) {
-            dispatch(setFilters(params))
             dispatch(thunkFetchFiltredProductList(params))
         } else {
             dispatch(thunkFetchProductList())
         }
-        navigate(`?${params}`)
         setIsOpen(false)
     }
 
-    const defaultFilters = async () => {
-        if (params.search) {
-            const queryParams = params.search.replace('?', '')
-            dispatch(setFilters(convertQueryParamsInObj(queryParams)))
-            await dispatch(thunkFetchFiltredProductList(queryParams))
-            await navigate(`?${queryParams}`)
-        } else if (filters) {
-            navigate(`?${filters}`)
-        }
+    const onClearFilters = () => {
+        setSearchParams({})
+        dispatch(clearFilters())
+        setFiltersValue({
+            category: '',
+            name: '',
+            price_min: '',
+            price_max: '',
+            owner: '',
+            vendor: '',
+        })
+        setIsOpen(false)
     }
 
     useEffect(() => {
-        defaultFilters()
+        const params: IProductsFilter = {}
+        const name = searchParams.get('name')
+        if (name) {
+            params.name = name
+        }
+        const category = searchParams.get('category')
+        if (category) {
+            params.category = category
+        }
+        const vendor = searchParams.get('vendor')
+        if (vendor) {
+            params.vendor = vendor
+        }
+        const owner = searchParams.get('owner')
+        if (owner) {
+            params.owner = owner
+        }
+        const price_min = searchParams.get('price_min')
+        if (price_min) {
+            params.price_min = price_min
+        }
+        const price_max = searchParams.get('price_max')
+        if (price_max) {
+            params.price_max = price_max
+        }
+        if (Object.keys(params).length > 0) {
+            dispatch(setFilters(params))
+        }
     }, [])
+
+    useEffect(() => {
+        if (Object.keys(filter.filters).length > 0) {
+            setFiltersValue(prev => ({ ...prev, ...filter.filters }))
+            setSearchParams({ ...filter.filters })
+            dispatch(thunkFetchFiltredProductList(filter.queryParams))
+        } else {
+            dispatch(clearFiltredItems())
+        }
+    }, [filter.filters])
 
     return (
         <div className={cls(s.FilterMenu, className)}>
@@ -148,6 +192,9 @@ export const FilterMenu: FC<ProfileMenuProps> = ({ className, setIsOpen }) => {
             <div className={s.buttonWrapper}>
                 <Button className={s.button} onClick={onSubmitFilters}>
                     send
+                </Button>
+                <Button className={s.button} onClick={onClearFilters}>
+                    clear
                 </Button>
             </div>
         </div>

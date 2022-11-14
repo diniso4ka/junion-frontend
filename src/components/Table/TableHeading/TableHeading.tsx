@@ -19,8 +19,8 @@ export const TableHeading: FC<TableHeading> = ({
         <div className={cls(s.TableHeading, className)}>
             <ul className={s.items}>
                 {headings.map(item => (
-                    <li className={s.item}>
-                        {item.value}{' '}
+                    <li key={item.value} className={s.item}>
+                        {item.value}
                         {item.sort && (
                             <img className={cls(s.sortIcon)} src={arrow} />
                         )}

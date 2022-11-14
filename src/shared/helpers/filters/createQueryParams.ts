@@ -10,8 +10,13 @@ export const createQueryParams = data => {
 
 export const convertQueryParamsInObj = params => {
     const queryParams = {}
-    return params.search
-        .split('&')
-        .map(item => item.split('='))
-        .map(arr => (queryParams[arr[0]] = arr[1]))
+    if (params.includes('&')) {
+        return params
+            .split('&')
+            .map(item => item.split('='))
+            .map(arr => (queryParams[arr[0]] = arr[1]))
+    } else {
+        console.log(params)
+        return params.split('=').map(arr => (queryParams[arr[0]] = arr[1]))
+    }
 }

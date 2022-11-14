@@ -2,11 +2,13 @@ import { Status } from '../../types'
 import { createSlice } from '@reduxjs/toolkit'
 import { thunkFetchFiltredProductList, thunkFetchProductList } from './thunk'
 import { IProductsResData } from 'shared/types/products'
+import { stat } from 'fs'
 
 interface initialStateType {
     data: {
         quantity: number
         items: IProductsResData[]
+        filtredItems: [] | null
     }
     status: Status
 }
@@ -15,6 +17,7 @@ const initialState: initialStateType = {
     data: {
         quantity: 0,
         items: [],
+        filtredItems: null,
     },
     status: Status.LOADING,
 }
@@ -22,7 +25,11 @@ const initialState: initialStateType = {
 const productsSlice = createSlice({
     name: 'products',
     initialState,
-    reducers: {},
+    reducers: {
+        clearFiltredItems(state) {
+            state.data.filtredItems = null
+        },
+    },
     extraReducers: builder => {
         builder.addCase(thunkFetchProductList.pending, (state, action) => {
             state.data.items = []
@@ -43,26 +50,26 @@ const productsSlice = createSlice({
             builder.addCase(
                 thunkFetchFiltredProductList.pending,
                 (state, action) => {
-                    state.data.items = []
+                    state.data.filtredItems = null
                     state.status = Status.LOADING
                 }
             ),
             builder.addCase(
                 thunkFetchFiltredProductList.fulfilled,
                 (state, action) => {
-                    state.data.items = action.payload.data.result
+                    state.data.filtredItems = action.payload.data.result
                     state.status = Status.SUCCESS
                 }
             ),
             builder.addCase(
                 thunkFetchFiltredProductList.rejected,
                 (state, action) => {
-                    state.data.items = []
+                    state.data.filtredItems = null
                     state.status = Status.ERROR
                 }
             )
     },
 })
 
-export const {} = productsSlice.actions
+export const { clearFiltredItems } = productsSlice.actions
 export default productsSlice.reducer

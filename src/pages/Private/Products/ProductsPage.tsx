@@ -2,25 +2,23 @@ import { FC, useEffect, useState } from 'react'
 import s from './ProductsPage.module.scss'
 import cls from 'classnames'
 import { ProductsTable } from 'features/ProductsTable/ProductsTable'
-import { useAppDispatch, useAppSelector } from 'app/store/types'
+import { useAppSelector } from 'app/store/types'
 import { getDate } from 'shared/helpers/date/getDate'
 import { Button, Search } from 'components'
 import { searchByIncludes } from 'shared/helpers/filters/search'
-import { useNavigate } from 'react-router'
 
 const ProductsPage: FC = () => {
-    const navigate = useNavigate()
-    const dispatch = useAppDispatch()
-    const params = useAppSelector(state => state.filters.queryParams)
     const [filterIsOpen, setFilterIsOpen] = useState(false)
     const [searchValue, setSearchValue] = useState<string>('')
     const productsData = useAppSelector(state => state.products.data.items)
-    const filtredItems = searchByIncludes(productsData, searchValue)
+    const filtredProductsData = useAppSelector(
+        state => state.products.data.filtredItems
+    )
+    const filtredItems = searchByIncludes(
+        filtredProductsData ? filtredProductsData : productsData,
+        searchValue
+    )
     const date = getDate()
-
-    useEffect(() => {
-        navigate(`?${params}`)
-    }, [params])
 
     return (
         <div
