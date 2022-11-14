@@ -15,6 +15,7 @@ import { clearFilters, setFilters } from 'app/store/slices/filters/filtersSlice'
 
 import { Button, Input } from 'components'
 import { clearFiltredItems } from 'app/store/slices/products/productsSlice'
+import { ProductsFilterDefault } from '../../../shared/helpers/degaultValues/filters'
 
 interface ProfileMenuProps {
     setIsOpen?: (active) => void
@@ -27,14 +28,9 @@ export const FilterMenu: FC<ProfileMenuProps> = ({ className, setIsOpen }) => {
 
     const dispatch = useAppDispatch()
     const filter = useAppSelector(state => state.filters)
-    const [filtersValue, setFiltersValue] = useState<IProductsFilter>({
-        category: '',
-        name: '',
-        price_min: '',
-        price_max: '',
-        owner: '',
-        vendor: '',
-    })
+    const [filtersValue, setFiltersValue] = useState<IProductsFilter>(
+        ProductsFilterDefault
+    )
     const onSubmitFilters = () => {
         dispatch(setFilters(filtersValue))
         const params = createQueryParams(filtersValue)
@@ -49,14 +45,7 @@ export const FilterMenu: FC<ProfileMenuProps> = ({ className, setIsOpen }) => {
     const onClearFilters = () => {
         setSearchParams({})
         dispatch(clearFilters())
-        setFiltersValue({
-            category: '',
-            name: '',
-            price_min: '',
-            price_max: '',
-            owner: '',
-            vendor: '',
-        })
+        setFiltersValue(ProductsFilterDefault)
         setIsOpen(false)
     }
 

@@ -7,18 +7,26 @@ import { useAppSelector } from 'app/store/types'
 
 const HomePage: React.FC = () => {
     const products = useAppSelector(state => state.products.data)
+    const status = useAppSelector(state => state.products.status)
     const tablesData = {
         products: {
             title: 'Product information:',
             items: [
-                { label: 'Products in the shope:', value: products.quantity },
+                {
+                    label: 'Products in the shope:',
+                    value: `${products.quantity}`,
+                },
                 {
                     label: 'Products without price:',
-                    value: products.items.filter(item => !item.price).length,
+                    value: `${
+                        products.items.filter(item => !item.price).length
+                    }`,
                 },
                 {
                     label: 'Products without category:',
-                    value: products.items.filter(item => !item.category).length,
+                    value: `${
+                        products.items.filter(item => !item.category).length
+                    }`,
                 },
             ],
         },
@@ -46,8 +54,16 @@ const HomePage: React.FC = () => {
                 <p>{`${date.mounth} ${date.number}, ${date.year}`}</p>
             </div>
             <div className={s.items}>
-                <List data={tablesData.products} className={s.item} />
-                <List data={tablesData.employee} className={s.item} />
+                <List
+                    isLoading={status === 'loading'}
+                    data={tablesData.products}
+                    className={s.item}
+                />
+                <List
+                    isLoading={status === 'loading'}
+                    data={tablesData.employee}
+                    className={s.item}
+                />
             </div>
         </div>
     )

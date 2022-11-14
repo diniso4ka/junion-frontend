@@ -6,6 +6,13 @@
     font-family: var(--font-family-main);
 }
 
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 280px;
+}
+
 .title {
     margin-bottom: 24px;
     font-weight: 500;

@@ -31,7 +31,7 @@ export const registerValidation = (data: IRegisterReqData) => {
     }
 
     if (!superCode) {
-        errors.superCode = superCodeValidationMessages.incorrect
+        errors.superCode = superCodeValidationMessages.empty
     }
 
     if (errors && Object.keys(errors).length === 0) {

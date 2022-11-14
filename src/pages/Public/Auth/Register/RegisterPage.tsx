@@ -17,6 +17,7 @@ import {
     passwordValidationMessages,
     superCodeValidationMessages,
 } from 'shared/helpers/validations/messages'
+import { RegisterDefault } from 'shared/helpers/degaultValues/register'
 
 const RegisterPage = () => {
     const asyncErrors = useAppSelector(state => state.user.errors)
@@ -30,13 +31,8 @@ const RegisterPage = () => {
     const [submitForm, setSubmitForm] = React.useState<boolean>(false)
     const [registerData, setRegisterData] =
         React.useState<IRegisterReqData | null>()
-    const [registerValue, setRegisterValue] = React.useState<IRegisterReqData>({
-        email: '',
-        password: '',
-        correctPassword: '',
-        name: '',
-        superCode: '',
-    })
+    const [registerValue, setRegisterValue] =
+        React.useState<IRegisterReqData>(RegisterDefault)
 
     const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.user.user.status)
@@ -45,16 +41,13 @@ const RegisterPage = () => {
     const onSubmitForm = async () => {
         setSubmitForm(true)
         const errors = registerValidation(registerValue)
-        console.log(errors)
         if (errors) {
             setValidaionErrors({ ...errors })
         } else {
             setValidaionErrors(null)
+            const { correctPassword, ...otherValues } = registerValue
             await setRegisterData({
-                email: registerValue.email,
-                password: registerValue.password,
-                name: registerValue.name,
-                superCode: registerValue.superCode,
+                ...otherValues,
             })
         }
     }
@@ -229,7 +222,7 @@ const RegisterPage = () => {
                         <label className={s.label}>Super Code</label>
                         <Input
                             onFocus={() => setSuperCodeFocus(true)}
-                            onBlur={() => onBlurSuperCode}
+                            onBlur={() => onBlurSuperCode()}
                             onChange={e =>
                                 setRegisterValue(prev => ({
                                     ...prev,
@@ -239,7 +232,8 @@ const RegisterPage = () => {
                             value={registerValue.superCode}
                             placeHolder={'Enter the Super Code'}
                             error={
-                                !!validaionErrors?.superCode && submitForm
+                                !!validaionErrors?.superCode ||
+                                (!!asyncErrors.wrongSuperCode && submitForm)
                                     ? true
                                     : false
                             }

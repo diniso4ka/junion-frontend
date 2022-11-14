@@ -54,6 +54,7 @@ const userSlice = createSlice({
                 state.user.status = Status.SUCCESS
             }),
             builder.addCase(thunkFetchRegister.rejected, (state, action) => {
+                state.errors.wrongSuperCode = true
                 state.user.status = Status.ERROR
             }),
             builder.addCase(thunkFetchLogin.pending, (state, action) => {
