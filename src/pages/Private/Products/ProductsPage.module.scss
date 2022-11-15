@@ -1,5 +1,5 @@
 .ProductsPage {
-    width: 100%;
+    width: calc(100vw - var(--sidebar-width));
     font-family: var(--font-family-main);
 }
 
