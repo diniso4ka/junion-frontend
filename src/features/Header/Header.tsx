@@ -47,14 +47,7 @@ const Header: React.FC<HeaderProps> = ({ isOpened, setIsOpened, onClick }) => {
                     <nav className={s.links}>
                         {links.map(link => (
                             <div key={link.path} className={s.navItem}>
-                                <Link
-                                    className={
-                                        location.pathname === link.path &&
-                                        s.active
-                                    }
-                                    variant={'clear'}
-                                    to={link.path}
-                                >
+                                <Link variant={'clear'} to={link.path}>
                                     {link.label}
                                 </Link>
                             </div>

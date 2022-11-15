@@ -12,6 +12,13 @@
 .clear {
     background-color: transparent;
     border: none;
+    &.active {
+        font-family: var(--font-family-main);
+        font-style: normal;
+        font-weight: 500 !important;
+        transition: font-weight 0.3s ease-in-out;
+    }
+
     & :after {
         content: '';
         opacity: 0;
@@ -23,18 +30,17 @@
         top: 25px;
         transition: opacity 0.3s ease-in-out;
     }
-}
-
-.outline:hover :after {
-    content: '';
-    opacity: 1;
-    display: block;
-    height: 2px;
-    width: 100%;
-    background-color: var(--black-color);
-    position: absolute;
-    top: 25px;
-    transition: opacity 0.3s ease-in-out;
+    &:hover :after {
+        content: '';
+        opacity: 1;
+        display: block;
+        height: 2px;
+        width: 100%;
+        background-color: var(--black-color);
+        position: absolute;
+        top: 25px;
+        transition: opacity 0.3s ease-in-out;
+    }
 }
 
 .secondary {

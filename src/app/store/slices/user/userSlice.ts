@@ -47,14 +47,19 @@ const userSlice = createSlice({
             builder.addCase(thunkFetchRegister.fulfilled, (state, action) => {
                 if (action.payload.data.user.token) {
                     saveTokenInLocalStorage(action.payload.data.user.token)
-                } else {
+                } else if (action.payload) {
+                    console.log(action.payload)
                     state.errors.wrongSuperCode = true
                     state.user.status = Status.SUCCESS
                 }
                 state.user.status = Status.SUCCESS
             }),
             builder.addCase(thunkFetchRegister.rejected, (state, action) => {
-                state.errors.wrongSuperCode = true
+                //@ts-ignore
+                if (action.payload.message.includes('super')) {
+                    state.errors.wrongSuperCode = true
+                    state.user.status = Status.ERROR
+                }
                 state.user.status = Status.ERROR
             }),
             builder.addCase(thunkFetchLogin.pending, (state, action) => {

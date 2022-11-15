@@ -9,9 +9,13 @@ import {
 
 export const thunkFetchRegister = createAsyncThunk(
     'users/registerStatus',
-    async (data: IRegisterReqData) => {
-        const res = await fetchRegister(data)
-        return res
+    async (data: IRegisterReqData, { rejectWithValue }) => {
+        try {
+            const res = await fetchRegister(data)
+            return res
+        } catch (err) {
+            throw rejectWithValue(err.response.data)
+        }
     }
 )
 export const thunkFetchLogin = createAsyncThunk(

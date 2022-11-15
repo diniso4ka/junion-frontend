@@ -1,7 +1,7 @@
 export const RegisterDefault = {
-    email: '',
-    password: '',
-    correctPassword: '!',
-    name: '',
-    superCode: '',
+    email: 'fafaw@rffer.ru',
+    password: 'Denis123!@#',
+    correctPassword: 'Denis123!@#',
+    name: 'fersfs',
+    superCode: '77',
 }

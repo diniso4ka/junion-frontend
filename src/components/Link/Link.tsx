@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link as LinkButton, LinkProps } from 'react-router-dom'
+import { Link as LinkButton, LinkProps, useMatch } from 'react-router-dom'
 
 import cls from 'classnames'
 import s from './Link.module.scss'
@@ -12,9 +12,18 @@ interface ILinkProps extends LinkProps {
 
 export const Link: React.FC<ILinkProps> = React.memo(
     ({ children, variant = 'primary', className, ...rest }) => {
-        const classes = cls(s.link, s[variant], className)
+        const match = useMatch(rest.to as string)
+        const tit = true
+        console.log(match)
+        const classes = cls(s.link, s[variant], className, {
+            [s.active]: tit,
+        })
         return (
-            <div className={classes}>
+            <div
+                className={cls(s.link, s[variant], className, {
+                    [s.active]: match,
+                })}
+            >
                 <LinkButton {...rest}>{children}</LinkButton>
             </div>
         )
