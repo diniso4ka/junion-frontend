@@ -30,29 +30,61 @@ const Sidebar = () => {
                             <img className={s.image} src={burger} />
                         </Button>
                     </li>
-                    <li className={s.item}>
-                        <Link className={cls(s.link)} to={routeConfig.HOME}>
-                            <div className={s.linkContent}>
-                                <img className={s.image} src={home} />
-                                <p className={s.text}>Home</p>
-                            </div>
-                        </Link>
-                    </li>
-                    <li className={s.item}>
-                        <Link className={s.link} to={routeConfig.CATEGORIES}>
-                            <img className={s.image} src={categories} />
-                        </Link>
-                    </li>
-                    <li className={s.item}>
-                        <Link className={s.link} to={routeConfig.PRODUCTS}>
-                            <img className={s.image} src={products} />
-                        </Link>
-                    </li>
-                    <li className={s.item}>
-                        <Link className={s.link} to={routeConfig.VENDORS}>
-                            <img className={s.image} src={vendors} />
-                        </Link>
-                    </li>
+                    {/*<li className={s.item}>*/}
+                    {/*    <Link className={cls(s.link)} to={routeConfig.HOME}>*/}
+                    {/*        <div className={s.linkContent}>*/}
+                    {/*            <img className={s.image} src={home} />*/}
+                    {/*            <p className={s.text}>Home</p>*/}
+                    {/*        </div>*/}
+                    {/*    </Link>*/}
+                    {/*</li>*/}
+                    {/*<li className={s.item}>*/}
+                    {/*    <Link className={s.link} to={routeConfig.CATEGORIES}>*/}
+                    {/*        <img className={s.image} src={categories} />*/}
+                    {/*    </Link>*/}
+                    {/*</li>*/}
+                    {/*<li className={s.item}>*/}
+                    {/*    <Link className={s.link} to={routeConfig.PRODUCTS}>*/}
+                    {/*        <img className={s.image} src={products} />*/}
+                    {/*    </Link>*/}
+                    {/*</li>*/}
+                    {/*<li className={s.item}>*/}
+                    {/*    <Link className={s.link} to={routeConfig.VENDORS}>*/}
+                    {/*        <img className={s.image} src={vendors} />*/}
+                    {/*    </Link>*/}
+                    {/*</li>*/}
+                    <Link
+                        variant={'navigation'}
+                        icon={home}
+                        to={routeConfig.HOME}
+                        isCollapsed={!collapsed}
+                    >
+                        Home
+                    </Link>
+                    <Link
+                        variant={'navigation'}
+                        icon={categories}
+                        to={routeConfig.CATEGORIES}
+                        isCollapsed={!collapsed}
+                    >
+                        Categories
+                    </Link>
+                    <Link
+                        variant={'navigation'}
+                        icon={products}
+                        to={routeConfig.PRODUCTS}
+                        isCollapsed={!collapsed}
+                    >
+                        Products
+                    </Link>
+                    <Link
+                        variant={'navigation'}
+                        icon={vendors}
+                        to={routeConfig.VENDORS}
+                        isCollapsed={!collapsed}
+                    >
+                        Vendors
+                    </Link>
                 </ul>
             </nav>
         </aside>

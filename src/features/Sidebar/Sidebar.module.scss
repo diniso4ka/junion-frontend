@@ -1,23 +1,20 @@
-.sidebar,
-.sidebar.collapsed {
+.sidebar {
     height: calc(100vh - var(--header-height-desktop));
-    background-color: black;
     overflow: hidden;
     background-color: var(--bg-third-color);
     transition: width 0.2s ease-in-out;
-    padding-left: 6px;
 }
 
 .sidebar {
-    width: 80px;
-}
-
-.sidebar.collapsed {
-    width: 180px;
+    width: var(--sidebar-width);
+    &.collapsed {
+        width: var(--sidebar-width-collapsed);
+    }
 }
 
 .menu {
     padding-top: 37px;
+    padding-left: 5px;
 }
 
 .list {
