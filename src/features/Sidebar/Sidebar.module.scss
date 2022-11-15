@@ -23,9 +23,6 @@
     gap: 37px;
 }
 
-.item {
-}
-
 .link {
     width: 48px;
     height: 48px;
@@ -46,15 +43,4 @@
 
 .sidebar.collapsed .burger {
     background-color: #f3f3f3;
-}
-
-.linkContent {
-    display: flex;
-    flex-wrap: nowrap;
-}
-
-.text {
-    font-weight: 400;
-    color: #000;
-    display: none;
 }
