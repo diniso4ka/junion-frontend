@@ -1,30 +1,57 @@
+// @ts-nocheck
 import React, { useState } from 'react'
 import cls from 'classnames'
 import s from './Sidebar.module.scss'
 
-import burgermenu from 'shared/assets/images/icons/burgermenu.png'
-import home from 'shared/assets/images/icons/home.png'
-import categories from 'shared/assets/images/icons/categories.png'
-import products from 'shared/assets/images/icons/products.png'
-import vendors from 'shared/assets/images/icons/vendors.png'
+import burger from 'shared/assets/images/icons/Sidebar-icons/Burger.svg'
+import home from 'shared/assets/images/icons/Sidebar-icons/Home.svg'
+import categories from 'shared/assets/images/icons/Sidebar-icons/Categories.svg'
+import products from 'shared/assets/images/icons/Sidebar-icons/Products.svg'
+import vendors from 'shared/assets/images/icons/Sidebar-icons/Vendors.svg'
+
 import { Button, Link } from '../../components'
-import { routeConfig } from '../../shared/config/routeConfig/routeConfig'
+import { routeConfig } from 'shared/config/routeConfig/routeConfig'
 
 const Sidebar = () => {
     const [collapsed, setCollapsed] = useState(false)
+
     return (
-        <aside
-            className={cls(s.Sidebar, {
-                [s.collapsed]: collapsed,
-            })}
-        >
-            <p onClick={() => setCollapsed(!collapsed)}>toggle</p>
-            <div>
-                <Link to={routeConfig.HOME}>HOME</Link>
-            </div>
-            <div>
-                <Link to={routeConfig.PRODUCTS}>PRODUCTS</Link>
-            </div>
+        <aside className={cls(s.sidebar, { [s.collapsed]: collapsed })}>
+            <nav className={s.menu}>
+                <ul className={s.list}>
+                    <li
+                        className={s.item}
+                        onClick={() => setCollapsed(!collapsed)}
+                    >
+                        <Link className={cls(s.link, s.burger)}>
+                            <img className={s.image} src={burger} />
+                        </Link>
+                    </li>
+                    <li className={s.item}>
+                        <Link className={cls(s.link)} to={routeConfig.HOME}>
+                            <div className={s.linkContent}>
+                                <img className={s.image} src={home} />
+                                <p className={s.text}>Home</p>
+                            </div>
+                        </Link>
+                    </li>
+                    <li className={s.item}>
+                        <Link className={s.link} to={routeConfig.CATEGORIES}>
+                            <img className={s.image} src={categories} />
+                        </Link>
+                    </li>
+                    <li className={s.item}>
+                        <Link className={s.link} to={routeConfig.PRODUCTS}>
+                            <img className={s.image} src={products} />
+                        </Link>
+                    </li>
+                    <li className={s.item}>
+                        <Link className={s.link} to={routeConfig.VENDORS}>
+                            <img className={s.image} src={vendors} />
+                        </Link>
+                    </li>
+                </ul>
+            </nav>
         </aside>
     )
 }
