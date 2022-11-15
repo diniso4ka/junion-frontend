@@ -13,17 +13,11 @@ interface ILinkProps extends LinkProps {
 export const Link: React.FC<ILinkProps> = React.memo(
     ({ children, variant = 'primary', className, ...rest }) => {
         const match = useMatch(rest.to as string)
-        const tit = true
-        console.log(match)
         const classes = cls(s.link, s[variant], className, {
-            [s.active]: tit,
+            [s.active]: match,
         })
         return (
-            <div
-                className={cls(s.link, s[variant], className, {
-                    [s.active]: match,
-                })}
-            >
+            <div className={classes}>
                 <LinkButton {...rest}>{children}</LinkButton>
             </div>
         )
