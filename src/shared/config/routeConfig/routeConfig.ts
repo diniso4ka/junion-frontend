@@ -14,8 +14,8 @@ import React from 'react'
 export enum routeConfig {
     REGISTER = '/register',
     LOGIN = '/login',
-    ENTEREMAIL = '/fpel',
-    SENDLINK = '/fpsl',
+    ENTEREMAIL = '/retrievepass',
+    SENDLINK = '/retrievepassconfirmed',
     HOME = '/',
     CATEGORIES = '/categories',
     PRODUCTS = '/products',
