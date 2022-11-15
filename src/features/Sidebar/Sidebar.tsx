@@ -9,7 +9,7 @@ import categories from 'shared/assets/images/icons/Sidebar-icons/Categories.svg'
 import products from 'shared/assets/images/icons/Sidebar-icons/Products.svg'
 import vendors from 'shared/assets/images/icons/Sidebar-icons/Vendors.svg'
 
-import { Button, Link } from '../../components'
+import { Button, Link } from 'components'
 import { routeConfig } from 'shared/config/routeConfig/routeConfig'
 
 const Sidebar = () => {
@@ -23,9 +23,12 @@ const Sidebar = () => {
                         className={s.item}
                         onClick={() => setCollapsed(!collapsed)}
                     >
-                        <Link className={cls(s.link, s.burger)}>
+                        <Button
+                            variant={'text'}
+                            className={cls(s.link, s.burger)}
+                        >
                             <img className={s.image} src={burger} />
-                        </Link>
+                        </Button>
                     </li>
                     <li className={s.item}>
                         <Link className={cls(s.link)} to={routeConfig.HOME}>
