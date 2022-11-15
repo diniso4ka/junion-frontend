@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react'
 import cls from 'classnames'
 import s from './Sidebar.module.scss'
