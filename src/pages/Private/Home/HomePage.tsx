@@ -25,7 +25,7 @@ const HomePage: React.FC = () => {
                 {
                     label: 'Products without category:',
                     value: `${
-                        products.items.filter(item => item.category).length
+                        products.items.filter(item => !item.category).length
                     }`,
                 },
             ],
