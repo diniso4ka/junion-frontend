@@ -13,7 +13,7 @@ const HomePage: React.FC = () => {
             title: 'Product information:',
             items: [
                 {
-                    label: 'Products in the shope:',
+                    label: 'Products in the store:',
                     value: `${products.quantity}`,
                 },
                 {
@@ -25,7 +25,7 @@ const HomePage: React.FC = () => {
                 {
                     label: 'Products without category:',
                     value: `${
-                        products.items.filter(item => !item.category).length
+                        products.items.filter(item => item.category).length
                     }`,
                 },
             ],

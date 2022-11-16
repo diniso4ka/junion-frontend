@@ -138,7 +138,7 @@ const RegisterPage = () => {
 
     return (
         <div className={s.wrapper}>
-            <div className={s.contentWrapper}>
+            <form className={s.contentWrapper}>
                 <div className={s.formItem}>
                     <label className={s.label}>Email Address</label>
                     <Input
@@ -272,7 +272,7 @@ const RegisterPage = () => {
                         ? superCodeValidationMessages.incorrect
                         : ''}
                 </p>
-            </div>
+            </form>
         </div>
     )
 }

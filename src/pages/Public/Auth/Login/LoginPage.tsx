@@ -51,7 +51,7 @@ const LoginPage: FC = () => {
 
     return (
         <main className={s.wrapper}>
-            <div className={s.contentWrapper}>
+            <form className={s.contentWrapper}>
                 <div className={s.message}>
                     <p className={cls(s.helper, s.helperError)}>{incorrect}</p>
                 </div>
@@ -96,7 +96,7 @@ const LoginPage: FC = () => {
                         Log In
                     </Button>
                 </div>
-            </div>
+            </form>
         </main>
     )
 }

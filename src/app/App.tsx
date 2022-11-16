@@ -29,7 +29,7 @@ const App: React.FC = () => {
     }, [])
 
     useEffect(() => {
-        if (data) {
+        if (data?.role) {
             dispatch(thunkFetchProductList())
         }
     }, [data])

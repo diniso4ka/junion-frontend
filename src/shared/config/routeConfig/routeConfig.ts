@@ -15,7 +15,7 @@ export enum routeConfig {
     REGISTER = '/register',
     LOGIN = '/login',
     ENTEREMAIL = '/retrievepass',
-    SENDLINK = '/retrievepassconfirmed',
+    SENDLINK = '/retrievepassconfirm',
     HOME = '/',
     CATEGORIES = '/categories',
     PRODUCTS = '/products',
