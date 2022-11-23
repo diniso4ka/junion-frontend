@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import cls from 'classnames'
 import s from './HomePage.module.scss'
 import { List } from 'components'

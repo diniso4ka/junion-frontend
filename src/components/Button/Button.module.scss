@@ -1,5 +1,4 @@
 .button {
-    width: 200px;
     height: 48px;
     border-radius: 12px;
     border: none;
@@ -9,6 +8,14 @@
     font-size: var(--font-size-l);
     color: var(--white-color);
     cursor: pointer;
+}
+
+.medium {
+    width: 200px;
+}
+
+.small {
+    width: 140px;
 }
 
 .secondary {

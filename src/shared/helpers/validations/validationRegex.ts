@@ -21,10 +21,10 @@ export const passwordRegex = (password: string | undefined) => {
 
 export const usernameRegex = (username: string | undefined) => {
     if (username) {
-        const splitOnSybmolsUsername = username.split('')
+        const splitOnSymbolsUsername = username.split('')
         if (
-            splitOnSybmolsUsername.length > 20 ||
-            splitOnSybmolsUsername.length < 3
+            splitOnSymbolsUsername.length > 20 ||
+            splitOnSymbolsUsername.length < 3
         ) {
             return false
         }

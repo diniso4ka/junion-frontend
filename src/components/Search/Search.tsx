@@ -5,7 +5,7 @@ import cls from 'classnames'
 import searchIcon from 'shared/assets/images/icons/search.svg'
 import moreIcon from 'shared/assets/images/icons/more.svg'
 import { DroppedMenu } from 'components'
-import { FilterMenu } from 'features/DroppedMenuContent/FilterMenu/FilterMenu'
+import { FilterMenu } from 'pages/Private/Products/FilterMenu/FilterMenu'
 
 interface SearchProps extends InputHTMLAttributes<HTMLInputElement> {
     className?: string
