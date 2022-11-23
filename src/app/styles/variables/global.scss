@@ -1,5 +1,6 @@
 :root {
     --font-family-main: 'Montserrat', sans-serif;
+    --font-family-secondary: 'Inter', sans-serif;
 
     --font-size-xs: 8px;
     --font-line-xs: 16px;
@@ -27,6 +28,8 @@
     --font-line-xxl: 44px;
     --font-xxl: var(--font-size-xxl) / var(--font-line-xxl) /
         var(--font-family-main);
+
+    --font-size-xxxl: 96px;
 
     /* Размеры */
     --wrapper-width-desktop: 1360px;

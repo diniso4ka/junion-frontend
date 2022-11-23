@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: var(--font-family-main);
 }
 
 .statusCode,
@@ -12,26 +13,21 @@
 
 .statusCode {
     padding-top: 133.5px;
-    font-family: 'Inter', sans-serif;
-    font-size: 96px;
-    line-height: 116.18px;
+    font-family: var(--font-family-secondary);
+    font-size: var(--font-size-xxxl);
+    line-height: 116px;
     color: #dedede;
-}
-
-.statusText,
-.statusDescription {
-    font-family: 'Montserrat', sans-serif;
 }
 
 .statusText {
     font-weight: 500;
-    font-size: 32px;
+    font-size: var(--font-size-xxl);
     line-height: 39px;
 }
 
 .statusDescription {
     margin-bottom: 36px;
     font-weight: 300;
-    font-size: 14px;
+    font-size: var(--font-size-m);
     line-height: 17px;
 }
