@@ -25,7 +25,7 @@ export const List: FC<ListProps> = ({ className, data, isLoading }) => {
             <h3 className={s.title}>{data.title}</h3>
             <ul>
                 {data.items.map(item => (
-                    <li key={item.value} className={s.item}>
+                    <li key={item.label} className={s.item}>
                         <p className={s.label}>{item.label}</p>
                         <p className={s.value}>{item.value}</p>
                     </li>

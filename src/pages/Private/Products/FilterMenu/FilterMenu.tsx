@@ -2,7 +2,7 @@ import { FC, useEffect, useRef, useState } from 'react'
 import s from './FilterMenu.module.scss'
 import cls from 'classnames'
 
-import { useAppDispatch, useAppSelector } from 'app/store/types'
+import { useAppDispatch } from 'app/store/types'
 import { useSearchParams } from 'react-router-dom'
 import { createQueryParams } from 'shared/helpers/filters/createQueryParams'
 import {
@@ -11,11 +11,9 @@ import {
 } from 'app/store/slices/products/thunk'
 import { IProductsFilter } from 'shared/types/filters'
 
-import { clearFilters, setFilters } from 'app/store/slices/filters/filtersSlice'
-
 import { Button, Input } from 'components'
 import { clearFiltredItems } from 'app/store/slices/products/productsSlice'
-import { ProductsFilterDefault } from '../../../shared/helpers/degaultValues/filters'
+import { ProductsFilterDefault } from 'shared/helpers/degaultValues/filters'
 
 interface ProfileMenuProps {
     setIsOpen?: (active) => void
@@ -27,12 +25,14 @@ export const FilterMenu: FC<ProfileMenuProps> = ({ className, setIsOpen }) => {
     const [searchParams, setSearchParams] = useSearchParams()
 
     const dispatch = useAppDispatch()
-    const filter = useAppSelector(state => state.filters)
     const [filtersValue, setFiltersValue] = useState<IProductsFilter>(
         ProductsFilterDefault
     )
+    const [filters, setFilters] = useState({})
+    const [queryParams, setQueryParams] = useState<string>('')
+
     const onSubmitFilters = () => {
-        dispatch(setFilters(filtersValue))
+        setParamFilters(filtersValue)
         const params = createQueryParams(filtersValue)
         if (params) {
             dispatch(thunkFetchFiltredProductList(params))
@@ -42,9 +42,20 @@ export const FilterMenu: FC<ProfileMenuProps> = ({ className, setIsOpen }) => {
         setIsOpen(false)
     }
 
+    const setParamFilters = params => {
+        let filters: any = {}
+        for (const i in params) {
+            if (params[i].length > 0) {
+                filters = { ...params, [i]: params[i] }
+            }
+        }
+        setFilters(() => ({ ...filters }))
+        setFiltersValue(() => ({ ...filters }))
+        setQueryParams(createQueryParams(filters))
+    }
+
     const onClearFilters = () => {
         setSearchParams({})
-        dispatch(clearFilters())
         setFiltersValue(ProductsFilterDefault)
         setIsOpen(false)
     }
@@ -76,19 +87,19 @@ export const FilterMenu: FC<ProfileMenuProps> = ({ className, setIsOpen }) => {
             params.price_max = price_max
         }
         if (Object.keys(params).length > 0) {
-            dispatch(setFilters(params))
+            setParamFilters(params)
         }
     }, [])
 
     useEffect(() => {
-        if (Object.keys(filter.filters).length > 0) {
-            setFiltersValue(prev => ({ ...prev, ...filter.filters }))
-            setSearchParams({ ...filter.filters })
-            dispatch(thunkFetchFiltredProductList(filter.queryParams))
+        if (Object.keys(filters).length > 0) {
+            setFiltersValue(prev => ({ ...filters }))
+            setSearchParams({ ...filters })
+            dispatch(thunkFetchFiltredProductList(createQueryParams(filters)))
         } else {
             dispatch(clearFiltredItems())
         }
-    }, [filter.filters])
+    }, [filters])
 
     return (
         <div className={cls(s.FilterMenu, className)}>
@@ -179,10 +190,18 @@ export const FilterMenu: FC<ProfileMenuProps> = ({ className, setIsOpen }) => {
                 </li>
             </ul>
             <div className={s.buttonWrapper}>
-                <Button className={s.button} onClick={onSubmitFilters}>
+                <Button
+                    size={'small'}
+                    className={s.button}
+                    onClick={onSubmitFilters}
+                >
                     send
                 </Button>
-                <Button className={s.button} onClick={onClearFilters}>
+                <Button
+                    size={'small'}
+                    className={s.button}
+                    onClick={onClearFilters}
+                >
                     clear
                 </Button>
             </div>

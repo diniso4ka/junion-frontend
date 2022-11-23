@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import React, { FC } from 'react'
 import s from './VendorsPage.module.scss'
 import cls from 'classnames'
 

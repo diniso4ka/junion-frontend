@@ -7,6 +7,7 @@ export const passwordValidationMessages = {
 export const mailValidationMessages = {
     incorrect: 'Your email address  is incorrect',
     empty: 'Please, enter the email address',
+    already: 'This email already exist',
 }
 export const superCodeValidationMessages = {
     incorrect:

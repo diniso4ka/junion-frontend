@@ -109,7 +109,10 @@ const RegisterPage = () => {
         registerValue.correctPassword = registerValue.correctPassword
             .trimStart()
             .trimEnd()
-        registerValue.name = registerValue.name.trimStart().trimEnd()
+        registerValue.name = registerValue.name
+            .replace(/\s+/g, ' ')
+            .trimStart()
+            .trimEnd()
         setInputFocus(!inputFocus)
     }
 
@@ -138,7 +141,7 @@ const RegisterPage = () => {
 
     return (
         <div className={s.wrapper}>
-            <div className={s.contentWrapper}>
+            <form className={s.contentWrapper}>
                 <div className={s.formItem}>
                     <label className={s.label}>Email Address</label>
                     <Input
@@ -151,8 +154,13 @@ const RegisterPage = () => {
                         }
                         value={registerValue.email}
                         placeHolder={'Set the email address as the login name'}
-                        helperText={validaionErrors?.email}
-                        error={!!validaionErrors?.email}
+                        helperText={
+                            validaionErrors?.email || asyncErrors.emailAlready
+                        }
+                        error={
+                            !!validaionErrors?.email ||
+                            !!asyncErrors.emailAlready
+                        }
                     />
                 </div>
                 <div className={s.formItem}>
@@ -272,7 +280,7 @@ const RegisterPage = () => {
                         ? superCodeValidationMessages.incorrect
                         : ''}
                 </p>
-            </div>
+            </form>
         </div>
     )
 }

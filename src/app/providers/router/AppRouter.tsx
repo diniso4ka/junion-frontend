@@ -11,12 +11,12 @@ import {
 import { useAppSelector } from 'app/store/types'
 
 const AppRouter = () => {
-    const { data } = useAppSelector(state => state.user.user)
+    const { user } = useAppSelector(state => state.user)
 
-    return !data ? (
+    return user.auth ? (
         <React.Suspense fallback={<div>...loading</div>}>
             <Routes>
-                {publicRoutes.map(({ path, Component }) => (
+                {privateRoutes.map(({ path, Component }) => (
                     <Route key={path} path={path} element={<Component />} />
                 ))}
                 <Route path={'*'} element={<NotFound />} />
@@ -25,7 +25,7 @@ const AppRouter = () => {
     ) : (
         <React.Suspense fallback={<div>...loading</div>}>
             <Routes>
-                {privateRoutes.map(({ path, Component }) => (
+                {publicRoutes.map(({ path, Component }) => (
                     <Route key={path} path={path} element={<Component />} />
                 ))}
                 <Route path={'*'} element={<NotFound />} />

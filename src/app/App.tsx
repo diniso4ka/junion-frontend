@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, FC } from 'react'
 import cls from 'classnames'
 import './styles/index.scss'
 
@@ -13,9 +13,9 @@ import Header from 'features/Header/Header'
 import Sidebar from 'features/Sidebar/Sidebar'
 import { PageLoader } from 'features/PageLoader/PageLoader'
 
-const App: React.FC = () => {
+const App: FC = () => {
     const [userIsOpened, setUserIsOpened] = useState(false)
-    const data = useAppSelector(state => state.user.user.data)
+    const data = useAppSelector(state => state.user.user)
     const initialize = useAppSelector(state => state.user.initialize)
     const dispatch = useAppDispatch()
     const { theme } = useTheme()
@@ -29,10 +29,10 @@ const App: React.FC = () => {
     }, [])
 
     useEffect(() => {
-        if (data) {
+        if (data.auth) {
             dispatch(thunkFetchProductList())
         }
-    }, [data])
+    }, [data.auth])
 
     return (
         <div
@@ -47,7 +47,7 @@ const App: React.FC = () => {
             {!initialize && <PageLoader />}
             {initialize && (
                 <div className='pageWrapper'>
-                    {data && <Sidebar />}
+                    {data.auth && <Sidebar />}
                     <AppRouter />
                 </div>
             )}
