@@ -7,15 +7,18 @@ import { Provider } from 'react-redux'
 import { store } from './app/store/store'
 import { BrowserRouter } from 'react-router-dom'
 import ThemeProvider from './app/providers/ThemeProvider/ThemeProvider'
+import ErrorBoundary from './app/providers/ErrorBoundary/ErrorBoundary'
 
 const rootElement = document.getElementById('root')
 const root = ReactDOM.createRoot(rootElement!)
 root.render(
     <BrowserRouter>
-        <ThemeProvider>
-            <Provider store={store}>
-                <App />
-            </Provider>
-        </ThemeProvider>
+        <ErrorBoundary>
+            <ThemeProvider>
+                <Provider store={store}>
+                    <App />
+                </Provider>
+            </ThemeProvider>
+        </ErrorBoundary>
     </BrowserRouter>
 )

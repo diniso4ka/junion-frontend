@@ -1,14 +1,16 @@
 .pageErrorContainer {
-    margin: 0 auto;
+    width: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     font-family: var(--font-family-main);
+    background-color: var(--bg-color);
 }
 
 .title {
     margin-bottom: 25px;
-    padding-top: 210px;
     font-weight: 500;
     font-size: var(--font-size-xl);
 }
