@@ -18,6 +18,8 @@ import {
     superCodeValidationMessages,
 } from 'shared/helpers/validations/messages'
 import { RegisterDefault } from 'shared/helpers/degaultValues/register'
+import { routeConfig } from 'shared/config/routeConfig/routeConfig'
+import { useNavigate } from 'react-router'
 
 const RegisterPage = () => {
     const asyncErrors = useAppSelector(state => state.user.errors)
@@ -34,6 +36,7 @@ const RegisterPage = () => {
     const [registerValue, setRegisterValue] =
         React.useState<IRegisterReqData>(RegisterDefault)
 
+    const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.user.user.status)
     // При сабмите формы
@@ -54,7 +57,11 @@ const RegisterPage = () => {
     const onRegister = async registerData => {
         const res = await dispatch(thunkFetchRegister(registerData))
         if (res.payload) {
-            dispatch(thunkFetchAuthMe())
+            const authResp = await dispatch(thunkFetchAuthMe())
+            // @ts-ignore
+            if (authResp.payload.status === 200) {
+                navigate(routeConfig.HOME)
+            }
         }
     }
 

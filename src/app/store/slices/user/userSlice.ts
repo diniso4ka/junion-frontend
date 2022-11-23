@@ -54,9 +54,10 @@ const userSlice = createSlice({
             state.user.status = Status.LOADING
         }),
             builder.addCase(thunkFetchRegister.fulfilled, (state, action) => {
-                console.log(action.payload)
                 if (action.payload.data.user.token) {
                     saveTokenInLocalStorage(action.payload.data.user.token)
+                    state.errors.incorrect = null
+                    state.errors.wrongSuperCode = null
                 } else if (action.payload) {
                     state.errors.wrongSuperCode = true
                     state.user.status = Status.SUCCESS
@@ -78,10 +79,14 @@ const userSlice = createSlice({
             // Логин
             builder.addCase(thunkFetchLogin.pending, (state, action) => {
                 state.errors.incorrect = null
+                state.errors.wrongSuperCode = null
+                state.errors.emailAlready = null
                 state.user.status = Status.LOADING
             }),
             builder.addCase(thunkFetchLogin.fulfilled, (state, action) => {
                 state.errors.incorrect = null
+                state.errors.wrongSuperCode = null
+                state.errors.emailAlready = null
                 if (!!action.payload.data.token) {
                     saveTokenInLocalStorage(action.payload.data.token)
                     state.user.status = Status.SUCCESS
@@ -103,6 +108,9 @@ const userSlice = createSlice({
                 if (action.payload.data) {
                     state.user.data = action.payload.data.user
                     state.user.auth = true
+                    state.errors.incorrect = null
+                    state.errors.wrongSuperCode = null
+                    state.errors.emailAlready = null
                 }
                 state.user.status = Status.SUCCESS
             }),
@@ -120,6 +128,9 @@ const userSlice = createSlice({
                 window.localStorage.removeItem(TOKEN_KEY)
             }),
             builder.addCase(thunkFetchLogout.fulfilled, state => {
+                state.errors.incorrect = null
+                state.errors.wrongSuperCode = null
+                state.errors.emailAlready = null
                 state.user.auth = false
             }),
             builder.addCase(thunkFetchLogout.rejected, state => {
