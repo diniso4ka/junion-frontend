@@ -9,6 +9,8 @@ import { Status, useAppDispatch, useAppSelector } from 'app/store/types'
 import { thunkFetchAuthMe, thunkFetchLogin } from 'app/store/slices/user/thunk'
 
 import { Button, Input } from 'components'
+import { useNavigate } from 'react-router'
+import { routeConfig } from '../../../../shared/config/routeConfig/routeConfig'
 
 const LoginPage: FC = () => {
     const [validaionErrors, setValidaionErrors] =
@@ -19,6 +21,7 @@ const LoginPage: FC = () => {
         password: '',
     })
 
+    const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const { status } = useAppSelector(state => state.user.user)
     const { incorrect } = useAppSelector(state => state.user.errors)
@@ -41,7 +44,11 @@ const LoginPage: FC = () => {
     const onLogIn = async () => {
         if (loginData) {
             await dispatch(thunkFetchLogin(loginData))
-            await dispatch(thunkFetchAuthMe())
+            const authResp = await dispatch(thunkFetchAuthMe())
+            // @ts-ignore
+            if (authResp.payload.status === 200) {
+                navigate(routeConfig.HOME)
+            }
         }
     }
 
