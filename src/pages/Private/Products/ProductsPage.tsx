@@ -11,6 +11,7 @@ const ProductsPage: FC = () => {
     const [filterIsOpen, setFilterIsOpen] = useState(false)
     const [searchValue, setSearchValue] = useState<string>('')
     const productsData = useAppSelector(state => state.products.data.items)
+    const categories = useAppSelector(state => state.products.data)
     const filtredProductsData = useAppSelector(
         state => state.products.data.filtredItems
     )
@@ -20,6 +21,9 @@ const ProductsPage: FC = () => {
     )
     const date = getDate()
 
+    if (!categories.categories) {
+        return <div>...loading</div>
+    }
     return (
         <div
             className={cls(s.ProductsPage)}

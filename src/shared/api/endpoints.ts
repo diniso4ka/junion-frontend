@@ -8,5 +8,7 @@ export const endpoints = {
     products: {
         list: `/products`,
         filtredList: params => `/products?${params}`,
+        categories: '/categories',
+        vendors: '/vendors',
     },
 }

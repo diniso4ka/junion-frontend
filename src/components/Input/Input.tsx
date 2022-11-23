@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from 'react'
+import React, { InputHTMLAttributes, useEffect, useRef } from 'react'
 import cls from 'classnames'
 import s from './Input.module.scss'
 
@@ -6,6 +6,8 @@ import eye from 'shared/assets/images/password-icons/codicon_eye.svg'
 import eyeClosed from 'shared/assets/images/password-icons/codicon_eye-closed.svg'
 import { Link } from '../Link'
 import { routeConfig } from 'shared/config/routeConfig/routeConfig'
+import { DroppedMenu } from '../DroppedMenu'
+import { useClickOutside } from '../../shared/hooks/useClickOutside'
 
 interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
     type?: 'text' | 'password'
@@ -17,6 +19,10 @@ interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
     helperClass?: 'error' | 'hint' | 'success'
     error?: boolean
     forgotPass?: boolean
+    withHint?: string[] | null
+    isHintOpen?: boolean
+    onCloseHint?: () => void
+    onHandleSelect?: (hint: string) => void
 }
 
 export const Input: React.FC<IInputProps> = React.memo(
@@ -32,11 +38,13 @@ export const Input: React.FC<IInputProps> = React.memo(
         ...rest
     }) => {
         const [visible, setVisible] = React.useState<boolean>(false)
+        const [value, setValue] = React.useState<string>('')
         const helperTextClass = cls({
             [s.helperError]: helperClass === 'error',
             [s.helperHint]: helperClass === 'hint',
             [s.helperSuccess]: helperClass === 'success',
         })
+
         const classnames = cls(
             s.input,
             s[variant],
@@ -49,6 +57,12 @@ export const Input: React.FC<IInputProps> = React.memo(
         const onToggleVisible = () => {
             setVisible(!visible)
         }
+
+        useEffect(() => {
+            if (typeof rest.value === 'string') {
+                setValue(rest.value?.toString())
+            }
+        }, [rest.value])
         return (
             <div className={s.wrapper}>
                 <div className={s.inputWrapper}>
@@ -77,6 +91,7 @@ export const Input: React.FC<IInputProps> = React.memo(
                             ))}
                     </div>
                 </div>
+
                 <div className={s.helperWrapper}>
                     {helperText ? (
                         <p className={cls(s.helper, helperTextClass)}>

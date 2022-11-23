@@ -73,7 +73,7 @@ const Header: React.FC<HeaderProps> = ({ isOpened, setIsOpened, onClick }) => {
                                 src={arrow}
                             />
                         </div>
-                        <DroppedMenu size={'medium'} isOpened={isOpened}>
+                        <DroppedMenu size={'small'} isOpened={isOpened}>
                             <ProfileMenu data={data} onClick={onClickLogout} />
                         </DroppedMenu>
                     </nav>

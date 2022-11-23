@@ -1,6 +1,10 @@
 import { Status } from '../../types'
 import { createSlice } from '@reduxjs/toolkit'
-import { thunkFetchFiltredProductList, thunkFetchProductList } from './thunk'
+import {
+    thunkFetchCategories,
+    thunkFetchFiltredProductList,
+    thunkFetchProductList,
+} from './thunk'
 import { IProductsResData } from 'shared/types/products'
 import { stat } from 'fs'
 
@@ -8,6 +12,7 @@ interface initialStateType {
     data: {
         quantity: number
         items: IProductsResData[]
+        categories: string[]
         filtredItems: [] | null
     }
     status: Status
@@ -17,6 +22,7 @@ const initialState: initialStateType = {
     data: {
         quantity: 0,
         items: [],
+        categories: [],
         filtredItems: null,
     },
     status: Status.LOADING,
@@ -67,7 +73,19 @@ const productsSlice = createSlice({
                     state.data.filtredItems = null
                     state.status = Status.ERROR
                 }
-            )
+            ),
+            builder.addCase(thunkFetchCategories.pending, (state, action) => {
+                state.data.categories = null
+                state.status = Status.LOADING
+            }),
+            builder.addCase(thunkFetchCategories.fulfilled, (state, action) => {
+                state.data.categories = action.payload.data.data
+                state.status = Status.SUCCESS
+            }),
+            builder.addCase(thunkFetchCategories.rejected, (state, action) => {
+                state.data.categories = null
+                state.status = Status.ERROR
+            })
     },
 })
 
