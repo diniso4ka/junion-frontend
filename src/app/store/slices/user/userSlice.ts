@@ -14,7 +14,7 @@ import {
     thunkFetchLogout,
     thunkFetchRegister,
 } from './thunk'
-import { TOKEN_KEY } from '../../../../shared/config/config/consts'
+import { TOKEN_KEY } from 'shared/config/config/consts'
 
 interface initialStateType {
     user: {

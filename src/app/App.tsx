@@ -4,7 +4,10 @@ import './styles/index.scss'
 
 import { useAppDispatch, useAppSelector } from './store/types'
 import { thunkFetchAuthMe } from './store/slices/user/thunk'
-import { thunkFetchProductList } from './store/slices/products/thunk'
+import {
+    thunkFetchCategories,
+    thunkFetchProductList,
+} from './store/slices/products/thunk'
 import { useTheme } from './providers/ThemeProvider/useTheme'
 import { Theme } from './providers/ThemeProvider/ThemeContext'
 
@@ -31,6 +34,7 @@ const App: FC = () => {
     useEffect(() => {
         if (data.auth) {
             dispatch(thunkFetchProductList())
+            dispatch(thunkFetchCategories())
         }
     }, [data.auth])
 

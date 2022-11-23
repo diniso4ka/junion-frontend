@@ -90,3 +90,16 @@
     flex-direction: row;
     justify-content: space-between;
 }
+
+.hint {
+    margin: 10px 10px;
+}
+
+.hintItem {
+    padding: 8px 0;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    &:hover {
+        background-color: #fafafa;
+    }
+}

@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import {
+    fetchCategories,
     fetchFiltredProducts,
     fetchProducts,
 } from 'shared/api/requests/products'
@@ -15,6 +16,13 @@ export const thunkFetchFiltredProductList = createAsyncThunk(
     'products/FiltredProductListStatus',
     async (params: string) => {
         const res = await fetchFiltredProducts(params)
+        return res
+    }
+)
+export const thunkFetchCategories = createAsyncThunk(
+    'products/CategoriesListStatus',
+    async () => {
+        const res = await fetchCategories()
         return res
     }
 )

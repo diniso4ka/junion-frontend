@@ -14,17 +14,39 @@
     flex-direction: column;
     justify-items: center;
     align-items: center;
+    z-index: 100;
+
+    .left {
+        left: 0;
+        transform: translateX(0);
+    }
 }
-.wrapperMedium {
+
+.wrapperSmall {
     width: 200px;
+
+    &.openedSmall {
+        height: 178px;
+    }
+}
+
+.wrapperMedium {
+    width: 248px;
+    overflow-y: auto;
+    align-items: normal;
+    &.openedMedium {
+        min-height: 0;
+        max-height: 260px;
+        height: fit-content;
+    }
 }
 .wrapperLarge {
     width: 100%;
+    &.openedLarge {
+        height: fit-content;
+    }
 }
 
-.openedMedium {
-    height: 178px;
-}
-.openedLarge {
-    height: fit-content;
+.adaptive {
+    width: 100%;
 }

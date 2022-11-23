@@ -2,7 +2,7 @@ import { FC, useEffect, useRef, useState } from 'react'
 import s from './FilterMenu.module.scss'
 import cls from 'classnames'
 
-import { useAppDispatch } from 'app/store/types'
+import { useAppDispatch, useAppSelector } from 'app/store/types'
 import { useSearchParams } from 'react-router-dom'
 import { createQueryParams } from 'shared/helpers/filters/createQueryParams'
 import {
@@ -14,6 +14,7 @@ import { IProductsFilter } from 'shared/types/filters'
 import { Button, Input } from 'components'
 import { clearFiltredItems } from 'app/store/slices/products/productsSlice'
 import { ProductsFilterDefault } from 'shared/helpers/degaultValues/filters'
+import { InputWithHint } from 'components/InputWithHint'
 
 interface ProfileMenuProps {
     setIsOpen?: (active) => void
@@ -22,14 +23,23 @@ interface ProfileMenuProps {
 }
 
 export const FilterMenu: FC<ProfileMenuProps> = ({ className, setIsOpen }) => {
-    const [searchParams, setSearchParams] = useSearchParams()
-
+    const { categories, items } = useAppSelector(state => state.products.data)
     const dispatch = useAppDispatch()
+    const [categoriesFocus, setCategoriesFocus] = useState(false)
+    const [productsFocus, setProductsFocus] = useState(false)
+
+    const [searchParams, setSearchParams] = useSearchParams()
     const [filtersValue, setFiltersValue] = useState<IProductsFilter>(
         ProductsFilterDefault
     )
     const [filters, setFilters] = useState({})
-    const [queryParams, setQueryParams] = useState<string>('')
+
+    const onHandleProductHint = hint => {
+        setFiltersValue(prev => ({ ...prev, name: hint }))
+    }
+    const onHandleCategoryHint = hint => {
+        setFiltersValue(prev => ({ ...prev, category: hint }))
+    }
 
     const onSubmitFilters = () => {
         setParamFilters(filtersValue)
@@ -46,12 +56,11 @@ export const FilterMenu: FC<ProfileMenuProps> = ({ className, setIsOpen }) => {
         let filters: any = {}
         for (const i in params) {
             if (params[i].length > 0) {
-                filters = { ...params, [i]: params[i] }
+                filters = { [i]: params[i] }
             }
         }
         setFilters(() => ({ ...filters }))
         setFiltersValue(() => ({ ...filters }))
-        setQueryParams(createQueryParams(filters))
     }
 
     const onClearFilters = () => {
@@ -93,7 +102,7 @@ export const FilterMenu: FC<ProfileMenuProps> = ({ className, setIsOpen }) => {
 
     useEffect(() => {
         if (Object.keys(filters).length > 0) {
-            setFiltersValue(prev => ({ ...filters }))
+            setFiltersValue(() => ({ ...filters }))
             setSearchParams({ ...filters })
             dispatch(thunkFetchFiltredProductList(createQueryParams(filters)))
         } else {
@@ -106,7 +115,7 @@ export const FilterMenu: FC<ProfileMenuProps> = ({ className, setIsOpen }) => {
             <ul className={s.filterWrapper}>
                 <li className={s.filterItem}>
                     <h4>Products</h4>
-                    <Input
+                    <InputWithHint
                         onChange={e =>
                             setFiltersValue(prev => ({
                                 ...prev,
@@ -114,13 +123,16 @@ export const FilterMenu: FC<ProfileMenuProps> = ({ className, setIsOpen }) => {
                             }))
                         }
                         value={filtersValue.name}
-                        variant={'secondary'}
-                        sizeContainer={'adaptive'}
+                        onFocus={() => setProductsFocus(true)}
+                        hint={items.map(item => item.name)}
+                        isHintOpen={productsFocus}
+                        onCloseHint={() => setProductsFocus(false)}
+                        onHandleSelect={e => onHandleProductHint(e)}
                     />
                 </li>
                 <li className={s.filterItem}>
                     <h4>Category</h4>
-                    <Input
+                    <InputWithHint
                         onChange={e =>
                             setFiltersValue(prev => ({
                                 ...prev,
@@ -128,8 +140,11 @@ export const FilterMenu: FC<ProfileMenuProps> = ({ className, setIsOpen }) => {
                             }))
                         }
                         value={filtersValue.category}
-                        variant={'secondary'}
-                        sizeContainer={'adaptive'}
+                        onFocus={() => setCategoriesFocus(true)}
+                        hint={categories}
+                        isHintOpen={categoriesFocus}
+                        onCloseHint={() => setCategoriesFocus(false)}
+                        onHandleSelect={e => onHandleCategoryHint(e)}
                     />
                 </li>
                 <li className={s.filterItem}>
