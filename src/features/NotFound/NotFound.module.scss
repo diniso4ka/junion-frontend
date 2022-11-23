@@ -1,0 +1,37 @@
+.notFoundContainer {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.statusCode,
+.statusText {
+    margin-bottom: 22px;
+}
+
+.statusCode {
+    padding-top: 133.5px;
+    font-family: 'Inter', sans-serif;
+    font-size: 96px;
+    line-height: 116.18px;
+    color: #dedede;
+}
+
+.statusText,
+.statusDescription {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.statusText {
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 39px;
+}
+
+.statusDescription {
+    margin-bottom: 36px;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 17px;
+}
