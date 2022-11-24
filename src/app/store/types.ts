@@ -7,5 +7,10 @@ export enum Status {
     ERROR = 'error',
 }
 
+export interface Categories {
+    _id: string
+    quantity: number
+}
+
 export const useAppDispatch: () => AppDispatch = useDispatch
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector

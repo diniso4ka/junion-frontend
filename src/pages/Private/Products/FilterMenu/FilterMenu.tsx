@@ -124,6 +124,7 @@ export const FilterMenu: FC<ProfileMenuProps> = ({ className, setIsOpen }) => {
                         }
                         value={filtersValue.name}
                         onFocus={() => setProductsFocus(true)}
+                        // @ts-ignore
                         hint={items.map(item => item.name)}
                         isHintOpen={productsFocus}
                         onCloseHint={() => setProductsFocus(false)}
@@ -141,7 +142,7 @@ export const FilterMenu: FC<ProfileMenuProps> = ({ className, setIsOpen }) => {
                         }
                         value={filtersValue.category}
                         onFocus={() => setCategoriesFocus(true)}
-                        hint={categories}
+                        hint={categories.map(item => item._id)}
                         isHintOpen={categoriesFocus}
                         onCloseHint={() => setCategoriesFocus(false)}
                         onHandleSelect={e => onHandleCategoryHint(e)}

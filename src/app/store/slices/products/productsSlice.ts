@@ -1,4 +1,4 @@
-import { Status } from '../../types'
+import { Categories, Status } from '../../types'
 import { createSlice } from '@reduxjs/toolkit'
 import {
     thunkFetchCategories,
@@ -6,13 +6,12 @@ import {
     thunkFetchProductList,
 } from './thunk'
 import { IProductsResData } from 'shared/types/products'
-import { stat } from 'fs'
 
 interface initialStateType {
     data: {
         quantity: number
         items: IProductsResData[]
-        categories: string[]
+        categories: Categories[]
         filtredItems: [] | null
     }
     status: Status
