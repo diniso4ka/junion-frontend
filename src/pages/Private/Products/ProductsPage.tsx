@@ -49,6 +49,7 @@ const ProductsPage: FC = () => {
                     onClick={e => e.stopPropagation()}
                     canClear={!!searchValue || !!queryString}
                     onClear={() => onClear()}
+                    withFilter={true}
                 />
                 <Button variant={'rounded'}>Add new product</Button>
                 <p
