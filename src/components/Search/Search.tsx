@@ -15,9 +15,11 @@ interface SearchProps extends InputHTMLAttributes<HTMLInputElement> {
     canClear?: boolean
     isOpened: boolean
     onClick: (e) => void
+    withFilter?: boolean
 }
 
 export const Search: FC<SearchProps> = ({
+    withFilter,
     className,
     onFilterOpen,
     isOpened,
@@ -52,7 +54,7 @@ export const Search: FC<SearchProps> = ({
                 size={'large'}
                 isOpened={isOpened}
             >
-                <FilterMenu onClose={onFilterOpen} onClear={onClear} />
+                {withFilter && <FilterMenu setIsOpen={onFilterOpen} />}
             </DroppedMenu>
         </div>
     )
