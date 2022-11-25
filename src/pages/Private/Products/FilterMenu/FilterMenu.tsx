@@ -4,14 +4,10 @@ import cls from 'classnames'
 
 import { useAppDispatch, useAppSelector } from 'app/store/types'
 import { useSearchParams } from 'react-router-dom'
-import {
-    thunkFetchFiltredProductList,
-    thunkFetchProductList,
-} from 'app/store/slices/products/thunk'
+import { thunkFetchFiltredProductList } from 'app/store/slices/products/thunk'
 import { IProductsFilter } from 'shared/types/filters'
 
 import { Button, Input } from 'components'
-import { clearFiltredItems } from 'app/store/slices/products/productsSlice'
 import { ProductsFilterDefault } from 'shared/helpers/degaultValues/filters'
 import { InputWithHint } from 'components/InputWithHint'
 import {
@@ -26,11 +22,7 @@ interface ProfileMenuProps {
     onClick?: () => void
 }
 
-export const FilterMenu: FC<ProfileMenuProps> = ({
-    className,
-    onClose,
-    onClear,
-}) => {
+export const FilterMenu: FC<ProfileMenuProps> = ({ className, onClose }) => {
     const { categories, items } = useAppSelector(state => state.products.data)
     const dispatch = useAppDispatch()
     const { filters, queryString } = useAppSelector(
@@ -57,13 +49,10 @@ export const FilterMenu: FC<ProfileMenuProps> = ({
     }
 
     useEffect(() => {
-        if (!!Object.values(filters).length || !!queryString) {
-            console.log(Object.values(filters).length || queryString)
-            dispatch(thunkFetchFiltredProductList(queryString))
-            setSearchParams(queryString)
-        } else {
-            console.log('false')
-            setFiltersValue({})
+        dispatch(thunkFetchFiltredProductList(queryString))
+        setSearchParams(queryString)
+        if (!filters) {
+            setFiltersValue(ProductsFilterDefault)
         }
     }, [filters, queryString])
 
@@ -72,7 +61,6 @@ export const FilterMenu: FC<ProfileMenuProps> = ({
         const params = [...searchParams]
         const objParams = {}
         if (params.length > 0) {
-            console.log(params)
             Object.values(params).forEach(
                 item => (objParams[item[0]] = item[1])
             )
@@ -80,77 +68,6 @@ export const FilterMenu: FC<ProfileMenuProps> = ({
             setFiltersValue(objParams)
         }
     }, [])
-
-    //
-    // const onSubmitFilters = () => {
-    //     setParamFilters(filtersValue)
-    //     // if (filters.queryString) {
-    //     //     dispatch(thunkFetchFiltredProductList(filters.queryString))
-    //     // } else {
-    //     //     dispatch(thunkFetchProductList())
-    //     // }
-    //     setIsOpen(false)
-    // }
-    //
-    // const setParamFilters = params => {
-    //     let filters: any = {}
-    //     for (const i in params) {
-    //         if (params[i].length > 0) {
-    //             filters = { [i]: params[i] }
-    //         }
-    //     }
-    //     dispatch(setFilter(filtersValue))
-    //     setFiltersValue(() => ({ ...filters }))
-    // }
-    //
-    // const onClearFilters = () => {
-    //     setSearchParams({})
-    //     setFiltersValue(ProductsFilterDefault)
-    //     setIsOpen(false)
-    // }
-    //
-    // useEffect(() => {
-    //     const params: IProductsFilter = {}
-    //     const name = searchParams.get('name')
-    //     if (name) {
-    //         params.name = name
-    //     }
-    //     const category = searchParams.get('category')
-    //     if (category) {
-    //         params.category = category
-    //     }
-    //     const vendor = searchParams.get('vendor')
-    //     if (vendor) {
-    //         params.vendor = vendor
-    //     }
-    //     const owner = searchParams.get('owner')
-    //     if (owner) {
-    //         params.owner = owner
-    //     }
-    //     const price_min = searchParams.get('price_min')
-    //     if (price_min) {
-    //         params.price_min = price_min
-    //     }
-    //     const price_max = searchParams.get('price_max')
-    //     if (price_max) {
-    //         params.price_max = price_max
-    //     }
-    //     if (Object.keys(params).length > 0) {
-    //         setParamFilters(params)
-    //     }
-    // }, [])
-    //
-    // useEffect(() => {
-    //     if (Object.keys(filters).length > 0) {
-    //         setFiltersValue(() => ({ ...filters.filters }))
-    //         setSearchParams({ ...filters.filters })
-    //         dispatch(
-    //             thunkFetchFiltredProductList(createQueryParams(filters.filters))
-    //         )
-    //     } else {
-    //         dispatch(clearFiltredItems())
-    //     }
-    // }, [filters.filters])
 
     return (
         <div className={cls(s.FilterMenu, className)}>

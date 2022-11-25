@@ -44,7 +44,7 @@ const productsFiltersSlice = createSlice({
         },
         clearFilters(state) {
             state.queryString = ''
-            state.filters = {}
+            state.filters = null
         },
     },
 })
