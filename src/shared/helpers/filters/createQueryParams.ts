@@ -16,7 +16,9 @@ export const convertQueryParamsInObj = params => {
             .map(item => item.split('='))
             .map(arr => (queryParams[arr[0]] = arr[1]))
     } else {
-        console.log(params)
-        return params.split('=').map(arr => (queryParams[arr[0]] = arr[1]))
+        const objParams = {}
+        const singleParam: string[] = params.replace('?', '').split('=')
+        objParams[singleParam[0]] = singleParam[1]
+        return objParams
     }
 }

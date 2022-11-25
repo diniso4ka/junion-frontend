@@ -11,7 +11,6 @@ interface ProductsTableProps {
 
 export const ProductsTable: FC<ProductsTableProps> = ({ className, items }) => {
     const headings = [
-        { sort: true, value: 'Ven' },
         { sort: true, value: 'Code' },
         { sort: true, value: 'Category' },
         { sort: true, value: 'Name' },

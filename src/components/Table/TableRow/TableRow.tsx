@@ -14,8 +14,7 @@ export const TableRow: FC<TableRow> = ({ className, type, product }) => {
     return (
         <div className={cls(s.TableRow, className)}>
             <ul className={s.items}>
-                <li className={s.item}>{product.vendor}</li>
-                <li className={s.item}>{product.art}</li>
+                <li className={s.item}>{`${product.vendor}-${product.art}`}</li>
                 <li className={s.item}>{product.category}</li>
                 <li className={s.item}>{product.name}</li>
                 <li className={s.item}>{product.price}</li>
