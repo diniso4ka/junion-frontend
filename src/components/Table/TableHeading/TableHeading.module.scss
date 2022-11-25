@@ -1,10 +1,29 @@
+//.TableHeading {
+//    background-color: var(--bg-third-color);
+//    font-family: var(--font-family-main);
+//}
+//.items {
+//    display: grid;
+//    grid-template-columns: 12% 12% 18% 10% 10% 10% 18% 10%;
+//    padding: 8px 18px;
+//}
+//.item {
+//    text-decoration: none;
+//    list-style: none;
+//    font-size: var(--font-size-m);
+//}
+//
+//.sortIcon {
+//    margin-left: 5px;
+//}
+
 .TableHeading {
     background-color: var(--bg-third-color);
     font-family: var(--font-family-main);
 }
 .items {
     display: grid;
-    grid-template-columns: 12% 12% 18% 10% 10% 10% 18% 10%;
+    grid-template-columns: 11% 16% 22% 10% 10% 10% 16% 2%;
     padding: 8px 18px;
 }
 .item {

@@ -1,6 +1,7 @@
-import s from './CustomCheckbox.module.scss'
+import s from './Checkbox.module.scss'
+import { FC } from 'react'
 
-const CustomCheckbox = () => {
+export const Checkbox: FC = () => {
     return (
         <>
             <input type='checkbox' className={s.real} />
@@ -8,5 +9,3 @@ const CustomCheckbox = () => {
         </>
     )
 }
-
-export default CustomCheckbox

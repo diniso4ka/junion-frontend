@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import s from './FilterMenu.module.scss'
 import cls from 'classnames'
 
@@ -10,10 +10,7 @@ import { IProductsFilter } from 'shared/types/filters'
 import { Button, Input } from 'components'
 import { ProductsFilterDefault } from 'shared/helpers/degaultValues/filters'
 import { InputWithHint } from 'components/InputWithHint'
-import {
-    setFilters,
-    setQueryString,
-} from 'app/store/slices/productsFilters/productsFilters'
+import { setFilters } from 'app/store/slices/productsFilters/productsFilters'
 
 interface ProfileMenuProps {
     onClose?: () => void

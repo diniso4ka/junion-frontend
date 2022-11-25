@@ -2,7 +2,7 @@ import { FC } from 'react'
 import s from './TableRow.module.scss'
 import cls from 'classnames'
 
-import update from 'shared/assets/images/icons/update.svg'
+import { Checkbox } from 'components'
 
 interface TableRow {
     className?: string
@@ -21,7 +21,9 @@ export const TableRow: FC<TableRow> = ({ className, type, product }) => {
                 <li className={s.item}>{product.quantity}</li>
                 <li className={s.item}>NR</li>
                 <li className={s.item}>{product.owner}</li>
-                <img src={update} />
+                <li>
+                    <Checkbox />
+                </li>
             </ul>
         </div>
     )

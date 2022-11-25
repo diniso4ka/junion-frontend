@@ -18,7 +18,7 @@ export const ProductsTable: FC<ProductsTableProps> = ({ className, items }) => {
         { sort: true, value: 'Quantity' },
         { sort: true, value: 'Unit' },
         { sort: false, value: 'Owner' },
-        { sort: false, value: 'Change data' },
+        { sort: false, value: 'Action' },
     ]
     return (
         <div className={cls(s.ProductsTable, className)}>
