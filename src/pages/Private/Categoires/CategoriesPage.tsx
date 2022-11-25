@@ -1,11 +1,7 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import s from './CategoriesPage.module.scss'
-import cls from 'classnames'
-import { ProductsTable } from 'pages/Private/Products/ProductsTable/ProductsTable'
-import { useAppSelector } from 'app/store/types'
 import { getDate } from 'shared/helpers/date/getDate'
-import { Button, Search } from 'components'
-import { searchByIncludes } from 'shared/helpers/filters/search'
+import { Search } from 'components'
 
 const CategoriesPage: FC = () => {
     const date = getDate()
