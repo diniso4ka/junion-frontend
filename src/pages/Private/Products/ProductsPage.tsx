@@ -2,12 +2,15 @@ import { FC, useState } from 'react'
 import s from './ProductsPage.module.scss'
 import cls from 'classnames'
 import { ProductsTable } from 'pages/Private/Products/ProductsTable/ProductsTable'
-import { useAppSelector } from 'app/store/types'
+import { useAppDispatch, useAppSelector } from 'app/store/types'
 import { getDate } from 'shared/helpers/date/getDate'
 import { Button, Search } from 'components'
 import { searchByIncludes } from 'shared/helpers/filters/search'
+import { clearFilters } from 'app/store/slices/productsFilters/productsFilters'
 
 const ProductsPage: FC = () => {
+    const dispatch = useAppDispatch()
+    const { queryString } = useAppSelector(state => state.productsFilters)
     const [filterIsOpen, setFilterIsOpen] = useState(false)
     const [searchValue, setSearchValue] = useState<string>('')
     const productsData = useAppSelector(state => state.products.data.items)
@@ -24,6 +27,12 @@ const ProductsPage: FC = () => {
     if (!categories.categories) {
         return <div>...loading</div>
     }
+
+    const onClear = () => {
+        dispatch(clearFilters())
+        setSearchValue('')
+        setFilterIsOpen(false)
+    }
     return (
         <div
             className={cls(s.ProductsPage)}
@@ -38,6 +47,8 @@ const ProductsPage: FC = () => {
                     onFilterOpen={() => setFilterIsOpen(!filterIsOpen)}
                     isOpened={filterIsOpen}
                     onClick={e => e.stopPropagation()}
+                    canClear={!!searchValue || !!queryString}
+                    onClear={() => onClear()}
                 />
                 <Button variant={'rounded'}>Add new product</Button>
                 <p

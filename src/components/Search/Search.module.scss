@@ -5,20 +5,23 @@
 
 .helperIcon {
     position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 5px;
+}
+
+.helperSecondIconLeft {
+    right: 40px;
+    cursor: pointer;
+    opacity: 0.5;
 }
 
 .helperIconLeft {
-    top: 50%;
-    transform: translateY(-50%);
     left: 5px;
-    padding: 5px;
     pointer-events: none;
 }
 .helperIconRight {
-    top: 50%;
-    transform: translateY(-50%);
     right: 7px;
-    padding: 5px;
     cursor: pointer;
 }
 
