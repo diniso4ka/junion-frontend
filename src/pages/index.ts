@@ -5,7 +5,7 @@ import { AsyncEnterEmailPage as SendLink } from './Public/ForgotPassword/SendLin
 import { AsyncEnterEmailPage as EnterEmail } from './Public/ForgotPassword/EnterEmail/AsyncEnterEmail'
 
 import Home from './Private/Home/HomePage'
-import { AsyncCategoriesPage as Categories } from './Private/Categories/AsyncCategoriesPage'
+import { AsyncCategoriesPage as Categories } from './Private/Categoires/AsyncCategoriesPage'
 import Products from './Private/Products/ProductsPage'
 import { AsyncVendorsPage as Vendors } from './Private/Vendors/AsyncVendorsPage'
 

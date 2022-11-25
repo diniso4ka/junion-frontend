@@ -9,12 +9,14 @@ import { FilterMenu } from 'pages/Private/Products/FilterMenu/FilterMenu'
 
 interface SearchProps extends InputHTMLAttributes<HTMLInputElement> {
     className?: string
-    onFilterOpen: () => void
-    isOpened: boolean
-    onClick: (e) => void
+    onFilterOpen?: () => void
+    isOpened?: boolean
+    onClick?: (e) => void
+    withFilter?: boolean
 }
 
 export const Search: FC<SearchProps> = ({
+    withFilter,
     className,
     onFilterOpen,
     isOpened,
@@ -40,7 +42,7 @@ export const Search: FC<SearchProps> = ({
                 size={'large'}
                 isOpened={isOpened}
             >
-                <FilterMenu setIsOpen={onFilterOpen} />
+                {withFilter && <FilterMenu setIsOpen={onFilterOpen} />}
             </DroppedMenu>
         </div>
     )

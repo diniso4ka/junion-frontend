@@ -1,0 +1,11 @@
+.ProductsTable {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.items {
+    max-height: calc(80vh - var(--header-height-desktop));
+    overflow-y: scroll;
+    -webkit-scrollbar: none;
+}
