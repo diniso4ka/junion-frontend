@@ -49,6 +49,7 @@ const ProductsPage: FC = () => {
                     onChange={e => setSearchValue(e.target.value)}
                     className={s.search}
                     toggleOpen={() => setFilterIsOpen(!filterIsOpen)}
+                    onClose={() => setFilterIsOpen(false)}
                     isOpened={filterIsOpen}
                     onClick={e => e.stopPropagation()}
                     canClear={!!searchValue || !!queryString}
