@@ -28,6 +28,9 @@ export const usernameRegex = (username: string | undefined) => {
         ) {
             return false
         }
+        if (!/^[A-Za-z0-9]*$/.test(username)) {
+            return false
+        }
 
         const splitOnWordsUsername = username.split(' ')
         if (splitOnWordsUsername.length > 3) {

@@ -21,6 +21,10 @@ export const mailValidation = (mail: string) => {
 export const passwordValidation = (password: string) => {
     let error
     if (password) {
+        if (password.length > 20) {
+            error = passwordValidationMessages.incorrect
+            return error
+        }
         const { valid, tabs } = passwordRegex(password)
         if (!valid || tabs) {
             error = passwordValidationMessages.incorrect
