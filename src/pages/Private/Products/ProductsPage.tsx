@@ -1,15 +1,16 @@
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useState } from 'react'
 import s from './ProductsPage.module.scss'
 import cls from 'classnames'
-import { ProductsTable } from 'pages/Private/Products/ProductsTable/ProductsTable'
+
 import { useAppDispatch, useAppSelector } from 'app/store/types'
-import { getDate } from 'shared/helpers/date/getDate'
-import { AdvancedSearch, Button } from 'components'
-import { searchByIncludes } from 'shared/helpers/filters/search'
 import { clearFilters } from 'app/store/slices/productsFilters/productsFilters'
-import { Modal } from 'components/Modal/Modal'
+
+import { getDate } from 'shared/helpers/date/getDate'
+import { searchByIncludes } from 'shared/helpers/filters/search'
+
+import { AdvancedSearch, Button, Modal } from 'components'
 import { CreateProductForm } from './CreateProductForm/CreateProductForm'
-import { SideButton } from 'components/SideButton'
+import { ProductsTable } from './ProductsTable/ProductsTable'
 import { FilterMenu } from './FilterMenu/FilterMenu'
 
 const ProductsPage: FC = () => {
@@ -17,16 +18,16 @@ const ProductsPage: FC = () => {
     const { queryString, filters } = useAppSelector(
         state => state.productsFilters
     )
+    const { categories, items } = useAppSelector(state => state.products.data)
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [filterIsOpen, setFilterIsOpen] = useState(false)
     const [searchValue, setSearchValue] = useState<string>('')
-    const productsData = useAppSelector(state => state.products.data.items)
-    const categories = useAppSelector(state => state.products.data)
-    const filtredProductsData = useAppSelector(
-        state => state.products.data.filtredItems
+
+    const filteredProductsData = useAppSelector(
+        state => state.products.data.filteredItems
     )
-    const filtredItems = searchByIncludes(
-        filtredProductsData ? filtredProductsData : productsData,
+    const filteredItems = searchByIncludes(
+        filteredProductsData ? filteredProductsData : items,
         searchValue
     )
     const date = getDate()
@@ -37,7 +38,7 @@ const ProductsPage: FC = () => {
         setFilterIsOpen(false)
     }
 
-    if (!categories.categories) {
+    if (!categories) {
         return <div>...loading</div>
     }
 
@@ -68,7 +69,7 @@ const ProductsPage: FC = () => {
                     className={s.date}
                 >{`${date.mounth} ${date.number}, ${date.year}`}</p>
             </div>
-            <ProductsTable items={filtredItems} className={s.table} />
+            <ProductsTable items={filteredItems} className={s.table} />
             <Modal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)}>
                 <CreateProductForm />
             </Modal>

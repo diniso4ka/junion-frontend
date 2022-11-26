@@ -1,4 +1,3 @@
-import { Categories, Status } from '../../types'
 import { createSlice } from '@reduxjs/toolkit'
 import { IProductsFilter } from 'shared/types/filters'
 import {

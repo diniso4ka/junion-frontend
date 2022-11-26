@@ -1,18 +1,23 @@
-import { Categories, Status } from '../../types'
 import { createSlice } from '@reduxjs/toolkit'
 import {
     thunkFetchCategories,
     thunkFetchFiltredProductList,
     thunkFetchProductList,
+    thunkFetchVendors,
 } from './thunk'
+
 import { IProductsResData } from 'shared/types/products'
+import { Status } from '../../types'
+import { ICategoriesResData } from 'shared/types/categories'
+import { IVendorsResData } from 'shared/types/vendors'
 
 interface initialStateType {
     data: {
         quantity: number
         items: IProductsResData[]
-        categories: Categories[]
-        filtredItems: [] | null
+        categories: ICategoriesResData[]
+        vendors: IVendorsResData[]
+        filteredItems: [] | null
     }
     status: Status
 }
@@ -22,7 +27,8 @@ const initialState: initialStateType = {
         quantity: 0,
         items: [],
         categories: [],
-        filtredItems: null,
+        vendors: [],
+        filteredItems: null,
     },
     status: Status.LOADING,
 }
@@ -32,7 +38,7 @@ const productsSlice = createSlice({
     initialState,
     reducers: {
         clearFiltredItems(state) {
-            state.data.filtredItems = null
+            state.data.filteredItems = null
         },
     },
     extraReducers: builder => {
@@ -55,21 +61,21 @@ const productsSlice = createSlice({
             builder.addCase(
                 thunkFetchFiltredProductList.pending,
                 (state, action) => {
-                    state.data.filtredItems = null
+                    state.data.filteredItems = null
                     state.status = Status.LOADING
                 }
             ),
             builder.addCase(
                 thunkFetchFiltredProductList.fulfilled,
                 (state, action) => {
-                    state.data.filtredItems = action.payload.data.result
+                    state.data.filteredItems = action.payload.data.result
                     state.status = Status.SUCCESS
                 }
             ),
             builder.addCase(
                 thunkFetchFiltredProductList.rejected,
                 (state, action) => {
-                    state.data.filtredItems = null
+                    state.data.filteredItems = null
                     state.status = Status.ERROR
                 }
             ),
@@ -83,6 +89,17 @@ const productsSlice = createSlice({
             }),
             builder.addCase(thunkFetchCategories.rejected, (state, action) => {
                 state.data.categories = null
+                state.status = Status.ERROR
+            })
+        builder.addCase(thunkFetchVendors.pending, (state, action) => {
+            state.data.vendors = []
+            state.status = Status.LOADING
+        }),
+            builder.addCase(thunkFetchVendors.fulfilled, (state, action) => {
+                state.data.vendors = [...action.payload.data.data]
+                state.status = Status.SUCCESS
+            }),
+            builder.addCase(thunkFetchVendors.rejected, (state, action) => {
                 state.status = Status.ERROR
             })
     },

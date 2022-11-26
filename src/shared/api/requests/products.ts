@@ -14,3 +14,8 @@ export const fetchCategories = async () => {
     const res = await api.get(endpoints.products.categories)
     return res
 }
+
+export const fetchVendors = async () => {
+    const res = await api.get(endpoints.products.vendors)
+    return res
+}
