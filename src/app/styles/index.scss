@@ -3,10 +3,6 @@
 @use 'themes/normal';
 @use 'variables/global';
 
-html {
-    overflow: hidden;
-}
-
 .app {
     font-family: var(--font-family-main);
     font: var(--font-m);
