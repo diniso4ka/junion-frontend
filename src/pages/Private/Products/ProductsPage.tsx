@@ -7,8 +7,9 @@ import { getDate } from 'shared/helpers/date/getDate'
 import { Button, Search } from 'components'
 import { searchByIncludes } from 'shared/helpers/filters/search'
 import { clearFilters } from 'app/store/slices/productsFilters/productsFilters'
-import { Modal } from '../../../components/Modal/Modal'
+import { Modal } from 'components/Modal/Modal'
 import { CreateProductForm } from './CreateProductForm/CreateProductForm'
+import { SideButton } from 'components/SideButton'
 
 const ProductsPage: FC = () => {
     const dispatch = useAppDispatch()
@@ -68,6 +69,10 @@ const ProductsPage: FC = () => {
             <Modal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)}>
                 <CreateProductForm />
             </Modal>
+            <div className={s.sideButtons}>
+                <SideButton variant='update' />
+                <SideButton variant='delete' />
+            </div>
         </div>
     )
 }
