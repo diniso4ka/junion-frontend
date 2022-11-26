@@ -28,7 +28,7 @@ export const usernameRegex = (username: string | undefined) => {
         ) {
             return false
         }
-        if (!/^[A-Za-z0-9]*$/.test(username)) {
+        if (!/^[A-Za-z0-9 ]*$/.test(username)) {
             return false
         }
 
