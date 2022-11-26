@@ -1,4 +1,4 @@
-import { FC, InputHTMLAttributes, useState } from 'react'
+import React, { FC, InputHTMLAttributes, useState } from 'react'
 import s from './Search.module.scss'
 import cls from 'classnames'
 
@@ -10,27 +10,39 @@ import { FilterMenu } from 'pages/Private/Products/FilterMenu/FilterMenu'
 
 interface SearchProps extends InputHTMLAttributes<HTMLInputElement> {
     className?: string
-    onFilterOpen?: () => void
+    onClick?: (e) => void
+    toggleOpen?: () => void
+    type: 'hint' | 'filters'
+    data?: string[]
+    isOpened?: boolean
     onClear?: () => void
     canClear?: boolean
-    isOpened?: boolean
-    onClick?: (e) => void
-    withFilter?: boolean
 }
 
 export const Search: FC<SearchProps> = ({
-    withFilter,
     className,
-    onFilterOpen,
+    type,
     isOpened,
     onClear,
     canClear,
+    toggleOpen,
     onClick,
+    data,
     ...rest
 }) => {
+    const [value, setValue] = useState('')
+    const [focus, setFocus] = useState(false)
+
     return (
         <div onClick={onClick} className={cls(s.wrapper, className)}>
-            <input className={s.input} {...rest} />
+            <input
+                value={value}
+                onFocus={() => setFocus(true)}
+                onBlur={() => setFocus(false)}
+                onChange={e => setValue(e.target.value)}
+                className={s.input}
+                {...rest}
+            />
             <img
                 className={cls(s.helperIcon, s.helperIconLeft)}
                 src={searchIcon}
@@ -40,7 +52,7 @@ export const Search: FC<SearchProps> = ({
                     [s.active]: isOpened,
                 })}
                 src={moreIcon}
-                onClick={onFilterOpen}
+                onClick={toggleOpen}
             />
             {canClear && (
                 <img
@@ -49,15 +61,38 @@ export const Search: FC<SearchProps> = ({
                     onClick={onClear}
                 />
             )}
-            <DroppedMenu
-                className={s.droppedMenu}
-                size={'large'}
-                isOpened={isOpened}
-            >
-                {withFilter && (
-                    <FilterMenu onClose={onFilterOpen} onClear={onClear} />
-                )}
-            </DroppedMenu>
+            {type === 'filters' && (
+                <DroppedMenu
+                    className={s.droppedMenu}
+                    size={'large'}
+                    isOpened={isOpened}
+                >
+                    <FilterMenu onClose={toggleOpen} onClear={onClear} />
+                </DroppedMenu>
+            )}
+            {type === 'hint' && (
+                <DroppedMenu
+                    className={s.droppedMenu}
+                    size={'large'}
+                    isOpened={true}
+                >
+                    <ul className={s.hint}>
+                        {data
+                            .filter(item =>
+                                item.toLowerCase().includes(value.toLowerCase())
+                            )
+                            .map((item, index) => (
+                                <li
+                                    key={index}
+                                    onClick={e => console.log(e.target)}
+                                    className={s.hintItem}
+                                >
+                                    {item}
+                                </li>
+                            ))}
+                    </ul>
+                </DroppedMenu>
+            )}
         </div>
     )
 }

@@ -1,8 +1,8 @@
-//@ts-nocheck
 import { Button } from 'components'
 import s from './PageError.module.scss'
+import { FC } from 'react'
 
-const PageError = () => {
+const PageError: FC = () => {
     const reloadPage = () => {
         // eslint-disable-next-line no-use-before-define
         location.reload()

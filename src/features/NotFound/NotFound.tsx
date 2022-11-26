@@ -6,7 +6,7 @@ import s from './NotFound.module.scss'
 const NotFound = () => {
     const navigate = useNavigate()
     const goBackHandler = () => {
-        navigate('..', { relative: 'path' })
+        navigate(-1)
     }
 
     return (

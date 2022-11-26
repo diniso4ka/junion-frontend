@@ -14,6 +14,7 @@ interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
     placeHolder?: string
     variant?: 'primary' | 'secondary' | 'outline'
     sizeContainer?: 'large' | 'medium' | 'small' | 'adaptive'
+    heightContainer?: number | null
     classname?: string
     helperText?: string
     helperClass?: 'error' | 'hint' | 'success'
@@ -30,6 +31,7 @@ export const Input: React.FC<IInputProps> = React.memo(
         type = 'text',
         variant = 'primary',
         sizeContainer = 'large',
+        heightContainer = null,
         classname,
         error = false,
         helperText,
@@ -67,6 +69,7 @@ export const Input: React.FC<IInputProps> = React.memo(
             <div className={s.wrapper}>
                 <div className={s.inputWrapper}>
                     <input
+                        style={heightContainer && { height: heightContainer }}
                         className={classnames}
                         onChange={e => rest.onChange(e)}
                         autoComplete={'off'}
