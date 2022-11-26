@@ -1,11 +1,16 @@
+.label,
+.custom {
+    width: 22px;
+    height: 22px;
+}
+
 .custom {
     position: relative;
     display: inline-block;
-    width: 22px;
-    height: 22px;
     background-color: #fff;
     border: 1px solid #757575;
     border-radius: 4px;
+    vertical-align: sub;
 }
 
 .custom:before {
@@ -20,7 +25,7 @@
     background-image: url('/shared/assets/images/icons/checkbox.svg');
     background-size: contain;
     background-repeat: no-repeat;
-    transition: 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out;
 }
 
 .real:checked + .custom:before {
@@ -28,10 +33,14 @@
 }
 
 .real {
-    width: 22px;
-    height: 22px;
+    width: 0;
+    height: 0;
     opacity: 0;
     position: absolute;
-    z-index: 1;
+    z-index: -1;
+}
+
+.label {
+    display: inline-block;
     cursor: pointer;
 }
