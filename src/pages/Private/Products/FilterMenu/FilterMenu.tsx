@@ -50,6 +50,8 @@ export const FilterMenu: FC<ProfileMenuProps> = ({ className, onClose }) => {
         setSearchParams(queryString)
         if (!filters) {
             setFiltersValue(ProductsFilterDefault)
+        } else {
+            setFiltersValue(filters)
         }
     }, [filters, queryString])
 
@@ -167,7 +169,7 @@ export const FilterMenu: FC<ProfileMenuProps> = ({ className, onClose }) => {
                     className={s.button}
                     onClick={onSubmitFilters}
                 >
-                    send
+                    Search
                 </Button>
             </div>
         </div>

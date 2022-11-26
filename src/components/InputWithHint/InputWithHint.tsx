@@ -3,6 +3,7 @@ import s from './InputWithHint.module.scss'
 
 import { DroppedMenu } from '../DroppedMenu'
 import { useClickOutside } from 'shared/hooks/useClickOutside'
+import cls from 'classnames'
 
 interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
     classname?: string
@@ -25,6 +26,7 @@ export const InputWithHint: React.FC<IInputProps> = React.memo(
         const [value, setValue] = useState('')
         const ref = useRef()
         useClickOutside(ref, () => onCloseHint())
+
         const filtredItems = hint.filter(item => {
             return item.toLowerCase().includes(value.toLowerCase())
         })
@@ -50,23 +52,22 @@ export const InputWithHint: React.FC<IInputProps> = React.memo(
                         type={'text'}
                         {...rest}
                     />
-                    <DroppedMenu
-                        position={'left'}
-                        size={'medium'}
-                        isOpened={isHintOpen}
+
+                    <ul
+                        className={cls(s.hint, {
+                            [s.opened]: isHintOpen,
+                        })}
                     >
-                        <ul className={s.hint}>
-                            {filtredItems.map((item, index) => (
-                                <li
-                                    key={index}
-                                    onClick={onHandleHint}
-                                    className={s.hintItem}
-                                >
-                                    {item}
-                                </li>
-                            ))}
-                        </ul>
-                    </DroppedMenu>
+                        {filtredItems.map((item, index) => (
+                            <li
+                                key={index}
+                                onClick={onHandleHint}
+                                className={s.hintItem}
+                            >
+                                {item}
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             </div>
         )
