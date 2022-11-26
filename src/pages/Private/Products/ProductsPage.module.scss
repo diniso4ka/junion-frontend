@@ -29,3 +29,12 @@
     font-weight: 400;
     font-size: var(--font-size-l);
 }
+
+.sideButtons {
+    position: fixed;
+    top: 200px;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
