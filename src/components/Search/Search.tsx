@@ -1,4 +1,4 @@
-import React, { FC, InputHTMLAttributes, useState } from 'react'
+import React, { FC, InputHTMLAttributes, useRef, useState } from 'react'
 import s from './Search.module.scss'
 import cls from 'classnames'
 
@@ -7,10 +7,12 @@ import deleteIcon from 'shared/assets/images/icons/delete.svg'
 import moreIcon from 'shared/assets/images/icons/more.svg'
 import { DroppedMenu } from 'components'
 import { FilterMenu } from 'pages/Private/Products/FilterMenu/FilterMenu'
+import { useClickOutside } from '../../shared/hooks/useClickOutside'
 
 interface SearchProps extends InputHTMLAttributes<HTMLInputElement> {
     className?: string
     onClick?: (e) => void
+    onClose?: () => void
     toggleOpen?: () => void
     type: 'hint' | 'filters'
     data?: string[]
@@ -25,6 +27,7 @@ export const Search: FC<SearchProps> = ({
     isOpened,
     onClear,
     canClear,
+    onClose,
     toggleOpen,
     onClick,
     data,
@@ -32,7 +35,8 @@ export const Search: FC<SearchProps> = ({
 }) => {
     const [value, setValue] = useState('')
     const [focus, setFocus] = useState(false)
-
+    const ref = useRef()
+    useClickOutside(ref, console.log('123'))
     return (
         <div onClick={onClick} className={cls(s.wrapper, className)}>
             <input
@@ -48,6 +52,7 @@ export const Search: FC<SearchProps> = ({
                 src={searchIcon}
             />
             <img
+                ref={ref}
                 className={cls(s.helperIcon, s.helperIconRight, {
                     [s.active]: isOpened,
                 })}
