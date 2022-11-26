@@ -30,9 +30,9 @@ export const DroppedMenu: FC<DroppedMenuProps> = ({
                     [s.wrapperSmall]: size === 'small',
                 },
                 {
-                    [s.openedSmall]: isOpened && size === 'small',
-                    [s.openedMedium]: isOpened && size === 'medium',
                     [s.openedLarge]: isOpened && size === 'large',
+                    [s.openedMedium]: isOpened && size === 'medium',
+                    [s.openedSmall]: isOpened && size === 'small',
                 },
                 {
                     [s.left]: position === 'left',

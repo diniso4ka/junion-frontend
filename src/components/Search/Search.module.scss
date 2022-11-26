@@ -44,3 +44,17 @@
     width: 30px;
     border-radius: 30px;
 }
+
+.hint {
+    width: 100%;
+    padding: 20px 30px;
+}
+
+.hintItem {
+    padding: 8px 0;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    &:hover {
+        background-color: #fafafa;
+    }
+}

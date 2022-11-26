@@ -1,16 +1,33 @@
 import { FC, ReactNode } from 'react'
 import s from './Modal.module.scss'
 import cls from 'classnames'
+import { Portal } from 'components'
 
 interface ModalProps {
     className?: string
     children: ReactNode
+    onClose: () => void
+    isOpen: boolean
 }
 
-export const Modal: FC<ModalProps> = ({ className, children }) => {
+export const Modal: FC<ModalProps> = ({
+    className,
+    children,
+    isOpen,
+    onClose,
+}) => {
     return (
-        <div className={cls(s.wrapper, className)}>
-            <div className={s.Modal}>{children}</div>
-        </div>
+        <Portal>
+            <div
+                onClick={() => onClose()}
+                className={cls(s.wrapper, className, {
+                    [s.opened]: isOpen,
+                })}
+            >
+                <div onClick={e => e.stopPropagation()} className={s.Modal}>
+                    {children}
+                </div>
+            </div>
+        </Portal>
     )
 }

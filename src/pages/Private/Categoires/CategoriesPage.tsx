@@ -10,7 +10,23 @@ const CategoriesPage: FC = () => {
         <div className={s.CategoriesPage}>
             <div className={s.navigation}>
                 <h1>Categories</h1>
-                <Search className={s.search} />
+                <Search
+                    type={'hint'}
+                    className={s.search}
+                    data={[
+                        'rere',
+                        'rere',
+                        'rere',
+                        'rere',
+                        'rere',
+                        'rere',
+                        'rere',
+                        'rere',
+                        'rere',
+                        'rere',
+                        'rere',
+                    ]}
+                />
                 <p className={s.date}>
                     {`${date.mounth} ${date.number}, ${date.year}`}
                 </p>
