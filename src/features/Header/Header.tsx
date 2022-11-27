@@ -11,14 +11,15 @@ import { useAppDispatch, useAppSelector } from 'app/store/types'
 import { thunkFetchAuthMe, thunkFetchLogout } from 'app/store/slices/user/thunk'
 import { routeConfig } from 'shared/config/routeConfig/routeConfig'
 import { ProfileMenu } from '../DroppedMenuContent/ProfileMenu/ProfileMenu'
+import { useRef, useState } from 'react'
+import { useClickOutside } from 'shared/hooks/useClickOutside'
 
 interface HeaderProps {
-    isOpened?: boolean
-    setIsOpened?: () => void
     onClick?: (e) => void
 }
 
-const Header: React.FC<HeaderProps> = ({ isOpened, setIsOpened, onClick }) => {
+const Header: React.FC<HeaderProps> = ({ onClick }) => {
+    const [profileIsOpen, setProfileIsOpen] = useState(false)
     const navigate = useNavigate()
     const { data } = useAppSelector(state => state.user.user)
     const dispatch = useAppDispatch()
@@ -28,6 +29,8 @@ const Header: React.FC<HeaderProps> = ({ isOpened, setIsOpened, onClick }) => {
         { label: 'Sign Up', path: routeConfig.REGISTER },
     ]
 
+    const ref = useRef()
+    useClickOutside(ref, () => setProfileIsOpen(false))
     const onClickLogout = async () => {
         dispatch(thunkFetchLogout())
         navigate(routeConfig.HOME)
@@ -59,21 +62,21 @@ const Header: React.FC<HeaderProps> = ({ isOpened, setIsOpened, onClick }) => {
                     <LinkButton to={routeConfig.HOME}>
                         <img src={logo} />
                     </LinkButton>
-                    <nav className={s.links}>
+                    <nav ref={ref} className={s.links}>
                         <div onClick={onClick} className={s.user}>
                             <div className={s.userInfo}>
                                 <img src={avatar} />
                                 <label>{data.name}</label>
                             </div>
                             <img
-                                onClick={setIsOpened}
+                                onClick={() => setProfileIsOpen(!profileIsOpen)}
                                 className={cls(s.arrow, {
-                                    [s.arrowRotated]: isOpened,
+                                    [s.arrowRotated]: profileIsOpen,
                                 })}
                                 src={arrow}
                             />
                         </div>
-                        <DroppedMenu size={'small'} isOpened={isOpened}>
+                        <DroppedMenu size={'small'} isOpened={profileIsOpen}>
                             <ProfileMenu data={data} onClick={onClickLogout} />
                         </DroppedMenu>
                     </nav>

@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react'
+import { FC, ReactNode, useEffect } from 'react'
 import s from './Modal.module.scss'
 import cls from 'classnames'
 import { Portal } from 'components'
@@ -16,6 +16,18 @@ export const Modal: FC<ModalProps> = ({
     isOpen,
     onClose,
 }) => {
+    useEffect(() => {
+        const listener = (e: KeyboardEvent) => {
+            if (e.code === 'Escape') {
+                e.preventDefault()
+                onClose()
+            }
+        }
+        document.addEventListener('keydown', listener)
+        return () => {
+            document.removeEventListener('keydown', listener)
+        }
+    }, [])
     return (
         <Portal>
             <div

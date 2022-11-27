@@ -6,7 +6,6 @@ import { IUserData } from 'shared/types/user'
 interface DroppedMenuProps {
     data?: IUserData
     size: 'large' | 'medium' | 'small' | 'adaptive'
-    position?: 'left' | 'center' | 'right'
     className?: string
     isOpened: boolean
     children: ReactNode
@@ -17,7 +16,6 @@ export const DroppedMenu: FC<DroppedMenuProps> = ({
     size,
     isOpened,
     children,
-    position = 'center',
 }) => {
     return (
         <div
@@ -33,9 +31,6 @@ export const DroppedMenu: FC<DroppedMenuProps> = ({
                     [s.openedLarge]: isOpened && size === 'large',
                     [s.openedMedium]: isOpened && size === 'medium',
                     [s.openedSmall]: isOpened && size === 'small',
-                },
-                {
-                    [s.left]: position === 'left',
                 }
             )}
         >
