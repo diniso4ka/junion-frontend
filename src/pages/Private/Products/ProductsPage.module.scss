@@ -1,26 +1,29 @@
 .ProductsPage {
     margin: 0 auto;
     padding: 25px 15px;
-    max-width: 1200px;
+    max-width: 1160px;
     width: calc(100vw - var(--sidebar-width));
     font-family: var(--font-family-main);
 }
 
-.navigation {
+.top {
     margin-bottom: 22px;
+}
+
+.top,
+.topOne,
+.topTwo {
     display: flex;
     align-items: center;
 }
 
-.navigation h1 {
-    width: 109px;
-    margin-right: 77px;
+.topOne {
+    gap: 77px;
 }
 
-.search {
-    margin-right: 38px;
-    width: 100%;
-    max-width: 550px;
+.topTwo {
+    margin-left: auto;
+    gap: 30px;
 }
 
 .date {
@@ -30,11 +33,6 @@
     font-size: var(--font-size-l);
 }
 
-.sideButtons {
-    position: fixed;
-    top: 200px;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+.search {
+    width: 560px;
 }
