@@ -4,12 +4,12 @@ import cls from 'classnames'
 
 import { useAppDispatch, useAppSelector } from 'app/store/types'
 import { useSearchParams } from 'react-router-dom'
-import { thunkFetchFiltredProductList } from 'app/store/slices/products/thunk'
+import { thunkFetchFilteredProductList } from 'app/store/slices/products/thunk'
 import { IProductsFilter } from 'shared/types/filters'
 
-import { Button, Input } from 'components'
+import { Button, Input } from 'shared/ui'
 import { ProductsFilterDefault } from 'shared/helpers/degaultValues/filters'
-import { InputWithHint } from 'components/InputWithHint'
+import { InputWithHint } from 'shared/ui'
 import { setFilters } from 'app/store/slices/productsFilters/productsFilters'
 
 interface ProfileMenuProps {
@@ -46,12 +46,18 @@ export const FilterMenu: FC<ProfileMenuProps> = ({ className, onClose }) => {
     }
 
     useEffect(() => {
-        dispatch(thunkFetchFiltredProductList(queryString))
-        setSearchParams(queryString)
-        if (!filters) {
-            setFiltersValue(ProductsFilterDefault)
+        if (queryString) {
+            dispatch(thunkFetchFilteredProductList(queryString))
+            setSearchParams(queryString)
+            if (!filters) {
+                setFiltersValue(ProductsFilterDefault)
+            } else {
+                setFiltersValue(filters)
+            }
         } else {
-            setFiltersValue(filters)
+            setFiltersValue(ProductsFilterDefault)
+            dispatch(thunkFetchFilteredProductList(''))
+            setSearchParams('')
         }
     }, [filters, queryString])
 

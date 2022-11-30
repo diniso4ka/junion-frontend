@@ -1,4 +1,4 @@
-import PageError from 'features/PageError/PageError'
+import PageError from 'widgets/PageError/PageError'
 import React, { ErrorInfo, ReactNode } from 'react'
 
 interface ErrorBoundaryProps {

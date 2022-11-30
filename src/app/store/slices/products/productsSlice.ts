@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
     thunkFetchCategories,
-    thunkFetchFiltredProductList,
+    thunkFetchCreateProduct,
+    thunkFetchFilteredProductList,
     thunkFetchProductList,
     thunkFetchVendors,
 } from './thunk'
@@ -59,21 +60,21 @@ const productsSlice = createSlice({
                 state.status = Status.ERROR
             }),
             builder.addCase(
-                thunkFetchFiltredProductList.pending,
+                thunkFetchFilteredProductList.pending,
                 (state, action) => {
                     state.data.filteredItems = null
                     state.status = Status.LOADING
                 }
             ),
             builder.addCase(
-                thunkFetchFiltredProductList.fulfilled,
+                thunkFetchFilteredProductList.fulfilled,
                 (state, action) => {
                     state.data.filteredItems = action.payload.data.result
                     state.status = Status.SUCCESS
                 }
             ),
             builder.addCase(
-                thunkFetchFiltredProductList.rejected,
+                thunkFetchFilteredProductList.rejected,
                 (state, action) => {
                     state.data.filteredItems = null
                     state.status = Status.ERROR
@@ -101,7 +102,26 @@ const productsSlice = createSlice({
             }),
             builder.addCase(thunkFetchVendors.rejected, (state, action) => {
                 state.status = Status.ERROR
-            })
+            }),
+            builder.addCase(
+                thunkFetchCreateProduct.pending,
+                (state, action) => {
+                    state.status = Status.LOADING
+                }
+            ),
+            builder.addCase(
+                thunkFetchCreateProduct.fulfilled,
+                (state, action) => {
+                    console.log(action.payload)
+                    state.status = Status.SUCCESS
+                }
+            ),
+            builder.addCase(
+                thunkFetchCreateProduct.rejected,
+                (state, action) => {
+                    state.status = Status.ERROR
+                }
+            )
     },
 })
 

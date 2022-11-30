@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import s from './ProductsTable.module.scss'
 import cls from 'classnames'
-import { TableHeading, TableRow } from 'components'
+import { TableHeading, TableRow } from 'shared/ui'
 import { IProductsResData } from 'shared/types/products'
 
 interface ProductsTableProps {

@@ -8,7 +8,7 @@ import { clearFilters } from 'app/store/slices/productsFilters/productsFilters'
 import { getDate } from 'shared/helpers/date/getDate'
 import { searchByIncludes } from 'shared/helpers/filters/search'
 
-import { AdvancedSearch, Button, Modal } from 'components'
+import { AdvancedSearch, Button, Modal } from 'shared/ui'
 import { CreateProductForm } from './CreateProductForm/CreateProductForm'
 import { ProductsTable } from './ProductsTable/ProductsTable'
 import { FilterMenu } from './FilterMenu/FilterMenu'

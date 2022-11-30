@@ -1,15 +1,15 @@
 export interface IValidationResponseData {
-    email?: string
+    mail?: string
     password?: string
-    correctPassword?: string
+    confirmPassword?: string
     name?: string
     superCode?: string
 }
 
 export interface IRegisterReqData {
-    email: string
+    mail: string
     password: string
-    correctPassword?: string
+    confirmPassword?: string
     name: string
     superCode: string
 }

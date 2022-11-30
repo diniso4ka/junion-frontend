@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import s from './CategoriesPage.module.scss'
 import { getDate } from 'shared/helpers/date/getDate'
-import { AdvancedSearch } from 'components'
+import { AdvancedSearch } from 'shared/ui'
 
 const CategoriesPage: FC = () => {
     const date = getDate()

@@ -8,21 +8,21 @@ import {
 } from './helpers'
 
 export const registerValidation = (data: IRegisterReqData) => {
-    const { email, password, correctPassword, name, superCode } = data
+    const { mail, password, confirmPassword, name, superCode } = data
     const errors = {} as typeof data
 
-    if (!!mailValidation(email)) {
-        errors.email = mailValidation(email)
+    if (!!mailValidation(mail)) {
+        errors.mail = mailValidation(mail)
     }
 
     if (!!passwordValidation(password)) {
         errors.password = passwordValidation(password)
     }
 
-    if (!!correctPasswordValidation(password, correctPassword)) {
-        errors.correctPassword = correctPasswordValidation(
+    if (!!correctPasswordValidation(password, confirmPassword)) {
+        errors.confirmPassword = correctPasswordValidation(
             password,
-            correctPassword
+            confirmPassword
         )
     }
 

@@ -1,9 +1,8 @@
-import { useEffect, useState, FC } from 'react'
+import { useEffect, FC } from 'react'
 import cls from 'classnames'
 import './styles/index.scss'
 
 import { useAppDispatch, useAppSelector } from './store/types'
-import { thunkFetchAuthMe } from './store/slices/user/thunk'
 import {
     thunkFetchCategories,
     thunkFetchProductList,
@@ -13,27 +12,28 @@ import { useTheme } from './providers/ThemeProvider/useTheme'
 import { Theme } from './providers/ThemeProvider/ThemeContext'
 
 import AppRouter from './providers/router/AppRouter'
-import Header from 'features/Header/Header'
-import Sidebar from 'features/Sidebar/Sidebar'
-import { PageLoader } from 'features/PageLoader/PageLoader'
+import Header from 'widgets/Header/Header'
+import Sidebar from 'widgets/Sidebar/Sidebar'
+import { PageLoader } from 'widgets/PageLoader/PageLoader'
+import { getAuthData, getInitialize, thunkCheckAuthMe } from 'entities/User'
 
 const App: FC = () => {
-    const data = useAppSelector(state => state.user.user)
-    const initialize = useAppSelector(state => state.user.initialize)
+    const authData = useAppSelector(getAuthData)
+    const initialize = useAppSelector(getInitialize)
     const dispatch = useAppDispatch()
     const { theme } = useTheme()
 
     useEffect(() => {
-        dispatch(thunkFetchAuthMe())
+        dispatch(thunkCheckAuthMe(0))
     }, [])
 
     useEffect(() => {
-        if (data.auth) {
+        if (authData) {
             dispatch(thunkFetchProductList())
             dispatch(thunkFetchCategories())
             dispatch(thunkFetchVendors())
         }
-    }, [data.auth])
+    }, [authData])
 
     return (
         <div className={cls('app', theme === Theme.LIGHT ? 'default' : 'dark')}>
@@ -41,7 +41,7 @@ const App: FC = () => {
             {!initialize && <PageLoader />}
             {initialize && (
                 <div className='pageWrapper'>
-                    {data.auth && <Sidebar />}
+                    {authData && <Sidebar />}
                     <AppRouter />
                 </div>
             )}
