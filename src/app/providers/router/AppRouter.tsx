@@ -1,19 +1,19 @@
-import { Route, Routes, Navigate } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import React from 'react'
-import NotFound from 'features/NotFound/NotFound'
+import NotFound from 'pages/NotFound/NotFound'
 
 import {
     privateRoutes,
     publicRoutes,
-    routeConfig,
 } from 'shared/config/routeConfig/routeConfig'
 
 import { useAppSelector } from 'app/store/types'
+import { getAuthData } from 'entities/User'
 
 const AppRouter = () => {
-    const { user } = useAppSelector(state => state.user)
+    const authData = useAppSelector(getAuthData)
 
-    return user.auth ? (
+    return authData ? (
         <React.Suspense fallback={<div>...loading</div>}>
             <Routes>
                 {privateRoutes.map(({ path, Component }) => (

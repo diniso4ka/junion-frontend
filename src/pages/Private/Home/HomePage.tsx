@@ -1,7 +1,7 @@
 import React from 'react'
 import cls from 'classnames'
 import s from './HomePage.module.scss'
-import { List } from 'components'
+import { List } from 'shared/ui'
 import { getDate } from 'shared/helpers/date/getDate'
 import { useAppSelector } from 'app/store/types'
 

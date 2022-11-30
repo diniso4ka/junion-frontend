@@ -1,7 +1,7 @@
 import React from 'react'
 import cls from 'classnames'
 import s from './EnterEmailPage.module.scss'
-import { Button, Input } from 'components'
+import { Button, Input } from 'shared/ui'
 import { useNavigate } from 'react-router'
 import { mailRegex } from 'shared/helpers/validations/validationRegex'
 import { routeConfig } from '../../../../shared/config/routeConfig/routeConfig'
