@@ -1,19 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit'
-import products from './slices/products/productsSlice'
-import productsFilters from './slices/productsFilters/productsFilters'
 import { loginReducer } from 'features/AuthByMail'
 import { userReducer } from 'entities/User'
 import { registerReducer } from 'features/RegisterByMail'
-import { productsReducer } from '../../entities/Products/model/slice/productsSlice'
+import { productsReducer } from 'entities/Products'
+import { categoriesReducer } from 'entities/Categories'
+import { productFiltersReducer } from 'features/ProductFilters'
 
 export const store = configureStore({
     reducer: {
         user: userReducer,
-        productss: productsReducer,
+        products: productsReducer,
+        categories: categoriesReducer,
+        productsFilters: productFiltersReducer,
         loginForm: loginReducer,
         registerForm: registerReducer,
-        productsFilters,
-        products,
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware({

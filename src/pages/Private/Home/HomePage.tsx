@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 import cls from 'classnames'
 import s from './HomePage.module.scss'
 import { List } from 'shared/ui'
@@ -10,10 +10,11 @@ import {
     getProductsStatus,
 } from 'entities/Products'
 
-const HomePage: React.FC = () => {
+const HomePage: FC = () => {
     const productsList = useAppSelector(getProductsList)
     const productsQuantity = useAppSelector(getProductsQuantity)
     const productsStatus = useAppSelector(getProductsStatus)
+
     const tablesData = {
         products: {
             title: 'Product information:',

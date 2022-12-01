@@ -5,7 +5,6 @@ import { Button, Input } from 'shared/ui'
 import { CreateProductDefault } from 'shared/helpers/degaultValues/createProduct'
 import { ICreateProduct } from 'shared/types/createProduct'
 import { useAppDispatch } from 'app/store/types'
-import { thunkFetchCreateProduct } from 'app/store/slices/products/thunk'
 
 interface CreateProductFormProps {
     className?: string

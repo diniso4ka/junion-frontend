@@ -5,7 +5,7 @@ import {
 } from 'shared/api/requests/products'
 import { productsActions } from '../slice/productsSlice'
 
-export const thunkFetchProductList = createAsyncThunk(
+export const thunkGetFilteredProductsList = createAsyncThunk(
     'products/FilteredProductList',
     async (params: string, thunkAPI) => {
         try {
