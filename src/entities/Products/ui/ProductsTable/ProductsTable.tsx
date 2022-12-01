@@ -7,9 +7,14 @@ import { IProductsResData } from 'shared/types/products'
 interface ProductsTableProps {
     className?: string
     items: IProductsResData[]
+    isLoading?: boolean
 }
 
-export const ProductsTable: FC<ProductsTableProps> = ({ className, items }) => {
+export const ProductsTable: FC<ProductsTableProps> = ({
+    className,
+    items,
+    isLoading = false,
+}) => {
     const headings = [
         { sort: true, value: 'Code' },
         { sort: true, value: 'Category' },
@@ -20,6 +25,10 @@ export const ProductsTable: FC<ProductsTableProps> = ({ className, items }) => {
         { sort: false, value: 'Owner' },
         { sort: false, value: 'Action' },
     ]
+
+    if (isLoading) {
+        return <div>...loading</div>
+    }
     return (
         <div className={cls(s.ProductsTable, className)}>
             <TableHeading type={'products'} headings={headings} />

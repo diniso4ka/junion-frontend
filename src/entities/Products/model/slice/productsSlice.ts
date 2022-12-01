@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { ProductsSchema } from '../types/ProductsSchema'
 import { thunkFetchProductList } from '../services/thunkGetProductsList'
-import { thunkFetchFilteredProductList } from '../../../../app/store/slices/products/thunk'
+import { thunkGetFilteredProductsList } from '../services/thunkGetFilteredProductsList'
 
 const initialState: ProductsSchema = {
+    items: [],
+    filteredItems: [],
     isLoading: false,
     quantity: 0,
 }
@@ -16,7 +18,10 @@ export const productsSlice = createSlice({
             state.quantity = action.payload.data.qty
         },
         setFilteredProductsList: (state, action) => {
-            state.items = action.payload.data.result
+            state.filteredItems = action.payload.data.result
+        },
+        clearFilteredProductsList: state => {
+            state.filteredItems = []
         },
     },
     extraReducers: builder => {
@@ -32,23 +37,20 @@ export const productsSlice = createSlice({
                 state.isLoading = false
                 state.error = true
             })
-            .addCase(thunkFetchFilteredProductList.pending, (state, action) => {
+            .addCase(thunkGetFilteredProductsList.pending, (state, action) => {
                 state.isLoading = true
                 state.error = false
             })
             .addCase(
-                thunkFetchFilteredProductList.fulfilled,
+                thunkGetFilteredProductsList.fulfilled,
                 (state, action) => {
                     state.isLoading = false
                 }
             )
-            .addCase(
-                thunkFetchFilteredProductList.rejected,
-                (state, action) => {
-                    state.isLoading = false
-                    state.error = true
-                }
-            )
+            .addCase(thunkGetFilteredProductsList.rejected, (state, action) => {
+                state.isLoading = false
+                state.error = true
+            })
     },
 })
 

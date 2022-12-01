@@ -3,10 +3,6 @@ import cls from 'classnames'
 import './styles/index.scss'
 
 import { useAppDispatch, useAppSelector } from './store/types'
-import {
-    thunkFetchCategories,
-    thunkFetchVendors,
-} from './store/slices/products/thunk'
 import { useTheme } from './providers/ThemeProvider/useTheme'
 import { Theme } from './providers/ThemeProvider/ThemeContext'
 
@@ -15,7 +11,9 @@ import Header from 'widgets/Header/Header'
 import Sidebar from 'widgets/Sidebar/Sidebar'
 import { PageLoader } from 'widgets/PageLoader/PageLoader'
 import { getAuthData, getInitialize, thunkCheckAuthMe } from 'entities/User'
-import { thunkFetchProductList } from '../entities/Products/model/services/thunkGetProductsList'
+import { thunkFetchProductList } from 'entities/Products/model/services/thunkGetProductsList'
+import { thunkGetCategoriesList } from 'entities/Categories/model/services/thunkGetCategoriesList'
+import { thunkGetVendorsList } from '../entities/Vendors'
 
 const App: FC = () => {
     const authData = useAppSelector(getAuthData)
@@ -30,8 +28,8 @@ const App: FC = () => {
     useEffect(() => {
         if (authData) {
             dispatch(thunkFetchProductList())
-            dispatch(thunkFetchCategories())
-            dispatch(thunkFetchVendors())
+            dispatch(thunkGetCategoriesList())
+            dispatch(thunkGetVendorsList())
         }
     }, [authData])
 

@@ -1,44 +1,74 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import s from './ProductsPage.module.scss'
 import cls from 'classnames'
 
 import { useAppDispatch, useAppSelector } from 'app/store/types'
-import { clearFilters } from 'app/store/slices/productsFilters/productsFilters'
 
 import { getDate } from 'shared/helpers/date/getDate'
 import { searchByIncludes } from 'shared/helpers/filters/search'
 
 import { AdvancedSearch, Button, Modal } from 'shared/ui'
 import { CreateProductForm } from './CreateProductForm/CreateProductForm'
-import { ProductsTable } from './ProductsTable/ProductsTable'
-import { FilterMenu } from './FilterMenu/FilterMenu'
-import { getProductsList } from 'entities/Products'
+import { ProductsTable } from 'entities/Products'
+import { FilterMenu } from 'features/ProductFilters'
+import {
+    getFilteredProductsList,
+    getProductsList,
+    getProductsStatus,
+    productsActions,
+    thunkGetFilteredProductsList,
+} from 'entities/Products'
+import { useSearchParams } from 'react-router-dom'
+
+import { getProductFiltersData } from 'features/ProductFilters/model/selectors/getProductFiltersData/getProductFiltersData'
+import { productFiltersActions } from 'features/ProductFilters'
+import { createQueryParams } from '../../../shared/helpers/filters/createQueryParams'
 
 const ProductsPage: FC = () => {
     const dispatch = useAppDispatch()
-    const { queryString, filters } = useAppSelector(
-        state => state.productsFilters
-    )
-    const { categories } = useAppSelector(state => state.products.data)
+    const filters = useAppSelector(getProductFiltersData)
     const productsList = useAppSelector(getProductsList)
+    const filteredProductsList = useAppSelector(getFilteredProductsList)
+    const status = useAppSelector(getProductsStatus)
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [filterIsOpen, setFilterIsOpen] = useState(false)
     const [searchValue, setSearchValue] = useState<string>('')
+    const [canClear, setCanClear] = useState<boolean>(false)
+    const date = getDate()
+    const [searchParams, setSearchParams] = useSearchParams()
     const filteredItems = searchByIncludes(
-        productsList ? productsList : [],
+        filteredProductsList.length ? filteredProductsList : productsList,
         searchValue
     )
-    const date = getDate()
 
     const onClear = () => {
-        dispatch(clearFilters())
+        dispatch(productFiltersActions.clearFilters())
+        dispatch(productsActions.clearFilteredProductsList())
+        setSearchParams('')
         setSearchValue('')
         setFilterIsOpen(false)
     }
 
-    if (!categories || !productsList) {
-        return <div>...loading</div>
-    }
+    useEffect(() => {
+        // @ts-ignore
+        const params = [...searchParams]
+        const objParams = {}
+        if (params.length > 0) {
+            Object.values(params).forEach(
+                item => (objParams[item[0]] = item[1])
+            )
+            dispatch(productFiltersActions.setFilters(objParams))
+            dispatch(thunkGetFilteredProductsList(createQueryParams(objParams)))
+        }
+        return () => {
+            dispatch(productFiltersActions.clearFilters())
+            dispatch(productsActions.clearFilteredProductsList())
+        }
+    }, [])
+
+    useEffect(() => {
+        setCanClear(!Object.values(filters).every(item => !item))
+    }, [filters])
 
     return (
         <div className={cls(s.ProductsPage)}>
@@ -51,11 +81,14 @@ const ProductsPage: FC = () => {
                     onOpen={() => setFilterIsOpen(true)}
                     onToggleOpen={() => setFilterIsOpen(!filterIsOpen)}
                     onClose={() => setFilterIsOpen(false)}
-                    canClear={!!searchValue || !!filters}
+                    canClear={!!searchValue || canClear}
                     isOpened={filterIsOpen}
                     onClear={() => onClear()}
                 >
-                    <FilterMenu onClose={() => setFilterIsOpen(false)} />
+                    <FilterMenu
+                        isLoading={status}
+                        onClose={() => setFilterIsOpen(false)}
+                    />
                 </AdvancedSearch>
                 <Button
                     onClick={() => setModalIsOpen(true)}
@@ -67,7 +100,11 @@ const ProductsPage: FC = () => {
                     className={s.date}
                 >{`${date.mounth} ${date.number}, ${date.year}`}</p>
             </div>
-            <ProductsTable items={filteredItems} className={s.table} />
+            <ProductsTable
+                isLoading={status}
+                items={filteredItems}
+                className={s.table}
+            />
             <Modal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)}>
                 <CreateProductForm />
             </Modal>
