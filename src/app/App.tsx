@@ -5,7 +5,6 @@ import './styles/index.scss'
 import { useAppDispatch, useAppSelector } from './store/types'
 import {
     thunkFetchCategories,
-    thunkFetchProductList,
     thunkFetchVendors,
 } from './store/slices/products/thunk'
 import { useTheme } from './providers/ThemeProvider/useTheme'
@@ -16,6 +15,7 @@ import Header from 'widgets/Header/Header'
 import Sidebar from 'widgets/Sidebar/Sidebar'
 import { PageLoader } from 'widgets/PageLoader/PageLoader'
 import { getAuthData, getInitialize, thunkCheckAuthMe } from 'entities/User'
+import { thunkFetchProductList } from '../entities/Products/model/services/thunkGetProductsList'
 
 const App: FC = () => {
     const authData = useAppSelector(getAuthData)

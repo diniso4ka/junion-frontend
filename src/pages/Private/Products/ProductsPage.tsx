@@ -12,22 +12,20 @@ import { AdvancedSearch, Button, Modal } from 'shared/ui'
 import { CreateProductForm } from './CreateProductForm/CreateProductForm'
 import { ProductsTable } from './ProductsTable/ProductsTable'
 import { FilterMenu } from './FilterMenu/FilterMenu'
+import { getProductsList } from 'entities/Products'
 
 const ProductsPage: FC = () => {
     const dispatch = useAppDispatch()
     const { queryString, filters } = useAppSelector(
         state => state.productsFilters
     )
-    const { categories, items } = useAppSelector(state => state.products.data)
+    const { categories } = useAppSelector(state => state.products.data)
+    const productsList = useAppSelector(getProductsList)
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [filterIsOpen, setFilterIsOpen] = useState(false)
     const [searchValue, setSearchValue] = useState<string>('')
-
-    const filteredProductsData = useAppSelector(
-        state => state.products.data.filteredItems
-    )
     const filteredItems = searchByIncludes(
-        filteredProductsData ? filteredProductsData : items,
+        productsList ? productsList : [],
         searchValue
     )
     const date = getDate()
@@ -38,7 +36,7 @@ const ProductsPage: FC = () => {
         setFilterIsOpen(false)
     }
 
-    if (!categories) {
+    if (!categories || !productsList) {
         return <div>...loading</div>
     }
 

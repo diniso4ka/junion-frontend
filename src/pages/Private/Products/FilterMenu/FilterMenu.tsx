@@ -11,6 +11,7 @@ import { Button, Input } from 'shared/ui'
 import { ProductsFilterDefault } from 'shared/helpers/degaultValues/filters'
 import { InputWithHint } from 'shared/ui'
 import { setFilters } from 'app/store/slices/productsFilters/productsFilters'
+import { getProductsList } from 'entities/Products'
 
 interface ProfileMenuProps {
     onClose?: () => void
@@ -20,7 +21,8 @@ interface ProfileMenuProps {
 }
 
 export const FilterMenu: FC<ProfileMenuProps> = ({ className, onClose }) => {
-    const { categories, items } = useAppSelector(state => state.products.data)
+    const { categories } = useAppSelector(state => state.products.data)
+    const productsList = useAppSelector(getProductsList)
     const dispatch = useAppDispatch()
     const { filters, queryString } = useAppSelector(
         state => state.productsFilters
@@ -89,7 +91,7 @@ export const FilterMenu: FC<ProfileMenuProps> = ({ className, onClose }) => {
                         value={filtersValue.name}
                         onFocus={() => setProductsFocus(true)}
                         // @ts-ignore
-                        hint={items.map(item => item.name)}
+                        hint={productsList.map(item => item.name)}
                         isHintOpen={productsFocus}
                         onCloseHint={() => setProductsFocus(false)}
                         onHandleSelect={e => onHandleProductHint(e)}

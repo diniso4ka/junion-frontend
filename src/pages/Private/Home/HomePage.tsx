@@ -4,28 +4,32 @@ import s from './HomePage.module.scss'
 import { List } from 'shared/ui'
 import { getDate } from 'shared/helpers/date/getDate'
 import { useAppSelector } from 'app/store/types'
+import {
+    getProductsList,
+    getProductsQuantity,
+    getProductsStatus,
+} from 'entities/Products'
 
 const HomePage: React.FC = () => {
-    const products = useAppSelector(state => state.products.data)
-    const status = useAppSelector(state => state.products.status)
+    const productsList = useAppSelector(getProductsList)
+    const productsQuantity = useAppSelector(getProductsQuantity)
+    const productsStatus = useAppSelector(getProductsStatus)
     const tablesData = {
         products: {
             title: 'Product information:',
             items: [
                 {
                     label: 'Products in the store:',
-                    value: `${products.quantity}`,
+                    value: `${productsQuantity}`,
                 },
                 {
                     label: 'Products without price:',
-                    value: `${
-                        products.items.filter(item => !item.price).length
-                    }`,
+                    value: `${productsList.filter(item => !item.price).length}`,
                 },
                 {
                     label: 'Products without category:',
                     value: `${
-                        products.items.filter(
+                        productsList.filter(
                             item => item.category[0] === 'unSorted'
                         ).length
                     }`,
@@ -57,12 +61,12 @@ const HomePage: React.FC = () => {
             </div>
             <div className={s.items}>
                 <List
-                    isLoading={status === 'loading'}
+                    isLoading={productsStatus}
                     data={tablesData.products}
                     className={s.item}
                 />
                 <List
-                    isLoading={status === 'loading'}
+                    isLoading={productsStatus}
                     data={tablesData.employee}
                     className={s.item}
                 />
