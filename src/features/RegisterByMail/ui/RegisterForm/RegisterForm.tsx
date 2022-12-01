@@ -95,20 +95,33 @@ export const RegisterForm: FC<RegisterFormProps> = ({ className }) => {
 
     //onBlur
     const onMailBlur = useCallback(() => {
+        dispatch(registerActions.setMail(mail.trimEnd().trimStart()))
         setMailFocus(false)
-    }, [mailFocus])
+    }, [mailFocus, mail])
     const onPasswordBlur = useCallback(() => {
+        dispatch(registerActions.setPassword(password.trimEnd().trimStart()))
         setPasswordFocus(false)
-    }, [passwordFocus])
+    }, [passwordFocus, password])
     const onConfirmPasswordBlur = useCallback(() => {
+        dispatch(
+            registerActions.setConfirmPassword(
+                confirmPassword.trimEnd().trimStart()
+            )
+        )
         setConfirmPasswordFocus(false)
-    }, [confirmPasswordFocus])
+    }, [confirmPasswordFocus, confirmPassword])
     const onNameBlur = useCallback(() => {
+        dispatch(
+            registerActions.setName(
+                name.replace(/\s+/g, ' ').trimEnd().trimStart()
+            )
+        )
         setNameFocus(false)
-    }, [nameFocus])
+    }, [nameFocus, name])
     const onSuperCodeBlur = useCallback(() => {
+        dispatch(registerActions.setSuperCode(superCode.trimEnd().trimStart()))
         setSuperCodeFocus(false)
-    }, [superCodeFocus])
+    }, [superCodeFocus, superCode])
 
     const onSubmitForm = useCallback(async () => {
         setFormSubmit(true)

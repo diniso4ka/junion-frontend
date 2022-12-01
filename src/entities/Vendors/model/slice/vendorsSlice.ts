@@ -12,7 +12,6 @@ export const vendorsSlice = createSlice({
     initialState,
     reducers: {
         setCategories: (state, action) => {
-            console.log('123')
             state.items = action.payload
         },
         setQuantity: (state, action) => {
