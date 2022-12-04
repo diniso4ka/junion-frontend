@@ -3,11 +3,7 @@ import s from './CreateProductForm.module.scss'
 import cls from 'classnames'
 import { Button, Checkbox, Input, InputWithHint } from 'shared/ui'
 import { useAppDispatch, useAppSelector } from 'app/store/types'
-import {
-    getProductsList,
-    productsActions,
-    thunkFetchProductList,
-} from 'entities/Products'
+import { getProductsList, thunkFetchProductList } from 'entities/Products'
 import { getCategoryList } from 'entities/Categories'
 import { createProductActions } from '../../model/slice/createProductSlice'
 import { getCreateProductForm } from '../../model/selectors/getCreateProductForm/getCreateProductForm'
@@ -15,6 +11,7 @@ import { getVendorsList } from 'entities/Vendors/model/selectors/getVendorsList/
 import { thunkCreateProduct } from '../../model/services/thunkCreateProduct'
 import { getCreateProductStatus } from '../../model/selectors/getCreateProductStatus/getCreateProductStatus'
 import { getCreateProductError } from '../../model/selectors/getCreateProductError/getCreateProductError'
+import closeIcon from 'shared/assets/images/icons/close.svg'
 
 interface CreateProductFormProps {
     className?: string
@@ -109,6 +106,7 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
     }
     return (
         <div className={cls(s.CreateProductForm, className)}>
+            <img onClick={onClose} className={s.closeIcon} src={closeIcon} />
             <h1 className={s.title}>New product</h1>
             <form className={s.form}>
                 <ul className={s.items}>

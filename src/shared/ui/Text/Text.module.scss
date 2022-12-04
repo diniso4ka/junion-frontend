@@ -1,0 +1,30 @@
+.title {
+    font-family: var(--font-family-main);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: var(--black-color);
+}
+.subtitle {
+    font-family: var(--font-family-main);
+    font-style: normal;
+    font-weight: 500;
+    font-size: var(--font-size-l);
+    color: var(--black-color);
+}
+.mediumText {
+    font-family: var(--font-family-main);
+    font-style: normal;
+    font-weight: 300;
+    font-size: var(--font-size-m);
+    line-height: 17px;
+}
+
+.text {
+    font-family: var(--font-family-main);
+    font-style: normal;
+    font-weight: 300;
+    font-size: var(--font-size-s);
+    line-height: 15px;
+}

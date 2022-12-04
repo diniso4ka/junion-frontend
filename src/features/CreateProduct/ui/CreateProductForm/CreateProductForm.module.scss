@@ -1,3 +1,7 @@
+.CreateProductForm {
+    position: relative;
+}
+
 .title {
     margin-bottom: 36px;
 }
@@ -6,6 +10,14 @@
     font-family: var(--font-family-main);
     width: 100%;
     margin: 0 auto;
+}
+
+.closeIcon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    opacity: 0.7;
+    cursor: pointer;
 }
 
 .label {

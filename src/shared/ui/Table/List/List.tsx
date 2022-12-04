@@ -13,9 +13,18 @@ interface ListProps {
             value: string
         }[]
     }
+    onClick?: (string) => void
 }
 
-export const List: FC<ListProps> = ({ className, data, isLoading }) => {
+export const List: FC<ListProps> = ({
+    className,
+    data,
+    isLoading,
+    onClick,
+}) => {
+    const onHandleClick = i => {
+        return data.items[i].label
+    }
     return isLoading ? (
         <div className={cls(s.List, className, s.loading)}>
             <Preloader />
@@ -27,7 +36,12 @@ export const List: FC<ListProps> = ({ className, data, isLoading }) => {
                 {data.items.map(item => (
                     <li key={item.label} className={s.item}>
                         <p className={s.label}>{item.label}</p>
-                        <p className={s.value}>{item.value}</p>
+                        <p
+                            onClick={() => onClick?.(item.label)}
+                            className={s.value}
+                        >
+                            {item.value}
+                        </p>
                     </li>
                 ))}
             </ul>
