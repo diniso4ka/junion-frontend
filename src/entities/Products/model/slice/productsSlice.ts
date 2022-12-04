@@ -6,6 +6,7 @@ import { thunkGetFilteredProductsList } from '../services/thunkGetFilteredProduc
 const initialState: ProductsSchema = {
     items: [],
     filteredItems: [],
+    sortedItems: [],
     isLoading: false,
     quantity: 0,
 }
@@ -22,6 +23,14 @@ export const productsSlice = createSlice({
         },
         clearFilteredProductsList: state => {
             state.filteredItems = []
+        },
+        setSortWithoutCategory: state => {
+            state.sortedItems = state.items.filter(
+                item => item.category[0] === 'unSorted'
+            )
+        },
+        setSortWithoutPrice: state => {
+            state.sortedItems = state.items.filter(item => item => !item.price)
         },
     },
     extraReducers: builder => {

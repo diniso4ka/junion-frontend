@@ -8,7 +8,6 @@ import { getDate } from 'shared/helpers/date/getDate'
 import { searchByIncludes } from 'shared/helpers/filters/search'
 
 import { AdvancedSearch, Button, Modal } from 'shared/ui'
-import { CreateProductForm } from '../../../features/CreateProduct/ui/CreateProductForm/CreateProductForm'
 import { ProductsTable } from 'entities/Products'
 import { FilterMenu } from 'features/ProductFilters'
 import {
@@ -24,9 +23,11 @@ import { getProductFiltersData } from 'features/ProductFilters/model/selectors/g
 import { productFiltersActions } from 'features/ProductFilters'
 import { createQueryParams } from 'shared/helpers/filters/createQueryParams'
 import { CreateProductModal } from 'features/CreateProduct/ui/CreateProductModal/CreateProductModal'
+import { getAuthData } from 'entities/User'
 
 const ProductsPage: FC = () => {
     const dispatch = useAppDispatch()
+    const user = useAppSelector(getAuthData)
     const filters = useAppSelector(getProductFiltersData)
     const productsList = useAppSelector(getProductsList)
     const filteredProductsList = useAppSelector(getFilteredProductsList)
@@ -92,6 +93,7 @@ const ProductsPage: FC = () => {
                     />
                 </AdvancedSearch>
                 <Button
+                    // disabled={user.role !== 'superadmin'}
                     onClick={() => setModalIsOpen(true)}
                     variant={'rounded'}
                 >

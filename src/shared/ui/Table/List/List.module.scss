@@ -27,4 +27,9 @@
 
 .value {
     font-size: var(--font-size-xl);
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    &:hover {
+        transform: scale(1.2);
+    }
 }

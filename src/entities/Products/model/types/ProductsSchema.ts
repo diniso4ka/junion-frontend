@@ -1,6 +1,7 @@
 export interface ProductsSchema {
     items: ProductType[]
     filteredItems: ProductType[]
+    sortedItems: ProductType[]
     quantity: number
     isLoading: boolean
     error?: boolean

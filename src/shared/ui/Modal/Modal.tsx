@@ -31,12 +31,12 @@ export const Modal: FC<ModalProps> = ({
     return (
         <Portal>
             <div
-                onClick={() => onClose()}
+                onMouseDown={() => onClose()}
                 className={cls(s.wrapper, className, {
                     [s.opened]: isOpen,
                 })}
             >
-                <div onClick={e => e.stopPropagation()} className={s.Modal}>
+                <div onMouseDown={e => e.stopPropagation()} className={s.Modal}>
                     {children}
                 </div>
             </div>
