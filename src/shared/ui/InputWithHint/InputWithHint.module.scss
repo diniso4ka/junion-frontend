@@ -1,18 +1,16 @@
-.wrapper {
-    font-family: var(--font-family-main);
-}
-
 .inputWrapper {
-    height: 48px;
     position: relative;
     margin-bottom: 8px;
+    font-family: var(--font-family-main);
 }
 
 .input {
     width: 408px;
-    border: none;
+}
+.line {
     padding: 10px 0 0 8px;
     font-size: var(--font-size-m);
+    border: none;
     border-bottom: 1px solid #dedede;
     border-radius: 0;
     height: 40px;
@@ -20,6 +18,19 @@
         outline: none;
         border: none;
         border-bottom: 1px solid var(--black-color);
+    }
+}
+
+.outline {
+    width: 100%;
+    padding: 10px 0 0 20px;
+    font-size: var(--font-size-m);
+    border: 1px solid #757575;
+    border-radius: 10px;
+    height: 38px;
+
+    &:focus {
+        outline: none;
     }
 }
 
@@ -35,10 +46,16 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     overflow: hidden;
     z-index: 100;
+    border-radius: 10px;
     &.opened {
         max-height: 200px;
         height: fit-content;
         overflow-y: auto;
+    }
+
+    &.adaptive {
+        width: 100%;
+        text-align: center;
     }
 }
 
@@ -47,6 +64,9 @@
     padding: 8px 0;
     border-bottom: 2px solid rgba(0, 0, 0, 0.2);
     cursor: pointer;
+    &:last-child {
+        margin-bottom: 10px;
+    }
     &:hover {
         background-color: #fafafa;
     }

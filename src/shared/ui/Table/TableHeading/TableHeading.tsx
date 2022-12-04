@@ -17,16 +17,30 @@ export const TableHeading: FC<TableHeading> = ({
 }) => {
     return (
         <div className={cls(s.TableHeading, className)}>
-            <ul className={s.items}>
-                {headings.map(item => (
-                    <li key={item.value} className={s.item}>
-                        {item.value}
-                        {item.sort && (
-                            <img className={cls(s.sortIcon)} src={arrow} />
-                        )}
-                    </li>
-                ))}
-            </ul>
+            {type === 'products' && (
+                <ul className={cls(s.items, s[type])}>
+                    {headings.map(item => (
+                        <li key={item.value} className={s.item}>
+                            {item.value}
+                            {item.sort && (
+                                <img className={cls(s.sortIcon)} src={arrow} />
+                            )}
+                        </li>
+                    ))}
+                </ul>
+            )}
+            {type === 'categories' && (
+                <ul className={cls(s.items, s[type])}>
+                    {headings.map(item => (
+                        <li key={item.value} className={s.item}>
+                            {item.value}
+                            {item.sort && (
+                                <img className={cls(s.sortIcon)} src={arrow} />
+                            )}
+                        </li>
+                    ))}
+                </ul>
+            )}
         </div>
     )
 }

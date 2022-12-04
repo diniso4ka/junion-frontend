@@ -8,7 +8,7 @@ import { getDate } from 'shared/helpers/date/getDate'
 import { searchByIncludes } from 'shared/helpers/filters/search'
 
 import { AdvancedSearch, Button, Modal } from 'shared/ui'
-import { CreateProductForm } from './CreateProductForm/CreateProductForm'
+import { CreateProductForm } from '../../../features/CreateProduct/ui/CreateProductForm/CreateProductForm'
 import { ProductsTable } from 'entities/Products'
 import { FilterMenu } from 'features/ProductFilters'
 import {
@@ -22,7 +22,8 @@ import { useSearchParams } from 'react-router-dom'
 
 import { getProductFiltersData } from 'features/ProductFilters/model/selectors/getProductFiltersData/getProductFiltersData'
 import { productFiltersActions } from 'features/ProductFilters'
-import { createQueryParams } from '../../../shared/helpers/filters/createQueryParams'
+import { createQueryParams } from 'shared/helpers/filters/createQueryParams'
+import { CreateProductModal } from 'features/CreateProduct/ui/CreateProductModal/CreateProductModal'
 
 const ProductsPage: FC = () => {
     const dispatch = useAppDispatch()
@@ -105,9 +106,10 @@ const ProductsPage: FC = () => {
                 items={filteredItems}
                 className={s.table}
             />
-            <Modal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)}>
-                <CreateProductForm />
-            </Modal>
+            <CreateProductModal
+                isOpen={modalIsOpen}
+                onClose={() => setModalIsOpen(false)}
+            />
         </div>
     )
 }

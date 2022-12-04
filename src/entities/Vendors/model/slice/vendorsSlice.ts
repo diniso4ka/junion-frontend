@@ -11,7 +11,7 @@ export const vendorsSlice = createSlice({
     name: 'products',
     initialState,
     reducers: {
-        setCategories: (state, action) => {
+        setVendors: (state, action) => {
             state.items = action.payload
         },
         setQuantity: (state, action) => {

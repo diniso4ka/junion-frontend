@@ -27,6 +27,19 @@
     border: 1px solid var(--button-border-color);
 }
 
+.outline {
+    width: 100%;
+    padding: 10px 0 0 20px;
+    font-size: var(--font-size-m);
+    border: 1px solid #757575;
+    border-radius: 10px;
+    height: 38px;
+
+    &:focus {
+        outline: none;
+    }
+}
+
 .secondary {
     border-bottom: 1px solid #dedede;
     border-radius: 0;

@@ -9,13 +9,15 @@ export interface ProductsSchema {
 export interface ProductType {
     art: string
     category: string[]
-    createdAt: string
     discountPrice: number
     name: string
     owner: string
     price: number
+    unit: string
     quantity: number
     updatedAt: string
+    createdAt: string
     vendor: string
     _id: string
+    status: string
 }

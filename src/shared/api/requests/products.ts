@@ -15,13 +15,3 @@ export const fetchCreateProduct = async data => {
     const res = await api.post(endpoints.products.list, data)
     return res
 }
-
-export const fetchCategories = async () => {
-    const res = await api.get(endpoints.products.categories)
-    return res
-}
-
-export const fetchVendors = async () => {
-    const res = await api.get(endpoints.products.vendors)
-    return res
-}
