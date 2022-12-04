@@ -13,7 +13,7 @@ interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
     variant?: 'primary' | 'secondary' | 'outline'
     sizeContainer?: 'large' | 'medium' | 'small' | 'adaptive'
     heightContainer?: number | null
-    classname?: string
+    className?: string
     helperText?: string
     helperClass?: 'error' | 'hint' | 'success'
     error?: boolean
@@ -30,7 +30,7 @@ export const Input: React.FC<IInputProps> = React.memo(
         variant = 'primary',
         sizeContainer = 'large',
         heightContainer = null,
-        classname,
+        className,
         error = false,
         helperText,
         helperClass = 'error',
@@ -45,15 +45,9 @@ export const Input: React.FC<IInputProps> = React.memo(
             [s.helperSuccess]: helperClass === 'success',
         })
 
-        const classnames = cls(
-            s.input,
-            s[variant],
-            s[sizeContainer],
-            classname,
-            {
-                [s.error]: error,
-            }
-        )
+        const classnames = cls(s.input, s[variant], s[sizeContainer], {
+            [s.error]: error,
+        })
         const onToggleVisible = () => {
             setVisible(!visible)
         }
@@ -64,7 +58,7 @@ export const Input: React.FC<IInputProps> = React.memo(
             }
         }, [rest.value])
         return (
-            <div className={s.wrapper}>
+            <div className={cls(s.wrapper, className)}>
                 <div className={s.inputWrapper}>
                     <input
                         style={heightContainer && { height: heightContainer }}

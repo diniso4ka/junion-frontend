@@ -5,7 +5,9 @@ import { useClickOutside } from 'shared/hooks/useClickOutside'
 import cls from 'classnames'
 
 interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
-    classname?: string
+    className?: string
+    variant?: 'line' | 'outline'
+    hintSize?: 'large' | 'medium' | 'small' | 'adaptive'
     hint?: string[] | null
     isHintOpen?: boolean
     onCloseHint?: () => void
@@ -15,8 +17,10 @@ interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
 export const InputWithHint: React.FC<IInputProps> = React.memo(
     ({
         type = 'text',
+        variant = 'line',
         hint,
-        classname,
+        hintSize = 'medium',
+        className,
         onCloseHint,
         isHintOpen,
         onHandleSelect,
@@ -24,14 +28,14 @@ export const InputWithHint: React.FC<IInputProps> = React.memo(
     }) => {
         const [value, setValue] = useState('')
         const ref = useRef()
-        useClickOutside(ref, () => onCloseHint())
+        useClickOutside(ref, () => onCloseHint?.())
 
         const filtredItems = hint.filter(item => {
             return item.toLowerCase().includes(value.toLowerCase())
         })
         const onHandleHint = e => {
             onHandleSelect(e.target.innerHTML)
-            onCloseHint()
+            onCloseHint?.()
         }
         useEffect(() => {
             if (rest.value) {
@@ -42,32 +46,30 @@ export const InputWithHint: React.FC<IInputProps> = React.memo(
             }
         }, [rest.value])
         return (
-            <div ref={ref} className={s.wrapper}>
-                <div className={s.inputWrapper}>
-                    <input
-                        className={s.input}
-                        onChange={e => rest.onChange(e)}
-                        autoComplete={'off'}
-                        type={'text'}
-                        {...rest}
-                    />
+            <div ref={ref} className={cls(s.inputWrapper, className)}>
+                <input
+                    className={cls(s.input, s[variant])}
+                    onChange={e => rest.onChange(e)}
+                    autoComplete={'off'}
+                    type={'text'}
+                    {...rest}
+                />
 
-                    <ul
-                        className={cls(s.hint, {
-                            [s.opened]: isHintOpen,
-                        })}
-                    >
-                        {filtredItems.map((item, index) => (
-                            <li
-                                key={index}
-                                onClick={onHandleHint}
-                                className={s.hintItem}
-                            >
-                                {item}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                <ul
+                    className={cls(s.hint, s[hintSize], {
+                        [s.opened]: isHintOpen,
+                    })}
+                >
+                    {filtredItems.map((item, index) => (
+                        <li
+                            key={index}
+                            onClick={onHandleHint}
+                            className={s.hintItem}
+                        >
+                            {item}
+                        </li>
+                    ))}
+                </ul>
             </div>
         )
     }

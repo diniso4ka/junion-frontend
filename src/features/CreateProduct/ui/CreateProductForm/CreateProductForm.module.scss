@@ -1,0 +1,78 @@
+.title {
+    margin-bottom: 36px;
+}
+
+.form {
+    font-family: var(--font-family-main);
+    width: 100%;
+    margin: 0 auto;
+}
+
+.label {
+    margin-bottom: 5px;
+    width: 130px;
+    margin-right: 10px;
+}
+
+.inputItem {
+    display: flex;
+    align-items: center;
+    width: 640px;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.subInput {
+    display: flex;
+    align-items: center;
+    margin-left: 60px;
+    position: relative;
+}
+
+.checkbox {
+    position: absolute;
+    left: -30px;
+}
+
+.subLabel {
+    margin-right: 5px;
+    width: 70px;
+}
+
+.input {
+    flex: 1 1 auto;
+    max-width: 78%;
+    margin-bottom: 0;
+    margin-right: auto;
+}
+
+.leftInput {
+    margin-right: 20px;
+}
+
+.priceFrom {
+    display: flex;
+    margin-right: auto;
+}
+
+.inputMedium {
+    width: 150px;
+    margin-right: auto;
+    height: 38px;
+}
+.inputSmall {
+    height: 38px;
+    width: 90px;
+    margin-right: auto;
+    text-align: center;
+}
+
+.discountInput {
+    margin-right: 5px;
+}
+
+.buttonWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}

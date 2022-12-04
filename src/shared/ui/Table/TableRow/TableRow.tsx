@@ -7,24 +7,41 @@ import { Checkbox } from 'shared/ui/index'
 interface TableRow {
     className?: string
     type: 'products' | 'vendors' | 'categories'
-    product: any
+    item: any
 }
 
-export const TableRow: FC<TableRow> = ({ className, type, product }) => {
+export const TableRow: FC<TableRow> = ({ className, type, item }) => {
     return (
         <div className={cls(s.TableRow, className)}>
-            <ul className={s.items}>
-                <li className={s.item}>{`${product.vendor}-${product.art}`}</li>
-                <li className={s.item}>{product.category}</li>
-                <li className={s.item}>{product.name}</li>
-                <li className={s.item}>{product.price}</li>
-                <li className={s.item}>{product.quantity}</li>
-                <li className={s.item}>NR</li>
-                <li className={s.item}>{product.owner}</li>
-                <li>
-                    <Checkbox />
-                </li>
-            </ul>
+            {type === 'products' && (
+                <ul className={cls(s.items, s[type])}>
+                    <li className={s.item}>{`${item.vendor}-${item.art}`}</li>
+                    <li className={s.item}>{item.category}</li>
+                    <li className={s.item}>{item.name}</li>
+                    <li className={s.item}>{item.price}</li>
+                    <li className={s.item}>{item.quantity}</li>
+                    <li className={s.item}>NR</li>
+                    <li className={s.item}>{item.owner}</li>
+                    <li>
+                        <Checkbox
+                            value={false}
+                            onClick={() => console.log('123')}
+                        />
+                    </li>
+                </ul>
+            )}
+            {type === 'categories' && (
+                <ul className={cls(s.items, s[type])}>
+                    <li>
+                        <Checkbox
+                            value={false}
+                            onClick={() => console.log('123')}
+                        />
+                    </li>
+                    <li className={s.item}>{item._id}</li>
+                    <li className={s.item}>{item.quantity}</li>
+                </ul>
+            )}
         </div>
     )
 }

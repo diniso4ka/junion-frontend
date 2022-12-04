@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { fetchCategories } from 'shared/api/requests/products'
+import { fetchCategories } from 'shared/api/requests/categories'
 import { categoriesActions } from '../slice/categoriesSlice'
 
 export const thunkGetCategoriesList = createAsyncThunk(
