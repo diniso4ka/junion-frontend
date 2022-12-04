@@ -21,7 +21,7 @@ export const TableRow: FC<TableRow> = ({ className, type, item }) => {
                     <li className={s.item}>{item.name}</li>
                     <li className={s.item}>
                         {item.discountPrice ? (
-                            <p className={s.discount}>
+                            <span className={s.discount}>
                                 {item.discountPrice}
                                 <DiscountTag
                                     discount={
@@ -29,7 +29,7 @@ export const TableRow: FC<TableRow> = ({ className, type, item }) => {
                                         (item.discountPrice * 100) / item.price
                                     }
                                 />
-                            </p>
+                            </span>
                         ) : (
                             item.price
                         )}
@@ -39,8 +39,8 @@ export const TableRow: FC<TableRow> = ({ className, type, item }) => {
                     <li className={s.item}>{item.owner}</li>
                     <li>
                         <Checkbox
-                            value={false}
-                            onClick={() => console.log('123')}
+                            value={true}
+                            onClick={() => console.log('checked')}
                         />
                     </li>
                 </ul>
@@ -49,8 +49,8 @@ export const TableRow: FC<TableRow> = ({ className, type, item }) => {
                 <ul className={cls(s.items, s[type])}>
                     <li>
                         <Checkbox
-                            value={false}
-                            onClick={() => console.log('123')}
+                            value={true}
+                            onClick={() => console.log('checked')}
                         />
                     </li>
                     <li className={s.item}>{item._id}</li>

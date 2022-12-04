@@ -41,15 +41,12 @@ export const AdvancedSearch: FC<AdvancedSearchProps> = ({
     value,
     ...rest
 }) => {
-    const [focus, setFocus] = useState(false)
     const ref = useRef(null)
-    useClickOutside(ref, () => onClose())
+    useClickOutside(ref, () => onClose?.())
     return (
         <div ref={ref} onClick={onClick} className={cls(s.wrapper, className)}>
             <input
                 value={value}
-                onFocus={() => setFocus(true)}
-                onBlur={() => setFocus(false)}
                 onChange={e => onChange(e.target.value)}
                 className={s.input}
                 {...rest}
@@ -70,7 +67,7 @@ export const AdvancedSearch: FC<AdvancedSearchProps> = ({
                     [s.active]: isOpened,
                 })}
                 src={moreIcon}
-                onClick={() => onToggleOpen()}
+                onClick={() => onToggleOpen?.()}
             />
             {canClear && (
                 <img

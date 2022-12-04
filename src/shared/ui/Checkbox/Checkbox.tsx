@@ -12,6 +12,7 @@ export const Checkbox: FC<CheckboxProps> = ({ className, onClick, value }) => {
     return (
         <label className={cls(s.label, className)}>
             <input
+                onChange={() => console.log('checked')}
                 onClick={onClick}
                 checked={!value}
                 type='checkbox'
