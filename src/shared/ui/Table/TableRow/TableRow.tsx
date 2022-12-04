@@ -3,6 +3,7 @@ import s from './TableRow.module.scss'
 import cls from 'classnames'
 
 import { Checkbox } from 'shared/ui/index'
+import { DiscountTag } from '../../DiscountTag/DiscountTag'
 
 interface TableRow {
     className?: string
@@ -18,7 +19,21 @@ export const TableRow: FC<TableRow> = ({ className, type, item }) => {
                     <li className={s.item}>{`${item.vendor}-${item.art}`}</li>
                     <li className={s.item}>{item.category}</li>
                     <li className={s.item}>{item.name}</li>
-                    <li className={s.item}>{item.price}</li>
+                    <li className={s.item}>
+                        {item.discountPrice ? (
+                            <p className={s.discount}>
+                                {item.discountPrice}
+                                <DiscountTag
+                                    discount={
+                                        100 -
+                                        (item.discountPrice * 100) / item.price
+                                    }
+                                />
+                            </p>
+                        ) : (
+                            item.price
+                        )}
+                    </li>
                     <li className={s.item}>{item.quantity}</li>
                     <li className={s.item}>NR</li>
                     <li className={s.item}>{item.owner}</li>

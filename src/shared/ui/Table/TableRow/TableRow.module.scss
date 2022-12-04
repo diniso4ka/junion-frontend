@@ -7,7 +7,6 @@
     padding: 31px 0 8px 0;
     margin: 0 18px;
     border-bottom: 1px solid #dedede;
-
     &.products {
         grid-template-columns: 11.5% 16% 22.5% 10% 10% 10% 16% 2%;
     }
@@ -20,4 +19,9 @@
 .item {
     font-size: var(--font-size-m);
     list-style: none;
+    .discount {
+        display: flex;
+        flex-direction: row;
+        column-gap: 5px;
+    }
 }
