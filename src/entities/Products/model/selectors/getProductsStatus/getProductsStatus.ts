@@ -1,4 +1,4 @@
-import { StateSchema } from 'app/store/types'
+import { StateSchema } from 'app/store/config/StateSchema'
 
 export const getProductsStatus = (state: StateSchema) =>
     state.products.isLoading

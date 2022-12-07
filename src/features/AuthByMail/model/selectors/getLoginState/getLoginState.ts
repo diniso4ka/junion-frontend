@@ -1,3 +1,3 @@
-import { StateSchema } from 'app/store/types'
+import { StateSchema } from 'app/store/config/StateSchema'
 
-export const getLoginState = (state: StateSchema) => state.loginForm
+export const getLoginState = (state: StateSchema) => state?.loginForm

@@ -1,9 +1,9 @@
 import { FC, useState } from 'react'
 import s from './CategoriesPage.module.scss'
 import { getDate } from 'shared/helpers/date/getDate'
-import { AdvancedSearch } from 'shared/ui'
+import { AdvancedSearch, Button } from 'shared/ui'
 import { CategoriesTable } from 'entities/Categories/ui/CategoriesTable/CategoriesTable'
-import { useAppSelector } from 'app/store/types'
+import { useAppSelector } from 'app/store/config/StateSchema'
 import { getCategoryList } from 'entities/Categories'
 
 const CategoriesPage: FC = () => {
@@ -28,6 +28,7 @@ const CategoriesPage: FC = () => {
                     canClear={!!searchValue}
                     onClear={onHandleClear}
                 ></AdvancedSearch>
+                <Button variant={'rounded'}>Add new category</Button>
                 <p className={s.date}>
                     {`${date.mounth} ${date.number}, ${date.year}`}
                 </p>

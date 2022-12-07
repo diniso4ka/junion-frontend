@@ -1,4 +1,4 @@
-import { StateSchema } from 'app/store/types'
+import { StateSchema } from 'app/store/config/StateSchema'
 
 export const getCreateProductError = (state: StateSchema) =>
-    state.createProduct.error
+    state?.createProduct?.error

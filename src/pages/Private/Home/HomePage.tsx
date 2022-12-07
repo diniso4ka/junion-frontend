@@ -3,7 +3,7 @@ import cls from 'classnames'
 import s from './HomePage.module.scss'
 import { List } from 'shared/ui'
 import { getDate } from 'shared/helpers/date/getDate'
-import { useAppDispatch, useAppSelector } from 'app/store/types'
+import { useAppDispatch, useAppSelector } from 'app/store/config/StateSchema'
 import {
     getProductsList,
     getProductsQuantity,

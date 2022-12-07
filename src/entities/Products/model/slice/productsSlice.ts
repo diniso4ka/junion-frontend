@@ -30,7 +30,7 @@ export const productsSlice = createSlice({
             )
         },
         setSortWithoutPrice: state => {
-            state.sortedItems = state.items.filter(item => item => !item.price)
+            state.sortedItems = state.items.filter(item => !item.price)
         },
     },
     extraReducers: builder => {

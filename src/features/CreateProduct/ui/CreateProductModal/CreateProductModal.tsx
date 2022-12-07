@@ -15,7 +15,7 @@ export const CreateProductModal: FC<CreateProductModalProps> = ({
 }) => {
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
-            <CreateProductForm onClose={onClose} />
+            {isOpen && <CreateProductForm onClose={onClose} />}
         </Modal>
     )
 }

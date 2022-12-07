@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react'
 import s from './ProductsPage.module.scss'
 import cls from 'classnames'
 
-import { useAppDispatch, useAppSelector } from 'app/store/types'
+import { useAppDispatch, useAppSelector } from 'app/store/config/StateSchema'
 
 import { getDate } from 'shared/helpers/date/getDate'
 import { searchByIncludes } from 'shared/helpers/filters/search'
