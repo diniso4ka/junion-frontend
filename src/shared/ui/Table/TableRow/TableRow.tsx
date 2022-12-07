@@ -35,7 +35,7 @@ export const TableRow: FC<TableRow> = ({ className, type, item }) => {
                         )}
                     </li>
                     <li className={s.item}>{item.quantity}</li>
-                    <li className={s.item}>NR</li>
+                    <li className={s.item}>{item.unit ? item.unit : ''}</li>
                     <li className={s.item}>{item.owner}</li>
                     <li>
                         <Checkbox
