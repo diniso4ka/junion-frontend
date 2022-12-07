@@ -17,7 +17,6 @@ export function createReduxStore(
         products: productsReducer,
         categories: categoriesReducer,
         vendors: vendorsReducer,
-        productsFilters: productFiltersReducer,
     }
 
     const reducerManager = createReducerManager(rootReducers)

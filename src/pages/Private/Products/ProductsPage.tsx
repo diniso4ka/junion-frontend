@@ -69,7 +69,9 @@ const ProductsPage: FC = () => {
     }, [])
 
     useEffect(() => {
-        setCanClear(!Object.values(filters).every(item => !item))
+        if (!!filters) {
+            setCanClear(!Object.values(filters).every(item => !item))
+        }
     }, [filters])
 
     return (
