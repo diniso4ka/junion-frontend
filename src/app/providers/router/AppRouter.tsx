@@ -7,7 +7,7 @@ import {
     publicRoutes,
 } from 'shared/config/routeConfig/routeConfig'
 
-import { useAppSelector } from 'app/store/types'
+import { useAppSelector } from 'app/store/config/StateSchema'
 import { getAuthData } from 'entities/User'
 
 const AppRouter = () => {

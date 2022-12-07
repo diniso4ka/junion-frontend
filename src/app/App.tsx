@@ -2,7 +2,7 @@ import { useEffect, FC } from 'react'
 import cls from 'classnames'
 import './styles/index.scss'
 
-import { useAppDispatch, useAppSelector } from './store/types'
+import { useAppDispatch, useAppSelector } from './store/config/StateSchema'
 import { useTheme } from './providers/ThemeProvider/useTheme'
 import { Theme } from './providers/ThemeProvider/ThemeContext'
 

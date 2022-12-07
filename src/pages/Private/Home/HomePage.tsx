@@ -3,7 +3,7 @@ import cls from 'classnames'
 import s from './HomePage.module.scss'
 import { List } from 'shared/ui'
 import { getDate } from 'shared/helpers/date/getDate'
-import { useAppDispatch, useAppSelector } from 'app/store/types'
+import { useAppDispatch, useAppSelector } from 'app/store/config/StateSchema'
 import {
     getProductsList,
     getProductsQuantity,
@@ -11,10 +11,10 @@ import {
     productsActions,
 } from 'entities/Products'
 import { routeConfig } from 'shared/config/routeConfig/routeConfig'
-import { FilteredList } from '../../../entities/Products/ui/FilteredList/FilteredList'
-import { getSortedProductsList } from '../../../entities/Products/model/selectors/getSortedProductsList/getSortedProductsList'
-import { dispatch } from 'jest-circus/build/state'
+import { FilteredList } from 'entities/Products/ui/FilteredList/FilteredList'
+import { getSortedProductsList } from 'entities/Products/model/selectors/getSortedProductsList/getSortedProductsList'
 import { useNavigate } from 'react-router'
+import { formattedDate } from 'shared/helpers/date/formattedDate'
 
 const HomePage: FC = () => {
     const [listIsOpen, setListIsOpen] = useState<boolean>(false)
@@ -55,7 +55,13 @@ const HomePage: FC = () => {
                 { label: 'Online now:', value: 'NR' },
                 {
                     label: 'Products added today:',
-                    value: 'NR',
+                    value: `${
+                        productsList.filter(
+                            item =>
+                                formattedDate() ===
+                                item.createdAt.split('').splice(0, 10).join('')
+                        ).length
+                    }`,
                 },
                 {
                     label: 'Products removed today:',
@@ -76,6 +82,10 @@ const HomePage: FC = () => {
             setListIsOpen(true)
         } else if (action.includes('category')) {
             dispatch(productsActions.setSortWithoutCategory())
+            setTitle(action)
+            setListIsOpen(true)
+        } else if (action.includes('today')) {
+            dispatch(productsActions.setSortAddedToday())
             setTitle(action)
             setListIsOpen(true)
         } else if (action.includes('store')) {
@@ -101,6 +111,7 @@ const HomePage: FC = () => {
                     isLoading={productsStatus}
                     data={tablesData.employee}
                     className={s.item}
+                    onClick={onHandleOpen}
                 />
             </div>
             <FilteredList

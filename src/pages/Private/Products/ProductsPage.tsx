@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react'
 import s from './ProductsPage.module.scss'
 import cls from 'classnames'
 
-import { useAppDispatch, useAppSelector } from 'app/store/types'
+import { useAppDispatch, useAppSelector } from 'app/store/config/StateSchema'
 
 import { getDate } from 'shared/helpers/date/getDate'
 import { searchByIncludes } from 'shared/helpers/filters/search'
@@ -69,7 +69,9 @@ const ProductsPage: FC = () => {
     }, [])
 
     useEffect(() => {
-        setCanClear(!Object.values(filters).every(item => !item))
+        if (!!filters) {
+            setCanClear(!Object.values(filters).every(item => !item))
+        }
     }, [filters])
 
     return (
@@ -108,10 +110,12 @@ const ProductsPage: FC = () => {
                 items={filteredItems}
                 className={s.table}
             />
-            <CreateProductModal
-                isOpen={modalIsOpen}
-                onClose={() => setModalIsOpen(false)}
-            />
+            {modalIsOpen && (
+                <CreateProductModal
+                    isOpen={modalIsOpen}
+                    onClose={() => setModalIsOpen(false)}
+                />
+            )}
         </div>
     )
 }

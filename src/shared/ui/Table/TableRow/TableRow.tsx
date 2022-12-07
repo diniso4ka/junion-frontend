@@ -3,6 +3,7 @@ import s from './TableRow.module.scss'
 import cls from 'classnames'
 
 import { Checkbox } from 'shared/ui/index'
+import { DiscountTag } from '../../DiscountTag/DiscountTag'
 
 interface TableRow {
     className?: string
@@ -12,20 +13,37 @@ interface TableRow {
 
 export const TableRow: FC<TableRow> = ({ className, type, item }) => {
     return (
-        <div className={cls(s.TableRow, className)}>
+        <div
+            onClick={() => console.log(item)}
+            className={cls(s.TableRow, className)}
+        >
             {type === 'products' && (
                 <ul className={cls(s.items, s[type])}>
                     <li className={s.item}>{`${item.vendor}-${item.art}`}</li>
                     <li className={s.item}>{item.category}</li>
                     <li className={s.item}>{item.name}</li>
-                    <li className={s.item}>{item.price}</li>
+                    <li className={s.item}>
+                        {item.discountPrice ? (
+                            <span className={s.discount}>
+                                {item.discountPrice}
+                                <DiscountTag
+                                    discount={
+                                        100 -
+                                        (item.discountPrice * 100) / item.price
+                                    }
+                                />
+                            </span>
+                        ) : (
+                            item.price
+                        )}
+                    </li>
                     <li className={s.item}>{item.quantity}</li>
-                    <li className={s.item}>NR</li>
+                    <li className={s.item}>{item.unit ? item.unit : ''}</li>
                     <li className={s.item}>{item.owner}</li>
                     <li>
                         <Checkbox
-                            value={false}
-                            onClick={() => console.log('123')}
+                            value={true}
+                            onClick={() => console.log('checked')}
                         />
                     </li>
                 </ul>
@@ -34,8 +52,8 @@ export const TableRow: FC<TableRow> = ({ className, type, item }) => {
                 <ul className={cls(s.items, s[type])}>
                     <li>
                         <Checkbox
-                            value={false}
-                            onClick={() => console.log('123')}
+                            value={true}
+                            onClick={() => console.log('checked')}
                         />
                     </li>
                     <li className={s.item}>{item._id}</li>

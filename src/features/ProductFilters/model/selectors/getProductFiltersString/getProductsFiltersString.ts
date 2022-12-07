@@ -1,4 +1,4 @@
-import { StateSchema } from 'app/store/types'
+import { StateSchema } from 'app/store/config/StateSchema'
 
 export const getProductsFiltersString = (state: StateSchema) =>
-    state.productsFilters.queryString
+    state?.productsFilters?.queryString

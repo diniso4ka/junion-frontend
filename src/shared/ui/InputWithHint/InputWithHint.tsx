@@ -30,7 +30,7 @@ export const InputWithHint: React.FC<IInputProps> = React.memo(
         const ref = useRef()
         useClickOutside(ref, () => onCloseHint?.())
 
-        const filtredItems = hint.filter(item => {
+        const filteredItems = hint.filter(item => {
             return item.toLowerCase().includes(value.toLowerCase())
         })
         const onHandleHint = e => {
@@ -60,7 +60,7 @@ export const InputWithHint: React.FC<IInputProps> = React.memo(
                         [s.opened]: isHintOpen,
                     })}
                 >
-                    {filtredItems.map((item, index) => (
+                    {filteredItems.map((item, index) => (
                         <li
                             key={index}
                             onClick={onHandleHint}

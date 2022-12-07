@@ -2,9 +2,12 @@ import React, { FC, useCallback, useEffect, useState } from 'react'
 import s from './RegisterForm.module.scss'
 import cls from 'classnames'
 import { Button, Input } from 'shared/ui'
-import { useAppDispatch, useAppSelector } from 'app/store/types'
+import { useAppDispatch, useAppSelector } from 'app/store/config/StateSchema'
 import { getRegisterState } from '../../model/selectors/getRegisterState/getRegisterState'
-import { registerActions } from '../../model/slice/registerSlice'
+import {
+    registerActions,
+    registerReducer,
+} from '../../model/slice/registerSlice'
 import { registerValidation } from 'shared/helpers/validations/registerValidation'
 import { IValidationResponseData } from 'shared/types/auth'
 import {
@@ -17,10 +20,25 @@ import {
 } from 'shared/helpers/validations/helpers'
 import { thunkRegisterByMail } from '../../model/services/RegisterByMail'
 import { useNavigate } from 'react-router'
-import { routeConfig } from '../../../../shared/config/routeConfig/routeConfig'
+import { routeConfig } from 'shared/config/routeConfig/routeConfig'
+import {
+    DynamicModuleLoader,
+    ReducersList,
+} from 'shared/config/components/DynamicModuleLoader'
+import { getRegisterMail } from '../../model/selectors/getRegisterMail/getRegisterMail'
+import { getRegisterPassword } from '../../model/selectors/getRegisterPassword/getRegisterPassword'
+import { getRegisterConfirmPassword } from '../../model/selectors/getRegisterConfirmPassword/getRegisterConfirmPassword'
+import { getRegisterName } from '../../model/selectors/getRegisterName/getRegisterName'
+import { getRegisterSuperCode } from '../../model/selectors/getRegisterSuperCode/getRegisterSuperCode'
+import { getRegisterAsyncErrors } from '../../model/selectors/getRegisterAsyncErrors/getRegisterAsyncErrors'
+import { getRegisterStatus } from '../../model/selectors/getRegisterStatus/getRegisterStatus'
 
 interface RegisterFormProps {
     className?: string
+}
+
+const initialState: ReducersList = {
+    registerForm: registerReducer,
 }
 
 export const RegisterForm: FC<RegisterFormProps> = ({ className }) => {
@@ -32,15 +50,14 @@ export const RegisterForm: FC<RegisterFormProps> = ({ className }) => {
         useState<boolean>(false)
     const [nameFocus, setNameFocus] = useState<boolean>(false)
     const [superCodeFocus, setSuperCodeFocus] = useState<boolean>(false)
-    const {
-        mail,
-        password,
-        confirmPassword,
-        name,
-        superCode,
-        asyncErrors,
-        isLoading,
-    } = useAppSelector(getRegisterState)
+    const mail = useAppSelector(getRegisterMail)
+    const password = useAppSelector(getRegisterPassword)
+    const confirmPassword = useAppSelector(getRegisterConfirmPassword)
+    const name = useAppSelector(getRegisterName)
+    const superCode = useAppSelector(getRegisterSuperCode)
+    const asyncErrors = useAppSelector(getRegisterAsyncErrors)
+    const isLoading = useAppSelector(getRegisterStatus)
+
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
@@ -171,123 +188,129 @@ export const RegisterForm: FC<RegisterFormProps> = ({ className }) => {
     }, [confirmPassword])
 
     return (
-        <div className={s.wrapper}>
-            <form className={s.contentWrapper}>
-                <div className={s.formItem}>
-                    <label className={s.label}>Email Address</label>
-                    <Input
-                        onChange={onChangeMail}
-                        value={mail}
-                        onBlur={onMailBlur}
-                        placeHolder={'Set the email address as the login name'}
-                        helperText={errors?.mail || asyncErrors?.mail}
-                        error={!!errors?.mail || !!asyncErrors?.mail}
-                    />
-                </div>
-                <div className={s.formItem}>
-                    <label className={s.label}>Password</label>
-                    <Input
-                        onChange={onChangePassword}
-                        value={password}
-                        onFocus={onPasswordFocus}
-                        onBlur={onPasswordBlur}
-                        placeHolder={'Enter the password'}
-                        type={'password'}
-                        helperText={
-                            passwordFocus
-                                ? passwordValidationMessages.hint
-                                : formSubmit
-                                ? errors?.password
-                                : ''
-                        }
-                        helperClass={
-                            passwordFocus
-                                ? !errors?.password
-                                    ? 'success'
-                                    : 'hint'
-                                : 'error'
-                        }
-                        error={formSubmit && errors?.password ? true : false}
-                    />
-                </div>
-                <div className={s.formItem}>
-                    <label className={s.label}>Confirm Password</label>
-                    <Input
-                        onChange={onChangeConfirmPassword}
-                        value={confirmPassword}
-                        onBlur={onConfirmPasswordBlur}
-                        placeHolder={'Enter the password again'}
-                        type={'password'}
-                        helperText={
-                            !!errors?.confirmPassword && formSubmit
-                                ? passwordValidationMessages.correct
-                                : ''
-                        }
-                        error={!!errors?.confirmPassword && formSubmit}
-                    />
-                </div>
-                <div className={s.formItem}>
-                    <label className={s.label}>Full name</label>
-                    <Input
-                        onChange={onChangeUsername}
-                        value={name}
-                        onBlur={onNameBlur}
-                        placeHolder={'Enter first and last name'}
-                        helperText={errors?.name}
-                        error={!!errors?.name}
-                    />
-                </div>
-                <div className={s.formButton}>
+        <DynamicModuleLoader reducers={initialState} removeAfterUnmount={true}>
+            <div className={s.wrapper}>
+                <form className={s.contentWrapper}>
                     <div className={s.formItem}>
-                        <label className={s.label}>Super Code</label>
+                        <label className={s.label}>Email Address</label>
                         <Input
-                            onChange={onChangeSupercode}
-                            value={superCode}
-                            onFocus={onSuperCodeFocus}
-                            onBlur={onSuperCodeBlur}
-                            placeHolder={'Enter the Super Code'}
-                            error={
-                                !!errors?.superCode ||
-                                (!!asyncErrors?.superCode && formSubmit)
-                                    ? true
-                                    : false
+                            onChange={onChangeMail}
+                            value={mail}
+                            onBlur={onMailBlur}
+                            placeHolder={
+                                'Set the email address as the login name'
+                            }
+                            helperText={errors?.mail || asyncErrors?.mail}
+                            error={!!errors?.mail || !!asyncErrors?.mail}
+                        />
+                    </div>
+                    <div className={s.formItem}>
+                        <label className={s.label}>Password</label>
+                        <Input
+                            onChange={onChangePassword}
+                            value={password}
+                            onFocus={onPasswordFocus}
+                            onBlur={onPasswordBlur}
+                            placeHolder={'Enter the password'}
+                            type={'password'}
+                            helperText={
+                                passwordFocus
+                                    ? passwordValidationMessages.hint
+                                    : formSubmit
+                                    ? errors?.password
+                                    : ''
                             }
                             helperClass={
-                                superCodeFocus
-                                    ? !errors?.superCode
+                                passwordFocus
+                                    ? !errors?.password
                                         ? 'success'
                                         : 'hint'
                                     : 'error'
                             }
-                            sizeContainer={'small'}
+                            error={
+                                formSubmit && errors?.password ? true : false
+                            }
                         />
                     </div>
-                    <Button
-                        isLoading={isLoading}
-                        onClick={onSubmitForm}
-                        className={s.button}
+                    <div className={s.formItem}>
+                        <label className={s.label}>Confirm Password</label>
+                        <Input
+                            onChange={onChangeConfirmPassword}
+                            value={confirmPassword}
+                            onBlur={onConfirmPasswordBlur}
+                            placeHolder={'Enter the password again'}
+                            type={'password'}
+                            helperText={
+                                !!errors?.confirmPassword && formSubmit
+                                    ? passwordValidationMessages.correct
+                                    : ''
+                            }
+                            error={!!errors?.confirmPassword && formSubmit}
+                        />
+                    </div>
+                    <div className={s.formItem}>
+                        <label className={s.label}>Full name</label>
+                        <Input
+                            onChange={onChangeUsername}
+                            value={name}
+                            onBlur={onNameBlur}
+                            placeHolder={'Enter first and last name'}
+                            helperText={errors?.name}
+                            error={!!errors?.name}
+                        />
+                    </div>
+                    <div className={s.formButton}>
+                        <div className={s.formItem}>
+                            <label className={s.label}>Super Code</label>
+                            <Input
+                                onChange={onChangeSupercode}
+                                value={superCode}
+                                onFocus={onSuperCodeFocus}
+                                onBlur={onSuperCodeBlur}
+                                placeHolder={'Enter the Super Code'}
+                                error={
+                                    !!errors?.superCode ||
+                                    (!!asyncErrors?.superCode && formSubmit)
+                                        ? true
+                                        : false
+                                }
+                                helperClass={
+                                    superCodeFocus
+                                        ? !errors?.superCode
+                                            ? 'success'
+                                            : 'hint'
+                                        : 'error'
+                                }
+                                sizeContainer={'small'}
+                            />
+                        </div>
+                        <Button
+                            isLoading={isLoading}
+                            onClick={onSubmitForm}
+                            className={s.button}
+                        >
+                            Sign Up
+                        </Button>
+                    </div>
+                    <p
+                        className={cls(
+                            s.helper,
+                            superCodeFocus
+                                ? s.hint
+                                : (!!errors?.superCode && s.error) ||
+                                      (asyncErrors?.superCode && s.error)
+                        )}
                     >
-                        Sign Up
-                    </Button>
-                </div>
-                <p
-                    className={cls(
-                        s.helper,
-                        superCodeFocus
-                            ? s.hint
-                            : (!!errors?.superCode && s.error) ||
-                                  (asyncErrors?.superCode && s.error)
-                    )}
-                >
-                    {superCodeFocus
-                        ? superCodeValidationMessages.hint
-                        : !!errors?.superCode && formSubmit
-                        ? superCodeValidationMessages.incorrect
-                        : asyncErrors?.superCode
-                        ? superCodeValidationMessages.incorrect
-                        : ''}
-                </p>
-            </form>
-        </div>
+                        {superCodeFocus
+                            ? superCodeValidationMessages.hint
+                            : !!errors?.superCode && formSubmit
+                            ? superCodeValidationMessages.incorrect
+                            : asyncErrors?.superCode
+                            ? superCodeValidationMessages.incorrect
+                            : ''}
+                    </p>
+                </form>
+            </div>
+        </DynamicModuleLoader>
     )
 }
