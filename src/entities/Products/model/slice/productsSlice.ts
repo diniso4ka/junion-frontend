@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { ProductsSchema } from '../types/ProductsSchema'
 import { thunkFetchProductList } from '../services/thunkGetProductsList'
 import { thunkGetFilteredProductsList } from '../services/thunkGetFilteredProductsList'
+import { formattedDate } from 'shared/helpers/date/formattedDate'
 
 const initialState: ProductsSchema = {
     items: [],
@@ -31,6 +32,13 @@ export const productsSlice = createSlice({
         },
         setSortWithoutPrice: state => {
             state.sortedItems = state.items.filter(item => !item.price)
+        },
+        setSortAddedToday: state => {
+            state.sortedItems = state.items.filter(
+                item =>
+                    formattedDate() ===
+                    item.createdAt.split('').splice(0, 10).join('')
+            )
         },
     },
     extraReducers: builder => {

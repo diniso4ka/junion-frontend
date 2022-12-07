@@ -110,10 +110,12 @@ const ProductsPage: FC = () => {
                 items={filteredItems}
                 className={s.table}
             />
-            <CreateProductModal
-                isOpen={modalIsOpen}
-                onClose={() => setModalIsOpen(false)}
-            />
+            {modalIsOpen && (
+                <CreateProductModal
+                    isOpen={modalIsOpen}
+                    onClose={() => setModalIsOpen(false)}
+                />
+            )}
         </div>
     )
 }

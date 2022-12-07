@@ -13,7 +13,10 @@ interface TableRow {
 
 export const TableRow: FC<TableRow> = ({ className, type, item }) => {
     return (
-        <div className={cls(s.TableRow, className)}>
+        <div
+            onClick={() => console.log(item)}
+            className={cls(s.TableRow, className)}
+        >
             {type === 'products' && (
                 <ul className={cls(s.items, s[type])}>
                     <li className={s.item}>{`${item.vendor}-${item.art}`}</li>
