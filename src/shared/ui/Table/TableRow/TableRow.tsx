@@ -60,6 +60,20 @@ export const TableRow: FC<TableRow> = ({ className, type, item }) => {
                     <li className={s.item}>{item.quantity}</li>
                 </ul>
             )}
+            {type === 'vendors' && (
+                <ul className={cls(s.items, s[type])}>
+                    <li className={s.item}>{item.code}</li>
+                    <li className={s.item}>{item.name}</li>
+                    <li className={s.item}>{item.regCode}</li>
+                    <li className={s.item}>{item.address}</li>
+                    <li>
+                        <Checkbox
+                            value={true}
+                            onClick={() => console.log('checked')}
+                        />
+                    </li>
+                </ul>
+            )}
         </div>
     )
 }

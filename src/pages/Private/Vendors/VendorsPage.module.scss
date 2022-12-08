@@ -1,0 +1,29 @@
+.VendorsPage {
+    margin: 0 auto;
+    padding: 25px 15px;
+    max-width: 1200px;
+    width: calc(100vw - var(--sidebar-width));
+    font-family: var(--font-family-main);
+}
+
+.header {
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+}
+
+.header button {
+    margin-left: 40px;
+}
+
+.title {
+    width: 109px;
+    margin-right: 77px;
+}
+
+.date {
+    margin-left: auto;
+    font-style: normal;
+    font-weight: 400;
+    font-size: var(--font-size-l);
+}

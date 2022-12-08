@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import s from './ProductsTable.module.scss'
+import s from './VendorsTable.module.scss'
 import cls from 'classnames'
 import { TableHeading, TableRow } from 'shared/ui'
 import { IVendorsResData } from 'shared/types/vendors'
@@ -30,12 +30,8 @@ export const VendorsTable: FC<VendorsTableProps> = ({
         <div className={cls(s.VendorsTable, className)}>
             <TableHeading type={'vendors'} headings={headings} />
             <div className={s.items}>
-                {items.map(product => (
-                    <TableRow
-                        key={product._id}
-                        type={'vendors'}
-                        item={product}
-                    />
+                {items.map(vendor => (
+                    <TableRow key={vendor._id} type={'vendors'} item={vendor} />
                 ))}
             </div>
         </div>

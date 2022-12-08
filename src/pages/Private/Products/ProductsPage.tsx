@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react'
+import { Text } from 'shared/ui'
 import s from './ProductsPage.module.scss'
 import cls from 'classnames'
 
@@ -74,8 +75,8 @@ const ProductsPage: FC = () => {
 
     return (
         <div className={cls(s.ProductsPage)}>
-            <div className={s.navigation}>
-                <h1>Products</h1>
+            <div className={s.header}>
+                <Text className={s.title} title='Products' />
                 <AdvancedSearch
                     value={searchValue}
                     onChange={e => setSearchValue(e)}

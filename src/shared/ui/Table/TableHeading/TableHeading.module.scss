@@ -4,13 +4,16 @@
 }
 .items {
     display: grid;
-    padding: 8px 18px;
+    padding: 8px 36px 8px 18px;
     &.products {
         grid-template-columns: 11% 16% 22% 10% 10% 10% 16% 2%;
     }
     &.categories {
         padding-left: 67px;
         grid-template-columns: 6% 24% 10%;
+    }
+    &.vendors {
+        grid-template-columns: 7% 23% 15% 45% 10%;
     }
 }
 
