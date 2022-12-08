@@ -1,6 +1,10 @@
 .TableRow {
     background-color: var(--white-color);
     font-family: var(--font-family-main);
+    cursor: pointer;
+    &:hover {
+        background-color: #fcfcfc;
+    }
 }
 .items {
     display: grid;

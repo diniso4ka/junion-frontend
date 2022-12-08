@@ -86,32 +86,41 @@ export const CreateVendorForm: FC<CreateVendorFormProps> = ({
                 <form className={s.form}>
                     <ul className={s.items}>
                         <li className={s.inputItem}>
-                            <label className={s.label}>Vendor name</label>
+                            <label className={s.label}>Vendor's name</label>
                             <Input
                                 sizeContainer={'adaptive'}
                                 className={s.input}
                                 onChange={onChangeName}
                                 value={name}
                                 disabled={status}
+                                variant={'outline'}
                             />
                         </li>
                         <li className={s.inputItem}>
-                            <label className={s.label}>Reg Code</label>
-                            <Input
-                                sizeContainer={'adaptive'}
-                                className={s.input}
-                                onChange={onChangeRegCode}
-                                value={regCode}
-                                disabled={status}
-                            />
-                        </li>
-                        <li className={s.inputItem}>
-                            <label className={s.label}>address</label>
+                            <label className={s.label}>
+                                Vendor's <br />
+                                address
+                            </label>
                             <Input
                                 sizeContainer={'adaptive'}
                                 className={s.input}
                                 onChange={onChangeAddress}
                                 value={address}
+                                disabled={status}
+                                variant={'outline'}
+                            />
+                        </li>
+                        <li className={s.inputItem}>
+                            <label className={s.label}>
+                                Vendor's <br />
+                                Reg Code
+                            </label>
+                            <Input
+                                sizeContainer={'small'}
+                                variant={'outline'}
+                                className={s.input}
+                                onChange={onChangeRegCode}
+                                value={regCode}
                                 disabled={status}
                             />
                         </li>

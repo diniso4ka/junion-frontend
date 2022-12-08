@@ -1,9 +1,11 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import s from './TableRow.module.scss'
 import cls from 'classnames'
 
 import { Checkbox } from 'shared/ui/index'
 import { DiscountTag } from '../../DiscountTag/DiscountTag'
+import { UpdateProductModal } from 'features/UpdateProduct/ui/UpdateProductModal/UpdateProductModal'
+import { discountConvertInPercent } from '../../../helpers/math/discountPrice'
 
 interface TableRow {
     className?: string
@@ -12,18 +14,29 @@ interface TableRow {
 }
 
 export const TableRow: FC<TableRow> = ({ className, type, item }) => {
+    const [modalIsOpen, setModalIsOpen] = useState(false)
+
     return (
-        <div
-            onClick={() => console.log(item)}
-            className={cls(s.TableRow, className)}
-        >
+        <div className={cls(s.TableRow, className)}>
             {type === 'products' && (
-                <ul className={cls(s.items, s[type])}>
+                <ul
+                    onClick={() => setModalIsOpen(true)}
+                    className={cls(s.items, s[type])}
+                >
                     <li className={s.item}>{`${item.vendor}-${item.art}`}</li>
-                    <li className={s.item}>{item.category}</li>
+                    <li className={s.item}>{item.category[0]}</li>
                     <li className={s.item}>{item.name}</li>
                     <li className={s.item}>
-                        {item.discountPrice ? (
+                        {Number(
+                            discountConvertInPercent(
+                                item.price,
+                                item.discountPrice
+                            )
+                        ) > 0 &&
+                        discountConvertInPercent(
+                            item.price,
+                            item.discountPrice
+                        ) < 100 ? (
                             <span className={s.discount}>
                                 {item.discountPrice}
                                 <DiscountTag
@@ -73,6 +86,13 @@ export const TableRow: FC<TableRow> = ({ className, type, item }) => {
                         />
                     </li>
                 </ul>
+            )}
+            {modalIsOpen && (
+                <UpdateProductModal
+                    isOpen={modalIsOpen}
+                    onClose={() => setModalIsOpen(false)}
+                    item={item}
+                />
             )}
         </div>
     )

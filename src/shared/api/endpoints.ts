@@ -5,10 +5,11 @@ export const endpoints = {
         me: '/users/current',
         logout: '/users/logout',
     },
+    password: '/retrieve',
     products: {
         list: `/products`,
-        filtredList: params => `/products?${params}`,
-        categories: '/categories',
-        vendors: '/vendors',
+        filteredList: params => `/products?${params}`,
     },
+    categories: '/categories',
+    vendors: '/vendors',
 }

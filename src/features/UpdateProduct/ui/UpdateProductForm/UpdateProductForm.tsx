@@ -1,63 +1,73 @@
-import { FC, useCallback, useEffect, useState } from 'react'
-import s from './CreateProductForm.module.scss'
+import { FC, useEffect, useState } from 'react'
+import s from './UpdateProductFrom.module.scss'
 import cls from 'classnames'
-import { Button, Checkbox, Input, InputWithHint } from 'shared/ui'
-import { useAppDispatch, useAppSelector } from 'app/store/config/StateSchema'
-import { getProductsList, thunkFetchProductList } from 'entities/Products'
-import { getCategoryList } from 'entities/Categories'
-import {
-    createProductActions,
-    createProductReducer,
-} from '../../model/slice/createProductSlice'
-import { getVendorsList } from 'entities/Vendors/model/selectors/getVendorsList/getVendorsList'
-import { thunkCreateProduct } from '../../model/services/thunkCreateProduct'
-import { getCreateProductStatus } from '../../model/selectors/getCreateProductStatus/getCreateProductStatus'
-import { getCreateProductError } from '../../model/selectors/getCreateProductError/getCreateProductError'
-import closeIcon from 'shared/assets/images/icons/close.svg'
+import closeIcon from '../../../../shared/assets/images/icons/close.svg'
+import { Button, Checkbox, Input, InputWithHint } from '../../../../shared/ui'
 import {
     DynamicModuleLoader,
     ReducersList,
-} from 'shared/config/components/DynamicModuleLoader'
-import { getCreateProductName } from '../../model/selectors/getCreateProductName/getCreateProductName'
-import { getCreateProductCategories } from '../../model/selectors/getCreateProductCategories/getCreateProductCategories'
-import { getCreateProductVendorName } from '../../model/selectors/getCreateProductVendorName/getCreateProductVendorName'
-import { getCreateProductUnit } from '../../model/selectors/getCreateProductUnit/getCreateProductUnit'
-import { getCreateProductPrice } from '../../model/selectors/getCreateProductPrice/getCreateProductPrice'
-import { getCreateProductQuantity } from '../../model/selectors/getCreateProductQuantity/getCreateProductQuantity'
-import { getCreateProductDiscountPrice } from '../../model/selectors/getCreateProductDiscountPrice/getCreateProductDiscountPrice'
+} from '../../../../shared/config/components/DynamicModuleLoader'
+import { useAppDispatch, useAppSelector } from '../../../../app/store'
+import {
+    getProductsList,
+    thunkFetchProductList,
+} from '../../../../entities/Products'
+import { getCategoryList } from '../../../../entities/Categories'
+import { getVendorsList } from '../../../../entities/Vendors/model/selectors/getVendorsList/getVendorsList'
+import { getUpdateProductName } from '../../model/selectors/getUpdateProductName/getUpdateProductName'
+import { getUpdateProductCategories } from '../../model/selectors/getUpdateProductCategories/getUpdateProductCategories'
+import { getUpdateProductVendorName } from '../../model/selectors/getUpdateProductVendorName/getUpdateProductVendorName'
+import { getUpdateProductUnit } from '../../model/selectors/getUpdateProductUnit/getUpdateProductUnit'
+import { getUpdateProductPrice } from '../../model/selectors/getUpdateProductPrice/getUpdateProductPrice'
+import { getUpdateProductQuantity } from '../../model/selectors/getUpdateProductQuantity/getUpdateProductQuantity'
+import { getUpdateProductDiscountPrice } from '../../model/selectors/getUpdateProductDiscountPrice/getUpdateProductDiscountPrice'
+import {
+    updateProductActions,
+    updateProductReducer,
+} from '../../model/slice/updateProductSlice'
+import { ProductType } from 'entities/Products/model/types/ProductsSchema'
+import { thunkUpdateProduct } from '../../model/services/thunkUpdateProduct'
+import { getUpdateProductId } from '../../model/selectors/getUpdateProductId/getUpdateProductId'
+import { getUpdateProductError } from '../../model/selectors/getUpdateProductError/getUpdateProductError'
+import { getUpdateProductStatus } from '../../model/selectors/getUpdateProductStatus/getUpdateProductStatus'
+import { discountConvertInNumber } from '../../../../shared/helpers/math/discountPrice'
 
-interface CreateProductFormProps {
+interface UpdateProductFormProps {
     className?: string
     onClose: () => void
+    item: ProductType
 }
 
 const initialState: ReducersList = {
-    createProduct: createProductReducer,
+    updateProduct: updateProductReducer,
 }
 
-export const CreateProductForm: FC<CreateProductFormProps> = ({
+export const UpdateProductForm: FC<UpdateProductFormProps> = ({
     className,
     onClose,
+    item,
 }) => {
-    const [validationError, setValidationError] = useState(false)
     const [nameFocus, setNameFocus] = useState(false)
     const [categoriesFocus, setCategoriesFocus] = useState(false)
     const [vendorsFocus, setVendorsFocus] = useState(false)
     const [unitFocus, setUnitFocus] = useState(false)
-    const [withDiscount, setWithDiscount] = useState(false)
-    const name = useAppSelector(getCreateProductName)
-    const category = useAppSelector(getCreateProductCategories)
-    const vendor = useAppSelector(getCreateProductVendorName)
-    const unit = useAppSelector(getCreateProductUnit)
-    const price = useAppSelector(getCreateProductPrice)
-    const quantity = useAppSelector(getCreateProductQuantity)
-    const discountPrice = useAppSelector(getCreateProductDiscountPrice)
+    const name = useAppSelector(getUpdateProductName)
+    const category = useAppSelector(getUpdateProductCategories)
+    const vendor = useAppSelector(getUpdateProductVendorName)
+    const unit = useAppSelector(getUpdateProductUnit)
+    const price = useAppSelector(getUpdateProductPrice)
+    const quantity = useAppSelector(getUpdateProductQuantity)
+    const discountPrice = useAppSelector(getUpdateProductDiscountPrice)
+    const _id = useAppSelector(getUpdateProductId)
 
     const productsList = useAppSelector(getProductsList)
     const categoriesList = useAppSelector(getCategoryList)
     const vendorsList = useAppSelector(getVendorsList)
-    const status = useAppSelector(getCreateProductStatus)
-    const error = useAppSelector(getCreateProductError)
+    const status = useAppSelector(getUpdateProductStatus)
+    const error = useAppSelector(getUpdateProductError)
+
+    const [validationError, setValidationError] = useState(false)
+    const [withDiscount, setWithDiscount] = useState(!!item.discountPrice)
     const dispatch = useAppDispatch()
 
     const selectedVendor = vendorsList.find(item => item.name === vendor)
@@ -68,13 +78,15 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
             return setValidationError(true)
         }
         const response = await dispatch(
-            thunkCreateProduct({
+            thunkUpdateProduct({
                 name,
                 category,
                 vendor: selectedVendor.code,
                 unit,
                 price: Number(price),
                 quantity: Number(quantity),
+                discountPrice: discountConvertInNumber(price, discountPrice),
+                id: _id,
             })
         )
         // @ts-ignore
@@ -89,39 +101,53 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
     }
 
     const onHandleNameHint = hint => {
-        dispatch(createProductActions.setName(hint))
+        dispatch(updateProductActions.setName(hint))
     }
     const onHandleCategoryHint = hint => {
-        dispatch(createProductActions.setCategory(hint))
+        dispatch(updateProductActions.setCategory(hint))
     }
     const onHandleVendorHint = hint => {
-        dispatch(createProductActions.setVendor(hint))
+        dispatch(updateProductActions.setVendor(hint))
     }
     const onHandleUnitHint = hint => {
-        dispatch(createProductActions.setUnit(hint))
+        dispatch(updateProductActions.setUnit(hint))
     }
 
     const onChangeName = e => {
-        dispatch(createProductActions.setName(e.target.value))
+        dispatch(updateProductActions.setName(e.target.value))
     }
     const onChangeCategory = e => {
-        dispatch(createProductActions.setCategory(e.target.value))
+        dispatch(updateProductActions.setCategory(e.target.value))
     }
     const onChangeVendor = e => {
-        dispatch(createProductActions.setVendor(e.target.value))
+        dispatch(updateProductActions.setVendor(e.target.value))
     }
     const onChangePrice = e => {
-        dispatch(createProductActions.setPrice(e.target.value))
+        dispatch(updateProductActions.setPrice(e.target.value))
     }
     const onChangeUnit = e => {
-        dispatch(createProductActions.setUnit(e.target.value))
+        dispatch(updateProductActions.setUnit(e.target.value))
     }
     const onChangeQuantity = e => {
-        dispatch(createProductActions.setQuantity(e.target.value))
+        dispatch(updateProductActions.setQuantity(e.target.value))
     }
     const onChangeDiscount = e => {
-        dispatch(createProductActions.setDiscountPrice(e.target.value))
+        dispatch(updateProductActions.setDiscountPrice(e.target.value))
     }
+
+    useEffect(() => {
+        if (item) {
+            dispatch(
+                updateProductActions.setValues({
+                    ...item,
+                    vendor: vendorsList.find(
+                        vendor => item.vendor === vendor.code
+                    ).name,
+                })
+            )
+        }
+        console.log(item.discountPrice)
+    }, [])
 
     return (
         <DynamicModuleLoader reducers={initialState} removeAfterUnmount={true}>
@@ -131,7 +157,7 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
                     className={s.closeIcon}
                     src={closeIcon}
                 />
-                <h1 className={s.title}>New product</h1>
+                <h1 className={s.title}>Change product details</h1>
                 <form className={s.form}>
                     <ul className={s.items}>
                         <li className={s.inputItem}>
@@ -265,7 +291,7 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
                         onClick={onSubmitForm}
                         size={'small'}
                     >
-                        Create
+                        Save
                     </Button>
                 </div>
                 {error && <p>Server Error</p>}

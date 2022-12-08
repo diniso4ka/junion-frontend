@@ -40,7 +40,7 @@ const ProductsPage: FC = () => {
     const filteredItems = searchByIncludes(
         filteredProductsList.length ? filteredProductsList : productsList,
         searchValue
-    )
+    ).reverse('')
 
     const onClear = () => {
         dispatch(productFiltersActions.clearFilters())

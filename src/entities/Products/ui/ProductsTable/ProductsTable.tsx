@@ -3,6 +3,7 @@ import s from './ProductsTable.module.scss'
 import cls from 'classnames'
 import { TableHeading, TableRow } from 'shared/ui'
 import { IProductsResData } from 'shared/types/products'
+import { PageLoader } from 'widgets/PageLoader/PageLoader'
 
 interface ProductsTableProps {
     className?: string
@@ -26,21 +27,21 @@ export const ProductsTable: FC<ProductsTableProps> = ({
         { sort: false, value: 'Action' },
     ]
 
-    if (isLoading) {
-        return <div>...loading</div>
-    }
     return (
         <div className={cls(s.ProductsTable, className)}>
             <TableHeading type={'products'} headings={headings} />
-            <div className={s.items}>
-                {items.map(product => (
-                    <TableRow
-                        key={product._id}
-                        type={'products'}
-                        item={product}
-                    />
-                ))}
-            </div>
+            {isLoading && <PageLoader />}
+            {!isLoading && (
+                <div className={s.items}>
+                    {items.map(product => (
+                        <TableRow
+                            key={product._id}
+                            type={'products'}
+                            item={product}
+                        />
+                    ))}
+                </div>
+            )}
         </div>
     )
 }

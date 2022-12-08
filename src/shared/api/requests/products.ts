@@ -7,11 +7,15 @@ export const fetchProducts = async () => {
 }
 
 export const fetchFilteredProducts = async (params: string) => {
-    const res = await api.get(endpoints.products.filtredList(params))
+    const res = await api.get(endpoints.products.filteredList(params))
     return res
 }
 
 export const fetchCreateProduct = async data => {
     const res = await api.post(endpoints.products.list, data)
+    return res
+}
+export const fetchUpdateProduct = async data => {
+    const res = await api.put(endpoints.products.list, data)
     return res
 }

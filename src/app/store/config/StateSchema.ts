@@ -16,6 +16,7 @@ import {
 } from '@reduxjs/toolkit'
 import { CombinedState } from 'redux'
 import { CreateVendorSchema } from 'features/CreateVendor/model/types/CreateVendorSchema'
+import { UpdateProductSchema } from '../../../features/UpdateProduct/model/types/UpdateProductSchema'
 
 export interface StateSchema {
     user: UserSchema
@@ -27,6 +28,7 @@ export interface StateSchema {
     loginForm?: LoginSchema
     registerForm?: RegisterSchema
     createProduct?: CreateProductSchema
+    updateProduct?: UpdateProductSchema
     productsFilters?: ProductFiltersSchema
     createVendor?: CreateVendorSchema
 }

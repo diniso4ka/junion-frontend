@@ -1,4 +1,4 @@
-.CreateVendorForm {
+.CreateProductForm {
     position: relative;
 }
 
@@ -34,10 +34,36 @@
     margin-bottom: 12px;
 }
 
+.subInput {
+    display: flex;
+    align-items: center;
+    margin-left: 60px;
+    position: relative;
+}
+
+.checkbox {
+    position: absolute;
+    left: -30px;
+}
+
+.subLabel {
+    margin-right: 5px;
+    width: 70px;
+}
+
 .input {
     flex: 1 1 auto;
-    height: 38px;
+    max-width: 78%;
     margin-bottom: 0;
+    margin-right: auto;
+}
+
+.leftInput {
+    margin-right: 20px;
+}
+
+.priceFrom {
+    display: flex;
     margin-right: auto;
 }
 
@@ -52,6 +78,11 @@
     margin-right: auto;
     text-align: center;
 }
+
+.discountInput {
+    margin-right: 5px;
+}
+
 .buttonWrapper {
     width: 100%;
     display: flex;
