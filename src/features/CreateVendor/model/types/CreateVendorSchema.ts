@@ -7,6 +7,5 @@ export interface CreateVendorSchema {
 export interface CreateVendorForm {
     name: string
     regCode: string
-
     address: string
 }

@@ -39,6 +39,7 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
     className,
     onClose,
 }) => {
+    const [validationError, setValidationError] = useState(false)
     const [nameFocus, setNameFocus] = useState(false)
     const [categoriesFocus, setCategoriesFocus] = useState(false)
     const [vendorsFocus, setVendorsFocus] = useState(false)
@@ -62,30 +63,25 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
     const selectedVendor = vendorsList.find(item => item.name === vendor)
 
     const onSubmitForm = async () => {
-        if (
-            !!name &&
-            !!category &&
-            !!vendor &&
-            !!unit &&
-            !!price &&
-            !!quantity
-        ) {
-            const response = await dispatch(
-                thunkCreateProduct({
-                    name,
-                    category,
-                    vendor: selectedVendor.code,
-                    unit,
-                    price: Number(price),
-                    quantity: Number(quantity),
-                    // discountPrice: discountPrice ? Number(discountPrice) : 0,
-                })
-            )
-            // @ts-ignore
-            if (response.payload?.data) {
-                dispatch(thunkFetchProductList())
-                onClose()
-            }
+        setValidationError(false)
+        if (!name && !category && !vendor && !unit && !price && !quantity) {
+            return setValidationError(true)
+        }
+        const response = await dispatch(
+            thunkCreateProduct({
+                name,
+                category,
+                vendor: selectedVendor.code,
+                unit,
+                price: Number(price),
+                quantity: Number(quantity),
+                // discountPrice: discountPrice ? Number(discountPrice) : 0,
+            })
+        )
+        // @ts-ignore
+        if (response.payload?.data) {
+            dispatch(thunkFetchProductList())
+            onClose()
         }
     }
 
@@ -272,7 +268,8 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
                         Create
                     </Button>
                 </div>
-                {error && <p> Server Error</p>}
+                {error && <p>Server Error</p>}
+                {validationError && <p>Validation Error</p>}
             </div>
         </DynamicModuleLoader>
     )
