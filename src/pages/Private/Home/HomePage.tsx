@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import cls from 'classnames'
 import s from './HomePage.module.scss'
-import { List } from 'shared/ui'
+import { List, Text } from 'shared/ui'
 import { getDate } from 'shared/helpers/date/getDate'
 import { useAppDispatch, useAppSelector } from 'app/store/config/StateSchema'
 import {
@@ -98,8 +98,11 @@ const HomePage: FC = () => {
         <div className={s.wrapper}>
             <div className={cls(s.HomePage)}>
                 <div className={s.information}>
-                    <h1>Information board</h1>
-                    <p>{`${date.mounth} ${date.number}, ${date.year}`}</p>
+                    <Text className={s.title} title='Information board' />
+                    <Text
+                        className={s.title}
+                        date={`${date.mounth} ${date.number}, ${date.year}`}
+                    />
                 </div>
                 <div className={s.items}>
                     <List

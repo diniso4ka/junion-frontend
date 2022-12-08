@@ -8,6 +8,8 @@ interface TextProps {
     subtitle?: string
     mediumText?: string
     text?: string
+    date?: string
+    weight?: 'light' | 'medium' | 'bold'
 }
 
 export const Text: FC<TextProps> = ({
@@ -16,17 +18,22 @@ export const Text: FC<TextProps> = ({
     subtitle,
     mediumText,
     text,
+    date,
+    weight,
 }) => {
     return (
-        <div className={cls(s.Text, className)}>
-            <div className={cls(className, s.title)}>{title && title}</div>
-            <div className={cls(className, s.subtitle)}>
-                {subtitle && subtitle}
-            </div>
-            <div className={cls(className, s.mediumText)}>
-                {mediumText && mediumText}
-            </div>
-            <div className={cls(className, s.text)}>{text && text}</div>
-        </div>
+        <span className={className}>
+            {title && <h1 className={cls(className, s.title)}>{title}</h1>}
+            {subtitle && (
+                <h3 className={cls(className, s.subtitle, s[weight])}>
+                    {subtitle}
+                </h3>
+            )}
+            {mediumText && (
+                <p className={cls(className, s.mediumText)}>{mediumText}</p>
+            )}
+            {text && <p className={cls(className, s.text)}>{text}</p>}
+            {date && <p className={cls(className, s.date)}>{date}</p>}
+        </span>
     )
 }

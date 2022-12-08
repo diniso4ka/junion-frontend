@@ -2,13 +2,13 @@ import React, { FC, useState } from 'react'
 import s from './VendorsPage.module.scss'
 import cls from 'classnames'
 import { AdvancedSearch, Button } from 'shared/ui'
-import { CreateVendorModal } from '../../../features/CreateVendor'
-import { FilterMenu } from '../../../features/ProductFilters'
-import { getDate } from '../../../shared/helpers/date/getDate'
+import { CreateVendorModal } from 'features/CreateVendor'
+import { FilterMenu } from 'features/ProductFilters'
+import { getDate } from 'shared/helpers/date/getDate'
 import { Text } from 'shared/ui'
-import { VendorsTable } from '../../../entities/Vendors/ui/VendorsTable/VendorsTable'
-import { useAppSelector } from '../../../app/store'
-import { getVendorsList } from '../../../entities/Vendors/model/selectors/getVendorsList/getVendorsList'
+import { VendorsTable } from 'entities/Vendors/ui/VendorsTable/VendorsTable'
+import { useAppSelector } from 'app/store'
+import { getVendorsList } from 'entities/Vendors/model/selectors/getVendorsList/getVendorsList'
 
 const VendorsPage: FC = () => {
     const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -36,9 +36,10 @@ const VendorsPage: FC = () => {
                         onClose={() => setModalIsOpen(false)}
                     />
                 )}
-                <p className={s.date}>
-                    {`${date.mounth} ${date.number}, ${date.year}`}
-                </p>
+                <Text
+                    className={s.date}
+                    date={`${date.mounth} ${date.number}, ${date.year}`}
+                />
             </div>
             <VendorsTable items={vendorsList} />
         </div>

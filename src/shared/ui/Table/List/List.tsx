@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import s from './List.module.scss'
 import cls from 'classnames'
-import { Preloader } from 'shared/ui/index'
+import { Preloader, Text } from 'shared/ui/index'
 
 interface ListProps {
     className?: string
@@ -22,26 +22,27 @@ export const List: FC<ListProps> = ({
     isLoading,
     onClick,
 }) => {
-    const onHandleClick = i => {
-        return data.items[i].label
-    }
     return isLoading ? (
         <div className={cls(s.List, className, s.loading)}>
             <Preloader />
         </div>
     ) : (
         <div className={cls(s.List, className)}>
-            <h3 className={s.title}>{data.title}</h3>
+            <Text weight={'bold'} className={s.title} subtitle={data.title} />
             <ul>
                 {data.items.map(item => (
                     <li key={item.label} className={s.item}>
-                        <p className={s.label}>{item.label}</p>
-                        <p
+                        <Text
+                            className={s.label}
+                            weight={'medium'}
+                            subtitle={item.label}
+                        />
+                        <span
                             onClick={() => onClick?.(item.label)}
                             className={s.value}
                         >
                             {item.value}
-                        </p>
+                        </span>
                     </li>
                 ))}
             </ul>

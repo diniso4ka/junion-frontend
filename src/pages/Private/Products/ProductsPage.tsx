@@ -100,9 +100,10 @@ const ProductsPage: FC = () => {
                 >
                     Add new product
                 </Button>
-                <p
+                <Text
                     className={s.date}
-                >{`${date.mounth} ${date.number}, ${date.year}`}</p>
+                    date={`${date.mounth} ${date.number}, ${date.year}`}
+                />
             </div>
             <ProductsTable
                 isLoading={status}

@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import s from './CategoriesPage.module.scss'
 import { getDate } from 'shared/helpers/date/getDate'
-import { AdvancedSearch, Button } from 'shared/ui'
+import { AdvancedSearch, Text } from 'shared/ui'
 import { CategoriesTable } from 'entities/Categories/ui/CategoriesTable/CategoriesTable'
 import { useAppSelector } from 'app/store/config/StateSchema'
 import { getCategoryList } from 'entities/Categories'
@@ -20,7 +20,7 @@ const CategoriesPage: FC = () => {
     return (
         <div className={s.CategoriesPage}>
             <div className={s.navigation}>
-                <h1>Categories</h1>
+                <Text className={s.title} title='Categories' />
                 <AdvancedSearch
                     value={searchValue}
                     onChange={e => setSearchValue(e)}
@@ -28,9 +28,10 @@ const CategoriesPage: FC = () => {
                     canClear={!!searchValue}
                     onClear={onHandleClear}
                 ></AdvancedSearch>
-                <p className={s.date}>
-                    {`${date.mounth} ${date.number}, ${date.year}`}
-                </p>
+                <Text
+                    className={s.date}
+                    date={`${date.mounth} ${date.number}, ${date.year}`}
+                />
             </div>
             <CategoriesTable items={filteredItems} />
         </div>

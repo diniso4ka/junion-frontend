@@ -10,7 +10,7 @@ import {
     createVendorActions,
     createVendorReducer,
 } from '../../model/slice/createVendorSlice'
-import { Button, Input } from 'shared/ui'
+import { Button, Input, Text } from 'shared/ui'
 import { useAppDispatch, useAppSelector } from 'app/store'
 import { getCreateVendorName } from '../../model/selectors/getCreateVendorName/getCreateVendorName'
 import { getCreateVendorRegCode } from '../../model/selectors/getCreateVendorRegCode/getCreateVendorRegCode'
@@ -76,13 +76,13 @@ export const CreateVendorForm: FC<CreateVendorFormProps> = ({
     )
     return (
         <DynamicModuleLoader reducers={initialState} removeAfterUnmount={true}>
-            <div className={cls(s.CreateProductForm, className)}>
+            <div className={cls(s.CreateVendorForm, className)}>
                 <img
                     onClick={onClose}
                     className={s.closeIcon}
                     src={closeIcon}
                 />
-                <h1 className={s.title}>New product</h1>
+                <Text className={s.title} title={'New vendor'} />
                 <form className={s.form}>
                     <ul className={s.items}>
                         <li className={s.inputItem}>

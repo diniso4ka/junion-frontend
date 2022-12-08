@@ -12,13 +12,13 @@
     font-weight: 500;
     font-size: var(--font-size-l);
     color: var(--black-color);
+    height: fit-content;
 }
 .mediumText {
     font-family: var(--font-family-main);
     font-style: normal;
     font-weight: 300;
     font-size: var(--font-size-m);
-    line-height: 17px;
 }
 
 .text {
@@ -26,5 +26,22 @@
     font-style: normal;
     font-weight: 300;
     font-size: var(--font-size-s);
-    line-height: 15px;
+}
+
+.date {
+    font-style: normal;
+    font-weight: 400;
+    font-size: var(--font-size-l);
+    text-align: right;
+}
+
+.bold {
+    font-weight: 500;
+}
+
+.medium {
+    font-weight: 400;
+}
+.light {
+    font-weight: 300;
 }
