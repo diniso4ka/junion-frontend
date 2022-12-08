@@ -95,31 +95,33 @@ const HomePage: FC = () => {
 
     const date = getDate()
     return (
-        <div className={cls(s.HomePage, s.wrapper)}>
-            <div className={s.information}>
-                <h1>Information board</h1>
-                <p>{`${date.mounth} ${date.number}, ${date.year}`}</p>
-            </div>
-            <div className={s.items}>
-                <List
-                    isLoading={productsStatus}
-                    data={tablesData.products}
-                    className={s.item}
-                    onClick={onHandleOpen}
+        <div className={s.wrapper}>
+            <div className={cls(s.HomePage)}>
+                <div className={s.information}>
+                    <h1>Information board</h1>
+                    <p>{`${date.mounth} ${date.number}, ${date.year}`}</p>
+                </div>
+                <div className={s.items}>
+                    <List
+                        isLoading={productsStatus}
+                        data={tablesData.products}
+                        className={s.item}
+                        onClick={onHandleOpen}
+                    />
+                    <List
+                        isLoading={productsStatus}
+                        data={tablesData.employee}
+                        className={s.item}
+                        onClick={onHandleOpen}
+                    />
+                </div>
+                <FilteredList
+                    title={title}
+                    data={sortedProductsList}
+                    isOpen={listIsOpen}
+                    onClose={onHandleClose}
                 />
-                <List
-                    isLoading={productsStatus}
-                    data={tablesData.employee}
-                    className={s.item}
-                    onClick={onHandleOpen}
-                />
             </div>
-            <FilteredList
-                title={title}
-                data={sortedProductsList}
-                isOpen={listIsOpen}
-                onClose={onHandleClose}
-            />
         </div>
     )
 }

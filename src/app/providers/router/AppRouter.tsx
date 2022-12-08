@@ -9,12 +9,13 @@ import {
 
 import { useAppSelector } from 'app/store/config/StateSchema'
 import { getAuthData } from 'entities/User'
+import { PageLoader } from 'widgets/PageLoader/PageLoader'
 
 const AppRouter = () => {
     const authData = useAppSelector(getAuthData)
 
     return authData ? (
-        <React.Suspense fallback={<div>...loading</div>}>
+        <React.Suspense fallback={<PageLoader />}>
             <Routes>
                 {privateRoutes.map(({ path, Component }) => (
                     <Route key={path} path={path} element={<Component />} />
@@ -23,7 +24,7 @@ const AppRouter = () => {
             </Routes>
         </React.Suspense>
     ) : (
-        <React.Suspense fallback={<div>...loading</div>}>
+        <React.Suspense fallback={<PageLoader />}>
             <Routes>
                 {publicRoutes.map(({ path, Component }) => (
                     <Route key={path} path={path} element={<Component />} />

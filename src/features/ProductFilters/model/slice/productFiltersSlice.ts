@@ -43,9 +43,6 @@ export const productFiltersSlice = createSlice({
             const params = action.payload
             let filters: any = {}
             for (const i in params) {
-                // if (params[i].length > 0) {
-                //     filters = { ...filters, [i]: params[i] }
-                // }
                 filters = { ...filters, [i]: params[i] }
             }
             state.queryString = createQueryParams(filters)
