@@ -6,25 +6,19 @@
     font-family: var(--font-family-main);
 }
 
-.navigation {
+.header {
     margin-bottom: 22px;
     display: flex;
     align-items: center;
 }
 
-.navigation h1 {
+.title {
     width: 109px;
     margin-right: 77px;
 }
 
-.navigation button {
+.header button {
     margin-left: 40px;
-}
-
-.search {
-    margin-right: 38px;
-    width: 100%;
-    max-width: 550px;
 }
 
 .date {
