@@ -15,7 +15,7 @@ const initialState: ProductFiltersSchema = {
     isLoading: false,
 }
 export const productFiltersSlice = createSlice({
-    name: 'user',
+    name: 'productFilters',
     initialState,
     reducers: {
         setName: (state, action: PayloadAction<string>) => {

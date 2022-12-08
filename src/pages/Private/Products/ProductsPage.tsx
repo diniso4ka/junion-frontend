@@ -23,11 +23,9 @@ import { getProductFiltersData } from 'features/ProductFilters/model/selectors/g
 import { productFiltersActions } from 'features/ProductFilters'
 import { createQueryParams } from 'shared/helpers/filters/createQueryParams'
 import { CreateProductModal } from 'features/CreateProduct/ui/CreateProductModal/CreateProductModal'
-import { getAuthData } from 'entities/User'
 
 const ProductsPage: FC = () => {
     const dispatch = useAppDispatch()
-    const user = useAppSelector(getAuthData)
     const filters = useAppSelector(getProductFiltersData)
     const productsList = useAppSelector(getProductsList)
     const filteredProductsList = useAppSelector(getFilteredProductsList)

@@ -28,7 +28,6 @@ const CategoriesPage: FC = () => {
                     canClear={!!searchValue}
                     onClear={onHandleClear}
                 ></AdvancedSearch>
-                <Button variant={'rounded'}>Add new category</Button>
                 <p className={s.date}>
                     {`${date.mounth} ${date.number}, ${date.year}`}
                 </p>

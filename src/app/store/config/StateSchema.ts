@@ -15,6 +15,7 @@ import {
     ReducersMapObject,
 } from '@reduxjs/toolkit'
 import { CombinedState } from 'redux'
+import { CreateVendorSchema } from 'features/CreateVendor/model/types/CreateVendorSchema'
 
 export interface StateSchema {
     user: UserSchema
@@ -27,6 +28,7 @@ export interface StateSchema {
     registerForm?: RegisterSchema
     createProduct?: CreateProductSchema
     productsFilters?: ProductFiltersSchema
+    createVendor?: CreateVendorSchema
 }
 
 export type StateSchemaKey = keyof StateSchema

@@ -9,7 +9,6 @@ import {
     createProductActions,
     createProductReducer,
 } from '../../model/slice/createProductSlice'
-import { getCreateProductForm } from '../../model/selectors/getCreateProductForm/getCreateProductForm'
 import { getVendorsList } from 'entities/Vendors/model/selectors/getVendorsList/getVendorsList'
 import { thunkCreateProduct } from '../../model/services/thunkCreateProduct'
 import { getCreateProductStatus } from '../../model/selectors/getCreateProductStatus/getCreateProductStatus'
