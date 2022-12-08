@@ -33,6 +33,7 @@ export const InputWithHint: React.FC<IInputProps> = React.memo(
         const filteredItems = hint.filter(item => {
             return item.toLowerCase().includes(value.toLowerCase())
         })
+
         const onHandleHint = e => {
             onHandleSelect(e.target.innerHTML)
             onCloseHint?.()

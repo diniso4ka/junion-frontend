@@ -36,6 +36,7 @@ const Header: React.FC<HeaderProps> = ({ onClick }) => {
     const onClickLogout = async () => {
         dispatch(thunkLogout(0))
         navigate(routeConfig.HOME)
+        setProfileIsOpen(false)
     }
 
     if (authData) {

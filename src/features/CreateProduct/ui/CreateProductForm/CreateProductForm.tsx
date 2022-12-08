@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useCallback, useEffect, useState } from 'react'
 import s from './CreateProductForm.module.scss'
 import cls from 'classnames'
 import { Button, Checkbox, Input, InputWithHint } from 'shared/ui'
@@ -123,6 +123,7 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
     const onChangeDiscount = e => {
         dispatch(createProductActions.setDiscountPrice(e.target.value))
     }
+
     return (
         <DynamicModuleLoader reducers={initialState} removeAfterUnmount={true}>
             <div className={cls(s.CreateProductForm, className)}>
