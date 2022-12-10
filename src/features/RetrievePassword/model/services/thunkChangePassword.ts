@@ -12,10 +12,9 @@ export const thunkChangePassword = createAsyncThunk(
             if (!response.data) {
                 throw new Error()
             }
-            console.log(response)
             return response
         } catch (err) {
-            thunkAPI.rejectWithValue(err)
+            return thunkAPI.rejectWithValue(err)
         }
     }
 )

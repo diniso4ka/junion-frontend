@@ -17,7 +17,7 @@ export const thunkCheckToken = createAsyncThunk(
             thunkAPI.dispatch(thunkCheckAuthMe(0))
             return response
         } catch (err) {
-            thunkAPI.rejectWithValue(err)
+            return thunkAPI.rejectWithValue(err)
         }
     }
 )

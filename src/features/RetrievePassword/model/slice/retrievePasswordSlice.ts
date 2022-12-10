@@ -1,6 +1,7 @@
 import { RetrievePasswordSchema } from '../types/RetrievePasswordSchema'
 import { createSlice } from '@reduxjs/toolkit'
 import { thunkEnterMail } from '../services/thunkEnterMail'
+import { thunkChangePassword } from '../services/thunkChangePassword'
 
 const initialState: RetrievePasswordSchema = {
     form: {
@@ -35,6 +36,17 @@ const retrievePasswordSlice = createSlice({
                 state.isLoading = false
             })
             .addCase(thunkEnterMail.rejected, (state, action) => {
+                state.error = true
+                state.isLoading = false
+            })
+            .addCase(thunkChangePassword.pending, (state, action) => {
+                state.error = false
+                state.isLoading = true
+            })
+            .addCase(thunkChangePassword.fulfilled, (state, action) => {
+                state.isLoading = false
+            })
+            .addCase(thunkChangePassword.rejected, (state, action) => {
                 state.error = true
                 state.isLoading = false
             })
