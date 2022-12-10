@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { UpdateProductSchema } from '../types/UpdateProductSchema'
 import { thunkUpdateProduct } from '../services/thunkUpdateProduct'
-import { ProductType } from '../../../../entities/Products/model/types/ProductsSchema'
-import { discountConvertInPercent } from '../../../../shared/helpers/math/discountPrice'
+import { ProductType } from 'entities/Products/model/types/ProductsSchema'
+import { discountConvertInPercent } from 'shared/helpers/math/discountPrice'
 
 const initialState: UpdateProductSchema = {
     form: {

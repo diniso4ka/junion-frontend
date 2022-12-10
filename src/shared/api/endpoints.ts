@@ -4,8 +4,10 @@ export const endpoints = {
         login: '/users/login',
         me: '/users/current',
         logout: '/users/logout',
+        restorePass: '/users/restorePass',
+        changePass: '/users/changePass',
+        checkToken: '/users/checkToken',
     },
-    password: '/retrieve',
     products: {
         list: `/products`,
         filteredList: params => `/products?${params}`,

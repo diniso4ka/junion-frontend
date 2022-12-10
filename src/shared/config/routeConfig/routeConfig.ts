@@ -8,6 +8,8 @@ import {
     Categories,
     Products,
     Vendors,
+    ChangePassword,
+    CheckToken,
 } from 'pages'
 import React from 'react'
 
@@ -20,6 +22,9 @@ export enum routeConfig {
     CATEGORIES = '/categories',
     PRODUCTS = '/products',
     VENDORS = '/vendors',
+    CHANGE_PASSWORD = '/user/changepass',
+    CHECK_TOKEN = '/retrieve/:verifyToken',
+    NOT_ACTIVE = '/notactive',
 }
 export interface routesProps {
     path: string
@@ -47,6 +52,10 @@ export const publicRoutes: routesProps[] = [
         path: routeConfig.SENDLINK,
         Component: SendLink,
     },
+    {
+        path: routeConfig.CHECK_TOKEN,
+        Component: CheckToken,
+    },
 ]
 
 export const privateRoutes: routesProps[] = [
@@ -65,5 +74,9 @@ export const privateRoutes: routesProps[] = [
     {
         path: routeConfig.VENDORS,
         Component: Vendors,
+    },
+    {
+        path: routeConfig.CHANGE_PASSWORD,
+        Component: ChangePassword,
     },
 ]

@@ -1,20 +1,20 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { fetchSendMail } from 'shared/api/requests/retrieve'
+import { fetchSendMail } from 'shared/api/requests/user'
 
-export interface thunkEnterMailProps {
-    mail: string
-}
+export type thunkEnterMailProps = string
+
 export const thunkEnterMail = createAsyncThunk(
     'retrieve/EnterEmail',
-    async (retrievePasswordData: thunkEnterMailProps, thunkAPI) => {
+    async (mail: thunkEnterMailProps, thunkAPI) => {
         try {
-            const response = await fetchSendMail(retrievePasswordData)
-            if (!response.data) {
+            const response = await fetchSendMail(mail)
+            // @ts-ignore
+            if (!response.status === 200) {
                 throw new Error()
             }
             return response
         } catch (err) {
-            thunkAPI.rejectWithValue(err)
+            return thunkAPI.rejectWithValue(err)
         }
     }
 )

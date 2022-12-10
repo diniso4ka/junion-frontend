@@ -17,6 +17,7 @@ import {
 import { CombinedState } from 'redux'
 import { CreateVendorSchema } from 'features/CreateVendor/model/types/CreateVendorSchema'
 import { UpdateProductSchema } from '../../../features/UpdateProduct/model/types/UpdateProductSchema'
+import { RetrievePasswordSchema } from '../../../features/RetrievePassword/model/types/RetrievePasswordSchema'
 
 export interface StateSchema {
     user: UserSchema
@@ -31,6 +32,7 @@ export interface StateSchema {
     updateProduct?: UpdateProductSchema
     productsFilters?: ProductFiltersSchema
     createVendor?: CreateVendorSchema
+    retrievePassword?: RetrievePasswordSchema
 }
 
 export type StateSchemaKey = keyof StateSchema

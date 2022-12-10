@@ -20,3 +20,18 @@ export const fetchAuthMe = async () => {
     const res = await api.get(endpoints.users.me)
     return res
 }
+
+export const fetchSendMail = async mail => {
+    const res = await api.post(endpoints.users.restorePass, { email: mail })
+    return res
+}
+
+export const fetchCheckToken = async verifyToken => {
+    const res = await api.post(endpoints.users.checkToken, verifyToken)
+    return res
+}
+
+export const fetchChangePassword = async password => {
+    const res = await api.post(endpoints.users.changePass, password)
+    return res
+}
