@@ -3,13 +3,15 @@ import { fetchCheckToken } from 'shared/api/requests/user'
 import { thunkCheckAuthMe } from 'entities/User'
 import { saveTokenInLocalStorage } from 'shared/helpers/localStorage/localStorage'
 
-export type thunkEnterMailProps = string
+export interface thunkCheckTokenProps {
+    verifyToken: string
+}
 
 export const thunkCheckToken = createAsyncThunk(
     'retrieve/CheckToken ',
-    async (token: thunkEnterMailProps, thunkAPI) => {
+    async (verificationToken: thunkCheckTokenProps, thunkAPI) => {
         try {
-            const response = await fetchCheckToken(token)
+            const response = await fetchCheckToken(verificationToken)
             if (!response.data) {
                 throw new Error()
             }

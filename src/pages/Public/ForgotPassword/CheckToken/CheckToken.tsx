@@ -16,7 +16,11 @@ export const CheckToken: FC<CheckTokenProps> = ({ className }) => {
     const dispatch = useAppDispatch()
 
     const fetchCheckToken = async () => {
-        const response = await dispatch(thunkCheckToken(verifyToken))
+        const response = await dispatch(
+            thunkCheckToken({
+                verifyToken: verifyToken,
+            })
+        )
         // @ts-ignore
         if (response.payload?.status === 200) {
             navigate(routeConfig.CHANGE_PASSWORD)
