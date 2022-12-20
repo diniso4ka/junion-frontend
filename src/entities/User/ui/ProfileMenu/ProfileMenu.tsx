@@ -9,6 +9,7 @@ interface ProfileMenuProps {
     className?: string
     data: User
     onClickLogout: () => void
+    onClickChangePassword: () => void
     isOpened: boolean
 }
 
@@ -17,6 +18,7 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({
     data,
     onClickLogout,
     isOpened,
+    onClickChangePassword,
 }) => {
     return (
         <DroppedMenu size={'small'} isOpened={isOpened}>
@@ -25,7 +27,13 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({
                     {data.role.charAt(0).toUpperCase() + data.role.slice(1)}
                 </label>
                 <label className={s.mail}>{data.email}</label>
-                <Link to={routeConfig.CHANGE_PASSWORD}>Change password</Link>
+                <Link
+                    className={s.changePassBtn}
+                    to={routeConfig.CHANGE_PASSWORD}
+                    onClick={onClickChangePassword}
+                >
+                    Change password
+                </Link>
                 <Button onClick={onClickLogout} variant={'text'}>
                     Log Out
                 </Button>

@@ -62,6 +62,12 @@
 .purple {
     background-color: var(--bg-third-color);
 }
+.orange {
+    background-color: var(--orange);
+    color: var(--bg-secondary-color);
+    font-weight: 500;
+    border: 1px solid var(--bg-secondary-color);
+}
 
 .text {
     background-color: transparent;

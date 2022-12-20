@@ -40,6 +40,14 @@ export const productsSlice = createSlice({
                     item.createdAt.split('').splice(0, 10).join('')
             )
         },
+        setSortDeletedToday: state => {
+            state.sortedItems = state.sortedItems = state.items.filter(
+                item =>
+                    item.status === 'deleted' &&
+                    formattedDate() ===
+                        item.updatedAt.split('').splice(0, 10).join('')
+            )
+        },
     },
     extraReducers: builder => {
         builder

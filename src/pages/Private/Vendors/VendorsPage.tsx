@@ -27,6 +27,7 @@ const VendorsPage: FC = () => {
                 <Button
                     onClick={() => setModalIsOpen(true)}
                     variant={'rounded'}
+                    theme={'orange'}
                 >
                     Add new vendor
                 </Button>

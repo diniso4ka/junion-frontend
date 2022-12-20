@@ -16,7 +16,6 @@ export const CategoriesTable: FC<CategoriesTableProps> = ({
     isLoading = false,
 }) => {
     const headings = [
-        { sort: false, value: 'Action' },
         { sort: true, value: 'Category' },
         { sort: true, value: 'Quantity' },
     ]

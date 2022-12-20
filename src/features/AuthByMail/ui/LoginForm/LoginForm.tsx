@@ -19,7 +19,7 @@ import { getLoginMail } from '../../model/selectors/getLoginMail/getLoginMail'
 import { getLoginPassword } from '../../model/selectors/getLoginPassword/getLoginPassword'
 import { getLoginStatus } from '../../model/selectors/getLoginStatus/getLoginStatus'
 import { getLoginError } from '../../model/selectors/getLoginError/getLoginError'
-import { RetrievePasswordModal } from '../../../RetrievePassword/ui/RetrievePasswordFormModal/RetrievePasswordModal'
+import { RetrievePasswordModal } from 'features/RetrievePassword'
 
 interface ValidationProps {
     mail?: string
@@ -120,10 +120,12 @@ const LoginPage: FC = () => {
                     </div>
                 </form>
             </main>
-            <RetrievePasswordModal
-                onClose={() => setIsModalRetrieve(false)}
-                isOpen={isModalRetrieve}
-            />
+            {isModalRetrieve && (
+                <RetrievePasswordModal
+                    onClose={() => setIsModalRetrieve(false)}
+                    isOpen={isModalRetrieve}
+                />
+            )}
         </DynamicModuleLoader>
     )
 }

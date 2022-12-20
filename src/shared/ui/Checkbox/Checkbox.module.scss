@@ -7,10 +7,13 @@
 .custom {
     position: relative;
     display: inline-block;
-    background-color: #fff;
+    background-color: transparent;
     border: 1px solid #757575;
     border-radius: 4px;
     vertical-align: sub;
+}
+.dark {
+    border: 1px solid #ffffff;
 }
 
 .custom:before {

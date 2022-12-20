@@ -3,6 +3,7 @@ import s from './TableHeading.module.scss'
 import cls from 'classnames'
 
 import arrow from 'shared/assets/images/icons/arrowDown.svg'
+import { Checkbox } from '../../Checkbox'
 
 interface TableHeading {
     className?: string
@@ -19,6 +20,13 @@ export const TableHeading: FC<TableHeading> = ({
         <div className={cls(s.TableHeading, className)}>
             {type === 'products' && (
                 <ul className={cls(s.items, s[type])}>
+                    <li>
+                        <Checkbox
+                            value={true}
+                            onClick={() => console.log('checked')}
+                            theme={'dark'}
+                        />
+                    </li>
                     {headings.map(item => (
                         <li key={item.value} className={s.item}>
                             {item.value}
@@ -31,6 +39,13 @@ export const TableHeading: FC<TableHeading> = ({
             )}
             {type === 'categories' && (
                 <ul className={cls(s.items, s[type])}>
+                    <li>
+                        <Checkbox
+                            theme={'dark'}
+                            value={true}
+                            onClick={() => console.log('checked')}
+                        />
+                    </li>
                     {headings.map(item => (
                         <li key={item.value} className={s.item}>
                             {item.value}
@@ -43,6 +58,13 @@ export const TableHeading: FC<TableHeading> = ({
             )}
             {type === 'vendors' && (
                 <ul className={cls(s.items, s[type])}>
+                    <li>
+                        <Checkbox
+                            theme={'dark'}
+                            value={true}
+                            onClick={() => console.log('checked')}
+                        />
+                    </li>
                     {headings.map(item => (
                         <li key={item.value} className={s.item}>
                             {item.value}
