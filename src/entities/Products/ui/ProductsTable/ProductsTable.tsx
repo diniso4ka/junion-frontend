@@ -2,12 +2,12 @@ import { FC } from 'react'
 import s from './ProductsTable.module.scss'
 import cls from 'classnames'
 import { TableHeading, TableRow } from 'shared/ui'
-import { IProductsResData } from 'shared/types/products'
 import { PageLoader } from 'widgets/PageLoader/PageLoader'
+import { ProductType } from '../../model/types/ProductsSchema'
 
 interface ProductsTableProps {
     className?: string
-    items: IProductsResData[]
+    items: ProductType[]
     isLoading?: boolean
 }
 

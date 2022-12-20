@@ -1,4 +1,3 @@
-import { IRegisterReqData } from '../../types/auth'
 import { superCodeValidationMessages } from 'shared/helpers/validations/messages'
 import {
     correctPasswordValidation,
@@ -6,8 +5,9 @@ import {
     passwordValidation,
     usernameValidation,
 } from './helpers'
+import { RegisterForm } from 'features/RegisterByMail/model/types/RegisterSchema'
 
-export const registerValidation = (data: IRegisterReqData) => {
+export const registerValidation = (data: RegisterForm) => {
     const { mail, password, confirmPassword, name, superCode } = data
     const errors = {} as typeof data
 

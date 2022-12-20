@@ -1,4 +1,3 @@
-import { ILoginReqData } from '../../types/auth'
 import { mailValidation } from './helpers'
 import { passwordValidationMessages } from './messages'
 

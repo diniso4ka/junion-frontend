@@ -2,11 +2,11 @@ import { FC } from 'react'
 import s from './VendorsTable.module.scss'
 import cls from 'classnames'
 import { TableHeading, TableRow } from 'shared/ui'
-import { IVendorsResData } from 'shared/types/vendors'
+import { Vendor } from '../../model/types/VendorsSchema'
 
 interface VendorsTableProps {
     className?: string
-    items: IVendorsResData[]
+    items: Vendor[]
     isLoading?: boolean
 }
 

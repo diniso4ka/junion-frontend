@@ -22,9 +22,9 @@ export const CheckToken: FC<CheckTokenProps> = ({ className }) => {
         )
         // @ts-ignore
         if (response.payload?.status === 200) {
-            navigate(routeConfig.CHANGE_PASSWORD)
+            // navigate(routeConfig.CHANGE_PASSWORD)
         } else {
-            await navigate(routeConfig.NOT_ACTIVE)
+            // await navigate(routeConfig.NOT_ACTIVE)
         }
     }
     useEffect(() => {

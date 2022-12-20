@@ -1,6 +1,6 @@
 import { UserSchema } from '../types/user'
 import { createSlice } from '@reduxjs/toolkit'
-import { USER_LOCALSTORAGE_TOKEN } from 'shared/consts/localStorage'
+import { USER_LOCALSTORAGE_TOKEN } from 'shared/config/consts/localStorage'
 import { thunkCheckAuthMe } from '../services/CheckAuthMe'
 import { thunkLogout } from '../services/Logout'
 

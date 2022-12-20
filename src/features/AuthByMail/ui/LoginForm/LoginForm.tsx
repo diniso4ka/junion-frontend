@@ -57,7 +57,7 @@ const LoginPage: FC = () => {
         setErrors(validationErrors)
         if (!validationErrors) {
             await dispatch(thunkLoginByMail({ email: mail, password }))
-            const response = await dispatch(thunkCheckAuthMe(0))
+            const response = await dispatch(thunkCheckAuthMe())
             // @ts-ignore
             if (response.payload.status === 200) {
                 await navigate(routeConfig.HOME)

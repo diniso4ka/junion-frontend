@@ -22,7 +22,7 @@ const App: FC = () => {
     const { theme } = useTheme()
 
     useEffect(() => {
-        dispatch(thunkCheckAuthMe(0))
+        dispatch(thunkCheckAuthMe())
     }, [])
 
     useEffect(() => {
