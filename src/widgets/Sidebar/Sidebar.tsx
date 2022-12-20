@@ -38,6 +38,7 @@ const Sidebar = () => {
                     </li>
                     {navLinks.map(element => (
                         <Link
+                            className={s.linkItem}
                             key={element.path}
                             isCollapsed={!collapsed}
                             icon={element.icon}

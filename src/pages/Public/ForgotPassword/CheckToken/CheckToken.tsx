@@ -1,5 +1,4 @@
 import { FC, useEffect } from 'react'
-import cls from 'classnames'
 import { useNavigate, useParams } from 'react-router'
 import { useAppDispatch } from 'app/store'
 import { thunkCheckToken } from 'features/RetrievePassword/model/services/thunkCheckToken'
