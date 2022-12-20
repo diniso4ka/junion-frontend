@@ -1,8 +1,9 @@
 import { FC } from 'react'
 import s from './ProfileMenu.module.scss'
 import cls from 'classnames'
-import { Button, DroppedMenu } from 'shared/ui'
+import { Button, DroppedMenu, Link } from 'shared/ui'
 import { User } from '../../model/types/user'
+import { routeConfig } from 'shared/config/routeConfig/routeConfig'
 
 interface ProfileMenuProps {
     className?: string
@@ -24,6 +25,7 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({
                     {data.role.charAt(0).toUpperCase() + data.role.slice(1)}
                 </label>
                 <label className={s.mail}>{data.email}</label>
+                <Link to={routeConfig.CHANGE_PASSWORD}>Change password</Link>
                 <Button onClick={onClickLogout} variant={'text'}>
                     Log Out
                 </Button>

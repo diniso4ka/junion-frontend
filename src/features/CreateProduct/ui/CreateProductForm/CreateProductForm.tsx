@@ -51,7 +51,6 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
     const unit = useAppSelector(getCreateProductUnit)
     const price = useAppSelector(getCreateProductPrice)
     const quantity = useAppSelector(getCreateProductQuantity)
-    const discountPrice = useAppSelector(getCreateProductDiscountPrice)
 
     const productsList = useAppSelector(getProductsList)
     const categoriesList = useAppSelector(getCategoryList)
@@ -119,9 +118,6 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
     const onChangeQuantity = e => {
         dispatch(createProductActions.setQuantity(e.target.value))
     }
-    const onChangeDiscount = e => {
-        dispatch(createProductActions.setDiscountPrice(e.target.value))
-    }
 
     return (
         <DynamicModuleLoader reducers={initialState} removeAfterUnmount={true}>
@@ -174,29 +170,6 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
                                     className={s.inputMedium}
                                     variant={'outline'}
                                 />
-                                <div className={s.subInput}>
-                                    <label className={s.subLabel}>
-                                        <Checkbox
-                                            onClick={
-                                                onHandleChangeDiscountCheckbox
-                                            }
-                                            value={!withDiscount}
-                                            className={s.checkbox}
-                                        />
-                                        Discount
-                                    </label>
-                                    <Input
-                                        value={discountPrice}
-                                        onChange={onChangeDiscount}
-                                        disabled={!withDiscount || status}
-                                        className={cls(
-                                            s.inputSmall,
-                                            s.discountInput
-                                        )}
-                                        variant={'outline'}
-                                    />
-                                    %
-                                </div>
                             </div>
                         </li>
                         <li className={s.inputItem}>

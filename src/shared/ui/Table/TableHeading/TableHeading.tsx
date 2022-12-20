@@ -2,7 +2,7 @@ import { FC } from 'react'
 import s from './TableHeading.module.scss'
 import cls from 'classnames'
 
-import arrow from 'shared/assets/images/icons/SmallArrow.svg'
+import arrow from 'shared/assets/images/icons/arrowDown.svg'
 
 interface TableHeading {
     className?: string

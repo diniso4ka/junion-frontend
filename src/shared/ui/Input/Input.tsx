@@ -95,11 +95,6 @@ export const Input: React.FC<IInputProps> = React.memo(
                     ) : (
                         <div></div>
                     )}
-                    {type === 'password' && forgotPass && (
-                        <Link variant={'secondary'} to={routeConfig.ENTEREMAIL}>
-                            Forgot you Password?
-                        </Link>
-                    )}
                 </div>
             </div>
         )

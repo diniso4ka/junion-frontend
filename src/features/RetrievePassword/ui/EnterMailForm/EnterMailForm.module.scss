@@ -1,15 +1,18 @@
 .wrapper {
-    margin-top: var(--margin-top-form-l);
-    width: 100vw;
-    display: flex;
-    justify-content: center;
+    width: 650px;
+    height: 350px;
 }
 
 .contentWrapper {
+    width: 380px;
+    height: 100%;
+    margin: 0 auto;
     color: var(--primary-color);
-    width: var(--form-width-desktop);
     font-family: var(--font-family-main);
-    justify-content: end;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .formItem {
@@ -21,7 +24,9 @@
 
 .formButton {
     margin-top: 15px;
-    float: right;
+    width: 100%;
+    display: flex;
+    justify-content: right;
 }
 
 .title {
@@ -45,6 +50,8 @@
     background-repeat: no-repeat;
     padding-left: 18px;
     margin-bottom: 8px;
+    width: 100%;
+    text-align: left;
 }
 
 .helperHint {

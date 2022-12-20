@@ -5,6 +5,7 @@
 .items {
     display: grid;
     padding: 8px 36px 8px 18px;
+    color: #ffffff;
     &.products {
         grid-template-columns: 11% 16% 22% 10% 10% 10% 16% 2%;
     }
@@ -25,4 +26,5 @@
 
 .sortIcon {
     margin-left: 5px;
+    fill: #ffffff;
 }

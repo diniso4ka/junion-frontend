@@ -5,11 +5,14 @@
     width: 100vw;
     height: 100vh;
     pointer-events: none;
-    background-color: rgba(1, 1, 1, 0.3);
     z-index: 200;
     opacity: 0;
     pointer-events: none;
     display: none;
+
+    &.overlay {
+        background-color: rgba(1, 1, 1, 0.3);
+    }
 
     &.opened {
         display: block;
@@ -29,4 +32,17 @@
     pointer-events: auto;
     max-width: 720px;
     padding: 25px;
+    &.top {
+        top: 0;
+        transform: translate(-50%, 0);
+        margin-top: calc(var(--margin-top-form-l) + 40px);
+    }
+}
+
+.closeIcon {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    opacity: 0.7;
+    cursor: pointer;
 }

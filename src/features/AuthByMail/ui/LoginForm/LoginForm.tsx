@@ -19,6 +19,7 @@ import { getLoginMail } from '../../model/selectors/getLoginMail/getLoginMail'
 import { getLoginPassword } from '../../model/selectors/getLoginPassword/getLoginPassword'
 import { getLoginStatus } from '../../model/selectors/getLoginStatus/getLoginStatus'
 import { getLoginError } from '../../model/selectors/getLoginError/getLoginError'
+import { RetrievePasswordModal } from '../../../RetrievePassword/ui/RetrievePasswordFormModal/RetrievePasswordModal'
 
 interface ValidationProps {
     mail?: string
@@ -35,6 +36,7 @@ const LoginPage: FC = () => {
     const error = useAppSelector(getLoginError)
     const isLoading = useAppSelector(getLoginStatus)
     const [errors, setErrors] = useState<ValidationProps>({})
+    const [isModalRetrieve, setIsModalRetrieve] = useState<boolean>(false)
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const onChangeMail = useCallback(
@@ -96,8 +98,16 @@ const LoginPage: FC = () => {
                             helperText={errors?.password}
                             helperClass={'error'}
                             error={!!errors?.password}
-                            forgotPass={true}
                         />
+                        <div className={s.forgotBtnWrapper}>
+                            <Button
+                                onClick={() => setIsModalRetrieve(true)}
+                                className={s.forgotBtn}
+                                variant={'hint'}
+                            >
+                                Forgot you Password?
+                            </Button>
+                        </div>
                     </div>
                     <div className={s.formButton}>
                         <Button
@@ -110,6 +120,10 @@ const LoginPage: FC = () => {
                     </div>
                 </form>
             </main>
+            <RetrievePasswordModal
+                onClose={() => setIsModalRetrieve(false)}
+                isOpen={isModalRetrieve}
+            />
         </DynamicModuleLoader>
     )
 }

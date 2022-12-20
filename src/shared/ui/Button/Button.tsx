@@ -6,8 +6,12 @@ import { Preloader } from '../Preloader/Preloader'
 interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode
     type?: 'button' | 'submit'
+<<<<<<< HEAD
     variant?: 'primary' | 'secondary' | 'rounded' | 'outline' | 'text'
     theme?: 'darkGrey' | 'lightGrey' | 'purple'
+=======
+    variant?: 'primary' | 'secondary' | 'rounded' | 'outline' | 'text' | 'hint'
+>>>>>>> 66bfe69 (refactor)
     size?: 'large' | 'medium' | 'small'
     isLoading?: boolean
     className?: string

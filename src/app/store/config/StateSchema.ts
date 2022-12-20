@@ -18,6 +18,8 @@ import { CombinedState } from 'redux'
 import { CreateVendorSchema } from 'features/CreateVendor/model/types/CreateVendorSchema'
 import { UpdateProductSchema } from '../../../features/UpdateProduct/model/types/UpdateProductSchema'
 import { RetrievePasswordSchema } from '../../../features/RetrievePassword/model/types/RetrievePasswordSchema'
+import { NavigateOptions } from 'react-router'
+import { To } from '@remix-run/router/history'
 
 export interface StateSchema {
     user: UserSchema
@@ -49,6 +51,15 @@ export interface ReducerManager {
 
 export interface ReduxStoreWithManager extends EnhancedStore<StateSchema> {
     reducerManager: ReducerManager
+}
+
+export interface ThunkExtraArg {
+    navigate?: (to: To, options?: NavigateOptions) => void
+}
+
+export interface ThunkConfig<T> {
+    rejectValue: T
+    extra: ThunkExtraArg
 }
 
 export const useAppDispatch: () => AppDispatch = useDispatch

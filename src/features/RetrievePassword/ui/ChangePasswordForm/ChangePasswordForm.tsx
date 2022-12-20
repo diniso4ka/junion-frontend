@@ -54,9 +54,11 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
     return (
         <DynamicModuleLoader reducers={initialState} removeAfterUnmount={true}>
             <form className={cls(s.ChangePasswordForm, className)}>
+                <Text className={s.Title} title={'Change password'} />
                 <div className={s.formItem}>
-                    <Text className={s.label} subtitle={'New password'} />
+                    <Text className={s.label} mediumText={'New password'} />
                     <Input
+                        type={'password'}
                         disabled={status}
                         className={s.formInput}
                         sizeContainer={'adaptive'}
@@ -67,9 +69,10 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
                 <div className={s.formItem}>
                     <Text
                         className={s.label}
-                        subtitle={'Confirm new password'}
+                        mediumText={'Confirm new password'}
                     />
                     <Input
+                        type={'password'}
                         disabled={status}
                         onChange={onConfirmPasswordChange}
                         className={s.formInput}
@@ -78,13 +81,16 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
                     />
                 </div>
                 <div className={s.buttonWrapper}>
-                    <Button
-                        isLoading={status}
-                        onClick={onSubmitForm}
-                        className={s.button}
-                    >
-                        Confirm password
-                    </Button>
+                    <span />
+                    <div className={s.changeBtn}>
+                        <Button
+                            isLoading={status}
+                            onClick={onSubmitForm}
+                            className={s.button}
+                        >
+                            Change
+                        </Button>
+                    </div>
                 </div>
             </form>
         </DynamicModuleLoader>

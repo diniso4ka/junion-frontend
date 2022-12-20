@@ -1,10 +1,8 @@
 import {
-    EnterEmail,
     Login,
     Logo,
     Home,
     Register,
-    SendLink,
     Categories,
     Products,
     Vendors,
@@ -16,8 +14,6 @@ import React from 'react'
 export enum routeConfig {
     REGISTER = '/register',
     LOGIN = '/login',
-    ENTEREMAIL = '/retrievepass',
-    SENDLINK = '/retrievepassconfirm',
     HOME = '/',
     CATEGORIES = '/categories',
     PRODUCTS = '/products',
@@ -43,14 +39,6 @@ export const publicRoutes: routesProps[] = [
     {
         path: routeConfig.HOME,
         Component: Logo,
-    },
-    {
-        path: routeConfig.ENTEREMAIL,
-        Component: EnterEmail,
-    },
-    {
-        path: routeConfig.SENDLINK,
-        Component: SendLink,
     },
     {
         path: routeConfig.CHECK_TOKEN,

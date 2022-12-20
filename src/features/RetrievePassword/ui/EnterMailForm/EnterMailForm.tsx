@@ -1,9 +1,8 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import s from './EnterMailForm.module.scss'
 import cls from 'classnames'
 import { useNavigate } from 'react-router'
 import { mailRegex } from '../../../../shared/helpers/validations/validationRegex'
-import { routeConfig } from '../../../../shared/config/routeConfig/routeConfig'
 import { Button, Input } from '../../../../shared/ui'
 import { useAppDispatch, useAppSelector } from '../../../../app/store'
 import { getRetrievePasswordMail } from '../../model/selectors/getRetrievePasswordMail/getRetrievePasswordMail'
@@ -28,7 +27,7 @@ const initialState: ReducersList = {
 }
 
 export const EnterMailForm: FC<EnterEmailFormProps> = ({ className }) => {
-    const navigate = useNavigate()
+    const [success, setSuccess] = useState<boolean>(false)
     const mail = useAppSelector(getRetrievePasswordMail)
     const error = useAppSelector(getRetrievePasswordError)
     const status = useAppSelector(getRetrievePasswordStatus)
@@ -47,7 +46,7 @@ export const EnterMailForm: FC<EnterEmailFormProps> = ({ className }) => {
                 const response = await dispatch(thunkEnterMail(mail))
                 // @ts-ignore
                 if (!!response?.payload?.data) {
-                    navigate(routeConfig.SENDLINK)
+                    setSuccess(() => true)
                 }
             }
         } else {
@@ -65,33 +64,46 @@ export const EnterMailForm: FC<EnterEmailFormProps> = ({ className }) => {
         <DynamicModuleLoader reducers={initialState} removeAfterUnmount={true}>
             <div className={s.wrapper}>
                 <div className={s.contentWrapper}>
-                    <h2 className={s.title}>Retrieve password</h2>
-                    <p className={cls(s.helper, s.helperHint)}>
-                        Enter the email address provided during registration
-                    </p>
-                    <div className={s.formItem}>
-                        <Input
-                            disabled={status}
-                            onChange={onMailChange}
-                            value={mail}
-                            placeHolder={'Set the email address'}
-                            variant={'primary'}
-                            type={'text'}
-                            helperClass={'error'}
-                            helperText={emailValidation}
-                            error={!!emailValidation}
-                        />
-                    </div>
-
-                    <div className={s.formButton}>
-                        <Button
-                            isLoading={status}
-                            onClick={onClickGetTheLink}
-                            className={s.button}
-                        >
-                            Get the link
-                        </Button>
-                    </div>
+                    {!success && (
+                        <>
+                            <h2 className={s.title}>Retrieve password</h2>
+                            <p className={cls(s.helper, s.helperHint)}>
+                                Enter the email address provided during
+                                registration
+                            </p>
+                            <div className={s.formItem}>
+                                <Input
+                                    disabled={status}
+                                    onChange={onMailChange}
+                                    value={mail}
+                                    placeHolder={'Set the email address'}
+                                    variant={'primary'}
+                                    type={'text'}
+                                    helperClass={'error'}
+                                    helperText={emailValidation}
+                                    error={!!emailValidation}
+                                />
+                            </div>
+                            <div className={s.formButton}>
+                                <Button
+                                    isLoading={status}
+                                    onClick={onClickGetTheLink}
+                                    className={s.button}
+                                >
+                                    Get the link
+                                </Button>
+                            </div>
+                        </>
+                    )}
+                    {success && (
+                        <>
+                            <h2 className={s.title}>Retrieve password</h2>
+                            <p className={cls(s.helper, s.helperHint)}>
+                                The link has been sent to your email. Please,
+                                follow this link
+                            </p>
+                        </>
+                    )}
                 </div>
             </div>
         </DynamicModuleLoader>
