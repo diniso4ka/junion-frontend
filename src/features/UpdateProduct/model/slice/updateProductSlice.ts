@@ -53,11 +53,7 @@ export const updateProductSlice = createSlice({
         setValues: (state, action: PayloadAction<ProductType>) => {
             state.form = {
                 name: action.payload.name || '',
-                category:
-                    action.payload.category.reduce(
-                        (string, category) => string + `${category}`,
-                        ''
-                    ) || '',
+                category: action.payload.category.join(', '),
                 price: action.payload.price.toString() || '',
                 quantity: action.payload.quantity.toString() || '',
                 status: action.payload.status || '',
@@ -67,7 +63,7 @@ export const updateProductSlice = createSlice({
                             action.payload.price,
                             action.payload.discountPrice
                         ).toString()) ||
-                    '',
+                    null,
                 unit: action.payload.unit || '',
                 vendor: action.payload.vendor || '',
                 _id: action.payload._id || '',

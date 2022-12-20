@@ -20,7 +20,6 @@ export const VendorsTable: FC<VendorsTableProps> = ({
         { sort: true, value: 'Name' },
         { sort: true, value: 'Reg Code' },
         { sort: false, value: 'Address' },
-        { sort: false, value: 'Change data' },
     ]
 
     if (isLoading) {

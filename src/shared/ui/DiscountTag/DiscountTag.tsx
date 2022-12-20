@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import s from './DiscountTag.module.scss'
 import cls from 'classnames'
 
@@ -7,10 +7,10 @@ interface DiscountTagProps {
     discount: number
 }
 
-export const DiscountTag: FC<DiscountTagProps> = ({ className, discount }) => {
+export const DiscountTag = memo(({ className, discount }: DiscountTagProps) => {
     return (
         <div className={cls(s.DiscountTag, className)}>
             {discount < 0 ? 'error' : `-${discount}%`}
         </div>
     )
-}
+})

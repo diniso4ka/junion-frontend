@@ -1,12 +1,14 @@
 import axios from 'axios'
-import { TOKEN_KEY } from '../config/config/consts'
+import { USER_LOCALSTORAGE_TOKEN } from '../consts/localStorage'
 
 const api = axios.create({
     baseURL: 'https://junion-tech-server.onrender.com/',
 })
 
 api.interceptors.request.use(config => {
-    config.headers.Authorization = `Bearer ${localStorage.getItem(TOKEN_KEY)}`
+    config.headers.Authorization = `Bearer ${localStorage.getItem(
+        USER_LOCALSTORAGE_TOKEN
+    )}`
     return config
 })
 

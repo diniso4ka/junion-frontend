@@ -103,7 +103,7 @@ export const FilterMenu: FC<ProfileMenuProps> = memo(
                 <div className={cls(s.FilterMenu, className)}>
                     <ul className={s.filterWrapper}>
                         <li className={s.filterItem}>
-                            <h4>Products</h4>
+                            <h4>Product</h4>
                             <InputWithHint
                                 onChange={onChangeName}
                                 value={name}

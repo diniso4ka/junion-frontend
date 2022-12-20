@@ -1,4 +1,10 @@
-import React, { InputHTMLAttributes, useEffect, useRef, useState } from 'react'
+import React, {
+    InputHTMLAttributes,
+    memo,
+    useEffect,
+    useRef,
+    useState,
+} from 'react'
 import s from './InputWithHint.module.scss'
 
 import { useClickOutside } from 'shared/hooks/useClickOutside'
@@ -14,7 +20,7 @@ interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
     onHandleSelect?: (hint: string) => void
 }
 
-export const InputWithHint: React.FC<IInputProps> = React.memo(
+export const InputWithHint = memo(
     ({
         type = 'text',
         variant = 'line',
@@ -25,7 +31,7 @@ export const InputWithHint: React.FC<IInputProps> = React.memo(
         isHintOpen,
         onHandleSelect,
         ...rest
-    }) => {
+    }: IInputProps) => {
         const [value, setValue] = useState('')
         const ref = useRef()
         useClickOutside(ref, () => onCloseHint?.())

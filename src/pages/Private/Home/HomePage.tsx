@@ -65,7 +65,17 @@ const HomePage: FC = () => {
                 },
                 {
                     label: 'Products removed today:',
-                    value: 'NR',
+                    value: `${
+                        productsList.filter(
+                            item =>
+                                item.status === 'deleted' &&
+                                formattedDate() ===
+                                    item.updatedAt
+                                        .split('')
+                                        .splice(0, 10)
+                                        .join('')
+                        ).length
+                    }`,
                 },
             ],
         },
@@ -84,8 +94,12 @@ const HomePage: FC = () => {
             dispatch(productsActions.setSortWithoutCategory())
             setTitle(action)
             setListIsOpen(true)
-        } else if (action.includes('today')) {
+        } else if (action.includes('added')) {
             dispatch(productsActions.setSortAddedToday())
+            setTitle(action)
+            setListIsOpen(true)
+        } else if (action.includes('removed')) {
+            dispatch(productsActions.setSortDeletedToday())
             setTitle(action)
             setListIsOpen(true)
         } else if (action.includes('store')) {

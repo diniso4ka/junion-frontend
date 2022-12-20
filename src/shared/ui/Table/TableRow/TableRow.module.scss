@@ -12,14 +12,14 @@
     margin: 0 18px;
     border-bottom: 1px solid #dedede;
     &.products {
-        grid-template-columns: 11.5% 16% 22.5% 10% 10% 10% 16% 2%;
+        grid-template-columns: 4% 13.5% 16% 22.5% 9% 9% 9% 17%;
     }
     &.categories {
         padding-left: 50px;
         grid-template-columns: 6% 25% 10%;
     }
     &.vendors {
-        grid-template-columns: 7% 23% 15% 45% 10%;
+        grid-template-columns: 5% 14% 15% 18% 48%;
     }
 }
 

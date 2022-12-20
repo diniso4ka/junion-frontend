@@ -24,7 +24,6 @@ export const ProductsTable: FC<ProductsTableProps> = ({
         { sort: true, value: 'Quantity' },
         { sort: true, value: 'Unit' },
         { sort: false, value: 'Owner' },
-        { sort: false, value: 'Action' },
     ]
 
     return (

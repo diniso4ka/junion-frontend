@@ -1,11 +1,15 @@
-import React, { InputHTMLAttributes, useEffect, useRef } from 'react'
+import React, {
+    FC,
+    InputHTMLAttributes,
+    memo,
+    useEffect,
+    useState,
+} from 'react'
 import cls from 'classnames'
 import s from './Input.module.scss'
 
 import eye from 'shared/assets/images/password-icons/codicon_eye.svg'
 import eyeClosed from 'shared/assets/images/password-icons/codicon_eye-closed.svg'
-import { Link } from '../'
-import { routeConfig } from 'shared/config/routeConfig/routeConfig'
 
 interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
     type?: 'text' | 'password'
@@ -17,14 +21,13 @@ interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
     helperText?: string
     helperClass?: 'error' | 'hint' | 'success'
     error?: boolean
-    forgotPass?: boolean
     withHint?: string[] | null
     isHintOpen?: boolean
     onCloseHint?: () => void
     onHandleSelect?: (hint: string) => void
 }
 
-export const Input: React.FC<IInputProps> = React.memo(
+export const Input: FC<IInputProps> = memo(
     ({
         type = 'text',
         variant = 'primary',
@@ -34,11 +37,9 @@ export const Input: React.FC<IInputProps> = React.memo(
         error = false,
         helperText,
         helperClass = 'error',
-        forgotPass = false,
         ...rest
     }) => {
-        const [visible, setVisible] = React.useState<boolean>(false)
-        const [value, setValue] = React.useState<string>('')
+        const [visible, setVisible] = useState<boolean>(false)
         const helperTextClass = cls({
             [s.helperError]: helperClass === 'error',
             [s.helperHint]: helperClass === 'hint',
@@ -52,11 +53,6 @@ export const Input: React.FC<IInputProps> = React.memo(
             setVisible(!visible)
         }
 
-        useEffect(() => {
-            if (typeof rest.value === 'string') {
-                setValue(rest.value?.toString())
-            }
-        }, [rest.value])
         return (
             <div className={cls(s.wrapper, className)}>
                 <div className={s.inputWrapper}>

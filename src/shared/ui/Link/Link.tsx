@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Link as LinkButton, LinkProps, useMatch } from 'react-router-dom'
 
 import cls from 'classnames'
@@ -13,7 +13,7 @@ interface ILinkProps extends LinkProps {
     isCollapsed?: boolean
 }
 
-export const Link: React.FC<ILinkProps> = React.memo(
+export const Link = memo(
     ({
         children,
         variant = 'primary',
@@ -22,7 +22,7 @@ export const Link: React.FC<ILinkProps> = React.memo(
         iconActive,
         isCollapsed = false,
         ...rest
-    }) => {
+    }: ILinkProps) => {
         const match = useMatch(rest.to as string)
         const classes = cls(s.link, s[variant], className, {
             [s.active]: match,

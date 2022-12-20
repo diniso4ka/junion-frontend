@@ -80,12 +80,14 @@ export const UpdateProductForm: FC<UpdateProductFormProps> = ({
         const response = await dispatch(
             thunkUpdateProduct({
                 name,
-                category,
+                category: category.replace(/\s/g, ''),
                 vendor: selectedVendor.code,
                 unit,
                 price: Number(price),
                 quantity: Number(quantity),
-                discountPrice: discountConvertInNumber(price, discountPrice),
+                discountPrice: withDiscount
+                    ? discountConvertInNumber(price, discountPrice)
+                    : 0,
                 id: _id,
             })
         )
@@ -146,7 +148,6 @@ export const UpdateProductForm: FC<UpdateProductFormProps> = ({
                 })
             )
         }
-        console.log(item.discountPrice)
     }, [])
 
     return (

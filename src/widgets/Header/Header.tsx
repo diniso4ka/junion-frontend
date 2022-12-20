@@ -38,6 +38,9 @@ const Header: React.FC<HeaderProps> = ({ onClick }) => {
         navigate(routeConfig.HOME)
         setProfileIsOpen(false)
     }
+    const onClickChangePassword = async () => {
+        setProfileIsOpen(false)
+    }
 
     if (authData) {
         return (
@@ -64,6 +67,7 @@ const Header: React.FC<HeaderProps> = ({ onClick }) => {
                             data={authData}
                             onClickLogout={onClickLogout}
                             isOpened={profileIsOpen}
+                            onClickChangePassword={onClickChangePassword}
                         />
                     </nav>
                 </div>

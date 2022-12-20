@@ -7,14 +7,14 @@
     padding: 8px 36px 8px 18px;
     color: #ffffff;
     &.products {
-        grid-template-columns: 11% 16% 22% 10% 10% 10% 16% 2%;
+        grid-template-columns: 4% 13.5% 16.5% 22.5% 9.5% 9% 9% 17%;
     }
     &.categories {
         padding-left: 67px;
         grid-template-columns: 6% 24% 10%;
     }
     &.vendors {
-        grid-template-columns: 7% 23% 15% 45% 10%;
+        grid-template-columns: 5% 14% 15% 19% 48%;
     }
 }
 

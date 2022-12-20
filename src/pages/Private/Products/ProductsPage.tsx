@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from 'app/store/config/StateSchema'
 import { getDate } from 'shared/helpers/date/getDate'
 import { searchByIncludes } from 'shared/helpers/filters/search'
 
-import { AdvancedSearch, Button, Modal } from 'shared/ui'
+import { AdvancedSearch, Button } from 'shared/ui'
 import { ProductsTable } from 'entities/Products'
 import { FilterMenu } from 'features/ProductFilters'
 import {
@@ -40,7 +40,9 @@ const ProductsPage: FC = () => {
     const filteredItems = searchByIncludes(
         filteredProductsList.length ? filteredProductsList : productsList,
         searchValue
-    ).reverse('')
+    )
+        .reverse('')
+        .filter(item => item.status !== 'deleted')
 
     const onClear = () => {
         dispatch(productFiltersActions.clearFilters())
@@ -94,7 +96,7 @@ const ProductsPage: FC = () => {
                     />
                 </AdvancedSearch>
                 <Button
-                    // disabled={user.role !== 'superadmin'}
+                    theme={'orange'}
                     onClick={() => setModalIsOpen(true)}
                     variant={'rounded'}
                 >
