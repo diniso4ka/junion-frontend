@@ -36,12 +36,6 @@
     border-radius: 20px;
 }
 
-.text {
-    background-color: transparent;
-    border: none;
-    color: var(--black-color);
-}
-
 .hint {
     background: none;
     color: var(--primary-color);
@@ -67,4 +61,10 @@
 
 .purple {
     background-color: var(--bg-third-color);
+}
+
+.text {
+    background-color: transparent;
+    border: none;
+    color: var(--black-color);
 }
