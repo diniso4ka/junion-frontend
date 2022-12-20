@@ -23,8 +23,8 @@ const NotFound = () => {
                     Go back
                 </Button>
                 <div className={s.images}>
-                    <img src={First} className={s.imageOne} alt='oops' />
-                    <img src={Two} className={s.imageTwo} alt='oops' />
+                    <img src={First} className={s.imageOne} alt='Oops' />
+                    <img src={Two} className={s.imageTwo} alt='Oops' />
                 </div>
             </div>
         </section>
