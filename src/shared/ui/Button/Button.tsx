@@ -7,6 +7,7 @@ interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode
     type?: 'button' | 'submit'
     variant?: 'primary' | 'secondary' | 'rounded' | 'outline' | 'text'
+    theme?: 'darkGrey' | 'lightGrey' | 'purple'
     size?: 'large' | 'medium' | 'small'
     isLoading?: boolean
     className?: string
@@ -18,6 +19,7 @@ export const Button: React.FC<IButtonProps> = React.memo(
         children,
         type = 'button',
         variant = 'primary',
+        theme = 'darkGrey',
         size = 'medium',
         className,
         onClick,
@@ -28,9 +30,16 @@ export const Button: React.FC<IButtonProps> = React.memo(
             e.preventDefault()
             onClick?.()
         }
-        const classnames = cls(s.button, s[variant], s[size], className, {
-            [s.disabled]: isLoading,
-        })
+        const classnames = cls(
+            s.button,
+            s[variant],
+            s[theme],
+            s[size],
+            className,
+            {
+                [s.disabled]: isLoading,
+            }
+        )
         return (
             <button
                 disabled={isLoading}
