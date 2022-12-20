@@ -1,5 +1,7 @@
 .wrapper {
-    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: calc(100vw - var(--sidebar-width));
     max-height: calc(100vh - var(--header-height-desktop));
     overflow-y: auto;
 }
