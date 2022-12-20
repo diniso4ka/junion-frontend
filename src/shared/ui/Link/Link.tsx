@@ -9,6 +9,7 @@ interface ILinkProps extends LinkProps {
     variant?: 'primary' | 'secondary' | 'outline' | 'clear' | 'navigation'
     className?: string
     icon?: string
+    iconActive?: string
     isCollapsed?: boolean
 }
 
@@ -18,6 +19,7 @@ export const Link: React.FC<ILinkProps> = React.memo(
         variant = 'primary',
         className,
         icon,
+        iconActive,
         isCollapsed = false,
         ...rest
     }) => {
@@ -26,11 +28,17 @@ export const Link: React.FC<ILinkProps> = React.memo(
             [s.active]: match,
             [s.collapsed]: !isCollapsed,
         })
+
         return (
             <div className={classes}>
                 <LinkButton className={s.linkWrapper} {...rest}>
                     <div className={s.iconContainer}>
-                        {icon && <img className={s.icon} src={icon} />}
+                        {icon && (
+                            <img
+                                className={s.icon}
+                                src={match ? iconActive : icon}
+                            />
+                        )}
                     </div>
                     <span className={s.label}>{children}</span>
                 </LinkButton>
