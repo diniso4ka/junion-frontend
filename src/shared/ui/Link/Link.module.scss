@@ -95,6 +95,10 @@
         span {
             color: var(--bg-third-color);
         }
+
+        .icon * {
+            fill: var(--bg-third-color);
+        }
     }
     &.collapsed {
         width: 48px;

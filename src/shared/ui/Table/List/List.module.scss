@@ -21,15 +21,26 @@
 
 .item {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     margin-bottom: 22px;
 }
 
 .value {
+    width: 45px;
+    height: 45px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
     font-size: var(--font-size-xl);
     cursor: pointer;
     transition: transform 0.2s ease-in-out;
     &:hover {
         transform: scale(1.2);
+    }
+
+    &.active {
+        font-weight: 500;
+        background-color: #dedede;
     }
 }
