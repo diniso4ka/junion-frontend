@@ -18,6 +18,7 @@ interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
     isHintOpen?: boolean
     onCloseHint?: () => void
     onHandleSelect?: (hint: string) => void
+    position?: 'default' | 'right'
 }
 
 export const InputWithHint = memo(
@@ -30,6 +31,7 @@ export const InputWithHint = memo(
         onCloseHint,
         isHintOpen,
         onHandleSelect,
+        position = 'default',
         ...rest
     }: IInputProps) => {
         const [value, setValue] = useState('')
@@ -61,22 +63,29 @@ export const InputWithHint = memo(
                     type={'text'}
                     {...rest}
                 />
-
-                <ul
-                    className={cls(s.hint, s[hintSize], {
-                        [s.opened]: isHintOpen,
-                    })}
+                <div
+                    className={
+                        position === 'right' && isHintOpen
+                            ? s.rightWrapper
+                            : undefined
+                    }
                 >
-                    {filteredItems.map((item, index) => (
-                        <li
-                            key={index}
-                            onClick={onHandleHint}
-                            className={s.hintItem}
-                        >
-                            {item}
-                        </li>
-                    ))}
-                </ul>
+                    <ul
+                        className={cls(s.hint, s[hintSize], {
+                            [s.opened]: isHintOpen,
+                        })}
+                    >
+                        {filteredItems.map((item, index) => (
+                            <li
+                                key={index}
+                                onClick={onHandleHint}
+                                className={s.hintItem}
+                            >
+                                {item}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </div>
         )
     }

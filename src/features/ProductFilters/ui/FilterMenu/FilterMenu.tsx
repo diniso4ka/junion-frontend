@@ -111,6 +111,7 @@ export const FilterMenu: FC<ProfileMenuProps> = memo(
                                 isHintOpen={productsFocus}
                                 onCloseHint={() => setProductsFocus(false)}
                                 onHandleSelect={e => onHandleProductHint(e)}
+                                position={'right'}
                             />
                         </li>
                         <li className={s.filterItem}>
@@ -123,6 +124,7 @@ export const FilterMenu: FC<ProfileMenuProps> = memo(
                                 isHintOpen={categoriesFocus}
                                 onCloseHint={() => setCategoriesFocus(false)}
                                 onHandleSelect={e => onHandleCategoryHint(e)}
+                                position={'right'}
                             />
                         </li>
                         <li className={s.filterItem}>
