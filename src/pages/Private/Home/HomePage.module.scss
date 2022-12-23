@@ -2,8 +2,8 @@
     max-width: 1200px;
     margin: 0 auto;
     width: calc(100vw - var(--sidebar-width));
-    max-height: calc(100vh - var(--header-height-desktop));
-    overflow-y: auto;
+    height: calc(100vh - var(--header-height-desktop));
+    overflow: hidden;
 }
 
 .HomePage {
@@ -29,6 +29,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     column-gap: 50px;
+    row-gap: 50px;
     justify-content: space-between;
     flex: 1 1 auto;
 }
