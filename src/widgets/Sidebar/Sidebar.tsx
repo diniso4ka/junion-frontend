@@ -2,16 +2,11 @@ import React, { useState } from 'react'
 import cls from 'classnames'
 import s from './Sidebar.module.scss'
 
-import burger from 'shared/assets/images/icons/Sidebar-icons/Burger.svg'
-import burgerActive from 'shared/assets/images/icons/Sidebar-icons/Burger-active.svg'
-import home from 'shared/assets/images/icons/Sidebar-icons/Home.svg'
-import homeActive from 'shared/assets/images/icons/Sidebar-icons/Home-active.svg'
-import categories from 'shared/assets/images/icons/Sidebar-icons/Categories.svg'
-import categoriesActive from 'shared/assets/images/icons/Sidebar-icons/Categoires-active.svg'
-import products from 'shared/assets/images/icons/Sidebar-icons/Products.svg'
-import productsActive from 'shared/assets/images/icons/Sidebar-icons/Products-active.svg'
-import vendors from 'shared/assets/images/icons/Sidebar-icons/Vendors.svg'
-import vendorsActive from 'shared/assets/images/icons/Sidebar-icons/Vendors-active.svg'
+import { ReactComponent as Burger } from 'shared/assets/images/icons/Sidebar-icons/Burger.svg'
+import { ReactComponent as Home } from 'shared/assets/images/icons/Sidebar-icons/Home.svg'
+import { ReactComponent as Categories } from 'shared/assets/images/icons/Sidebar-icons/Categories.svg'
+import { ReactComponent as Products } from 'shared/assets/images/icons/Sidebar-icons/Products.svg'
+import { ReactComponent as Vendors } from 'shared/assets/images/icons/Sidebar-icons/Vendors.svg'
 
 import { Button, Link } from 'shared/ui'
 import { routeConfig } from 'shared/config/routeConfig/routeConfig'
@@ -22,26 +17,22 @@ const Sidebar = () => {
     const navLinks = [
         {
             label: 'Home',
-            icon: home,
-            iconActive: homeActive,
+            Icon: Home,
             path: routeConfig.HOME,
         },
         {
             label: 'Categories',
-            icon: categories,
-            iconActive: categoriesActive,
+            Icon: Categories,
             path: routeConfig.CATEGORIES,
         },
         {
             label: 'Products',
-            icon: products,
-            iconActive: productsActive,
+            Icon: Products,
             path: routeConfig.PRODUCTS,
         },
         {
             label: 'Vendors',
-            icon: vendors,
-            iconActive: vendorsActive,
+            Icon: Vendors,
             path: routeConfig.VENDORS,
         },
     ]
@@ -50,17 +41,16 @@ const Sidebar = () => {
         <aside className={cls(s.sidebar, { [s.collapsed]: collapsed })}>
             <nav className={s.menu}>
                 <ul className={s.list}>
-                    <li
-                        className={s.item}
-                        onClick={() => setCollapsed(!collapsed)}
-                    >
+                    <li className={s.item}>
                         <Button
+                            onClick={() => setCollapsed(!collapsed)}
                             variant={'text'}
                             className={cls(s.link, s.burger)}
                         >
-                            <img
-                                className={s.image}
-                                src={collapsed ? burgerActive : burger}
+                            <Burger
+                                className={
+                                    collapsed ? cls(s.image, s.active) : s.image
+                                }
                             />
                         </Button>
                     </li>
@@ -69,8 +59,7 @@ const Sidebar = () => {
                             className={s.linkItem}
                             key={element.path}
                             isCollapsed={!collapsed}
-                            icon={element.icon}
-                            iconActive={element.iconActive}
+                            Icon={element.Icon}
                             variant={'navigation'}
                             to={element.path}
                         >

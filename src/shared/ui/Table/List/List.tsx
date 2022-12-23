@@ -14,6 +14,8 @@ interface ListProps {
         }[]
     }
     onClick?: (string) => void
+    isOpen?: boolean
+    title?: string
 }
 
 export const List: FC<ListProps> = ({
@@ -21,6 +23,8 @@ export const List: FC<ListProps> = ({
     data,
     isLoading,
     onClick,
+    isOpen = false,
+    title,
 }) => {
     return isLoading ? (
         <div className={cls(s.List, className, s.loading)}>
@@ -34,12 +38,20 @@ export const List: FC<ListProps> = ({
                     <li key={item.label} className={s.item}>
                         <Text
                             className={s.label}
-                            weight={'medium'}
+                            weight={
+                                isOpen && title === item.label
+                                    ? 'bold'
+                                    : 'medium'
+                            }
                             subtitle={item.label}
                         />
                         <span
                             onClick={() => onClick?.(item.label)}
-                            className={s.value}
+                            className={
+                                isOpen && title === item.label
+                                    ? cls(s.value, s.active)
+                                    : s.value
+                            }
                         >
                             {item.value}
                         </span>

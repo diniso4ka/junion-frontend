@@ -50,9 +50,9 @@ const HomePage: FC = () => {
             ],
         },
         employee: {
-            title: 'Employee information:',
+            title: 'Users information:',
             items: [
-                { label: 'Online now:', value: 'NR' },
+                { label: 'All users:', value: 'NR' },
                 {
                     label: 'Products added today:',
                     value: `${
@@ -64,7 +64,7 @@ const HomePage: FC = () => {
                     }`,
                 },
                 {
-                    label: 'Products removed today:',
+                    label: 'Products deleted today:',
                     value: `${
                         productsList.filter(
                             item =>
@@ -76,6 +76,7 @@ const HomePage: FC = () => {
                                         .join('')
                         ).length
                     }`,
+
                 },
             ],
         },
@@ -98,7 +99,7 @@ const HomePage: FC = () => {
             dispatch(productsActions.setSortAddedToday())
             setTitle(action)
             setListIsOpen(true)
-        } else if (action.includes('removed')) {
+        } else if (action.includes('deleted')) {
             dispatch(productsActions.setSortDeletedToday())
             setTitle(action)
             setListIsOpen(true)
@@ -124,12 +125,16 @@ const HomePage: FC = () => {
                         data={tablesData.products}
                         className={s.item}
                         onClick={onHandleOpen}
+                        isOpen={listIsOpen}
+                        title={title}
                     />
                     <List
                         isLoading={productsStatus}
                         data={tablesData.employee}
                         className={s.item}
                         onClick={onHandleOpen}
+                        isOpen={listIsOpen}
+                        title={title}
                     />
                 </div>
                 <FilteredList

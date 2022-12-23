@@ -8,8 +8,7 @@ interface ILinkProps extends LinkProps {
     children: React.ReactNode
     variant?: 'primary' | 'secondary' | 'outline' | 'clear' | 'navigation'
     className?: string
-    icon?: string
-    iconActive?: string
+    Icon?: any
     isCollapsed?: boolean
 }
 
@@ -18,8 +17,7 @@ export const Link = memo(
         children,
         variant = 'primary',
         className,
-        icon,
-        iconActive,
+        Icon,
         isCollapsed = false,
         ...rest
     }: ILinkProps) => {
@@ -29,16 +27,13 @@ export const Link = memo(
             [s.collapsed]: !isCollapsed,
         })
 
+        console.log(children)
+
         return (
             <div className={classes}>
                 <LinkButton className={s.linkWrapper} {...rest}>
                     <div className={s.iconContainer}>
-                        {icon && (
-                            <img
-                                className={s.icon}
-                                src={match ? iconActive : icon}
-                            />
-                        )}
+                        {Icon && <Icon className={s.icon} />}
                     </div>
                     <span className={s.label}>{children}</span>
                 </LinkButton>
