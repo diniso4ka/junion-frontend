@@ -54,6 +54,7 @@ export const AdvancedSearch: FC<AdvancedSearchProps> = ({
             <div
                 className={cls(s.children, {
                     [s.opened]: isOpened,
+                    [s.hidden]: !isOpened,
                 })}
             >
                 {children}
