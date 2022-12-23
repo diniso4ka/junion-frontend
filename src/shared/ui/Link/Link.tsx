@@ -8,7 +8,7 @@ interface ILinkProps extends LinkProps {
     children: React.ReactNode
     variant?: 'primary' | 'secondary' | 'outline' | 'clear' | 'navigation'
     className?: string
-    Icon?: any
+    Icon?: any //TODO need typing
     isCollapsed?: boolean
 }
 
@@ -26,8 +26,6 @@ export const Link = memo(
             [s.active]: match,
             [s.collapsed]: !isCollapsed,
         })
-
-        console.log(children)
 
         return (
             <div className={classes}>
