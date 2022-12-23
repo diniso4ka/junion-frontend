@@ -15,8 +15,13 @@
         grid-template-columns: 4% 13.5% 16% 22.5% 9% 9% 9% 17%;
     }
     &.categories {
-        padding-left: 50px;
-        grid-template-columns: 6% 25% 10%;
+        padding-left: 7px;
+        grid-template-columns: 25% 7%;
+        gap: 10px;
+
+        & li:nth-child(2) {
+            text-align: center;
+        }
     }
     &.vendors {
         grid-template-columns: 5% 14% 15% 18% 48%;

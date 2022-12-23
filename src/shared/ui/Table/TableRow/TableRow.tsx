@@ -66,12 +66,6 @@ export const TableRow: FC<TableRow> = ({ className, type, item }) => {
             )}
             {type === 'categories' && (
                 <ul className={cls(s.items, s[type])}>
-                    <li>
-                        <Checkbox
-                            value={true}
-                            onClick={() => console.log('checked')}
-                        />
-                    </li>
                     <li className={s.item}>{item._id}</li>
                     <li className={s.item}>{item.quantity}</li>
                 </ul>
