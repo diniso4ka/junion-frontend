@@ -19,6 +19,7 @@ export const thunkFetchProductList = createAsyncThunk<
         const response = await fetchProducts()
         if (response.data) {
             thunkAPI.dispatch(productsActions.setProducts(response))
+            thunkAPI.dispatch(productsActions.setFilteredProductsList(response))
         }
         return response
     } catch (err) {

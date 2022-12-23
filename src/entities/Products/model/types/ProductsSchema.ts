@@ -2,6 +2,7 @@ export interface ProductsSchema {
     items: ProductType[]
     filteredItems: ProductType[]
     sortedItems: ProductType[]
+    sortedBy: ProductSortedBy
     quantity: number
     isLoading: boolean
     error?: boolean
@@ -21,4 +22,23 @@ export interface ProductType {
     vendor: string
     _id: string
     status: string
+}
+
+export interface ProductSortedBy {
+    sort?: ProductSort
+    type?: ProductSortType
+}
+
+export enum ProductSort {
+    ASC = 'asc',
+    DESC = 'desc',
+}
+
+export enum ProductSortType {
+    PRODUCT_CODE = 'PRODUCT_CODE',
+    PRODUCT_CATEGORY = 'PRODUCT_CATEGORY',
+    PRODUCT_NAME = 'PRODUCT_NAME',
+    PRODUCT_PRICE = 'PRODUCT_PRICE',
+    PRODUCT_QUANTITY = 'PRODUCT_QUANTITY',
+    PRODUCT_UNIT = 'PRODUCT_UNIT',
 }

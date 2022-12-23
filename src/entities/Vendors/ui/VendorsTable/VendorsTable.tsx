@@ -2,7 +2,9 @@ import { FC } from 'react'
 import s from './VendorsTable.module.scss'
 import cls from 'classnames'
 import { TableHeading, TableRow } from 'shared/ui'
-import { Vendor } from '../../model/types/VendorsSchema'
+import { Vendor, VendorsSortType } from '../../model/types/VendorsSchema'
+import { useAppDispatch } from '../../../../app/store'
+import { vendorsActions } from '../../model/slice/vendorsSlice'
 
 interface VendorsTableProps {
     className?: string
@@ -15,10 +17,26 @@ export const VendorsTable: FC<VendorsTableProps> = ({
     items,
     isLoading = false,
 }) => {
+    const dispatch = useAppDispatch()
     const headings = [
-        { sort: true, value: 'Code' },
-        { sort: true, value: 'Name' },
-        { sort: true, value: 'Reg Code' },
+        {
+            sort: true,
+            type: VendorsSortType.VENDOR_CODE,
+            value: 'Code',
+            onHandleSort: () => dispatch(vendorsActions.sortByCode()),
+        },
+        {
+            sort: true,
+            type: VendorsSortType.VENDOR_NAME,
+            value: 'Name',
+            onHandleSort: () => dispatch(vendorsActions.sortByName()),
+        },
+        {
+            sort: true,
+            type: VendorsSortType.VENDOR_REG_CODE,
+            value: 'Reg Code',
+            onHandleSort: () => dispatch(vendorsActions.sortByRegCode()),
+        },
         { sort: false, value: 'Address' },
     ]
 

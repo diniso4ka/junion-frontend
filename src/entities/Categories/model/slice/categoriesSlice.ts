@@ -1,21 +1,82 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { CategoriesSchema } from '../types/CategoriesSchema'
+import {
+    CategoriesSchema,
+    CategoriesSort,
+    CategoriesSortType,
+} from '../types/CategoriesSchema'
 import { thunkGetCategoriesList } from '../services/thunkGetCategoriesList'
+import {
+    VendorsSort,
+    VendorsSortType,
+} from '../../../Vendors/model/types/VendorsSchema'
+import { sortByAlphabet } from '../../../../shared/helpers/sort/byAlphabet'
 
 const initialState: CategoriesSchema = {
     items: [],
+    filteredItems: [],
+    sortedBy: {
+        type: null,
+        sort: CategoriesSort.ASC,
+    },
     quantity: 0,
     isLoading: false,
 }
 export const categoriesSlice = createSlice({
-    name: 'products',
+    name: 'categories',
     initialState,
     reducers: {
         setCategories: (state, action) => {
-            state.items = action.payload
+            state.items = [...action.payload]
+            state.filteredItems = [...action.payload]
         },
         setQuantity: (state, action) => {
             state.quantity = action.payload
+        },
+
+        //Сортировка на Category page
+        sortByCategory: state => {
+            if (state.sortedBy.type === CategoriesSortType.CATEGORY_CATEGORY) {
+                state.sortedBy.sort =
+                    state.sortedBy.sort === CategoriesSort.ASC
+                        ? CategoriesSort.DESC
+                        : CategoriesSort.ASC
+            } else {
+                state.sortedBy.sort = CategoriesSort.DESC
+                state.sortedBy.type = CategoriesSortType.CATEGORY_CATEGORY
+            }
+            if (state.sortedBy.sort === CategoriesSort.DESC) {
+                state.filteredItems = state.filteredItems
+                    .sort((a, b) => sortByAlphabet(a._id, b._id))
+                    .reverse()
+            } else {
+                state.filteredItems = state.filteredItems.reverse()
+            }
+        },
+        sortByQuantity: state => {
+            if (state.sortedBy.type === CategoriesSortType.CATEGORY_QUANTITY) {
+                state.sortedBy.sort =
+                    state.sortedBy.sort === CategoriesSort.ASC
+                        ? CategoriesSort.DESC
+                        : CategoriesSort.ASC
+            } else {
+                state.sortedBy.sort = CategoriesSort.DESC
+                state.sortedBy.type = CategoriesSortType.CATEGORY_QUANTITY
+            }
+            if (state.sortedBy.sort === CategoriesSort.DESC) {
+                state.filteredItems = state.filteredItems
+                    .sort((a, b) => a.quantity - b.quantity)
+                    .reverse()
+            } else {
+                state.filteredItems = state.filteredItems.reverse()
+            }
+        },
+
+        clearSort: state => {
+            state.sortedBy = {
+                type: null,
+                sort: CategoriesSort.ASC,
+            }
+            state.filteredItems = [...state.items]
         },
     },
     extraReducers: builder => {

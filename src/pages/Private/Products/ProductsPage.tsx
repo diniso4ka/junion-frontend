@@ -66,6 +66,7 @@ const ProductsPage: FC = () => {
         return () => {
             dispatch(productFiltersActions.clearFilters())
             dispatch(productsActions.clearFilteredProductsList())
+            dispatch(productsActions.clearSort())
         }
     }, [])
 
