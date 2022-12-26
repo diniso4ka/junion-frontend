@@ -37,6 +37,7 @@ export const Input: FC<IInputProps> = memo(
         error = false,
         helperText,
         helperClass = 'error',
+        placeHolder,
         ...rest
     }) => {
         const [visible, setVisible] = useState<boolean>(false)
@@ -60,6 +61,7 @@ export const Input: FC<IInputProps> = memo(
                         style={heightContainer && { height: heightContainer }}
                         className={classnames}
                         onChange={e => rest.onChange(e)}
+                        placeholder={placeHolder}
                         autoComplete={'off'}
                         type={
                             type === 'text'

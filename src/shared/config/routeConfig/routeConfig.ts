@@ -20,7 +20,6 @@ export enum routeConfig {
     VENDORS = '/vendors',
     CHANGE_PASSWORD = '/user/changepass',
     CHECK_TOKEN = '/retrieve/:verifyToken',
-    NOT_ACTIVE = '/notactive',
 }
 export interface routesProps {
     path: string
@@ -65,6 +64,10 @@ export const privateRoutes: routesProps[] = [
     },
     {
         path: routeConfig.CHANGE_PASSWORD,
+        Component: ChangePassword,
+    },
+    {
+        path: routeConfig.CHECK_TOKEN,
         Component: ChangePassword,
     },
 ]

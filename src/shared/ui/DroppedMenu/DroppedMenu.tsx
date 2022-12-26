@@ -1,10 +1,8 @@
 import { FC, ReactNode } from 'react'
 import s from './DroppedMenu.module.scss'
 import cls from 'classnames'
-import { IUserData } from 'shared/types/user'
 
 interface DroppedMenuProps {
-    data?: IUserData
     size: 'large' | 'medium' | 'small' | 'adaptive'
     className?: string
     isOpened: boolean

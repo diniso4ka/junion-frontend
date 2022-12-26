@@ -143,6 +143,7 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
                                 onHandleSelect={e => onHandleNameHint(e)}
                                 isHintOpen={nameFocus}
                                 variant={'outline'}
+                                position={'right'}
                             />
                         </li>
                         <li className={s.inputItem}>
@@ -158,6 +159,7 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
                                 onHandleSelect={e => onHandleCategoryHint(e)}
                                 isHintOpen={categoriesFocus}
                                 variant={'outline'}
+                                position={'right'}
                             />
                         </li>
                         <li className={s.inputItem}>

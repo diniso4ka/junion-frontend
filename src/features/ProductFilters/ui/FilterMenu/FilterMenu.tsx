@@ -1,11 +1,9 @@
-import { FC, memo, useEffect, useState } from 'react'
+import { FC, memo, useState } from 'react'
 import s from './FilterMenu.module.scss'
 import cls from 'classnames'
 
 import { useAppDispatch, useAppSelector } from 'app/store/config/StateSchema'
 import { useSearchParams } from 'react-router-dom'
-
-import { IProductsFilter } from 'shared/types/filters'
 
 import { Button, Input } from 'shared/ui'
 import { InputWithHint } from 'shared/ui'

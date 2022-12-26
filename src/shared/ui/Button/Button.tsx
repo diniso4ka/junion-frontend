@@ -10,6 +10,7 @@ interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     theme?: 'darkGrey' | 'lightGrey' | 'purple' | 'orange'
     size?: 'large' | 'medium' | 'small'
     isLoading?: boolean
+    disabled?: boolean
     className?: string
     onClick?: () => void
 }
@@ -24,6 +25,7 @@ export const Button = memo(
         className,
         onClick,
         isLoading,
+        disabled,
         ...rest
     }: IButtonProps) => {
         const onToggleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -37,12 +39,12 @@ export const Button = memo(
             s[size],
             className,
             {
-                [s.disabled]: isLoading,
+                [s.disabled]: isLoading || disabled,
             }
         )
         return (
             <button
-                disabled={isLoading}
+                disabled={isLoading || disabled}
                 type={type}
                 className={classnames}
                 onClick={e => onToggleClick(e)}

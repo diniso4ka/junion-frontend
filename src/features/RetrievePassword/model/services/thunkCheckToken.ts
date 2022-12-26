@@ -14,15 +14,15 @@ export const thunkCheckToken = createAsyncThunk<
     ThunkConfig<string>
 >('retrieve/CheckToken ', async (verificationToken, thunkAPI) => {
     try {
+        console.log(thunkAPI.extra)
         const response = await fetchCheckToken(verificationToken)
         if (!response.data) {
             throw new Error()
         }
         await saveTokenInLocalStorage(response.data.user.token)
-        await thunkAPI.dispatch(thunkCheckAuthMe(0))
-        thunkAPI.extra.navigate('/changepass')
+        await thunkAPI.dispatch(thunkCheckAuthMe())
         return response
     } catch (err) {
-        return thunkAPI.rejectWithValue(err)
+        return thunkAPI.rejectWithValue('error')
     }
 })

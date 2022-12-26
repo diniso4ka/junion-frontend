@@ -1,5 +1,8 @@
+import { ProductType } from '../../../../entities/Products/model/types/ProductsSchema'
+
 export interface UpdateProductSchema {
     form: UpdateProductForm
+    selectedItems?: ProductType[]
     isLoading: boolean
     error?: boolean
 }

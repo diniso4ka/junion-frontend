@@ -1,22 +1,34 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import s from './CategoriesPage.module.scss'
 import { getDate } from 'shared/helpers/date/getDate'
 import { AdvancedSearch, Text } from 'shared/ui'
 import { CategoriesTable } from 'entities/Categories/ui/CategoriesTable/CategoriesTable'
-import { useAppSelector } from 'app/store/config/StateSchema'
-import { getCategoryList } from 'entities/Categories'
+import { useAppDispatch, useAppSelector } from 'app/store/config/StateSchema'
+import { categoriesActions, getCategoryList } from 'entities/Categories'
+import { getCategoryFilteredList } from 'entities/Categories'
 
 const CategoriesPage: FC = () => {
     const [searchValue, setSearchValue] = useState<string>('')
     const categories = useAppSelector(getCategoryList)
+    const filteredCategories = useAppSelector(getCategoryFilteredList)
+    const dispatch = useAppDispatch()
     const date = getDate()
-    const filteredItems = categories.filter(item =>
-        item._id.toLowerCase().includes(searchValue.toLowerCase())
-    )
+    const filteredItems = filteredCategories
+        ? filteredCategories.filter(item =>
+              item._id.toLowerCase().includes(searchValue.toLowerCase())
+          )
+        : categories.filter(item =>
+              item._id.toLowerCase().includes(searchValue.toLowerCase())
+          )
     const onHandleClear = () => {
         setSearchValue('')
     }
 
+    useEffect(() => {
+        return () => {
+            dispatch(categoriesActions.clearSort())
+        }
+    }, [])
     return (
         <div className={s.CategoriesPage}>
             <div className={s.navigation}>

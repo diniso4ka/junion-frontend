@@ -1,11 +1,12 @@
 import s from './Checkbox.module.scss'
-import { FC, memo } from 'react'
+import { memo } from 'react'
 import cls from 'classnames'
+import { ProductType } from '../../../entities/Products/model/types/ProductsSchema'
 
 interface CheckboxProps {
     className?: string
     value: boolean
-    onClick: () => void
+    onClick?: () => ProductType | void
     theme?: 'dark' | 'light'
 }
 
@@ -14,9 +15,9 @@ export const Checkbox = memo(
         return (
             <label className={cls(s.label, className)}>
                 <input
-                    onChange={() => console.log('checked')}
+                    onChange={() => '1'}
                     onClick={onClick}
-                    checked={!value}
+                    checked={value}
                     type='checkbox'
                     className={s.real}
                 />

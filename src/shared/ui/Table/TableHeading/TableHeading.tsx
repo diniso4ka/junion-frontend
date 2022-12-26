@@ -1,9 +1,16 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import s from './TableHeading.module.scss'
 import cls from 'classnames'
 
-import arrow from 'shared/assets/images/icons/arrowDown.svg'
+import { ReactComponent as Arrow } from 'shared/assets/images/icons/arrowDown.svg'
 import { Checkbox } from '../../Checkbox'
+import { useAppSelector } from '../../../../app/store'
+import { getProductsSortedBy } from '../../../../entities/Products/model/selectors/getProductsSortedBy/getProductsSortedBy'
+import { ProductSort } from '../../../../entities/Products/model/types/ProductsSchema'
+import { getVendorsSortedBy } from '../../../../entities/Vendors'
+import { VendorsSort } from '../../../../entities/Vendors/model/types/VendorsSchema'
+import { CategoriesSort } from '../../../../entities/Categories/model/types/CategoriesSchema'
+import { getCategorySortedBy } from '../../../../entities/Categories'
 
 interface TableHeading {
     className?: string
@@ -16,13 +23,16 @@ export const TableHeading: FC<TableHeading> = ({
     type,
     headings,
 }) => {
+    const sortedByProducts = useAppSelector(getProductsSortedBy)
+    const sortedByVendors = useAppSelector(getVendorsSortedBy)
+    const sortedByCategory = useAppSelector(getCategorySortedBy)
     return (
         <div className={cls(s.TableHeading, className)}>
             {type === 'products' && (
                 <ul className={cls(s.items, s[type])}>
                     <li>
                         <Checkbox
-                            value={true}
+                            value={false}
                             onClick={() => console.log('checked')}
                             theme={'dark'}
                         />
@@ -31,7 +41,18 @@ export const TableHeading: FC<TableHeading> = ({
                         <li key={item.value} className={s.item}>
                             {item.value}
                             {item.sort && (
-                                <img className={cls(s.sortIcon)} src={arrow} />
+                                <Arrow
+                                    onClick={() => item?.onHandleSort?.()}
+                                    className={cls(s.sortIcon, {
+                                        [s.activeArrow]:
+                                            item.type === sortedByProducts.type,
+                                        [s.sortAsc]:
+                                            item.type ===
+                                                sortedByProducts.type &&
+                                            sortedByProducts.sort ===
+                                                ProductSort.DESC,
+                                    })}
+                                />
                             )}
                         </li>
                     ))}
@@ -43,7 +64,18 @@ export const TableHeading: FC<TableHeading> = ({
                         <li key={item.value} className={s.item}>
                             {item.value}
                             {item.sort && (
-                                <img className={cls(s.sortIcon)} src={arrow} />
+                                <Arrow
+                                    onClick={() => item?.onHandleSort?.()}
+                                    className={cls(s.sortIcon, {
+                                        [s.activeArrow]:
+                                            item.type === sortedByCategory.type,
+                                        [s.sortAsc]:
+                                            item.type ===
+                                                sortedByCategory.type &&
+                                            sortedByCategory.sort ===
+                                                CategoriesSort.DESC,
+                                    })}
+                                />
                             )}
                         </li>
                     ))}
@@ -54,7 +86,7 @@ export const TableHeading: FC<TableHeading> = ({
                     <li>
                         <Checkbox
                             theme={'dark'}
-                            value={true}
+                            value={false}
                             onClick={() => console.log('checked')}
                         />
                     </li>
@@ -62,7 +94,18 @@ export const TableHeading: FC<TableHeading> = ({
                         <li key={item.value} className={s.item}>
                             {item.value}
                             {item.sort && (
-                                <img className={cls(s.sortIcon)} src={arrow} />
+                                <Arrow
+                                    onClick={() => item?.onHandleSort?.()}
+                                    className={cls(s.sortIcon, {
+                                        [s.activeArrow]:
+                                            item.type === sortedByVendors.type,
+                                        [s.sortAsc]:
+                                            item.type ===
+                                                sortedByVendors.type &&
+                                            sortedByVendors.sort ===
+                                                VendorsSort.DESC,
+                                    })}
+                                />
                             )}
                         </li>
                     ))}

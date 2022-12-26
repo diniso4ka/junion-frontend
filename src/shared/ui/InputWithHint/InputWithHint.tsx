@@ -13,7 +13,7 @@ interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
     className?: string
     variant?: 'line' | 'outline'
     hintSize?: 'large' | 'medium' | 'small' | 'adaptive'
-    hint?: string[] | null
+    hint?: string[]
     isHintOpen?: boolean
     onCloseHint?: () => void
     onHandleSelect?: (hint: string) => void

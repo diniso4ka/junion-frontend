@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { USER_LOCALSTORAGE_TOKEN } from '../consts/localStorage'
+import { USER_LOCALSTORAGE_TOKEN } from '../config/consts/localStorage'
 
 const api = axios.create({
     baseURL: 'https://junion-tech-server.onrender.com/',

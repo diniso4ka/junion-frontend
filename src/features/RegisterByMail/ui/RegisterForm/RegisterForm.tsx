@@ -3,13 +3,11 @@ import s from './RegisterForm.module.scss'
 import cls from 'classnames'
 import { Button, Input } from 'shared/ui'
 import { useAppDispatch, useAppSelector } from 'app/store/config/StateSchema'
-import { getRegisterState } from '../../model/selectors/getRegisterState/getRegisterState'
 import {
     registerActions,
     registerReducer,
 } from '../../model/slice/registerSlice'
 import { registerValidation } from 'shared/helpers/validations/registerValidation'
-import { IValidationResponseData } from 'shared/types/auth'
 import {
     passwordValidationMessages,
     superCodeValidationMessages,
@@ -32,6 +30,7 @@ import { getRegisterName } from '../../model/selectors/getRegisterName/getRegist
 import { getRegisterSuperCode } from '../../model/selectors/getRegisterSuperCode/getRegisterSuperCode'
 import { getRegisterAsyncErrors } from '../../model/selectors/getRegisterAsyncErrors/getRegisterAsyncErrors'
 import { getRegisterStatus } from '../../model/selectors/getRegisterStatus/getRegisterStatus'
+import { RegisterForm as RegisterFormType } from '../../model/types/RegisterSchema'
 
 interface RegisterFormProps {
     className?: string
@@ -42,7 +41,7 @@ const initialState: ReducersList = {
 }
 
 export const RegisterForm: FC<RegisterFormProps> = ({ className }) => {
-    const [errors, setErrors] = useState<IValidationResponseData>({})
+    const [errors, setErrors] = useState<RegisterFormType>({})
     const [formSubmit, setFormSubmit] = useState<boolean>(false)
     const [mailFocus, setMailFocus] = useState<boolean>(false)
     const [passwordFocus, setPasswordFocus] = useState<boolean>(false)

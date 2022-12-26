@@ -3,7 +3,7 @@ import { userReducer } from 'entities/User'
 import { productsReducer } from 'entities/Products'
 import { categoriesReducer } from 'entities/Categories'
 import { vendorsReducer } from 'entities/Vendors'
-import { StateSchema } from './StateSchema'
+import { StateSchema, ThunkExtraArg } from './StateSchema'
 import { createReducerManager } from './reducerManager'
 import { To } from '@remix-run/router/history'
 import { NavigateOptions } from 'react-router'
@@ -23,7 +23,7 @@ export function createReduxStore(
 
     const reducerManager = createReducerManager(rootReducers)
 
-    const thunkExtraArg = {
+    const extraArgs: ThunkExtraArg = {
         navigate,
     }
 
@@ -34,9 +34,7 @@ export function createReduxStore(
             getDefaultMiddleware({
                 serializableCheck: false,
                 thunk: {
-                    extraArgument: {
-                        ...thunkExtraArg,
-                    },
+                    extraArgument: extraArgs,
                 },
             }),
     })
@@ -47,7 +45,5 @@ export function createReduxStore(
     return store
 }
 
-const store = createReduxStore()
-
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof createReduxStore>['getState']
+export type AppDispatch = ReturnType<typeof createReduxStore>['dispatch']

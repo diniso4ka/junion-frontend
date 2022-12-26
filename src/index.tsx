@@ -12,12 +12,12 @@ const rootElement = document.getElementById('root')
 const root = ReactDOM.createRoot(rootElement!)
 root.render(
     <BrowserRouter>
-        <ErrorBoundary>
-            <ThemeProvider>
-                <StoreProvider>
+        <StoreProvider>
+            <ErrorBoundary>
+                <ThemeProvider>
                     <App />
-                </StoreProvider>
-            </ThemeProvider>
-        </ErrorBoundary>
+                </ThemeProvider>
+            </ErrorBoundary>
+        </StoreProvider>
     </BrowserRouter>
 )

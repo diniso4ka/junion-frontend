@@ -19,3 +19,10 @@ export const fetchUpdateProduct = async data => {
     const res = await api.put(endpoints.products.list, data)
     return res
 }
+export const fetchDeleteProduct = async id => {
+    const res = await api.put(endpoints.products.list, {
+        id,
+        status: 'deleted',
+    })
+    return res
+}

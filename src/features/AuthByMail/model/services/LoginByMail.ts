@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { fetchLogin } from 'shared/api/requests/user'
-import { response } from 'express'
 import { saveTokenInLocalStorage } from 'shared/helpers/localStorage/localStorage'
 import { registerActions } from '../../../RegisterByMail'
 import { loginActions } from '../slice/loginSlice'

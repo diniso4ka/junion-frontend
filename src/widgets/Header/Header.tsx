@@ -34,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({ onClick }) => {
     const ref = useRef()
     useClickOutside(ref, () => setProfileIsOpen(false))
     const onClickLogout = async () => {
-        dispatch(thunkLogout(0))
+        dispatch(thunkLogout())
         navigate(routeConfig.HOME)
         setProfileIsOpen(false)
     }
