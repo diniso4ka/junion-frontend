@@ -31,7 +31,15 @@ export const Link = memo(
             <div className={classes}>
                 <LinkButton className={s.linkWrapper} {...rest}>
                     <div className={s.iconContainer}>
-                        {Icon && <Icon className={s.icon} />}
+                        {Icon && (
+                            <Icon
+                                className={cls(s.icon, {
+                                    [s.home]: children === 'Home',
+                                    [s.products]: children === 'Products',
+                                    [s.vendors]: children === 'Vendors',
+                                })}
+                            />
+                        )}
                     </div>
                     <span className={s.label}>{children}</span>
                 </LinkButton>

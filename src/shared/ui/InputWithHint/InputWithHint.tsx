@@ -5,10 +5,9 @@ import React, {
     useRef,
     useState,
 } from 'react'
-import s from './InputWithHint.module.scss'
-
-import { useClickOutside } from 'shared/hooks/useClickOutside'
 import cls from 'classnames'
+import { useClickOutside } from 'shared/hooks/useClickOutside'
+import s from './InputWithHint.module.scss'
 
 interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
     className?: string

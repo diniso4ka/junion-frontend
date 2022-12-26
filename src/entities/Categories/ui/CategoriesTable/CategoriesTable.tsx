@@ -2,6 +2,7 @@ import { FC } from 'react'
 import s from './CategoriesTable.module.scss'
 import cls from 'classnames'
 import { TableHeading, TableRow } from 'shared/ui'
+import TableRowLoader from 'shared/ui/LoaderSkeleton/TableRowLoader/TableRowLoader'
 import {
     CategoriesSortType,
     Category,
@@ -36,21 +37,22 @@ export const CategoriesTable: FC<CategoriesTableProps> = ({
         },
     ]
 
-    if (isLoading) {
-        return <div>...loading</div>
-    }
     return (
         <div className={cls(s.CategoriesTable, className)}>
             <TableHeading type={'categories'} headings={headings} />
-            <div className={s.items}>
-                {items.map(category => (
-                    <TableRow
-                        key={category._id}
-                        type={'categories'}
-                        item={category}
-                    />
-                ))}
-            </div>
+            {isLoading ? (
+                <TableRowLoader />
+            ) : (
+                <div className={s.items}>
+                    {items.map(category => (
+                        <TableRow
+                            key={category._id}
+                            type={'categories'}
+                            item={category}
+                        />
+                    ))}
+                </div>
+            )}
         </div>
     )
 }

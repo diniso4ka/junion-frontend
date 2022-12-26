@@ -99,6 +99,37 @@
         .icon * {
             fill: var(--bg-third-color);
         }
+
+        .home * {
+            fill: #f3f3f3;
+            stroke: var(--bg-third-color);
+        }
+
+        .products {
+            rect:nth-child(1) {
+                fill: var(--bg-third-color);
+                stroke: var(--bg-third-color);
+            }
+            rect:nth-child(2) {
+                fill: #f3f3f3;
+                stroke: var(--bg-third-color);
+            }
+        }
+
+        .vendors {
+            rect {
+                stroke: var(--bg-third-color);
+                fill: #f3f3f3;
+            }
+
+            path {
+                fill: #f3f3f3;
+            }
+
+            path:nth-child(2) {
+                fill: var(--bg-third-color);
+            }
+        }
     }
     &.collapsed {
         width: 48px;
