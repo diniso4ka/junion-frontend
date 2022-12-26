@@ -3,11 +3,7 @@ import s from './ProductsTable.module.scss'
 import cls from 'classnames'
 import { TableHeading, TableRow } from 'shared/ui'
 import { PageLoader } from 'widgets/PageLoader/PageLoader'
-import {
-    ProductSort,
-    ProductSortType,
-    ProductType,
-} from '../../model/types/ProductsSchema'
+import { ProductSortType, ProductType } from '../../model/types/ProductsSchema'
 import { productsActions } from '../../model/slice/productsSlice'
 import { useDispatch } from 'react-redux'
 

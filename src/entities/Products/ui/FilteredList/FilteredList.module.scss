@@ -8,10 +8,12 @@
     overflow-y: auto;
     position: relative;
     opacity: 0;
+    display: none;
     pointer-events: none;
     &.opened {
         opacity: 1;
         pointer-events: auto;
+        display: block;
     }
 }
 .closeIcon {
@@ -43,4 +45,12 @@
     border-bottom: 1px solid #dedede;
     padding-top: 24px;
     padding-bottom: 5px;
+}
+
+.price {
+    grid-template-columns: 4% 20% 25% 15% 15% 23%;
+}
+
+.category {
+    color: black;
 }

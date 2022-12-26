@@ -28,7 +28,6 @@ import { CreateProductModal } from 'features/CreateProduct/ui/CreateProductModal
 const ProductsPage: FC = () => {
     const dispatch = useAppDispatch()
     const filters = useAppSelector(getProductFiltersData)
-    const productsList = useAppSelector(getProductsList)
     const filteredProductsList = useAppSelector(getFilteredProductsList)
     const status = useAppSelector(getProductsStatus)
     const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -37,10 +36,7 @@ const ProductsPage: FC = () => {
     const [canClear, setCanClear] = useState<boolean>(false)
     const date = getDate()
     const [searchParams, setSearchParams] = useSearchParams()
-    const filteredItems = searchByIncludes(
-        filteredProductsList.length ? filteredProductsList : productsList,
-        searchValue
-    )
+    const filteredItems = searchByIncludes(filteredProductsList, searchValue)
         .reverse('')
         .filter(item => item.status !== 'deleted')
 

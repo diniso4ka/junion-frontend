@@ -26,17 +26,13 @@ export const TableHeading: FC<TableHeading> = ({
     const sortedByProducts = useAppSelector(getProductsSortedBy)
     const sortedByVendors = useAppSelector(getVendorsSortedBy)
     const sortedByCategory = useAppSelector(getCategorySortedBy)
-    console.log(sortedByVendors)
-    useEffect(() => {
-        console.log(sortedByVendors)
-    }, [sortedByVendors])
     return (
         <div className={cls(s.TableHeading, className)}>
             {type === 'products' && (
                 <ul className={cls(s.items, s[type])}>
                     <li>
                         <Checkbox
-                            value={true}
+                            value={false}
                             onClick={() => console.log('checked')}
                             theme={'dark'}
                         />
@@ -90,7 +86,7 @@ export const TableHeading: FC<TableHeading> = ({
                     <li>
                         <Checkbox
                             theme={'dark'}
-                            value={true}
+                            value={false}
                             onClick={() => console.log('checked')}
                         />
                     </li>

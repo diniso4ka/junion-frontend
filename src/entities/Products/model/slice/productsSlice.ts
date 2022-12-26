@@ -12,8 +12,15 @@ import { sortByAlphabet } from '../../../../shared/helpers/sort/byAlphabet'
 const initialState: ProductsSchema = {
     items: [],
     filteredItems: [],
-    sortedItems: [],
+    sortedItems: {
+        withoutPrice: [],
+        withoutCategory: [],
+        withoutQuantity: [],
+        deletedToday: [],
+        addedToday: [],
+    },
     isLoading: false,
+    productInitialize: false,
     quantity: 0,
     sortedBy: {
         type: null,
@@ -26,38 +33,38 @@ export const productsSlice = createSlice({
     reducers: {
         setProducts: (state, action) => {
             state.items = action.payload.data.result
-            state.quantity = action.payload.data.qty
+            if (state.productInitialize === false) {
+                state.productInitialize = true
+            }
         },
         setFilteredProductsList: (state, action) => {
-            state.filteredItems = action.payload.data.result
-        },
-        clearFilteredProductsList: state => {
-            state.filteredItems = [...state.items]
-        },
-
-        //Сортировка на главной странице
-        setSortWithoutCategory: state => {
-            state.sortedItems = state.items.filter(
-                item => item.category[0] === 'unSorted'
+            state.filteredItems = action.payload.data.result.filter(
+                product => product.status !== 'deleted'
             )
-        },
-        setSortWithoutPrice: state => {
-            state.sortedItems = state.items.filter(item => !item.price)
-        },
-        setSortAddedToday: state => {
-            state.sortedItems = state.items.filter(
-                item =>
-                    formattedDate() ===
-                    item.createdAt.split('').splice(0, 10).join('')
-            )
-        },
-        setSortDeletedToday: state => {
-            state.sortedItems = state.sortedItems = state.items.filter(
+            state.quantity = state.filteredItems.length
+            state.sortedItems.deletedToday = action.payload.data.result.filter(
                 item =>
                     item.status === 'deleted' &&
                     formattedDate() ===
                         item.updatedAt.split('').splice(0, 10).join('')
             )
+            state.sortedItems.withoutQuantity = state.filteredItems.filter(
+                item => !item.quantity
+            )
+            state.sortedItems.withoutPrice = state.filteredItems.filter(
+                item => !item.price
+            )
+            state.sortedItems.withoutCategory = state.filteredItems.filter(
+                item => item.category[0] === 'unSorted'
+            )
+            state.sortedItems.addedToday = state.filteredItems.filter(
+                item =>
+                    formattedDate() ===
+                    item.createdAt.split('').splice(0, 10).join('')
+            )
+        },
+        clearFilteredProductsList: state => {
+            state.filteredItems = [...state.items]
         },
 
         //Сортировка на Product page

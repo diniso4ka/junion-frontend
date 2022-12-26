@@ -31,6 +31,7 @@ import { getUpdateProductId } from '../../model/selectors/getUpdateProductId/get
 import { getUpdateProductError } from '../../model/selectors/getUpdateProductError/getUpdateProductError'
 import { getUpdateProductStatus } from '../../model/selectors/getUpdateProductStatus/getUpdateProductStatus'
 import { discountConvertInNumber } from '../../../../shared/helpers/math/discountPrice'
+import { useLocation } from 'react-router'
 
 interface UpdateProductFormProps {
     className?: string
@@ -59,6 +60,8 @@ export const UpdateProductForm: FC<UpdateProductFormProps> = ({
     const quantity = useAppSelector(getUpdateProductQuantity)
     const discountPrice = useAppSelector(getUpdateProductDiscountPrice)
     const _id = useAppSelector(getUpdateProductId)
+    const location = useLocation()
+    const [isHome, setIsHome] = useState<boolean>(false)
 
     const productsList = useAppSelector(getProductsList)
     const categoriesList = useAppSelector(getCategoryList)
@@ -138,6 +141,11 @@ export const UpdateProductForm: FC<UpdateProductFormProps> = ({
     }
 
     useEffect(() => {
+        if (location.pathname === '/') {
+            setIsHome(() => true)
+        } else {
+            setIsHome(() => false)
+        }
         if (item) {
             dispatch(
                 updateProductActions.setValues({
@@ -173,24 +181,32 @@ export const UpdateProductForm: FC<UpdateProductFormProps> = ({
                                 onCloseHint={() => setNameFocus(false)}
                                 onHandleSelect={e => onHandleNameHint(e)}
                                 isHintOpen={nameFocus}
+                                position={'right'}
                                 variant={'outline'}
                             />
                         </li>
-                        <li className={s.inputItem}>
-                            <label className={s.label}>Categories</label>
-                            <InputWithHint
-                                disabled={status}
-                                onChange={onChangeCategory}
-                                value={category}
-                                className={s.input}
-                                hint={categoriesList.map(item => item._id)}
-                                onFocus={() => setCategoriesFocus(true)}
-                                onCloseHint={() => setCategoriesFocus(false)}
-                                onHandleSelect={e => onHandleCategoryHint(e)}
-                                isHintOpen={categoriesFocus}
-                                variant={'outline'}
-                            />
-                        </li>
+                        {!isHome && (
+                            <li className={s.inputItem}>
+                                <label className={s.label}>Categories</label>
+                                <InputWithHint
+                                    disabled={status}
+                                    onChange={onChangeCategory}
+                                    value={category}
+                                    className={s.input}
+                                    hint={categoriesList.map(item => item._id)}
+                                    onFocus={() => setCategoriesFocus(true)}
+                                    onCloseHint={() =>
+                                        setCategoriesFocus(false)
+                                    }
+                                    onHandleSelect={e =>
+                                        onHandleCategoryHint(e)
+                                    }
+                                    isHintOpen={categoriesFocus}
+                                    variant={'outline'}
+                                    position={'right'}
+                                />
+                            </li>
+                        )}
                         <li className={s.inputItem}>
                             <label className={s.label}>Price</label>
                             <div className={s.priceFrom}>
@@ -201,29 +217,31 @@ export const UpdateProductForm: FC<UpdateProductFormProps> = ({
                                     className={s.inputMedium}
                                     variant={'outline'}
                                 />
-                                <div className={s.subInput}>
-                                    <label className={s.subLabel}>
-                                        <Checkbox
-                                            onClick={
-                                                onHandleChangeDiscountCheckbox
-                                            }
-                                            value={!withDiscount}
-                                            className={s.checkbox}
+                                {!isHome && (
+                                    <div className={s.subInput}>
+                                        <label className={s.subLabel}>
+                                            <Checkbox
+                                                onClick={
+                                                    onHandleChangeDiscountCheckbox
+                                                }
+                                                value={!withDiscount}
+                                                className={s.checkbox}
+                                            />
+                                            Discount
+                                        </label>
+                                        <Input
+                                            value={discountPrice}
+                                            onChange={onChangeDiscount}
+                                            disabled={!withDiscount || status}
+                                            className={cls(
+                                                s.inputSmall,
+                                                s.discountInput
+                                            )}
+                                            variant={'outline'}
                                         />
-                                        Discount
-                                    </label>
-                                    <Input
-                                        value={discountPrice}
-                                        onChange={onChangeDiscount}
-                                        disabled={!withDiscount || status}
-                                        className={cls(
-                                            s.inputSmall,
-                                            s.discountInput
-                                        )}
-                                        variant={'outline'}
-                                    />
-                                    %
-                                </div>
+                                        %
+                                    </div>
+                                )}
                             </div>
                         </li>
                         <li className={s.inputItem}>
@@ -254,35 +272,41 @@ export const UpdateProductForm: FC<UpdateProductFormProps> = ({
                                 </div>
                             </div>
                         </li>
-                        <li className={s.inputItem}>
-                            <label className={s.label}>Vendor's name</label>
-                            <InputWithHint
-                                disabled={status}
-                                onChange={onChangeVendor}
-                                value={vendor}
-                                className={s.input}
-                                hint={vendorsList.map(item => item.name)}
-                                onFocus={() => setVendorsFocus(true)}
-                                onCloseHint={() => setVendorsFocus(false)}
-                                onHandleSelect={e => onHandleVendorHint(e)}
-                                isHintOpen={vendorsFocus}
-                                variant={'outline'}
-                            />
-                        </li>
-                        <li className={s.inputItem}>
-                            <label className={s.label}>
-                                Vendor's <br />
-                                Reg Code
-                            </label>
-                            <Input
-                                disabled={status}
-                                value={
-                                    selectedVendor ? selectedVendor.code : ''
-                                }
-                                variant={'outline'}
-                                className={s.inputMedium}
-                            />
-                        </li>
+                        {!isHome && (
+                            <li className={s.inputItem}>
+                                <label className={s.label}>Vendor's name</label>
+                                <InputWithHint
+                                    disabled={status}
+                                    onChange={onChangeVendor}
+                                    value={vendor}
+                                    className={s.input}
+                                    hint={vendorsList.map(item => item.name)}
+                                    onFocus={() => setVendorsFocus(true)}
+                                    onCloseHint={() => setVendorsFocus(false)}
+                                    onHandleSelect={e => onHandleVendorHint(e)}
+                                    isHintOpen={vendorsFocus}
+                                    variant={'outline'}
+                                />
+                            </li>
+                        )}
+                        {!isHome && (
+                            <li className={s.inputItem}>
+                                <label className={s.label}>
+                                    Vendor's <br />
+                                    Reg Code
+                                </label>
+                                <Input
+                                    disabled={status}
+                                    value={
+                                        selectedVendor
+                                            ? selectedVendor.code
+                                            : ''
+                                    }
+                                    variant={'outline'}
+                                    className={s.inputMedium}
+                                />
+                            </li>
+                        )}
                     </ul>
                 </form>
                 <div className={s.buttonWrapper}>

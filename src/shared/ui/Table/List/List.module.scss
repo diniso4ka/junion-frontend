@@ -14,17 +14,24 @@
 }
 
 .title {
-    margin-top: 20px;
-    margin-bottom: 24px;
     font-size: var(--font-size-l);
-    font-weight: 400;
+    font-weight: 500;
 }
 
 .item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 22px;
+    margin-bottom: 5px;
+}
+
+.titleWrapper {
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-weight: 500;
 }
 
 .value {

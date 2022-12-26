@@ -1,10 +1,17 @@
 export interface ProductsSchema {
     items: ProductType[]
     filteredItems: ProductType[]
-    sortedItems: ProductType[]
+    sortedItems: {
+        withoutPrice: ProductType[]
+        withoutCategory: ProductType[]
+        withoutQuantity: ProductType[]
+        deletedToday: ProductType[]
+        addedToday: ProductType[]
+    }
     sortedBy: ProductSortedBy
     quantity: number
     isLoading: boolean
+    productInitialize: boolean
     error?: boolean
 }
 
