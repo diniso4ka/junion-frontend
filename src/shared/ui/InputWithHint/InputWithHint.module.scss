@@ -48,7 +48,7 @@
     border-radius: 10px;
     overflow: hidden;
     &.opened {
-        max-height: 200px;
+        max-height: 207px;
         height: fit-content;
         overflow-y: auto;
     }
@@ -65,7 +65,7 @@
     top: -15px;
     right: -480px;
     width: 440px;
-    max-height: 250px;
+    max-height: 260px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
@@ -94,7 +94,7 @@
         z-index: 4;
 
         &.opened {
-            max-height: 230px;
+            max-height: 240px;
             height: fit-content;
             overflow-y: auto;
 
@@ -127,14 +127,14 @@
 }
 
 .hintItem {
-    margin: 0 15px;
-    padding: 8px 0;
+    margin: 4px 15px 0;
+    padding: 5px 0 4px;
     border-bottom: 2px solid rgba(0, 0, 0, 0.2);
     cursor: pointer;
     &:last-child {
         margin-bottom: 10px;
     }
     &:hover {
-        background-color: #fafafa;
+        background-color: var(--light-orange);
     }
 }
