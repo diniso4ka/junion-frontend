@@ -37,7 +37,7 @@
 .hint {
     position: absolute;
     top: 30px;
-    left: -10px;
+    left: -11px;
     margin: 10px 10px;
     width: 248px;
     max-height: 0;
@@ -60,7 +60,7 @@
 }
 
 .rightWrapper {
-    padding: 10px 15px 10px 10px;
+    padding: 10px;
     position: absolute;
     top: -15px;
     right: -480px;
@@ -68,8 +68,8 @@
     max-height: 250px;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-    z-index: 100;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    z-index: 3;
 
     @media (max-width: 1440px) {
         width: 300px;
@@ -82,13 +82,16 @@
     }
 
     .hint {
-        position: static;
+        position: relative;
+        top: 0;
+        left: -10px;
         margin: 0;
         width: 100%;
         max-height: 0;
         box-shadow: none;
         border-radius: 0;
         overflow: hidden;
+        z-index: 4;
 
         &.opened {
             max-height: 230px;
@@ -97,6 +100,7 @@
 
             li {
                 margin-bottom: 0;
+                margin-left: 25px;
             }
         }
 
@@ -110,12 +114,15 @@
         content: '';
         position: absolute;
         top: 9px;
-        left: -12px;
+        left: -13px;
         width: 30px;
         height: 30px;
+        z-index: 2;
         border-radius: 3px;
         background-color: #fff;
+        box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.25);
         transform: rotate(45deg);
+        overflow: hidden;
     }
 }
 
