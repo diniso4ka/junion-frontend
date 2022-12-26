@@ -4,14 +4,19 @@ import s from './HomePage.module.scss'
 import { Button, List, Text } from 'shared/ui'
 import { getDate } from 'shared/helpers/date/getDate'
 import { useAppDispatch, useAppSelector } from 'app/store/config/StateSchema'
-import { getProductsQuantity, getProductsStatus } from 'entities/Products'
-import { routeConfig } from 'shared/config/routeConfig/routeConfig'
+import {
+    getProductsList,
+    getProductsQuantity,
+    getProductsStatus,
+} from 'entities/Products'
 import { FilteredList } from 'entities/Products/ui/FilteredList/FilteredList'
-import { getSortedProductsList } from 'entities/Products/model/selectors/getSortedProductsList/getSortedProductsList'
 import { useNavigate } from 'react-router'
-import { getSortedProductsInitialize } from '../../../entities/Products/model/selectors/getSortedProductsInitialize/getSortedProductsInitialize'
+import { getProductsInitialize } from '../../../entities/Products/model/selectors/getProductsInitialize/getProductsInitialize'
 import { getUpdateProductSelectedList } from '../../../features/UpdateProduct/model/selectors/getUpdateProductSelectedList/getUpdateProductSelectedList'
 import { thunkDeleteProduct } from '../../../features/UpdateProduct/model/services/thunkDeleteProduct'
+import { getProductsAllList } from '../../../entities/Products/model/selectors/getProductsAllList/getProductsAllList'
+import { sortProducts } from './model/services/sort'
+import { SortType } from './model/types/sort'
 
 const HomePage: FC = () => {
     const [listIsOpen, setListIsOpen] = useState<boolean>(false)
@@ -19,14 +24,15 @@ const HomePage: FC = () => {
     const [title, setTitle] = useState<string>('')
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
-    const sortedProductsList = useAppSelector(getSortedProductsList)
-    const productInitialize = useAppSelector(getSortedProductsInitialize)
+    const productsList = useAppSelector(getProductsList)
+    const allProductsList = useAppSelector(getProductsAllList)
+    const productInitialize = useAppSelector(getProductsInitialize)
     const productsQuantity = useAppSelector(getProductsQuantity)
     const productsStatus = useAppSelector(getProductsStatus)
     const selectedItems = useAppSelector(getUpdateProductSelectedList)
 
     const [selectedSort, setSelectedSort] = useState({
-        id: 0,
+        type: SortType.NONE,
         items: [],
     })
     const tablesData = {
@@ -35,30 +41,49 @@ const HomePage: FC = () => {
             items: [
                 {
                     label: 'Products without quantity:',
-                    value: `${sortedProductsList.withoutQuantity.length}`,
-                    link: routeConfig.PRODUCTS,
+                    value: `${
+                        sortProducts(productsList, SortType.WITHOUT_QUANTITY)
+                            .items.length
+                    }`,
+                    type: SortType.WITHOUT_QUANTITY,
                 },
                 {
                     label: 'Products without price:',
-                    value: `${sortedProductsList.withoutPrice.length}`,
+                    value: `${
+                        sortProducts(productsList, SortType.WITHOUT_PRICE).items
+                            .length
+                    }`,
+                    type: SortType.WITHOUT_PRICE,
                 },
                 {
                     label: 'Products without category:',
-                    value: `${sortedProductsList.withoutCategory.length}`,
+                    value: `${
+                        sortProducts(productsList, SortType.WITHOUT_CATEGORY)
+                            .items.length
+                    }`,
+                    type: SortType.WITHOUT_CATEGORY,
                 },
             ],
         },
         employee: {
             title: 'Users information:',
             items: [
-                { label: 'All users:', value: 'NR' },
+                { label: 'All users:', value: 'NR', type: SortType.NONE },
                 {
                     label: 'Products added today:',
-                    value: `${sortedProductsList.addedToday.length}`,
+                    value: `${
+                        sortProducts(productsList, SortType.ADDED_TODAY).items
+                            .length
+                    }`,
+                    type: SortType.ADDED_TODAY,
                 },
                 {
                     label: 'Products deleted today:',
-                    value: `${sortedProductsList.deletedToday.length}`,
+                    value: `${
+                        sortProducts(allProductsList, SortType.DELETED_TODAY)
+                            .items.length
+                    }`,
+                    type: SortType.DELETED_TODAY,
                 },
             ],
         },
@@ -67,31 +92,9 @@ const HomePage: FC = () => {
     const onHandleClose = () => {
         setListIsOpen(false)
     }
-    const onHandleOpen = (action, open) => {
-        if (action.includes('price')) {
-            setSelectedSort({ id: 0, items: sortedProductsList.withoutPrice })
-            setTitle(action)
-        } else if (action.includes('quantity')) {
-            setSelectedSort({
-                id: 1,
-                items: sortedProductsList.withoutQuantity,
-            })
-            setTitle(action)
-        } else if (action.includes('category')) {
-            setSelectedSort({
-                id: 2,
-                items: sortedProductsList.withoutCategory,
-            })
-            setTitle(action)
-        } else if (action.includes('added')) {
-            setSelectedSort({ id: 3, items: sortedProductsList.addedToday })
-            setTitle(action)
-        } else if (action.includes('deleted')) {
-            setSelectedSort({ id: 4, items: sortedProductsList.deletedToday })
-            setTitle(action)
-        } else if (action.includes('store')) {
-            navigate(routeConfig.PRODUCTS)
-        }
+    const onHandleOpen = (action, title, open) => {
+        setSelectedSort(sortProducts(productsList, action))
+        setTitle(action)
         if (open) {
             setListIsOpen(true)
         }
@@ -105,9 +108,15 @@ const HomePage: FC = () => {
 
     useEffect(() => {
         if (productsStatus === false) {
-            onHandleOpen(title, false)
+            onHandleOpen(SortType.WITHOUT_PRICE, title, false)
         }
     }, [productsStatus])
+
+    useEffect(() => {
+        if (selectedSort.items.length) {
+            setSelectedSort(sortProducts(productsList, selectedSort.type))
+        }
+    }, [productsList])
 
     const date = getDate()
 
@@ -143,10 +152,14 @@ const HomePage: FC = () => {
                 {listIsOpen && (
                     <FilteredList
                         title={title}
-                        data={selectedSort.items}
+                        data={selectedSort}
                         isOpen={listIsOpen}
                         onClose={onHandleClose}
-                        variant={selectedSort.id === 2 ? 'category' : 'price'}
+                        variant={
+                            selectedSort?.type === SortType.WITHOUT_CATEGORY
+                                ? 'category'
+                                : 'price'
+                        }
                         modalIsOpen={changeModalIsOpen}
                         modalOnClose={() => setChangeModalIsOpen(false)}
                     />

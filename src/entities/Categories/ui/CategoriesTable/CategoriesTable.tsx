@@ -40,9 +40,12 @@ export const CategoriesTable: FC<CategoriesTableProps> = ({
     return (
         <div className={cls(s.CategoriesTable, className)}>
             <TableHeading type={'categories'} headings={headings} />
-            {isLoading ? (
-                <TableRowLoader />
-            ) : (
+            {isLoading && (
+                <div className={s.items}>
+                    <TableRowLoader />
+                </div>
+            )}
+            {!isLoading && (
                 <div className={s.items}>
                     {items.map(category => (
                         <TableRow

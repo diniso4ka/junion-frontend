@@ -12,7 +12,7 @@ import { AdvancedSearch, Button } from 'shared/ui'
 import { ProductsTable } from 'entities/Products'
 import { FilterMenu } from 'features/ProductFilters'
 import {
-    getFilteredProductsList,
+    getProductsFilteredList,
     getProductsList,
     getProductsStatus,
     productsActions,
@@ -24,11 +24,14 @@ import { getProductFiltersData } from 'features/ProductFilters/model/selectors/g
 import { productFiltersActions } from 'features/ProductFilters'
 import { createQueryParams } from 'shared/helpers/filters/createQueryParams'
 import { CreateProductModal } from 'features/CreateProduct/ui/CreateProductModal/CreateProductModal'
+import { ProductType } from '../../../entities/Products/model/types/ProductsSchema'
 
 const ProductsPage: FC = () => {
+    const [items, setItems] = useState<ProductType[]>([])
     const dispatch = useAppDispatch()
     const filters = useAppSelector(getProductFiltersData)
-    const filteredProductsList = useAppSelector(getFilteredProductsList)
+    const filteredProductsList = useAppSelector(getProductsFilteredList)
+    const productsList = useAppSelector(getProductsList)
     const status = useAppSelector(getProductsStatus)
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [filterIsOpen, setFilterIsOpen] = useState(false)
@@ -36,7 +39,7 @@ const ProductsPage: FC = () => {
     const [canClear, setCanClear] = useState<boolean>(false)
     const date = getDate()
     const [searchParams, setSearchParams] = useSearchParams()
-    const filteredItems = searchByIncludes(filteredProductsList, searchValue)
+    const filteredItems = searchByIncludes(items, searchValue)
         .reverse('')
         .filter(item => item.status !== 'deleted')
 
@@ -48,6 +51,18 @@ const ProductsPage: FC = () => {
         setFilterIsOpen(false)
     }
 
+    const autoSetFilters = async objParams => {
+        const response = await dispatch(
+            thunkGetFilteredProductsList(createQueryParams(objParams))
+        )
+        // @ts-ignore
+        if (response.payload.data) {
+            // @ts-ignore
+            setItems(response.payload.data.result)
+        }
+        await dispatch(productFiltersActions.setFilters(objParams))
+    }
+
     useEffect(() => {
         // @ts-ignore
         const params = [...searchParams]
@@ -56,8 +71,9 @@ const ProductsPage: FC = () => {
             Object.values(params).forEach(
                 item => (objParams[item[0]] = item[1])
             )
-            dispatch(productFiltersActions.setFilters(objParams))
-            dispatch(thunkGetFilteredProductsList(createQueryParams(objParams)))
+            autoSetFilters(objParams)
+        } else {
+            setItems(productsList)
         }
         return () => {
             dispatch(productFiltersActions.clearFilters())
@@ -71,6 +87,10 @@ const ProductsPage: FC = () => {
             setCanClear(!Object.values(filters).every(item => !item))
         }
     }, [filters])
+
+    useEffect(() => {
+        setItems(filteredProductsList)
+    }, [filteredProductsList])
 
     return (
         <div className={cls(s.ProductsPage)}>

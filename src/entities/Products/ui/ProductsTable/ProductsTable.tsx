@@ -6,6 +6,7 @@ import { PageLoader } from 'widgets/PageLoader/PageLoader'
 import { ProductSortType, ProductType } from '../../model/types/ProductsSchema'
 import { productsActions } from '../../model/slice/productsSlice'
 import { useDispatch } from 'react-redux'
+import TableRowLoader from '../../../../shared/ui/LoaderSkeleton/TableRowLoader/TableRowLoader'
 
 interface ProductsTableProps {
     className?: string
@@ -62,7 +63,11 @@ export const ProductsTable: FC<ProductsTableProps> = ({
     return (
         <div className={cls(s.ProductsTable, className)}>
             <TableHeading type={'products'} headings={headings} />
-            {isLoading && <PageLoader />}
+            {isLoading && (
+                <div className={s.items}>
+                    <TableRowLoader />
+                </div>
+            )}
             {!isLoading && (
                 <div className={s.items}>
                     {items.map(product => (

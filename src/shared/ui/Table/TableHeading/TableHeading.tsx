@@ -39,20 +39,23 @@ export const TableHeading: FC<TableHeading> = ({
                     </li>
                     {headings.map(item => (
                         <li key={item.value} className={s.item}>
-                            {item.value}
+                            <span>{item.value}</span>
                             {item.sort && (
-                                <Arrow
-                                    onClick={() => item?.onHandleSort?.()}
-                                    className={cls(s.sortIcon, {
-                                        [s.activeArrow]:
-                                            item.type === sortedByProducts.type,
-                                        [s.sortAsc]:
-                                            item.type ===
-                                                sortedByProducts.type &&
-                                            sortedByProducts.sort ===
-                                                ProductSort.DESC,
-                                    })}
-                                />
+                                <div>
+                                    <Arrow
+                                        onClick={() => item?.onHandleSort?.()}
+                                        className={cls(s.sortIcon, {
+                                            [s.activeArrow]:
+                                                item.type ===
+                                                sortedByProducts.type,
+                                            [s.sortAsc]:
+                                                item.type ===
+                                                    sortedByProducts.type &&
+                                                sortedByProducts.sort ===
+                                                    ProductSort.DESC,
+                                        })}
+                                    />
+                                </div>
                             )}
                         </li>
                     ))}

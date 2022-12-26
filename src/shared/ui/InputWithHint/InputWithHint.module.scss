@@ -51,6 +51,8 @@
         max-height: 207px;
         height: fit-content;
         overflow-y: auto;
+        z-index: 5;
+        pointer-events: auto;
     }
 
     &.adaptive {

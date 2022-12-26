@@ -4,6 +4,7 @@ import cls from 'classnames'
 import { Preloader, Text } from 'shared/ui/index'
 import { routeConfig } from '../../../config/routeConfig/routeConfig'
 import { Link } from 'react-router-dom'
+import { SortType } from '../../../../pages/Private/Home/model/types/sort'
 
 interface ListProps {
     className?: string
@@ -13,9 +14,10 @@ interface ListProps {
         items: {
             label: string
             value: string
+            type: SortType
         }[]
     }
-    onClick?: (string, boolean) => void
+    onClick?: (type, title, boolean) => void
     isOpen?: boolean
     title?: string
     titleCount?: string
@@ -51,7 +53,15 @@ export const List: FC<ListProps> = ({
                         }
                         to={routeConfig.PRODUCTS}
                     >
-                        <span onClick={() => onClick?.(title, true)}>
+                        <span
+                            onClick={() =>
+                                onClick?.(
+                                    SortType.WITHOUT_QUANTITY,
+                                    title,
+                                    true
+                                )
+                            }
+                        >
                             {titleCount}
                         </span>
                     </Link>
@@ -70,9 +80,11 @@ export const List: FC<ListProps> = ({
                             subtitle={item.label}
                         />
                         <span
-                            onClick={() => onClick?.(item.label, true)}
+                            onClick={() =>
+                                onClick?.(item.type, item.label, true)
+                            }
                             className={
-                                isOpen && title === item.label
+                                isOpen && title === item.type
                                     ? cls(s.value, s.active)
                                     : s.value
                             }

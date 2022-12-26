@@ -5,6 +5,7 @@ import { TableHeading, TableRow } from 'shared/ui'
 import { Vendor, VendorsSortType } from '../../model/types/VendorsSchema'
 import { useAppDispatch } from '../../../../app/store'
 import { vendorsActions } from '../../model/slice/vendorsSlice'
+import TableRowLoader from '../../../../shared/ui/LoaderSkeleton/TableRowLoader/TableRowLoader'
 
 interface VendorsTableProps {
     className?: string
@@ -40,17 +41,25 @@ export const VendorsTable: FC<VendorsTableProps> = ({
         { sort: false, value: 'Address' },
     ]
 
-    if (isLoading) {
-        return <div>...loading</div>
-    }
     return (
         <div className={cls(s.VendorsTable, className)}>
             <TableHeading type={'vendors'} headings={headings} />
-            <div className={s.items}>
-                {items.map(vendor => (
-                    <TableRow key={vendor._id} type={'vendors'} item={vendor} />
-                ))}
-            </div>
+            {isLoading && (
+                <div className={s.items}>
+                    <TableRowLoader />
+                </div>
+            )}
+            {!isLoading && (
+                <div className={s.items}>
+                    {items.map(vendor => (
+                        <TableRow
+                            key={vendor._id}
+                            type={'vendors'}
+                            item={vendor}
+                        />
+                    ))}
+                </div>
+            )}
         </div>
     )
 }

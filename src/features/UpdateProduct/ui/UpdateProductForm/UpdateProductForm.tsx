@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react'
-import s from './UpdateProductFrom.module.scss'
+import s from './UpdateProductForm.module.scss'
 import cls from 'classnames'
 import closeIcon from '../../../../shared/assets/images/icons/close.svg'
 import { Button, Checkbox, Input, InputWithHint } from '../../../../shared/ui'
@@ -96,7 +96,6 @@ export const UpdateProductForm: FC<UpdateProductFormProps> = ({
         )
         // @ts-ignore
         if (response.payload?.data) {
-            dispatch(thunkFetchProductList())
             onClose()
         }
     }
@@ -224,7 +223,7 @@ export const UpdateProductForm: FC<UpdateProductFormProps> = ({
                                                 onClick={
                                                     onHandleChangeDiscountCheckbox
                                                 }
-                                                value={!withDiscount}
+                                                value={withDiscount}
                                                 className={s.checkbox}
                                             />
                                             Discount
