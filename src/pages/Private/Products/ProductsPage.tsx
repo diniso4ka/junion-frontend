@@ -39,7 +39,6 @@ const initialState: ReducersList = {
     updateProduct: updateProductReducer,
 }
 
-
 const ProductsPage: FC = () => {
     const [items, setItems] = useState<ProductType[]>([])
     const dispatch = useAppDispatch()
@@ -115,74 +114,70 @@ const ProductsPage: FC = () => {
     }, [filteredProductsList])
 
     return (
-
-
-
         <DynamicModuleLoader reducers={initialState} removeAfterUnmount={true}>
-<div className={s.overlay}>
-            <div className={cls(s.ProductsPage)}>
-                <div className={s.header}>
-                    <Text className={s.title} title='Products' />
-                    <AdvancedSearch
-                        value={searchValue}
-                        onChange={e => setSearchValue(e)}
-                        onClick={e => e.stopPropagation()}
-                        onOpen={() => setFilterIsOpen(true)}
-                        onToggleOpen={() => setFilterIsOpen(!filterIsOpen)}
-                        onClose={() => setFilterIsOpen(false)}
-                        canClear={!!searchValue || canClear}
-                        isOpened={filterIsOpen}
-                        onClear={() => onClear()}
-                        advanced={true}
-                    >
-                        <FilterMenu
-                            isLoading={status}
+            <div className={s.overlay}>
+                <div className={cls(s.ProductsPage)}>
+                    <div className={s.header}>
+                        <Text className={s.title} title='Products' />
+                        <AdvancedSearch
+                            value={searchValue}
+                            onChange={e => setSearchValue(e)}
+                            onClick={e => e.stopPropagation()}
+                            onOpen={() => setFilterIsOpen(true)}
+                            onToggleOpen={() => setFilterIsOpen(!filterIsOpen)}
                             onClose={() => setFilterIsOpen(false)}
+                            canClear={!!searchValue || canClear}
+                            isOpened={filterIsOpen}
+                            onClear={() => onClear()}
+                            advanced={true}
+                        >
+                            <FilterMenu
+                                isLoading={status}
+                                onClose={() => setFilterIsOpen(false)}
+                            />
+                        </AdvancedSearch>
+                        <Button
+                            theme={'orange'}
+                            onClick={() => setModalIsOpen(true)}
+                            variant={'rounded'}
+                        >
+                            Add new product
+                        </Button>
+                        <Text
+                            className={s.date}
+                            date={`${date.mounth} ${date.number}, ${date.year}`}
                         />
-                    </AdvancedSearch>
-                    <Button
-                        theme={'orange'}
-                        onClick={() => setModalIsOpen(true)}
-                        variant={'rounded'}
-                    >
-                        Add new product
-                    </Button>
-                    <Text
-                        className={s.date}
-                        date={`${date.mounth} ${date.number}, ${date.year}`}
+                    </div>
+                    <ProductsTable
+                        isLoading={status}
+                        items={filteredItems}
+                        className={s.table}
                     />
+                    <div className={s.btn}>
+                        <Button
+                            disabled={selectedItems.length < 1}
+                            onClick={onHandleDelete}
+                        >
+                            Delete
+                        </Button>
+                        <Button
+                            disabled={selectedItems.length !== 1}
+                            onClick={() => setModalIsOpen(true)}
+                        >
+                            Change
+                        </Button>
+                    </div>
+                    {modalIsOpen && (
+                        <CreateProductModal
+                            isOpen={modalIsOpen}
+                            onClose={() => setModalIsOpen(false)}
+                        />
+                    )}
                 </div>
-                <ProductsTable
-                    isLoading={status}
-                    items={filteredItems}
-                    className={s.table}
-                />
-                <div className={s.btn}>
-                    <Button
-                        disabled={selectedItems.length < 1}
-                        onClick={onHandleDelete}
-                    >
-                        Delete
-                    </Button>
-                    <Button
-                        disabled={selectedItems.length !== 1}
-                        onClick={() => setModalIsOpen(true)}
-                    >
-                        Change
-                    </Button>
+                <div className={s.btns}>
+                    <SideButton variant='update' className={s.update} />
+                    <SideButton variant='delete' className={s.delete} />
                 </div>
-                {modalIsOpen && (
-                    <CreateProductModal
-                        isOpen={modalIsOpen}
-                        onClose={() => setModalIsOpen(false)}
-                    />
-                )}
-            </div>
-            <div className={s.btns}>
-                <SideButton variant='update' className={s.update} />
-                <SideButton variant='delete' className={s.delete} />
-            </div>
-        </div>
             </div>
         </DynamicModuleLoader>
     )

@@ -19,7 +19,6 @@ import { getProductsAllList } from '../../../entities/Products/model/selectors/g
 import { sortProducts } from './model/services/sort'
 import { SortType } from './model/types/sort'
 
-
 const HomePage: FC = () => {
     const [listIsOpen, setListIsOpen] = useState<boolean>(false)
     const [changeModalIsOpen, setChangeModalIsOpen] = useState<boolean>(false)
@@ -133,6 +132,7 @@ const HomePage: FC = () => {
                             date={`${date.mounth} ${date.number}, ${date.year}`}
                         />
                     </div>
+
                     <div className={s.items}>
                         <List
                             isLoading={!productInitialize}
@@ -155,56 +155,23 @@ const HomePage: FC = () => {
                     {listIsOpen && (
                         <FilteredList
                             title={title}
-                            data={selectedSort.items}
+                            data={selectedSort}
                             isOpen={listIsOpen}
                             onClose={onHandleClose}
                             variant={
-                                selectedSort.id === 2 ? 'category' : 'price'
+                                selectedSort?.type === SortType.WITHOUT_PRICE
+                                    ? 'price'
+                                    : 'category'
                             }
                             modalIsOpen={changeModalIsOpen}
                             modalOnClose={() => setChangeModalIsOpen(false)}
                         />
                     )}
                 </div>
-
-                <div className={s.items}>
-                    <List
-                        isLoading={!productInitialize}
-                        data={tablesData.products}
-                        className={s.item}
-                        onClick={onHandleOpen}
-                        isOpen={listIsOpen}
-                        titleCount={`${productsQuantity}`}
-                        title={title}
-                    />
-                    <List
-                        isLoading={!productInitialize}
-                        data={tablesData.employee}
-                        className={s.item}
-                        onClick={onHandleOpen}
-                        isOpen={listIsOpen}
-                        title={title}
-                    />
+                <div className={s.btns}>
+                    <SideButton variant='update' className={s.update} />
+                    <SideButton variant='delete' className={s.delete} />
                 </div>
-                {listIsOpen && (
-                    <FilteredList
-                        title={title}
-                        data={selectedSort}
-                        isOpen={listIsOpen}
-                        onClose={onHandleClose}
-                        variant={
-                            selectedSort?.type === SortType.WITHOUT_PRICE
-                               ? 'price'
-                                : 'category'
-                        }
-                        modalIsOpen={changeModalIsOpen}
-                        modalOnClose={() => setChangeModalIsOpen(false)}
-                    />
-                )}
-            </div>
-            <div className={s.btns}>
-                <SideButton variant='update' className={s.update} />
-                <SideButton variant='delete' className={s.delete} />
             </div>
         </div>
     )

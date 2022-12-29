@@ -13,8 +13,6 @@ import { getVendorsFilteredList } from '../../../entities/Vendors/model/selector
 import { vendorsActions } from '../../../entities/Vendors'
 import { SideButton } from '../../../shared/ui/SideButton'
 
-import { getVendorsFilteredList } from 'entities/Vendors/model/selectors/getVendorsFilteredList/getVendorsFilteredList'
-import { vendorsActions } from 'entities/Vendors'
 import { getVendorsError } from 'entities/Vendors/model/selectors/getVendorsError/getVendorsError'
 
 const VendorsPage: FC = () => {
