@@ -15,13 +15,17 @@ import { getCategorySortedBy } from '../../../../entities/Categories'
 interface TableHeading {
     className?: string
     type: 'products' | 'vendors' | 'categories'
+    onSelect?: () => void
+    selected?: boolean
     headings: any
 }
 
 export const TableHeading: FC<TableHeading> = ({
     className,
     type,
+    selected,
     headings,
+    onSelect,
 }) => {
     const sortedByProducts = useAppSelector(getProductsSortedBy)
     const sortedByVendors = useAppSelector(getVendorsSortedBy)
@@ -32,8 +36,8 @@ export const TableHeading: FC<TableHeading> = ({
                 <ul className={cls(s.items, s[type])}>
                     <li>
                         <Checkbox
-                            value={false}
-                            onClick={() => console.log('checked')}
+                            value={selected}
+                            onClick={onSelect}
                             theme={'dark'}
                         />
                     </li>

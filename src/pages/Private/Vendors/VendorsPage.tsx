@@ -8,8 +8,9 @@ import { Text } from 'shared/ui'
 import { VendorsTable } from 'entities/Vendors/ui/VendorsTable/VendorsTable'
 import { useAppDispatch, useAppSelector } from 'app/store'
 import { getVendorsList } from 'entities/Vendors/model/selectors/getVendorsList/getVendorsList'
-import { getVendorsFilteredList } from '../../../entities/Vendors/model/selectors/getVendorsFilteredList/getVendorsFilteredList'
-import { vendorsActions } from '../../../entities/Vendors'
+import { getVendorsFilteredList } from 'entities/Vendors/model/selectors/getVendorsFilteredList/getVendorsFilteredList'
+import { vendorsActions } from 'entities/Vendors'
+import { getVendorsError } from 'entities/Vendors/model/selectors/getVendorsError/getVendorsError'
 
 const VendorsPage: FC = () => {
     const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -17,6 +18,7 @@ const VendorsPage: FC = () => {
     const date = getDate()
     const dispatch = useAppDispatch()
     const vendorsList = useAppSelector(getVendorsList)
+    const error = useAppSelector(getVendorsError)
     const vendorsFilteredList = useAppSelector(getVendorsFilteredList)
     useEffect(() => {
         return () => {

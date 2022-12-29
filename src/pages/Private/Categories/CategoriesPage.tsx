@@ -6,11 +6,13 @@ import { CategoriesTable } from 'entities/Categories/ui/CategoriesTable/Categori
 import { useAppDispatch, useAppSelector } from 'app/store/config/StateSchema'
 import { categoriesActions, getCategoryList } from 'entities/Categories'
 import { getCategoryFilteredList } from 'entities/Categories'
+import { getCategoryError } from '../../../entities/Categories/model/selectors/getCategoryError/getCategoryError'
 
 const CategoriesPage: FC = () => {
     const [searchValue, setSearchValue] = useState<string>('')
     const categories = useAppSelector(getCategoryList)
     const filteredCategories = useAppSelector(getCategoryFilteredList)
+    const error = useAppSelector(getCategoryError)
     const dispatch = useAppDispatch()
     const date = getDate()
     const filteredItems = filteredCategories

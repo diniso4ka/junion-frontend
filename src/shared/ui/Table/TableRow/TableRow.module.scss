@@ -1,15 +1,16 @@
 .TableRow {
     background-color: var(--white-color);
     font-family: var(--font-family-main);
-    cursor: pointer;
-    &:hover {
-        background-color: #fcfcfc;
-    }
+}
+
+.active {
+    background: rgba(249, 170, 85, 0.5);
 }
 .items {
     display: grid;
-    padding: 31px 0 8px 0;
-    margin: 0 18px;
+    padding: 5px 0 3px 0;
+    margin: 20px 18px 0 18px;
+
     border-bottom: 1px solid #dedede;
     &.products {
         grid-template-columns: 4% 13.5% 16% 22.5% 9% 9% 9% 17%;

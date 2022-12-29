@@ -16,6 +16,7 @@ import { useClickOutside } from '../../hooks/useClickOutside'
 interface AdvancedSearchProps extends InputHTMLAttributes<HTMLInputElement> {
     className?: string
     children?: ReactNode
+    advanced?: boolean
     isOpened?: boolean
     onClick?: (e) => void
     onChange?: (e) => void
@@ -30,6 +31,7 @@ interface AdvancedSearchProps extends InputHTMLAttributes<HTMLInputElement> {
 export const AdvancedSearch: FC<AdvancedSearchProps> = ({
     className,
     children,
+    advanced = false,
     isOpened,
     onClick,
     onOpen,
@@ -63,13 +65,15 @@ export const AdvancedSearch: FC<AdvancedSearchProps> = ({
                 className={cls(s.helperIcon, s.helperIconLeft)}
                 src={searchIcon}
             />
-            <img
-                className={cls(s.helperIcon, s.helperIconRight, {
-                    [s.active]: isOpened,
-                })}
-                src={moreIcon}
-                onClick={() => onToggleOpen?.()}
-            />
+            {advanced && (
+                <img
+                    className={cls(s.helperIcon, s.helperIconRight, {
+                        [s.active]: isOpened,
+                    })}
+                    src={moreIcon}
+                    onClick={() => onToggleOpen?.()}
+                />
+            )}
             {canClear && (
                 <img
                     className={cls(s.helperIcon, s.helperSecondIconLeft)}

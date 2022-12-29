@@ -156,9 +156,9 @@ const HomePage: FC = () => {
                         isOpen={listIsOpen}
                         onClose={onHandleClose}
                         variant={
-                            selectedSort?.type === SortType.WITHOUT_CATEGORY
-                                ? 'category'
-                                : 'price'
+                            selectedSort?.type === SortType.WITHOUT_PRICE
+                                ? 'price'
+                                : 'category'
                         }
                         modalIsOpen={changeModalIsOpen}
                         modalOnClose={() => setChangeModalIsOpen(false)}

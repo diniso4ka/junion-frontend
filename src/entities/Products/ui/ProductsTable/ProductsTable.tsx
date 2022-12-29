@@ -2,11 +2,12 @@ import { FC } from 'react'
 import s from './ProductsTable.module.scss'
 import cls from 'classnames'
 import { TableHeading, TableRow } from 'shared/ui'
-import { PageLoader } from 'widgets/PageLoader/PageLoader'
 import { ProductSortType, ProductType } from '../../model/types/ProductsSchema'
 import { productsActions } from '../../model/slice/productsSlice'
-import { useDispatch } from 'react-redux'
 import TableRowLoader from '../../../../shared/ui/LoaderSkeleton/TableRowLoader/TableRowLoader'
+import { useAppDispatch, useAppSelector } from '../../../../app/store'
+import { getUpdateProductSelectedList } from '../../../../features/UpdateProduct/model/selectors/getUpdateProductSelectedList/getUpdateProductSelectedList'
+import { updateProductActions } from '../../../../features/UpdateProduct/model/slice/updateProductSlice'
 
 interface ProductsTableProps {
     className?: string
@@ -19,7 +20,7 @@ export const ProductsTable: FC<ProductsTableProps> = ({
     items,
     isLoading = false,
 }) => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const headings = [
         {
             sort: true,
@@ -60,9 +61,32 @@ export const ProductsTable: FC<ProductsTableProps> = ({
         { sort: false, value: 'Owner' },
     ]
 
+    const selectedItems = useAppSelector(getUpdateProductSelectedList)
+
+    const onHandleSelect = item => {
+        dispatch(updateProductActions.selectProduct(item))
+    }
+    const allSelected = selectedItems.length === items?.length
+    const onHandleMultiSelect = () => {
+        if (allSelected) {
+            dispatch(updateProductActions.clearSelect())
+        } else {
+            items.forEach(item => {
+                if (!selectedItems.find(product => item._id === product._id)) {
+                    dispatch(updateProductActions.selectProduct(item))
+                }
+            })
+        }
+    }
+
     return (
         <div className={cls(s.ProductsTable, className)}>
-            <TableHeading type={'products'} headings={headings} />
+            <TableHeading
+                type={'products'}
+                headings={headings}
+                onSelect={onHandleMultiSelect}
+                selected={allSelected}
+            />
             {isLoading && (
                 <div className={s.items}>
                     <TableRowLoader />
@@ -72,6 +96,12 @@ export const ProductsTable: FC<ProductsTableProps> = ({
                 <div className={s.items}>
                     {items.map(product => (
                         <TableRow
+                            selected={
+                                !!selectedItems.find(
+                                    item => item._id === product._id
+                                )
+                            }
+                            onSelect={onHandleSelect}
                             key={product._id}
                             type={'products'}
                             item={product}

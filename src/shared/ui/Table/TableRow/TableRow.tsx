@@ -10,26 +10,35 @@ import { discountConvertInPercent } from '../../../helpers/math/discountPrice'
 interface TableRow {
     className?: string
     type: 'products' | 'vendors' | 'categories'
+    selected?: boolean
+    onSelect?: (item) => void
     item: any
 }
 
-export const TableRow: FC<TableRow> = ({ className, type, item }) => {
+export const TableRow: FC<TableRow> = ({
+    className,
+    type,
+    item,
+    selected,
+    onSelect,
+}) => {
     const [modalIsOpen, setModalIsOpen] = useState(false)
 
     return (
         <div
-            onClick={() => console.log(item)}
-            className={cls(s.TableRow, className)}
+            className={cls(s.TableRow, className, {
+                [s.active]: selected,
+            })}
         >
             {type === 'products' && (
                 <ul
-                    onClick={() => setModalIsOpen(true)}
+                    // onClick={() => setModalIsOpen(true)}
                     className={cls(s.items, s[type])}
                 >
                     <li>
                         <Checkbox
-                            value={false}
-                            onClick={() => console.log('checked')}
+                            value={selected}
+                            onClick={() => onSelect(item)}
                         />
                     </li>
                     <li className={s.item}>{`${item.vendor}-${item.art}`}</li>
