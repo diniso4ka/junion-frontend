@@ -22,8 +22,6 @@ export const TableRow: FC<TableRow> = ({
     selected,
     onSelect,
 }) => {
-    const [modalIsOpen, setModalIsOpen] = useState(false)
-
     return (
         <div
             className={cls(s.TableRow, className, {
@@ -31,10 +29,7 @@ export const TableRow: FC<TableRow> = ({
             })}
         >
             {type === 'products' && (
-                <ul
-                    // onClick={() => setModalIsOpen(true)}
-                    className={cls(s.items, s[type])}
-                >
+                <ul className={cls(s.items, s[type])}>
                     <li>
                         <Checkbox
                             value={selected}
@@ -92,13 +87,6 @@ export const TableRow: FC<TableRow> = ({
                     <li className={s.item}>{item.regCode}</li>
                     <li className={s.item}>{item.address}</li>
                 </ul>
-            )}
-            {modalIsOpen && (
-                <UpdateProductModal
-                    isOpen={modalIsOpen}
-                    onClose={() => setModalIsOpen(false)}
-                    item={item}
-                />
             )}
         </div>
     )
