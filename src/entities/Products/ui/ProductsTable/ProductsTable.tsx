@@ -66,7 +66,8 @@ export const ProductsTable: FC<ProductsTableProps> = ({
     const onHandleSelect = item => {
         dispatch(updateProductActions.selectProduct(item))
     }
-    const allSelected = selectedItems.length === items?.length
+    const allSelected =
+        selectedItems.length === items?.length && !!items?.length
     const onHandleMultiSelect = () => {
         if (allSelected) {
             dispatch(updateProductActions.clearSelect())

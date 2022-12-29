@@ -50,7 +50,8 @@ export const FilteredList: FC<FilteredListProps> = ({
     const onHandleSelect = item => {
         dispatch(updateProductActions.selectProduct(item))
     }
-    const allSelected = selectedItems.length === data.items.length
+    const allSelected =
+        selectedItems.length === data.items.length && !!data?.items?.length
     const onHandleMultiSelect = () => {
         if (allSelected) {
             dispatch(updateProductActions.clearSelect())
@@ -152,7 +153,6 @@ export const FilteredList: FC<FilteredListProps> = ({
                             data.items.map(item => (
                                 <div
                                     key={item._id}
-                                    // onClick={() => setSelectedItem(() => item._id)}
                                     className={cls(s.row, s[variant])}
                                 >
                                     <Text text={item.art ? item.art : 'none'} />

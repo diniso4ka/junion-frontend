@@ -18,10 +18,12 @@ import { SideButton } from '../../../shared/ui/SideButton'
 import { getProductsAllList } from '../../../entities/Products/model/selectors/getProductsAllList/getProductsAllList'
 import { sortProducts } from './model/services/sort'
 import { SortType } from './model/types/sort'
+import { ConfirmModal } from '../../../features/UpdateProduct/ui/ConfirmModal/ConfirmModal'
 
 const HomePage: FC = () => {
     const [listIsOpen, setListIsOpen] = useState<boolean>(false)
     const [changeModalIsOpen, setChangeModalIsOpen] = useState<boolean>(false)
+    const [confirmModalIsOpen, setConfirmModalIsOpen] = useState<boolean>(false)
     const [title, setTitle] = useState<string>('')
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
@@ -105,6 +107,7 @@ const HomePage: FC = () => {
         selectedItems.forEach(item => {
             dispatch(thunkDeleteProduct(item._id))
         })
+        setConfirmModalIsOpen(false)
     }
 
     useEffect(() => {
@@ -166,11 +169,32 @@ const HomePage: FC = () => {
                         modalOnClose={() => setChangeModalIsOpen(false)}
                     />
                 )}
+                {confirmModalIsOpen && (
+                    <ConfirmModal
+                        onClose={() => setConfirmModalIsOpen(false)}
+                        isOpen={confirmModalIsOpen}
+                        onConfirm={onHandleDelete}
+                    />
+                )}
             </div>
-            <div className={s.btns}>
-                <SideButton variant='update' className={s.update} />
-                <SideButton variant='delete' className={s.delete} />
-            </div>
+            {!(selectedItems.length < 1) && (
+                <div className={s.btns}>
+                    <SideButton
+                        variant='update'
+                        className={s.update}
+                        disable={selectedItems.length !== 1}
+                        onClick={() => setChangeModalIsOpen(true)}
+                        active={changeModalIsOpen}
+                    />
+                    <SideButton
+                        disable={selectedItems.length < 1}
+                        variant='delete'
+                        className={s.delete}
+                        onClick={() => setConfirmModalIsOpen(true)}
+                        active={confirmModalIsOpen}
+                    />
+                </div>
+            )}
         </div>
     )
 }

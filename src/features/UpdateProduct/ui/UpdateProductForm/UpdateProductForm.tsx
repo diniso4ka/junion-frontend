@@ -39,10 +39,6 @@ interface UpdateProductFormProps {
     item: ProductType
 }
 
-const initialState: ReducersList = {
-    updateProduct: updateProductReducer,
-}
-
 export const UpdateProductForm: FC<UpdateProductFormProps> = ({
     className,
     onClose,
@@ -158,169 +154,157 @@ export const UpdateProductForm: FC<UpdateProductFormProps> = ({
     }, [])
 
     return (
-        <DynamicModuleLoader reducers={initialState} removeAfterUnmount={true}>
-            <div className={cls(s.CreateProductForm, className)}>
-                <img
-                    onClick={onClose}
-                    className={s.closeIcon}
-                    src={closeIcon}
-                />
-                <h1 className={s.title}>Change product details</h1>
-                <form className={s.form}>
-                    <ul className={s.items}>
+        <div className={cls(s.CreateProductForm, className)}>
+            <img onClick={onClose} className={s.closeIcon} src={closeIcon} />
+            <h1 className={s.title}>Change product details</h1>
+            <form className={s.form}>
+                <ul className={s.items}>
+                    <li className={s.inputItem}>
+                        <label className={s.label}>Product name</label>
+                        <InputWithHint
+                            disabled={status}
+                            value={name}
+                            onChange={onChangeName}
+                            className={s.input}
+                            hint={productsList.map(item => item.name)}
+                            onFocus={() => setNameFocus(true)}
+                            onCloseHint={() => setNameFocus(false)}
+                            onHandleSelect={e => onHandleNameHint(e)}
+                            isHintOpen={nameFocus}
+                            position={'right'}
+                            variant={'outline'}
+                        />
+                    </li>
+                    {!isHome && (
                         <li className={s.inputItem}>
-                            <label className={s.label}>Product name</label>
+                            <label className={s.label}>Categories</label>
                             <InputWithHint
                                 disabled={status}
-                                value={name}
-                                onChange={onChangeName}
+                                onChange={onChangeCategory}
+                                value={category}
                                 className={s.input}
-                                hint={productsList.map(item => item.name)}
-                                onFocus={() => setNameFocus(true)}
-                                onCloseHint={() => setNameFocus(false)}
-                                onHandleSelect={e => onHandleNameHint(e)}
-                                isHintOpen={nameFocus}
+                                hint={categoriesList.map(item => item._id)}
+                                onFocus={() => setCategoriesFocus(true)}
+                                onCloseHint={() => setCategoriesFocus(false)}
+                                onHandleSelect={e => onHandleCategoryHint(e)}
+                                isHintOpen={categoriesFocus}
+                                variant={'outline'}
                                 position={'right'}
+                            />
+                        </li>
+                    )}
+                    <li className={s.inputItem}>
+                        <label className={s.label}>Price</label>
+                        <div className={s.priceFrom}>
+                            <Input
+                                disabled={status}
+                                value={price}
+                                onChange={onChangePrice}
+                                className={s.inputMedium}
+                                variant={'outline'}
+                            />
+                            {!isHome && (
+                                <div className={s.subInput}>
+                                    <label className={s.subLabel}>
+                                        <Checkbox
+                                            onClick={
+                                                onHandleChangeDiscountCheckbox
+                                            }
+                                            value={withDiscount}
+                                            className={s.checkbox}
+                                        />
+                                        Discount
+                                    </label>
+                                    <Input
+                                        value={discountPrice}
+                                        onChange={onChangeDiscount}
+                                        disabled={!withDiscount || status}
+                                        className={cls(
+                                            s.inputSmall,
+                                            s.discountInput
+                                        )}
+                                        variant={'outline'}
+                                    />
+                                    %
+                                </div>
+                            )}
+                        </div>
+                    </li>
+                    <li className={s.inputItem}>
+                        <label className={s.label}>Quantity</label>
+                        <div className={s.priceFrom}>
+                            <Input
+                                disabled={status}
+                                value={quantity}
+                                onChange={onChangeQuantity}
+                                className={s.inputMedium}
+                                variant={'outline'}
+                            />
+                            <div className={s.subInput}>
+                                <label className={s.subLabel}>Unit</label>
+                                <InputWithHint
+                                    disabled={status}
+                                    hintSize={'adaptive'}
+                                    onFocus={() => setUnitFocus(true)}
+                                    onCloseHint={() => setUnitFocus(false)}
+                                    value={unit}
+                                    onChange={onChangeUnit}
+                                    isHintOpen={unitFocus}
+                                    onHandleSelect={onHandleUnitHint}
+                                    hint={['kg', 'pcs']}
+                                    className={s.inputSmall}
+                                    variant={'outline'}
+                                />
+                            </div>
+                        </div>
+                    </li>
+                    {!isHome && (
+                        <li className={s.inputItem}>
+                            <label className={s.label}>Vendor's name</label>
+                            <InputWithHint
+                                disabled={status}
+                                onChange={onChangeVendor}
+                                value={vendor}
+                                className={s.input}
+                                hint={vendorsList.map(item => item.name)}
+                                onFocus={() => setVendorsFocus(true)}
+                                onCloseHint={() => setVendorsFocus(false)}
+                                onHandleSelect={e => onHandleVendorHint(e)}
+                                isHintOpen={vendorsFocus}
                                 variant={'outline'}
                             />
                         </li>
-                        {!isHome && (
-                            <li className={s.inputItem}>
-                                <label className={s.label}>Categories</label>
-                                <InputWithHint
-                                    disabled={status}
-                                    onChange={onChangeCategory}
-                                    value={category}
-                                    className={s.input}
-                                    hint={categoriesList.map(item => item._id)}
-                                    onFocus={() => setCategoriesFocus(true)}
-                                    onCloseHint={() =>
-                                        setCategoriesFocus(false)
-                                    }
-                                    onHandleSelect={e =>
-                                        onHandleCategoryHint(e)
-                                    }
-                                    isHintOpen={categoriesFocus}
-                                    variant={'outline'}
-                                    position={'right'}
-                                />
-                            </li>
-                        )}
+                    )}
+                    {!isHome && (
                         <li className={s.inputItem}>
-                            <label className={s.label}>Price</label>
-                            <div className={s.priceFrom}>
-                                <Input
-                                    disabled={status}
-                                    value={price}
-                                    onChange={onChangePrice}
-                                    className={s.inputMedium}
-                                    variant={'outline'}
-                                />
-                                {!isHome && (
-                                    <div className={s.subInput}>
-                                        <label className={s.subLabel}>
-                                            <Checkbox
-                                                onClick={
-                                                    onHandleChangeDiscountCheckbox
-                                                }
-                                                value={withDiscount}
-                                                className={s.checkbox}
-                                            />
-                                            Discount
-                                        </label>
-                                        <Input
-                                            value={discountPrice}
-                                            onChange={onChangeDiscount}
-                                            disabled={!withDiscount || status}
-                                            className={cls(
-                                                s.inputSmall,
-                                                s.discountInput
-                                            )}
-                                            variant={'outline'}
-                                        />
-                                        %
-                                    </div>
-                                )}
-                            </div>
+                            <label className={s.label}>
+                                Vendor's <br />
+                                Reg Code
+                            </label>
+                            <Input
+                                disabled={status}
+                                value={
+                                    selectedVendor ? selectedVendor.code : ''
+                                }
+                                variant={'outline'}
+                                className={s.inputMedium}
+                            />
                         </li>
-                        <li className={s.inputItem}>
-                            <label className={s.label}>Quantity</label>
-                            <div className={s.priceFrom}>
-                                <Input
-                                    disabled={status}
-                                    value={quantity}
-                                    onChange={onChangeQuantity}
-                                    className={s.inputMedium}
-                                    variant={'outline'}
-                                />
-                                <div className={s.subInput}>
-                                    <label className={s.subLabel}>Unit</label>
-                                    <InputWithHint
-                                        disabled={status}
-                                        hintSize={'adaptive'}
-                                        onFocus={() => setUnitFocus(true)}
-                                        onCloseHint={() => setUnitFocus(false)}
-                                        value={unit}
-                                        onChange={onChangeUnit}
-                                        isHintOpen={unitFocus}
-                                        onHandleSelect={onHandleUnitHint}
-                                        hint={['kg', 'pcs']}
-                                        className={s.inputSmall}
-                                        variant={'outline'}
-                                    />
-                                </div>
-                            </div>
-                        </li>
-                        {!isHome && (
-                            <li className={s.inputItem}>
-                                <label className={s.label}>Vendor's name</label>
-                                <InputWithHint
-                                    disabled={status}
-                                    onChange={onChangeVendor}
-                                    value={vendor}
-                                    className={s.input}
-                                    hint={vendorsList.map(item => item.name)}
-                                    onFocus={() => setVendorsFocus(true)}
-                                    onCloseHint={() => setVendorsFocus(false)}
-                                    onHandleSelect={e => onHandleVendorHint(e)}
-                                    isHintOpen={vendorsFocus}
-                                    variant={'outline'}
-                                />
-                            </li>
-                        )}
-                        {!isHome && (
-                            <li className={s.inputItem}>
-                                <label className={s.label}>
-                                    Vendor's <br />
-                                    Reg Code
-                                </label>
-                                <Input
-                                    disabled={status}
-                                    value={
-                                        selectedVendor
-                                            ? selectedVendor.code
-                                            : ''
-                                    }
-                                    variant={'outline'}
-                                    className={s.inputMedium}
-                                />
-                            </li>
-                        )}
-                    </ul>
-                </form>
-                <div className={s.buttonWrapper}>
-                    <Button
-                        isLoading={status}
-                        className={s.button}
-                        onClick={onSubmitForm}
-                        size={'small'}
-                    >
-                        Save
-                    </Button>
-                </div>
-                {error && <p>Server Error</p>}
-                {validationError && <p>Validation Error</p>}
+                    )}
+                </ul>
+            </form>
+            <div className={s.buttonWrapper}>
+                <Button
+                    isLoading={status}
+                    className={s.button}
+                    onClick={onSubmitForm}
+                    size={'small'}
+                >
+                    Save
+                </Button>
             </div>
-        </DynamicModuleLoader>
+            {error && <p>Server Error</p>}
+            {validationError && <p>Validation Error</p>}
+        </div>
     )
 }

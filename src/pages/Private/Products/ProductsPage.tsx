@@ -34,6 +34,7 @@ import { updateProductReducer } from 'features/UpdateProduct/model/slice/updateP
 import { getUpdateProductSelectedList } from '../../../features/UpdateProduct/model/selectors/getUpdateProductSelectedList/getUpdateProductSelectedList'
 import { thunkDeleteProduct } from '../../../features/UpdateProduct/model/services/thunkDeleteProduct'
 import { getProductsError } from '../../../entities/Products/model/selectors/getProductsError/getProductsError'
+import { ConfirmModal } from '../../../features/UpdateProduct/ui/ConfirmModal/ConfirmModal'
 
 const initialState: ReducersList = {
     updateProduct: updateProductReducer,
@@ -49,6 +50,7 @@ const ProductsPage: FC = () => {
     const productsList = useAppSelector(getProductsList)
     const status = useAppSelector(getProductsStatus)
     const [modalIsOpen, setModalIsOpen] = useState(false)
+    const [confirmModalIsOpen, setConfirmModalIsOpen] = useState(false)
     const [filterIsOpen, setFilterIsOpen] = useState(false)
     const [searchValue, setSearchValue] = useState<string>('')
     const [canClear, setCanClear] = useState<boolean>(false)
@@ -70,6 +72,7 @@ const ProductsPage: FC = () => {
         selectedItems.forEach(item => {
             dispatch(thunkDeleteProduct(item._id))
         })
+        setConfirmModalIsOpen(false)
     }
 
     const autoSetFilters = async objParams => {
@@ -152,30 +155,36 @@ const ProductsPage: FC = () => {
                     items={filteredItems}
                     className={s.table}
                 />
-                <div className={s.btn}>
-                    <Button
-                        disabled={selectedItems.length < 1}
-                        onClick={onHandleDelete}
-                    >
-                        Delete
-                    </Button>
-                    <Button
-                        disabled={selectedItems.length !== 1}
-                        onClick={() => setModalIsOpen(true)}
-                    >
-                        Change
-                    </Button>
-                </div>
                 {modalIsOpen && (
                     <CreateProductModal
                         isOpen={modalIsOpen}
                         onClose={() => setModalIsOpen(false)}
                     />
                 )}
-                <div className={s.btns}>
-                    <SideButton variant='update' className={s.update} />
-                    <SideButton variant='delete' className={s.delete} />
-                </div>
+                {confirmModalIsOpen && (
+                    <ConfirmModal
+                        onConfirm={onHandleDelete}
+                        isOpen={confirmModalIsOpen}
+                        onClose={() => setConfirmModalIsOpen(false)}
+                    />
+                )}
+                {!(selectedItems.length < 1) && (
+                    <div className={s.btns}>
+                        <SideButton
+                            active={modalIsOpen}
+                            onClick={() => setModalIsOpen(true)}
+                            disable={selectedItems.length !== 1}
+                            variant='update'
+                            className={s.update}
+                        />
+                        <SideButton
+                            onClick={() => setConfirmModalIsOpen(true)}
+                            disable={selectedItems.length < 1}
+                            variant='delete'
+                            className={s.delete}
+                        />
+                    </div>
+                )}
             </div>
         </DynamicModuleLoader>
     )
