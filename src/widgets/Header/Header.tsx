@@ -2,7 +2,7 @@ import cls from 'classnames'
 import s from './Header.module.scss'
 
 import { Link } from 'shared/ui'
-import logo from 'shared/assets/images/logo/logoMini.png'
+import logo from 'shared/assets/images/logo/logo-header.svg'
 import avatar from 'shared/assets/images/user/User.svg'
 import arrow from 'shared/assets/images/icons/Arrow.svg'
 import { useLocation, useNavigate } from 'react-router'
@@ -47,7 +47,9 @@ const Header: React.FC<HeaderProps> = ({ onClick }) => {
             <header className={s.wrapper}>
                 <div className={s.contentWrapper}>
                     <LinkButton to={routeConfig.HOME}>
-                        <img src={logo} />
+                        <div className={s.image}>
+                            <img src={logo} alt='Logo' />
+                        </div>
                     </LinkButton>
                     <nav ref={ref} className={s.links}>
                         <div onClick={onClick} className={s.user}>
@@ -78,13 +80,11 @@ const Header: React.FC<HeaderProps> = ({ onClick }) => {
     return (
         <header className={s.wrapper}>
             <div className={s.contentWrapper}>
-                {location.pathname === routeConfig.HOME ? (
-                    <div></div>
-                ) : (
-                    <LinkButton to={routeConfig.HOME}>
-                        <img src={logo} />
-                    </LinkButton>
-                )}
+                <LinkButton to={routeConfig.HOME}>
+                    <div className={s.image}>
+                        <img src={logo} alt='Logo' />
+                    </div>
+                </LinkButton>
                 <nav className={s.links}>
                     {initialize &&
                         links.map(link => (

@@ -1,11 +1,36 @@
 .wrapper {
-    margin-top: var(--margin-top-form-l);
+    padding-top: var(--margin-top-form-l);
     width: 100vw;
     display: flex;
     justify-content: center;
+    background-color: var(--bg-third-color);
+    position: relative;
+    overflow: hidden;
 }
 
-.contentWrapper {
-    color: var(--primary-color);
-    width: 308px;
+.image {
+    display: inline-block;
+    width: 340px;
+    height: 140px;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.left,
+.right {
+    position: absolute;
+    bottom: 0;
+    pointer-events: none;
+}
+
+.left {
+    left: 0;
+}
+
+.right {
+    right: 0;
 }

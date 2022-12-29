@@ -114,6 +114,7 @@ const LoginPage: FC = () => {
                             onClick={onSubmitForm}
                             isLoading={isLoading}
                             className={s.button}
+                            theme='purple'
                         >
                             Log In
                         </Button>
