@@ -6,6 +6,7 @@ import { CategoriesTable } from 'entities/Categories/ui/CategoriesTable/Categori
 import { useAppDispatch, useAppSelector } from 'app/store/config/StateSchema'
 import { categoriesActions, getCategoryList } from 'entities/Categories'
 import { getCategoryFilteredList } from 'entities/Categories'
+import { SideButton } from '../../../shared/ui/SideButton'
 
 const CategoriesPage: FC = () => {
     const [searchValue, setSearchValue] = useState<string>('')

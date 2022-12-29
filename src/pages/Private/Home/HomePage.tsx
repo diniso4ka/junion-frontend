@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router'
 import { getSortedProductsInitialize } from '../../../entities/Products/model/selectors/getSortedProductsInitialize/getSortedProductsInitialize'
 import { getUpdateProductSelectedList } from '../../../features/UpdateProduct/model/selectors/getUpdateProductSelectedList/getUpdateProductSelectedList'
 import { thunkDeleteProduct } from '../../../features/UpdateProduct/model/services/thunkDeleteProduct'
+import { SideButton } from '../../../shared/ui/SideButton'
 
 const HomePage: FC = () => {
     const [listIsOpen, setListIsOpen] = useState<boolean>(false)
@@ -112,58 +113,54 @@ const HomePage: FC = () => {
     const date = getDate()
 
     return (
-        <div className={s.wrapper}>
-            <div className={cls(s.HomePage)}>
-                <div className={s.information}>
-                    <Text className={s.title} title='Information board' />
-                    <Text
-                        className={s.title}
-                        date={`${date.mounth} ${date.number}, ${date.year}`}
-                    />
+        <div className={s.overlay}>
+            <div className={s.wrapper}>
+                <div className={cls(s.HomePage)}>
+                    <div className={s.information}>
+                        <Text className={s.title} title='Information board' />
+                        <Text
+                            className={s.title}
+                            date={`${date.mounth} ${date.number}, ${date.year}`}
+                        />
+                    </div>
+                    <div className={s.items}>
+                        <List
+                            isLoading={!productInitialize}
+                            data={tablesData.products}
+                            className={s.item}
+                            onClick={onHandleOpen}
+                            isOpen={listIsOpen}
+                            titleCount={`${productsQuantity}`}
+                            title={title}
+                        />
+                        <List
+                            isLoading={!productInitialize}
+                            data={tablesData.employee}
+                            className={s.item}
+                            onClick={onHandleOpen}
+                            isOpen={listIsOpen}
+                            title={title}
+                        />
+                    </div>
+                    {listIsOpen && (
+                        <FilteredList
+                            title={title}
+                            data={selectedSort.items}
+                            isOpen={listIsOpen}
+                            onClose={onHandleClose}
+                            variant={
+                                selectedSort.id === 2 ? 'category' : 'price'
+                            }
+                            modalIsOpen={changeModalIsOpen}
+                            modalOnClose={() => setChangeModalIsOpen(false)}
+                        />
+                    )}
                 </div>
-                <div className={s.items}>
-                    <List
-                        isLoading={!productInitialize}
-                        data={tablesData.products}
-                        className={s.item}
-                        onClick={onHandleOpen}
-                        isOpen={listIsOpen}
-                        titleCount={`${productsQuantity}`}
-                        title={title}
-                    />
-                    <List
-                        isLoading={!productInitialize}
-                        data={tablesData.employee}
-                        className={s.item}
-                        onClick={onHandleOpen}
-                        isOpen={listIsOpen}
-                        title={title}
-                    />
-                </div>
-                {listIsOpen && (
-                    <FilteredList
-                        title={title}
-                        data={selectedSort.items}
-                        isOpen={listIsOpen}
-                        onClose={onHandleClose}
-                        variant={selectedSort.id === 2 ? 'category' : 'price'}
-                        modalIsOpen={changeModalIsOpen}
-                        modalOnClose={() => setChangeModalIsOpen(false)}
-                    />
-                )}
             </div>
-            <Button
-                disabled={selectedItems.length < 1}
-                onClick={onHandleDelete}
-            >
-                Delete
-            </Button>
-            <Button
-                disabled={selectedItems.length !== 1}
-                onClick={() => setChangeModalIsOpen(true)}
-            >
-                Change
-            </Button>
+            <div className={s.btns}>
+                <SideButton variant='update' className={s.update} />
+                <SideButton variant='delete' className={s.delete} />
+            </div>
         </div>
     )
 }
