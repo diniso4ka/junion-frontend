@@ -1,8 +1,3 @@
-.overlay {
-    width: calc(100vw - var(--sidebar-width));
-    position: relative;
-}
-
 .VendorsPage {
     margin: 0 auto;
     padding: 25px 35px;
@@ -34,8 +29,8 @@
 }
 
 .btns {
-    position: absolute;
-    top: 120px;
+    position: fixed;
+    top: 200px;
     right: 0;
     display: flex;
     flex-direction: column;
