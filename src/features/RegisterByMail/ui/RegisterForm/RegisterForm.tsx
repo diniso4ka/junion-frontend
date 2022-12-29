@@ -287,6 +287,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({ className }) => {
                             isLoading={isLoading}
                             onClick={onSubmitForm}
                             className={s.button}
+                            theme='purple'
                         >
                             Sign Up
                         </Button>

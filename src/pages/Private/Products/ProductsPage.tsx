@@ -24,6 +24,7 @@ import { getProductFiltersData } from 'features/ProductFilters/model/selectors/g
 import { productFiltersActions } from 'features/ProductFilters'
 import { createQueryParams } from 'shared/helpers/filters/createQueryParams'
 import { CreateProductModal } from 'features/CreateProduct/ui/CreateProductModal/CreateProductModal'
+import { SideButton } from '../../../shared/ui/SideButton'
 import { ProductType } from '../../../entities/Products/model/types/ProductsSchema'
 import {
     DynamicModuleLoader,
@@ -37,6 +38,7 @@ import { getProductsError } from '../../../entities/Products/model/selectors/get
 const initialState: ReducersList = {
     updateProduct: updateProductReducer,
 }
+
 
 const ProductsPage: FC = () => {
     const [items, setItems] = useState<ProductType[]>([])
@@ -113,7 +115,11 @@ const ProductsPage: FC = () => {
     }, [filteredProductsList])
 
     return (
+
+
+
         <DynamicModuleLoader reducers={initialState} removeAfterUnmount={true}>
+<div className={s.overlay}>
             <div className={cls(s.ProductsPage)}>
                 <div className={s.header}>
                     <Text className={s.title} title='Products' />
@@ -171,6 +177,12 @@ const ProductsPage: FC = () => {
                         onClose={() => setModalIsOpen(false)}
                     />
                 )}
+            </div>
+            <div className={s.btns}>
+                <SideButton variant='update' className={s.update} />
+                <SideButton variant='delete' className={s.delete} />
+            </div>
+        </div>
             </div>
         </DynamicModuleLoader>
     )

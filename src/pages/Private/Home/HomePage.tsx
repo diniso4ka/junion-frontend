@@ -14,9 +14,11 @@ import { useNavigate } from 'react-router'
 import { getProductsInitialize } from '../../../entities/Products/model/selectors/getProductsInitialize/getProductsInitialize'
 import { getUpdateProductSelectedList } from '../../../features/UpdateProduct/model/selectors/getUpdateProductSelectedList/getUpdateProductSelectedList'
 import { thunkDeleteProduct } from '../../../features/UpdateProduct/model/services/thunkDeleteProduct'
+import { SideButton } from '../../../shared/ui/SideButton'
 import { getProductsAllList } from '../../../entities/Products/model/selectors/getProductsAllList/getProductsAllList'
 import { sortProducts } from './model/services/sort'
 import { SortType } from './model/types/sort'
+
 
 const HomePage: FC = () => {
     const [listIsOpen, setListIsOpen] = useState<boolean>(false)
@@ -121,15 +123,50 @@ const HomePage: FC = () => {
     const date = getDate()
 
     return (
-        <div className={s.wrapper}>
-            <div className={cls(s.HomePage)}>
-                <div className={s.information}>
-                    <Text className={s.title} title='Information board' />
-                    <Text
-                        className={s.title}
-                        date={`${date.mounth} ${date.number}, ${date.year}`}
-                    />
+        <div className={s.overlay}>
+            <div className={s.wrapper}>
+                <div className={cls(s.HomePage)}>
+                    <div className={s.information}>
+                        <Text className={s.title} title='Information board' />
+                        <Text
+                            className={s.title}
+                            date={`${date.mounth} ${date.number}, ${date.year}`}
+                        />
+                    </div>
+                    <div className={s.items}>
+                        <List
+                            isLoading={!productInitialize}
+                            data={tablesData.products}
+                            className={s.item}
+                            onClick={onHandleOpen}
+                            isOpen={listIsOpen}
+                            titleCount={`${productsQuantity}`}
+                            title={title}
+                        />
+                        <List
+                            isLoading={!productInitialize}
+                            data={tablesData.employee}
+                            className={s.item}
+                            onClick={onHandleOpen}
+                            isOpen={listIsOpen}
+                            title={title}
+                        />
+                    </div>
+                    {listIsOpen && (
+                        <FilteredList
+                            title={title}
+                            data={selectedSort.items}
+                            isOpen={listIsOpen}
+                            onClose={onHandleClose}
+                            variant={
+                                selectedSort.id === 2 ? 'category' : 'price'
+                            }
+                            modalIsOpen={changeModalIsOpen}
+                            modalOnClose={() => setChangeModalIsOpen(false)}
+                        />
+                    )}
                 </div>
+
                 <div className={s.items}>
                     <List
                         isLoading={!productInitialize}
@@ -157,7 +194,7 @@ const HomePage: FC = () => {
                         onClose={onHandleClose}
                         variant={
                             selectedSort?.type === SortType.WITHOUT_PRICE
-                                ? 'price'
+                               ? 'price'
                                 : 'category'
                         }
                         modalIsOpen={changeModalIsOpen}
@@ -165,18 +202,10 @@ const HomePage: FC = () => {
                     />
                 )}
             </div>
-            <Button
-                disabled={selectedItems.length < 1}
-                onClick={onHandleDelete}
-            >
-                Delete
-            </Button>
-            <Button
-                disabled={selectedItems.length !== 1}
-                onClick={() => setChangeModalIsOpen(true)}
-            >
-                Change
-            </Button>
+            <div className={s.btns}>
+                <SideButton variant='update' className={s.update} />
+                <SideButton variant='delete' className={s.delete} />
+            </div>
         </div>
     )
 }
