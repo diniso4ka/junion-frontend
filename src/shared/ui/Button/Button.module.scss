@@ -48,12 +48,6 @@
     border: 1px solid var(--bg-secondary-color);
 }
 
-.text {
-    background-color: transparent;
-    border: none;
-    color: var(--black-color);
-}
-
 .secondary {
     background-color: var(--button-secondary-color);
 }
@@ -68,9 +62,16 @@
     border-radius: 20px;
 }
 
+.text {
+    background-color: transparent;
+    border: none;
+    color: var(--black-color);
+}
+
 .hint {
     background: none;
     color: var(--primary-color);
+    border: none;
     height: auto;
     width: auto;
     font-style: normal;
