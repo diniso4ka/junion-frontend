@@ -45,6 +45,7 @@ export const InputWithHint = memo(
             onHandleSelect(e.target.innerHTML)
             onCloseHint?.()
         }
+        console.log(filteredItems)
         useEffect(() => {
             if (rest.value) {
                 // @ts-ignore
@@ -64,14 +65,16 @@ export const InputWithHint = memo(
                 />
                 <div
                     className={
-                        position === 'right' && isHintOpen
+                        position === 'right' &&
+                        isHintOpen &&
+                        filteredItems.length
                             ? s.rightWrapper
                             : undefined
                     }
                 >
                     <ul
                         className={cls(s.hint, s[hintSize], {
-                            [s.opened]: isHintOpen,
+                            [s.opened]: isHintOpen && filteredItems.length,
                         })}
                     >
                         {filteredItems.map((item, index) => (

@@ -116,6 +116,8 @@ const ProductsPage: FC = () => {
 
     useEffect(() => {
         setItems(filteredProductsList)
+        console.log(filteredItems)
+        console.log(filteredProductsList)
     }, [filteredProductsList])
 
     return (

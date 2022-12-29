@@ -44,7 +44,6 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
     const [categoriesFocus, setCategoriesFocus] = useState(false)
     const [vendorsFocus, setVendorsFocus] = useState(false)
     const [unitFocus, setUnitFocus] = useState(false)
-    const [withDiscount, setWithDiscount] = useState(false)
     const name = useAppSelector(getCreateProductName)
     const category = useAppSelector(getCreateProductCategories)
     const vendor = useAppSelector(getCreateProductVendorName)
@@ -69,7 +68,7 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
         const response = await dispatch(
             thunkCreateProduct({
                 name,
-                category,
+                category: category || 'unSorted',
                 vendor: selectedVendor.code,
                 unit,
                 price: Number(price),
@@ -81,10 +80,6 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
             dispatch(thunkFetchProductList())
             onClose()
         }
-    }
-
-    const onHandleChangeDiscountCheckbox = () => {
-        setWithDiscount(!withDiscount)
     }
 
     const onHandleNameHint = hint => {

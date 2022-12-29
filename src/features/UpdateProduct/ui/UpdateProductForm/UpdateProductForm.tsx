@@ -66,7 +66,7 @@ export const UpdateProductForm: FC<UpdateProductFormProps> = ({
     const error = useAppSelector(getUpdateProductError)
 
     const [validationError, setValidationError] = useState(false)
-    const [withDiscount, setWithDiscount] = useState(!!item.discountPrice)
+    const [withDiscount, setWithDiscount] = useState(!!item?.discountPrice)
     const dispatch = useAppDispatch()
 
     const selectedVendor = vendorsList.find(item => item.name === vendor)

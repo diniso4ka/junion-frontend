@@ -50,25 +50,16 @@ export const productsSlice = createSlice({
                 }
             })
         },
+        deleteProduct: (state, action) => {
+            state.items = state.items.filter(
+                product => product._id !== action.payload
+            )
+            state.filteredItems = state.items
+        },
         setFilteredProductsList: (state, action) => {
             state.filteredItems = action.payload.data.result
         },
-        // setSortedProductsList: state => {
-        // state.sortedItems.withoutQuantity = state.items.filter(
-        //     item => !item.quantity
-        // )
-        // state.sortedItems.withoutPrice = state.items.filter(
-        //     item => !item.price
-        // )
-        // state.sortedItems.withoutCategory = state.items.filter(
-        //     item => item.category[0] === 'unSorted'
-        // )
-        // state.sortedItems.addedToday = state.items.filter(
-        //     item =>
-        //         formattedDate() ===
-        //         item.createdAt.split('').splice(0, 10).join('')
-        // )
-        // },
+
         clearFilteredProductsList: state => {
             state.filteredItems = [...state.items]
         },
