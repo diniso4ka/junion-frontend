@@ -122,56 +122,54 @@ const HomePage: FC = () => {
     const date = getDate()
 
     return (
-        <div className={s.overlay}>
-            <div className={s.wrapper}>
-                <div className={cls(s.HomePage)}>
-                    <div className={s.information}>
-                        <Text className={s.title} title='Information board' />
-                        <Text
-                            className={s.title}
-                            date={`${date.mounth} ${date.number}, ${date.year}`}
-                        />
-                    </div>
+        <div className={s.wrapper}>
+            <div className={cls(s.HomePage)}>
+                <div className={s.information}>
+                    <Text className={s.title} title='Information board' />
+                    <Text
+                        className={s.title}
+                        date={`${date.mounth} ${date.number}, ${date.year}`}
+                    />
+                </div>
 
-                    <div className={s.items}>
-                        <List
-                            isLoading={!productInitialize}
-                            data={tablesData.products}
-                            className={s.item}
-                            onClick={onHandleOpen}
-                            isOpen={listIsOpen}
-                            titleCount={`${productsQuantity}`}
-                            title={title}
-                        />
-                        <List
-                            isLoading={!productInitialize}
-                            data={tablesData.employee}
-                            className={s.item}
-                            onClick={onHandleOpen}
-                            isOpen={listIsOpen}
-                            title={title}
-                        />
-                    </div>
-                    {listIsOpen && (
-                        <FilteredList
-                            title={title}
-                            data={selectedSort}
-                            isOpen={listIsOpen}
-                            onClose={onHandleClose}
-                            variant={
-                                selectedSort?.type === SortType.WITHOUT_PRICE
-                                    ? 'price'
-                                    : 'category'
-                            }
-                            modalIsOpen={changeModalIsOpen}
-                            modalOnClose={() => setChangeModalIsOpen(false)}
-                        />
-                    )}
+                <div className={s.items}>
+                    <List
+                        isLoading={!productInitialize}
+                        data={tablesData.products}
+                        className={s.item}
+                        onClick={onHandleOpen}
+                        isOpen={listIsOpen}
+                        titleCount={`${productsQuantity}`}
+                        title={title}
+                    />
+                    <List
+                        isLoading={!productInitialize}
+                        data={tablesData.employee}
+                        className={s.item}
+                        onClick={onHandleOpen}
+                        isOpen={listIsOpen}
+                        title={title}
+                    />
                 </div>
-                <div className={s.btns}>
-                    <SideButton variant='update' className={s.update} />
-                    <SideButton variant='delete' className={s.delete} />
-                </div>
+                {listIsOpen && (
+                    <FilteredList
+                        title={title}
+                        data={selectedSort}
+                        isOpen={listIsOpen}
+                        onClose={onHandleClose}
+                        variant={
+                            selectedSort?.type === SortType.WITHOUT_PRICE
+                                ? 'price'
+                                : 'category'
+                        }
+                        modalIsOpen={changeModalIsOpen}
+                        modalOnClose={() => setChangeModalIsOpen(false)}
+                    />
+                )}
+            </div>
+            <div className={s.btns}>
+                <SideButton variant='update' className={s.update} />
+                <SideButton variant='delete' className={s.delete} />
             </div>
         </div>
     )

@@ -1,11 +1,7 @@
-.overlay {
-    width: calc(100vw - var(--sidebar-width));
-    position: relative;
-}
-
 .wrapper {
     max-width: 1200px;
     margin: 0 auto;
+    width: calc(100vw - var(--sidebar-width));
     background-color: var(--bg-color);
 }
 
@@ -47,8 +43,8 @@
 }
 
 .btns {
-    position: absolute;
-    top: 120px;
+    position: fixed;
+    top: 200px;
     right: 0;
     display: flex;
     flex-direction: column;
