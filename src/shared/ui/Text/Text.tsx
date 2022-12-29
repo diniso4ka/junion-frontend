@@ -10,6 +10,7 @@ interface TextProps {
     text?: string
     date?: string
     weight?: 'light' | 'medium' | 'bold'
+    theme?: 'error'
 }
 
 export const Text: FC<TextProps> = ({

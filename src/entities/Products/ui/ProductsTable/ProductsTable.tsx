@@ -5,6 +5,7 @@ import { TableHeading, TableRow } from 'shared/ui'
 import { ProductSortType, ProductType } from '../../model/types/ProductsSchema'
 import { productsActions } from '../../model/slice/productsSlice'
 import TableRowLoader from '../../../../shared/ui/LoaderSkeleton/TableRowLoader/TableRowLoader'
+import { Text } from 'shared/ui/Text/Text'
 import { useAppDispatch, useAppSelector } from '../../../../app/store'
 import { getUpdateProductSelectedList } from '../../../../features/UpdateProduct/model/selectors/getUpdateProductSelectedList/getUpdateProductSelectedList'
 import { updateProductActions } from '../../../../features/UpdateProduct/model/slice/updateProductSlice'
@@ -13,12 +14,14 @@ interface ProductsTableProps {
     className?: string
     items: ProductType[]
     isLoading?: boolean
+    error?: boolean
 }
 
 export const ProductsTable: FC<ProductsTableProps> = ({
     className,
     items,
     isLoading = false,
+    error = false,
 }) => {
     const dispatch = useAppDispatch()
     const headings = [
@@ -91,6 +94,11 @@ export const ProductsTable: FC<ProductsTableProps> = ({
             {isLoading && (
                 <div className={s.items}>
                     <TableRowLoader />
+                </div>
+            )}
+            {error && (
+                <div>
+                    <Text theme={'error'} subtitle={'An error has occurred'} />
                 </div>
             )}
             {!isLoading && (

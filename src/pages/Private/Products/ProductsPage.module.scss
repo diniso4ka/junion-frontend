@@ -4,12 +4,14 @@
     max-width: 1200px;
     width: calc(100vw - var(--sidebar-width));
     font-family: var(--font-family-main);
+    overflow-y: scroll;
 }
 
 .header {
     margin-bottom: 22px;
     display: flex;
     align-items: center;
+    min-width: 1060px;
 }
 
 .title {

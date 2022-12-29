@@ -2,7 +2,9 @@
     max-width: 1200px;
     margin: 0 auto;
     width: calc(100vw - var(--sidebar-width));
+    height: calc(100vh - var(--header-height-desktop));
     background-color: var(--bg-color);
+    overflow-y: scroll;
 }
 
 .HomePage {

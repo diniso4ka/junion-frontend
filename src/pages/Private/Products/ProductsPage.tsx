@@ -156,6 +156,7 @@ const ProductsPage: FC = () => {
                     isLoading={status}
                     items={filteredItems}
                     className={s.table}
+                    error={!!error}
                 />
                 {modalIsOpen && (
                     <CreateProductModal
