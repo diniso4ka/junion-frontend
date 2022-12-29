@@ -15,12 +15,16 @@ import {
     DynamicModuleLoader,
     ReducersList,
 } from '../../../../shared/config/components/DynamicModuleLoader'
+import { SortType } from '../../../../pages/Private/Home/model/types/sort'
 
 interface FilteredListProps {
     className?: string
     title: string
     variant?: 'quantity' | 'price' | 'category'
-    data: ProductType[]
+    data: {
+        type: SortType
+        items: ProductType[]
+    }
     isOpen: boolean
     onClose: () => void
     modalIsOpen: boolean
@@ -46,19 +50,18 @@ export const FilteredList: FC<FilteredListProps> = ({
     const onHandleSelect = item => {
         dispatch(updateProductActions.selectProduct(item))
     }
-    const allSelected = selectedItems.length === data.length
+    const allSelected = selectedItems.length === data.items.length
     const onHandleMultiSelect = () => {
         if (allSelected) {
             dispatch(updateProductActions.clearSelect())
         } else {
-            data.forEach(item => {
+            data.items.forEach(item => {
                 if (!selectedItems.find(product => item._id === product._id)) {
                     dispatch(updateProductActions.selectProduct(item))
                 }
             })
         }
     }
-
     useEffect(() => {
         dispatch(updateProductActions.clearSelect())
     }, [data])
@@ -79,7 +82,9 @@ export const FilteredList: FC<FilteredListProps> = ({
                     {variant === 'price' && (
                         <div className={cls(s.heading, s[variant])}>
                             <Checkbox
-                                value={allSelected}
+                                value={
+                                    allSelected && selectedItems.length !== 0
+                                }
                                 onClick={() => onHandleMultiSelect()}
                             />
                             <Text className={s.subtitle} mediumText={'Code'} />
@@ -116,9 +121,11 @@ export const FilteredList: FC<FilteredListProps> = ({
                     )}
 
                     <div className={s.items}>
-                        {!data.length && <Text subtitle={'List is clear'} />}
+                        {!data.items.length && (
+                            <Text subtitle={'List is clear'} />
+                        )}
                         {variant === 'price' &&
-                            data.map(item => (
+                            data.items.map(item => (
                                 <div
                                     key={item._id}
                                     className={cls(s.row, s[variant])}
@@ -142,7 +149,7 @@ export const FilteredList: FC<FilteredListProps> = ({
                                 </div>
                             ))}
                         {variant === 'category' &&
-                            data.map(item => (
+                            data.items.map(item => (
                                 <div
                                     key={item._id}
                                     // onClick={() => setSelectedItem(() => item._id)}
@@ -162,7 +169,7 @@ export const FilteredList: FC<FilteredListProps> = ({
                     <UpdateProductModal
                         isOpen={!!modalIsOpen}
                         onClose={modalOnClose}
-                        item={data.find(
+                        item={data.items.find(
                             item => item._id === selectedItems[0]._id
                         )}
                     />

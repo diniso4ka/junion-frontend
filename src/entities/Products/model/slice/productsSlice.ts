@@ -6,19 +6,12 @@ import {
 } from '../types/ProductsSchema'
 import { thunkFetchProductList } from '../services/thunkGetProductsList'
 import { thunkGetFilteredProductsList } from '../services/thunkGetFilteredProductsList'
-import { formattedDate } from 'shared/helpers/date/formattedDate'
 import { sortByAlphabet } from '../../../../shared/helpers/sort/byAlphabet'
 
 const initialState: ProductsSchema = {
+    allItems: [],
     items: [],
     filteredItems: [],
-    sortedItems: {
-        withoutPrice: [],
-        withoutCategory: [],
-        withoutQuantity: [],
-        deletedToday: [],
-        addedToday: [],
-    },
     isLoading: false,
     productInitialize: false,
     quantity: 0,
@@ -32,37 +25,50 @@ export const productsSlice = createSlice({
     initialState,
     reducers: {
         setProducts: (state, action) => {
-            state.items = action.payload.data.result
+            state.allItems = action.payload.data.result
+            state.items = action.payload.data.result.filter(
+                product => product.status !== 'deleted'
+            )
+            state.quantity = state.items.length
             if (state.productInitialize === false) {
                 state.productInitialize = true
             }
         },
-        setFilteredProductsList: (state, action) => {
-            state.filteredItems = action.payload.data.result.filter(
-                product => product.status !== 'deleted'
-            )
-            state.quantity = state.filteredItems.length
-            state.sortedItems.deletedToday = action.payload.data.result.filter(
-                item =>
-                    item.status === 'deleted' &&
-                    formattedDate() ===
-                        item.updatedAt.split('').splice(0, 10).join('')
-            )
-            state.sortedItems.withoutQuantity = state.filteredItems.filter(
-                item => !item.quantity
-            )
-            state.sortedItems.withoutPrice = state.filteredItems.filter(
-                item => !item.price
-            )
-            state.sortedItems.withoutCategory = state.filteredItems.filter(
-                item => item.category[0] === 'unSorted'
-            )
-            state.sortedItems.addedToday = state.filteredItems.filter(
-                item =>
-                    formattedDate() ===
-                    item.createdAt.split('').splice(0, 10).join('')
-            )
+        updateProduct: (state, action) => {
+            state.items = state.items.map(product => {
+                if (product._id === action.payload.data.newData._id) {
+                    return action.payload.data.newData
+                } else {
+                    return product
+                }
+            })
+            state.filteredItems = state.items.map(product => {
+                if (product._id === action.payload.data.newData._id) {
+                    return action.payload.data.newData
+                } else {
+                    return product
+                }
+            })
         },
+        setFilteredProductsList: (state, action) => {
+            state.filteredItems = action.payload.data.result
+        },
+        // setSortedProductsList: state => {
+        // state.sortedItems.withoutQuantity = state.items.filter(
+        //     item => !item.quantity
+        // )
+        // state.sortedItems.withoutPrice = state.items.filter(
+        //     item => !item.price
+        // )
+        // state.sortedItems.withoutCategory = state.items.filter(
+        //     item => item.category[0] === 'unSorted'
+        // )
+        // state.sortedItems.addedToday = state.items.filter(
+        //     item =>
+        //         formattedDate() ===
+        //         item.createdAt.split('').splice(0, 10).join('')
+        // )
+        // },
         clearFilteredProductsList: state => {
             state.filteredItems = [...state.items]
         },

@@ -12,7 +12,7 @@ import { AdvancedSearch, Button } from 'shared/ui'
 import { ProductsTable } from 'entities/Products'
 import { FilterMenu } from 'features/ProductFilters'
 import {
-    getFilteredProductsList,
+    getProductsFilteredList,
     getProductsList,
     getProductsStatus,
     productsActions,
@@ -25,11 +25,29 @@ import { productFiltersActions } from 'features/ProductFilters'
 import { createQueryParams } from 'shared/helpers/filters/createQueryParams'
 import { CreateProductModal } from 'features/CreateProduct/ui/CreateProductModal/CreateProductModal'
 import { SideButton } from '../../../shared/ui/SideButton'
+import { ProductType } from '../../../entities/Products/model/types/ProductsSchema'
+import {
+    DynamicModuleLoader,
+    ReducersList,
+} from '../../../shared/config/components/DynamicModuleLoader'
+import { updateProductReducer } from 'features/UpdateProduct/model/slice/updateProductSlice'
+import { getUpdateProductSelectedList } from '../../../features/UpdateProduct/model/selectors/getUpdateProductSelectedList/getUpdateProductSelectedList'
+import { thunkDeleteProduct } from '../../../features/UpdateProduct/model/services/thunkDeleteProduct'
+import { getProductsError } from '../../../entities/Products/model/selectors/getProductsError/getProductsError'
+
+const initialState: ReducersList = {
+    updateProduct: updateProductReducer,
+}
+
 
 const ProductsPage: FC = () => {
+    const [items, setItems] = useState<ProductType[]>([])
     const dispatch = useAppDispatch()
     const filters = useAppSelector(getProductFiltersData)
-    const filteredProductsList = useAppSelector(getFilteredProductsList)
+    const selectedItems = useAppSelector(getUpdateProductSelectedList)
+    const filteredProductsList = useAppSelector(getProductsFilteredList)
+    const error = useAppSelector(getProductsError)
+    const productsList = useAppSelector(getProductsList)
     const status = useAppSelector(getProductsStatus)
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [filterIsOpen, setFilterIsOpen] = useState(false)
@@ -37,7 +55,7 @@ const ProductsPage: FC = () => {
     const [canClear, setCanClear] = useState<boolean>(false)
     const date = getDate()
     const [searchParams, setSearchParams] = useSearchParams()
-    const filteredItems = searchByIncludes(filteredProductsList, searchValue)
+    const filteredItems = searchByIncludes(items, searchValue)
         .reverse('')
         .filter(item => item.status !== 'deleted')
 
@@ -49,6 +67,24 @@ const ProductsPage: FC = () => {
         setFilterIsOpen(false)
     }
 
+    const onHandleDelete = () => {
+        selectedItems.forEach(item => {
+            dispatch(thunkDeleteProduct(item._id))
+        })
+    }
+
+    const autoSetFilters = async objParams => {
+        const response = await dispatch(
+            thunkGetFilteredProductsList(createQueryParams(objParams))
+        )
+        // @ts-ignore
+        if (response.payload.data) {
+            // @ts-ignore
+            setItems(response.payload.data.result)
+        }
+        await dispatch(productFiltersActions.setFilters(objParams))
+    }
+
     useEffect(() => {
         // @ts-ignore
         const params = [...searchParams]
@@ -57,8 +93,9 @@ const ProductsPage: FC = () => {
             Object.values(params).forEach(
                 item => (objParams[item[0]] = item[1])
             )
-            dispatch(productFiltersActions.setFilters(objParams))
-            dispatch(thunkGetFilteredProductsList(createQueryParams(objParams)))
+            autoSetFilters(objParams)
+        } else {
+            setItems(productsList)
         }
         return () => {
             dispatch(productFiltersActions.clearFilters())
@@ -73,8 +110,16 @@ const ProductsPage: FC = () => {
         }
     }, [filters])
 
+    useEffect(() => {
+        setItems(filteredProductsList)
+    }, [filteredProductsList])
+
     return (
-        <div className={s.overlay}>
+
+
+
+        <DynamicModuleLoader reducers={initialState} removeAfterUnmount={true}>
+<div className={s.overlay}>
             <div className={cls(s.ProductsPage)}>
                 <div className={s.header}>
                     <Text className={s.title} title='Products' />
@@ -88,6 +133,7 @@ const ProductsPage: FC = () => {
                         canClear={!!searchValue || canClear}
                         isOpened={filterIsOpen}
                         onClear={() => onClear()}
+                        advanced={true}
                     >
                         <FilterMenu
                             isLoading={status}
@@ -111,6 +157,20 @@ const ProductsPage: FC = () => {
                     items={filteredItems}
                     className={s.table}
                 />
+                <div className={s.btn}>
+                    <Button
+                        disabled={selectedItems.length < 1}
+                        onClick={onHandleDelete}
+                    >
+                        Delete
+                    </Button>
+                    <Button
+                        disabled={selectedItems.length !== 1}
+                        onClick={() => setModalIsOpen(true)}
+                    >
+                        Change
+                    </Button>
+                </div>
                 {modalIsOpen && (
                     <CreateProductModal
                         isOpen={modalIsOpen}
@@ -123,6 +183,8 @@ const ProductsPage: FC = () => {
                 <SideButton variant='delete' className={s.delete} />
             </div>
         </div>
+            </div>
+        </DynamicModuleLoader>
     )
 }
 

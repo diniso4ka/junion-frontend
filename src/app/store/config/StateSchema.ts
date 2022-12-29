@@ -20,6 +20,7 @@ import { UpdateProductSchema } from '../../../features/UpdateProduct/model/types
 import { RetrievePasswordSchema } from '../../../features/RetrievePassword/model/types/RetrievePasswordSchema'
 import { NavigateOptions } from 'react-router'
 import { To } from '@remix-run/router/history'
+import { Sort } from '../../../pages/Private/Home/model/types/sort'
 
 export interface StateSchema {
     user: UserSchema

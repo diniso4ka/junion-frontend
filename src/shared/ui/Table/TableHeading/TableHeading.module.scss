@@ -23,18 +23,18 @@
     text-decoration: none;
     list-style: none;
     font-size: var(--font-size-m);
-    position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .sortIcon {
     height: 15px;
     width: 15px;
-    position: absolute;
-    top: 3px;
     margin-left: 6px;
     fill: #ffffff;
     cursor: pointer;
     transition: 0.2s ease-in-out;
+    z-index: 1;
 }
 
 .activeArrow path {
