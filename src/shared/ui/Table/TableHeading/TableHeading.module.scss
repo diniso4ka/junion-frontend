@@ -25,6 +25,11 @@
     font-size: var(--font-size-m);
     display: flex;
     align-items: center;
+    gap: 6px;
+    div {
+        display: grid;
+        place-items: center;
+    }
 }
 
 .sortIcon {

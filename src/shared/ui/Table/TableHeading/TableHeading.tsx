@@ -69,20 +69,23 @@ export const TableHeading: FC<TableHeading> = ({
                 <ul className={cls(s.items, s[type])}>
                     {headings.map(item => (
                         <li key={item.value} className={s.item}>
-                            {item.value}
+                            <span>{item.value}</span>
                             {item.sort && (
-                                <Arrow
-                                    onClick={() => item?.onHandleSort?.()}
-                                    className={cls(s.sortIcon, {
-                                        [s.activeArrow]:
-                                            item.type === sortedByCategory.type,
-                                        [s.sortAsc]:
-                                            item.type ===
-                                                sortedByCategory.type &&
-                                            sortedByCategory.sort ===
-                                                CategoriesSort.DESC,
-                                    })}
-                                />
+                                <div>
+                                    <Arrow
+                                        onClick={() => item?.onHandleSort?.()}
+                                        className={cls(s.sortIcon, {
+                                            [s.activeArrow]:
+                                                item.type ===
+                                                sortedByCategory.type,
+                                            [s.sortAsc]:
+                                                item.type ===
+                                                    sortedByCategory.type &&
+                                                sortedByCategory.sort ===
+                                                    CategoriesSort.DESC,
+                                        })}
+                                    />
+                                </div>
                             )}
                         </li>
                     ))}
@@ -99,20 +102,23 @@ export const TableHeading: FC<TableHeading> = ({
                     </li>
                     {headings.map(item => (
                         <li key={item.value} className={s.item}>
-                            {item.value}
+                            <span>{item.value}</span>
                             {item.sort && (
-                                <Arrow
-                                    onClick={() => item?.onHandleSort?.()}
-                                    className={cls(s.sortIcon, {
-                                        [s.activeArrow]:
-                                            item.type === sortedByVendors.type,
-                                        [s.sortAsc]:
-                                            item.type ===
-                                                sortedByVendors.type &&
-                                            sortedByVendors.sort ===
-                                                VendorsSort.DESC,
-                                    })}
-                                />
+                                <div>
+                                    <Arrow
+                                        onClick={() => item?.onHandleSort?.()}
+                                        className={cls(s.sortIcon, {
+                                            [s.activeArrow]:
+                                                item.type ===
+                                                sortedByVendors.type,
+                                            [s.sortAsc]:
+                                                item.type ===
+                                                    sortedByVendors.type &&
+                                                sortedByVendors.sort ===
+                                                    VendorsSort.DESC,
+                                        })}
+                                    />
+                                </div>
                             )}
                         </li>
                     ))}

@@ -45,7 +45,6 @@ export const InputWithHint = memo(
             onHandleSelect(e.target.innerHTML)
             onCloseHint?.()
         }
-        console.log(filteredItems)
         useEffect(() => {
             if (rest.value) {
                 // @ts-ignore
