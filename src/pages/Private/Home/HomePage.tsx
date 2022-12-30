@@ -25,7 +25,6 @@ const HomePage: FC = () => {
     const [changeModalIsOpen, setChangeModalIsOpen] = useState<boolean>(false)
     const [confirmModalIsOpen, setConfirmModalIsOpen] = useState<boolean>(false)
     const [title, setTitle] = useState<string>('')
-    const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const productsList = useAppSelector(getProductsList)
     const allProductsList = useAppSelector(getProductsAllList)
@@ -96,7 +95,7 @@ const HomePage: FC = () => {
         setListIsOpen(false)
     }
     const onHandleOpen = (action, title, open) => {
-        setSelectedSort(sortProducts(productsList, action))
+        setSelectedSort(sortProducts(allProductsList, action))
         setTitle(action)
         if (open) {
             setListIsOpen(true)
@@ -118,7 +117,7 @@ const HomePage: FC = () => {
 
     useEffect(() => {
         if (selectedSort.items.length) {
-            setSelectedSort(sortProducts(productsList, selectedSort.type))
+            setSelectedSort(sortProducts(allProductsList, selectedSort.type))
         }
     }, [productsList])
 
