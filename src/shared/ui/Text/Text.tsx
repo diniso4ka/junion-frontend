@@ -21,19 +21,22 @@ export const Text: FC<TextProps> = ({
     text,
     date,
     weight,
+    theme,
 }) => {
     return (
-        <span className={className}>
-            {title && <h1 className={cls(className, s.title)}>{title}</h1>}
+        <span className={cls(className, s[theme])}>
+            {title && (
+                <h1 className={cls(className, s.title, s[theme])}>{title}</h1>
+            )}
             {subtitle && (
-                <h3 className={cls(className, s.subtitle, s[weight])}>
+                <h3 className={cls(className, s.subtitle, s[weight], s[theme])}>
                     {subtitle}
                 </h3>
             )}
             {mediumText && (
                 <p className={cls(className, s.mediumText)}>{mediumText}</p>
             )}
-            {text && <p className={cls(className, s.text)}>{text}</p>}
+            {text && <p className={cls(className, s.text, s[theme])}>{text}</p>}
             {date && <p className={cls(className, s.date)}>{date}</p>}
         </span>
     )

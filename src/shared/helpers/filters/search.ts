@@ -1,4 +1,4 @@
-export const searchByIncludes = (data, searchValue) => {
+export const searchProductsByIncludes = (data, searchValue) => {
     const convertedData = data.map(item => ({
         ...item,
         searchData: `${item.vendor}-${item.art} ${item.category.join(' ')} ${
@@ -6,8 +6,21 @@ export const searchByIncludes = (data, searchValue) => {
         } ${item.price} ${item.quantity} ${item.unit} ${item.owner}
         `,
     }))
-    const filtredData = convertedData.filter(item =>
+    const filteredData = convertedData.filter(item =>
         item.searchData.toLowerCase().includes(searchValue.toLowerCase())
     )
-    return filtredData
+    return filteredData
+}
+export const searchVendorsByIncludes = (data, searchValue) => {
+    const convertedData = data.map(item => ({
+        ...item,
+        searchData: Object.values(item).reduce(
+            (string, cur) => string + `${cur} `,
+            ''
+        ),
+    }))
+    const filteredData = convertedData.filter(item =>
+        item.searchData.toLowerCase().includes(searchValue.toLowerCase())
+    )
+    return filteredData
 }

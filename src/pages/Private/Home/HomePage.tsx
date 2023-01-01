@@ -19,11 +19,13 @@ import { getProductsAllList } from '../../../entities/Products/model/selectors/g
 import { sortProducts } from './model/services/sort'
 import { SortType } from './model/types/sort'
 import { ConfirmModal } from '../../../features/UpdateProduct/ui/ConfirmModal/ConfirmModal'
+import { getListError } from './model/services/getListError'
 
 const HomePage: FC = () => {
     const [listIsOpen, setListIsOpen] = useState<boolean>(false)
     const [changeModalIsOpen, setChangeModalIsOpen] = useState<boolean>(false)
     const [confirmModalIsOpen, setConfirmModalIsOpen] = useState<boolean>(false)
+    const [clearListError, setClearListError] = useState<string>('')
     const [title, setTitle] = useState<string>('')
     const dispatch = useAppDispatch()
     const productsList = useAppSelector(getProductsList)
@@ -96,6 +98,7 @@ const HomePage: FC = () => {
     }
     const onHandleOpen = (action, title, open) => {
         setSelectedSort(sortProducts(allProductsList, action))
+        setClearListError(getListError(action))
         setTitle(action)
         if (open) {
             setListIsOpen(true)
@@ -166,6 +169,7 @@ const HomePage: FC = () => {
                         }
                         modalIsOpen={changeModalIsOpen}
                         modalOnClose={() => setChangeModalIsOpen(false)}
+                        error={clearListError}
                     />
                 )}
                 {confirmModalIsOpen && (

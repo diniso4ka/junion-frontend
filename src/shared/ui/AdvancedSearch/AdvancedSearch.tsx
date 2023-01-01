@@ -76,7 +76,10 @@ export const AdvancedSearch: FC<AdvancedSearchProps> = ({
             )}
             {canClear && (
                 <img
-                    className={cls(s.helperIcon, s.helperSecondIconLeft)}
+                    className={cls(s.helperIcon, s.closeIcon, {
+                        [s.helperSecondIconLeft]: advanced,
+                        [s.helperIconRight]: !advanced,
+                    })}
                     src={deleteIcon}
                     onClick={onClear}
                 />

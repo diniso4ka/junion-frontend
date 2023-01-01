@@ -29,6 +29,7 @@ interface FilteredListProps {
     onClose: () => void
     modalIsOpen: boolean
     modalOnClose: () => void
+    error: string
 }
 
 const initialState: ReducersList = {
@@ -44,6 +45,7 @@ export const FilteredList: FC<FilteredListProps> = ({
     title,
     modalIsOpen,
     modalOnClose,
+    error,
 }) => {
     const dispatch = useAppDispatch()
     const selectedItems = useAppSelector(getUpdateProductSelectedList)
@@ -80,7 +82,7 @@ export const FilteredList: FC<FilteredListProps> = ({
                 />
                 <div className={s.table}>
                     <Text className={s.title} title={title} />
-                    {variant === 'price' && (
+                    {variant === 'price' && !!data.items.length && (
                         <div className={cls(s.heading, s[variant])}>
                             <Checkbox
                                 value={
@@ -101,7 +103,7 @@ export const FilteredList: FC<FilteredListProps> = ({
                             <Text className={s.subtitle} mediumText={'Owner'} />
                         </div>
                     )}
-                    {variant === 'category' && (
+                    {variant === 'category' && !!data.items.length && (
                         <div className={cls(s.heading)}>
                             <Text className={s.subtitle} mediumText={'Code'} />
                             <Text
@@ -123,7 +125,11 @@ export const FilteredList: FC<FilteredListProps> = ({
 
                     <div className={s.items}>
                         {!data.items.length && (
-                            <Text subtitle={'List is clear'} />
+                            <Text
+                                className={s.error}
+                                theme={'error'}
+                                subtitle={error}
+                            />
                         )}
                         {variant === 'price' &&
                             data.items.map(item => (

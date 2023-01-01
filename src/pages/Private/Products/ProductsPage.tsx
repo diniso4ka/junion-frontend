@@ -6,7 +6,7 @@ import cls from 'classnames'
 import { useAppDispatch, useAppSelector } from 'app/store/config/StateSchema'
 
 import { getDate } from 'shared/helpers/date/getDate'
-import { searchByIncludes } from 'shared/helpers/filters/search'
+import { searchProductsByIncludes } from 'shared/helpers/filters/search'
 
 import { AdvancedSearch, Button } from 'shared/ui'
 import { ProductsTable } from 'entities/Products'
@@ -58,8 +58,8 @@ const ProductsPage: FC = () => {
     const [canClear, setCanClear] = useState<boolean>(false)
     const date = getDate()
     const [searchParams, setSearchParams] = useSearchParams()
-    const filteredItems = searchByIncludes(items, searchValue)
-        .reverse('')
+    const filteredItems = searchProductsByIncludes(items, searchValue)
+        .reverse()
         .filter(item => item.status !== 'deleted')
 
     const onClear = () => {
@@ -116,8 +116,6 @@ const ProductsPage: FC = () => {
 
     useEffect(() => {
         setItems(filteredProductsList)
-        console.log(filteredItems)
-        console.log(filteredProductsList)
     }, [filteredProductsList])
 
     return (

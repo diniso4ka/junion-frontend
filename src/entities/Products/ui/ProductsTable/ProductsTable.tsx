@@ -91,17 +91,26 @@ export const ProductsTable: FC<ProductsTableProps> = ({
                 onSelect={onHandleMultiSelect}
                 selected={allSelected}
             />
+            {!isLoading && error && (
+                <Text
+                    className={s.error}
+                    theme={'error'}
+                    subtitle={'An error has occurred'}
+                />
+            )}
+            {!isLoading && !items.length && (
+                <Text
+                    className={s.error}
+                    subtitle={'Nothing found!'}
+                    theme={'error'}
+                />
+            )}
             {isLoading && (
                 <div className={s.items}>
                     <TableRowLoader />
                 </div>
             )}
-            {error && (
-                <div>
-                    <Text theme={'error'} subtitle={'An error has occurred'} />
-                </div>
-            )}
-            {!isLoading && (
+            {!isLoading && !!items.length && !error && (
                 <div className={s.items}>
                     {items.map(product => (
                         <TableRow
