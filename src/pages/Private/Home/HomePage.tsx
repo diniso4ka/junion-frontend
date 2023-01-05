@@ -18,7 +18,7 @@ import { SideButton } from '../../../shared/ui/SideButton'
 import { getProductsAllList } from '../../../entities/Products/model/selectors/getProductsAllList/getProductsAllList'
 import { sortProducts } from './model/services/sort'
 import { SortType } from './model/types/sort'
-import { ConfirmModal } from '../../../features/UpdateProduct/ui/ConfirmModal/ConfirmModal'
+import { ConfirmModal } from '../../../shared/ui/ConfirmModal/ConfirmModal'
 import { getListError } from './model/services/getListError'
 
 const HomePage: FC = () => {
@@ -177,6 +177,7 @@ const HomePage: FC = () => {
                         onClose={() => setConfirmModalIsOpen(false)}
                         isOpen={confirmModalIsOpen}
                         onConfirm={onHandleDelete}
+                        text={'Do you really want to remove it?'}
                     />
                 )}
             </div>

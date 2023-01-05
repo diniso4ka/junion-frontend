@@ -20,7 +20,7 @@ import { UpdateProductSchema } from '../../../features/UpdateProduct/model/types
 import { RetrievePasswordSchema } from '../../../features/RetrievePassword/model/types/RetrievePasswordSchema'
 import { NavigateOptions } from 'react-router'
 import { To } from '@remix-run/router/history'
-import { Sort } from '../../../pages/Private/Home/model/types/sort'
+import { UpdateVendorSchema } from '../../../features/UpdateVendor/model/types/UpdateVendorSchema'
 
 export interface StateSchema {
     user: UserSchema
@@ -33,6 +33,7 @@ export interface StateSchema {
     registerForm?: RegisterSchema
     createProduct?: CreateProductSchema
     updateProduct?: UpdateProductSchema
+    updateVendor?: UpdateVendorSchema
     productsFilters?: ProductFiltersSchema
     createVendor?: CreateVendorSchema
     retrievePassword?: RetrievePasswordSchema

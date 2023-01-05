@@ -4,7 +4,6 @@ import cls from 'classnames'
 
 import { Checkbox } from 'shared/ui/index'
 import { DiscountTag } from '../../DiscountTag/DiscountTag'
-import { UpdateProductModal } from 'features/UpdateProduct/ui/UpdateProductModal/UpdateProductModal'
 import { discountConvertInPercent } from '../../../helpers/math/discountPrice'
 
 interface TableRow {
@@ -78,8 +77,8 @@ export const TableRow: FC<TableRow> = ({
                 <ul className={cls(s.items, s[type])}>
                     <li>
                         <Checkbox
-                            value={false}
-                            onClick={() => console.log('checked')}
+                            value={selected}
+                            onClick={() => onSelect(item)}
                         />
                     </li>
                     <li className={s.item}>{item.code}</li>

@@ -3,9 +3,11 @@ import s from './VendorsTable.module.scss'
 import cls from 'classnames'
 import { TableHeading, TableRow, Text } from 'shared/ui'
 import { Vendor, VendorsSortType } from '../../model/types/VendorsSchema'
-import { useAppDispatch } from '../../../../app/store'
+import { useAppDispatch, useAppSelector } from '../../../../app/store'
 import { vendorsActions } from '../../model/slice/vendorsSlice'
 import TableRowLoader from '../../../../shared/ui/LoaderSkeleton/TableRowLoader/TableRowLoader'
+import { getUpdateVendorSelectedList } from '../../../../features/UpdateVendor'
+import { updateVendorActions } from '../../../../features/UpdateVendor/model/slice/updateVendorSlice'
 
 interface VendorsTableProps {
     className?: string
@@ -21,6 +23,7 @@ export const VendorsTable: FC<VendorsTableProps> = ({
     error,
 }) => {
     const dispatch = useAppDispatch()
+    const selectedItems = useAppSelector(getUpdateVendorSelectedList)
     const headings = [
         {
             sort: true,
@@ -43,9 +46,32 @@ export const VendorsTable: FC<VendorsTableProps> = ({
         { sort: false, value: 'Address' },
     ]
 
+    const onHandleSelect = item => {
+        dispatch(updateVendorActions.selectVendor(item))
+    }
+    const allSelected =
+        selectedItems.length === items?.length && !!items?.length
+
+    const onHandleMultiSelect = () => {
+        if (allSelected) {
+            dispatch(updateVendorActions.clearSelect())
+        } else {
+            items.forEach(item => {
+                if (!selectedItems.find(vendor => item._id === vendor._id)) {
+                    dispatch(updateVendorActions.selectVendor(item))
+                }
+            })
+        }
+    }
+
     return (
         <div className={cls(s.VendorsTable, className)}>
-            <TableHeading type={'vendors'} headings={headings} />
+            <TableHeading
+                onSelect={onHandleMultiSelect}
+                selected={allSelected}
+                type={'vendors'}
+                headings={headings}
+            />
             {!isLoading && error && (
                 <Text
                     className={s.error}
@@ -72,6 +98,12 @@ export const VendorsTable: FC<VendorsTableProps> = ({
                             key={vendor._id}
                             type={'vendors'}
                             item={vendor}
+                            selected={
+                                !!selectedItems.find(
+                                    item => item._id === vendor._id
+                                )
+                            }
+                            onSelect={onHandleSelect}
                         />
                     ))}
                 </div>

@@ -96,8 +96,8 @@ export const TableHeading: FC<TableHeading> = ({
                     <li>
                         <Checkbox
                             theme={'dark'}
-                            value={false}
-                            onClick={() => console.log('checked')}
+                            value={selected}
+                            onClick={onSelect}
                         />
                     </li>
                     {headings.map(item => (

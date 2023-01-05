@@ -3,7 +3,6 @@ import { VendorsSchema } from '../types/VendorsSchema'
 import { thunkGetVendorsList } from '../services/thunkGetVendorsList'
 import { VendorsSort, VendorsSortType } from '../types/VendorsSchema'
 import { sortByAlphabet } from '../../../../shared/helpers/sort/byAlphabet'
-import { ProductSort } from '../../../Products/model/types/ProductsSchema'
 
 const initialState: VendorsSchema = {
     items: [],
@@ -21,6 +20,22 @@ export const vendorsSlice = createSlice({
         setVendors: (state, action) => {
             state.items = [...action.payload]
             state.filteredItems = [...action.payload]
+        },
+        updateVendor: (state, action) => {
+            state.items = state.items.map(vendor => {
+                if (vendor._id === action.payload.id) {
+                    return action.payload
+                } else {
+                    return vendor
+                }
+            })
+            state.filteredItems = [...state.items]
+        },
+        deleteVendor: (state, action) => {
+            state.items = state.items.filter(
+                vendor => vendor._id !== action.payload
+            )
+            state.filteredItems = [...state.items]
         },
         setQuantity: (state, action) => {
             state.quantity = action.payload

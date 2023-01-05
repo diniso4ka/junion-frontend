@@ -34,7 +34,7 @@ import { updateProductReducer } from 'features/UpdateProduct/model/slice/updateP
 import { getUpdateProductSelectedList } from '../../../features/UpdateProduct/model/selectors/getUpdateProductSelectedList/getUpdateProductSelectedList'
 import { thunkDeleteProduct } from '../../../features/UpdateProduct/model/services/thunkDeleteProduct'
 import { getProductsError } from '../../../entities/Products/model/selectors/getProductsError/getProductsError'
-import { ConfirmModal } from '../../../features/UpdateProduct/ui/ConfirmModal/ConfirmModal'
+import { ConfirmModal } from '../../../shared/ui/ConfirmModal/ConfirmModal'
 import { UpdateProductModal } from '../../../features/UpdateProduct/ui/UpdateProductModal/UpdateProductModal'
 
 const initialState: ReducersList = {
@@ -43,21 +43,24 @@ const initialState: ReducersList = {
 
 const ProductsPage: FC = () => {
     const [items, setItems] = useState<ProductType[]>([])
-    const dispatch = useAppDispatch()
-    const filters = useAppSelector(getProductFiltersData)
-    const selectedItems = useAppSelector(getUpdateProductSelectedList)
-    const filteredProductsList = useAppSelector(getProductsFilteredList)
-    const error = useAppSelector(getProductsError)
-    const productsList = useAppSelector(getProductsList)
-    const status = useAppSelector(getProductsStatus)
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [confirmModalIsOpen, setConfirmModalIsOpen] = useState(false)
     const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false)
     const [filterIsOpen, setFilterIsOpen] = useState(false)
     const [searchValue, setSearchValue] = useState<string>('')
     const [canClear, setCanClear] = useState<boolean>(false)
-    const date = getDate()
     const [searchParams, setSearchParams] = useSearchParams()
+
+    const dispatch = useAppDispatch()
+
+    const filters = useAppSelector(getProductFiltersData)
+    const selectedItems = useAppSelector(getUpdateProductSelectedList)
+    const filteredProductsList = useAppSelector(getProductsFilteredList)
+    const error = useAppSelector(getProductsError)
+    const productsList = useAppSelector(getProductsList)
+    const status = useAppSelector(getProductsStatus)
+    const date = getDate()
+
     const filteredItems = searchProductsByIncludes(items, searchValue)
         .reverse()
         .filter(item => item.status !== 'deleted')
@@ -176,6 +179,7 @@ const ProductsPage: FC = () => {
                         onConfirm={onHandleDelete}
                         isOpen={confirmModalIsOpen}
                         onClose={() => setConfirmModalIsOpen(false)}
+                        text={'Do you really want to remove it?'}
                     />
                 )}
                 {!(selectedItems.length < 1) && (

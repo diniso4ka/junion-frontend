@@ -1,20 +1,24 @@
 import { FC } from 'react'
 import s from './ConfirmModal.module.scss'
 import cls from 'classnames'
-import { Button, Modal, Text } from '../../../../shared/ui'
+import { Button, Modal, Text } from '../index'
 
 interface ConfirmModalProps {
     className?: string
     onClose: () => void
     isOpen: boolean
+    isLoading?: boolean
     onConfirm: () => void
+    text: string
 }
 
 export const ConfirmModal: FC<ConfirmModalProps> = ({
     className,
     onClose,
     isOpen,
+    isLoading,
     onConfirm,
+    text,
 }) => {
     return (
         <Modal
@@ -23,13 +27,10 @@ export const ConfirmModal: FC<ConfirmModalProps> = ({
             className={cls(s.ConfirmModal, className)}
         >
             <div className={s.wrapper}>
-                <Text
-                    className={s.title}
-                    weight={'medium'}
-                    subtitle={'Do you really want to remove it?'}
-                />
+                <Text className={s.title} weight={'medium'} subtitle={text} />
                 <div className={s.buttons}></div>
                 <Button
+                    isLoading={isLoading}
                     className={s.button}
                     size={'small'}
                     theme={'purple'}
@@ -38,7 +39,12 @@ export const ConfirmModal: FC<ConfirmModalProps> = ({
                 >
                     No
                 </Button>
-                <Button onClick={onConfirm} size={'small'} theme={'purple'}>
+                <Button
+                    isLoading={isLoading}
+                    onClick={onConfirm}
+                    size={'small'}
+                    theme={'purple'}
+                >
                     Yes
                 </Button>
             </div>
