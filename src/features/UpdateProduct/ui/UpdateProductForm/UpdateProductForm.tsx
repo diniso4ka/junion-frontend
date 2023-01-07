@@ -3,15 +3,8 @@ import s from './UpdateProductForm.module.scss'
 import cls from 'classnames'
 import closeIcon from '../../../../shared/assets/images/icons/close.svg'
 import { Button, Checkbox, Input, InputWithHint } from '../../../../shared/ui'
-import {
-    DynamicModuleLoader,
-    ReducersList,
-} from '../../../../shared/config/components/DynamicModuleLoader'
 import { useAppDispatch, useAppSelector } from '../../../../app/store'
-import {
-    getProductsList,
-    thunkFetchProductList,
-} from '../../../../entities/Products'
+import { getProductsList } from '../../../../entities/Products'
 import { getCategoryList } from '../../../../entities/Categories'
 import { getVendorsList } from '../../../../entities/Vendors/model/selectors/getVendorsList/getVendorsList'
 import { getUpdateProductName } from '../../model/selectors/getUpdateProductName/getUpdateProductName'
@@ -21,28 +14,40 @@ import { getUpdateProductUnit } from '../../model/selectors/getUpdateProductUnit
 import { getUpdateProductPrice } from '../../model/selectors/getUpdateProductPrice/getUpdateProductPrice'
 import { getUpdateProductQuantity } from '../../model/selectors/getUpdateProductQuantity/getUpdateProductQuantity'
 import { getUpdateProductDiscountPrice } from '../../model/selectors/getUpdateProductDiscountPrice/getUpdateProductDiscountPrice'
-import {
-    updateProductActions,
-    updateProductReducer,
-} from '../../model/slice/updateProductSlice'
+import { updateProductActions } from '../../model/slice/updateProductSlice'
 import { ProductType } from 'entities/Products/model/types/ProductsSchema'
 import { thunkUpdateProduct } from '../../model/services/thunkUpdateProduct'
 import { getUpdateProductId } from '../../model/selectors/getUpdateProductId/getUpdateProductId'
 import { getUpdateProductError } from '../../model/selectors/getUpdateProductError/getUpdateProductError'
 import { getUpdateProductStatus } from '../../model/selectors/getUpdateProductStatus/getUpdateProductStatus'
 import { discountConvertInNumber } from '../../../../shared/helpers/math/discountPrice'
-import { useLocation } from 'react-router'
 
 interface UpdateProductFormProps {
     className?: string
     onClose: () => void
     item: ProductType
+    withCategory?: boolean
+    withQuantity?: boolean
+    withPrice?: boolean
+    withName?: boolean
+    withVendor?: boolean
+    withDiscountPrice?: boolean
+    withUnit?: boolean
+    withVendorCode?: boolean
 }
 
 export const UpdateProductForm: FC<UpdateProductFormProps> = ({
     className,
     onClose,
     item,
+    withCategory = true,
+    withQuantity = true,
+    withPrice = true,
+    withName = true,
+    withVendor = true,
+    withDiscountPrice = true,
+    withUnit = true,
+    withVendorCode = true,
 }) => {
     const [nameFocus, setNameFocus] = useState(false)
     const [categoriesFocus, setCategoriesFocus] = useState(false)
@@ -56,8 +61,6 @@ export const UpdateProductForm: FC<UpdateProductFormProps> = ({
     const quantity = useAppSelector(getUpdateProductQuantity)
     const discountPrice = useAppSelector(getUpdateProductDiscountPrice)
     const _id = useAppSelector(getUpdateProductId)
-    const location = useLocation()
-    const [isHome, setIsHome] = useState<boolean>(false)
 
     const productsList = useAppSelector(getProductsList)
     const categoriesList = useAppSelector(getCategoryList)
@@ -78,12 +81,12 @@ export const UpdateProductForm: FC<UpdateProductFormProps> = ({
         }
         const response = await dispatch(
             thunkUpdateProduct({
-                name,
-                category: category.replace(/\s/g, ''),
-                vendor: selectedVendor.code,
-                unit,
-                price: Number(price),
-                quantity: Number(quantity),
+                name: name || '',
+                category: category.replace(/\s/g, '') || '',
+                vendor: selectedVendor.code || '',
+                unit: unit || '',
+                price: Number(price) || 0,
+                quantity: Number(quantity) || 0,
                 discountPrice: withDiscount
                     ? discountConvertInNumber(price, discountPrice)
                     : 0,
@@ -136,11 +139,6 @@ export const UpdateProductForm: FC<UpdateProductFormProps> = ({
     }
 
     useEffect(() => {
-        if (location.pathname === '/') {
-            setIsHome(() => true)
-        } else {
-            setIsHome(() => false)
-        }
         if (item) {
             dispatch(
                 updateProductActions.setValues({
@@ -159,23 +157,25 @@ export const UpdateProductForm: FC<UpdateProductFormProps> = ({
             <h1 className={s.title}>Change product details</h1>
             <form className={s.form}>
                 <ul className={s.items}>
-                    <li className={s.inputItem}>
-                        <label className={s.label}>Product name</label>
-                        <InputWithHint
-                            disabled={status}
-                            value={name}
-                            onChange={onChangeName}
-                            className={s.input}
-                            hint={productsList.map(item => item.name)}
-                            onFocus={() => setNameFocus(true)}
-                            onCloseHint={() => setNameFocus(false)}
-                            onHandleSelect={e => onHandleNameHint(e)}
-                            isHintOpen={nameFocus}
-                            position={'right'}
-                            variant={'outline'}
-                        />
-                    </li>
-                    {!isHome && (
+                    {withName && (
+                        <li className={s.inputItem}>
+                            <label className={s.label}>Product name</label>
+                            <InputWithHint
+                                disabled={status}
+                                value={name}
+                                onChange={onChangeName}
+                                className={s.input}
+                                hint={productsList.map(item => item.name)}
+                                onFocus={() => setNameFocus(true)}
+                                onCloseHint={() => setNameFocus(false)}
+                                onHandleSelect={e => onHandleNameHint(e)}
+                                isHintOpen={nameFocus}
+                                position={'right'}
+                                variant={'outline'}
+                            />
+                        </li>
+                    )}
+                    {withCategory && (
                         <li className={s.inputItem}>
                             <label className={s.label}>Categories</label>
                             <InputWithHint
@@ -193,72 +193,84 @@ export const UpdateProductForm: FC<UpdateProductFormProps> = ({
                             />
                         </li>
                     )}
-                    <li className={s.inputItem}>
-                        <label className={s.label}>Price</label>
-                        <div className={s.priceFrom}>
-                            <Input
-                                disabled={status}
-                                value={price}
-                                onChange={onChangePrice}
-                                className={s.inputMedium}
-                                variant={'outline'}
-                            />
-                            {!isHome && (
-                                <div className={s.subInput}>
-                                    <label className={s.subLabel}>
-                                        <Checkbox
-                                            onClick={
-                                                onHandleChangeDiscountCheckbox
-                                            }
-                                            value={withDiscount}
-                                            className={s.checkbox}
-                                        />
-                                        Discount
-                                    </label>
-                                    <Input
-                                        value={discountPrice}
-                                        onChange={onChangeDiscount}
-                                        disabled={!withDiscount || status}
-                                        className={cls(
-                                            s.inputSmall,
-                                            s.discountInput
-                                        )}
-                                        variant={'outline'}
-                                    />
-                                    %
-                                </div>
-                            )}
-                        </div>
-                    </li>
-                    <li className={s.inputItem}>
-                        <label className={s.label}>Quantity</label>
-                        <div className={s.priceFrom}>
-                            <Input
-                                disabled={status}
-                                value={quantity}
-                                onChange={onChangeQuantity}
-                                className={s.inputMedium}
-                                variant={'outline'}
-                            />
-                            <div className={s.subInput}>
-                                <label className={s.subLabel}>Unit</label>
-                                <InputWithHint
+                    {withPrice && (
+                        <li className={s.inputItem}>
+                            <label className={s.label}>Price</label>
+                            <div className={s.priceFrom}>
+                                <Input
                                     disabled={status}
-                                    hintSize={'adaptive'}
-                                    onFocus={() => setUnitFocus(true)}
-                                    onCloseHint={() => setUnitFocus(false)}
-                                    value={unit}
-                                    onChange={onChangeUnit}
-                                    isHintOpen={unitFocus}
-                                    onHandleSelect={onHandleUnitHint}
-                                    hint={['kg', 'pcs']}
-                                    className={s.inputSmall}
+                                    value={price}
+                                    onChange={onChangePrice}
+                                    className={s.inputMedium}
                                     variant={'outline'}
                                 />
+
+                                {withDiscountPrice && (
+                                    <div className={s.subInput}>
+                                        <label className={s.subLabel}>
+                                            <Checkbox
+                                                onClick={
+                                                    onHandleChangeDiscountCheckbox
+                                                }
+                                                value={withDiscount}
+                                                className={s.checkbox}
+                                            />
+                                            Discount
+                                        </label>
+                                        <Input
+                                            value={discountPrice}
+                                            onChange={onChangeDiscount}
+                                            disabled={!withDiscount || status}
+                                            className={cls(
+                                                s.inputSmall,
+                                                s.discountInput
+                                            )}
+                                            variant={'outline'}
+                                        />
+                                        %
+                                    </div>
+                                )}
                             </div>
-                        </div>
-                    </li>
-                    {!isHome && (
+                        </li>
+                    )}
+                    {withQuantity && (
+                        <li className={s.inputItem}>
+                            <label className={s.label}>Quantity</label>
+                            <div className={s.priceFrom}>
+                                <Input
+                                    disabled={status}
+                                    value={quantity}
+                                    onChange={onChangeQuantity}
+                                    className={s.inputMedium}
+                                    variant={'outline'}
+                                />
+                                {withUnit && (
+                                    <div className={s.subInput}>
+                                        <label className={s.subLabel}>
+                                            Unit
+                                        </label>
+                                        <InputWithHint
+                                            disabled={status}
+                                            hintSize={'adaptive'}
+                                            onFocus={() => setUnitFocus(true)}
+                                            onCloseHint={() =>
+                                                setUnitFocus(false)
+                                            }
+                                            value={unit}
+                                            onChange={onChangeUnit}
+                                            isHintOpen={unitFocus}
+                                            onHandleSelect={onHandleUnitHint}
+                                            hint={['kg', 'pcs']}
+                                            className={s.inputSmall}
+                                            variant={'outline'}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                        </li>
+                    )}
+
+                    {withVendor && (
                         <li className={s.inputItem}>
                             <label className={s.label}>Vendor's name</label>
                             <InputWithHint
@@ -275,7 +287,8 @@ export const UpdateProductForm: FC<UpdateProductFormProps> = ({
                             />
                         </li>
                     )}
-                    {!isHome && (
+
+                    {withVendorCode && (
                         <li className={s.inputItem}>
                             <label className={s.label}>
                                 Vendor's <br />

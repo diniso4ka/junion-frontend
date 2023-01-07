@@ -105,16 +105,18 @@ export const FilteredList: FC<FilteredListProps> = ({
                     )}
                     {variant === 'category' && !!data.items.length && (
                         <div className={cls(s.heading)}>
+                            <Checkbox
+                                value={
+                                    allSelected && selectedItems.length !== 0
+                                }
+                                onClick={() => onHandleMultiSelect()}
+                            />
                             <Text className={s.subtitle} mediumText={'Code'} />
                             <Text
                                 className={s.subtitle}
                                 mediumText={'Category'}
                             />
                             <Text className={s.subtitle} mediumText={'Name'} />
-                            <Text
-                                className={s.subtitle}
-                                mediumText={'Price,$'}
-                            />
                             <Text
                                 className={s.subtitle}
                                 mediumText={'Quantity'}
@@ -161,10 +163,20 @@ export const FilteredList: FC<FilteredListProps> = ({
                                     key={item._id}
                                     className={cls(s.row, s[variant])}
                                 >
+                                    <Checkbox
+                                        value={
+                                            !!selectedItems.find(
+                                                product =>
+                                                    item._id === product._id
+                                            )
+                                        }
+                                        onClick={() => {
+                                            onHandleSelect(item)
+                                        }}
+                                    />
                                     <Text text={item.art ? item.art : 'none'} />
                                     <Text text={item.category[0]} />
                                     <Text text={item.name} />
-                                    <Text text={item.price.toString()} />
                                     <Text text={item.quantity.toString()} />
                                     <Text text={item.owner} />
                                 </div>
@@ -173,6 +185,9 @@ export const FilteredList: FC<FilteredListProps> = ({
                 </div>
                 {modalIsOpen && (
                     <UpdateProductModal
+                        withDiscountPrice={false}
+                        withVendorCode={false}
+                        withVendor={false}
                         isOpen={!!modalIsOpen}
                         onClose={modalOnClose}
                         item={data.items.find(
