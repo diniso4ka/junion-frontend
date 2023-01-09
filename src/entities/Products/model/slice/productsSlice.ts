@@ -35,6 +35,13 @@ export const productsSlice = createSlice({
             }
         },
         updateProduct: (state, action) => {
+            state.allItems = state.allItems.map(product => {
+                if (product._id === action.payload.data.newData._id) {
+                    return action.payload.data.newData
+                } else {
+                    return product
+                }
+            })
             state.items = state.items.map(product => {
                 if (product._id === action.payload.data.newData._id) {
                     return action.payload.data.newData

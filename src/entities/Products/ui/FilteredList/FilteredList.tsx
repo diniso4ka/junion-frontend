@@ -191,7 +191,7 @@ export const FilteredList: FC<FilteredListProps> = ({
                         isOpen={!!modalIsOpen}
                         onClose={modalOnClose}
                         item={data.items.find(
-                            item => item._id === selectedItems[0]._id
+                            item => item._id === selectedItems[0]?._id
                         )}
                     />
                 )}
