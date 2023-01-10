@@ -1,10 +1,12 @@
 export function formattedDate() {
     const date = new Date()
+    const correctDay = date.getDate()
+    const correctMonth = +new Date().getMonth() + 1
     const day =
-        (date.getDate() - 1).toString().length === 1
-            ? `0${date.getDate()}`
-            : date.getDate()
-    const month = +new Date().getMonth() + 1
+        correctDay.toString().length === 1 ? `0${correctDay}` : correctDay
+    const month =
+        correctMonth.toString().length === 1 ? `0${correctMonth}` : correctMonth
     const formattedDate = `${date.toString().split(' ')[3]}-${month}-${day}`
+    console.log(formattedDate)
     return formattedDate
 }

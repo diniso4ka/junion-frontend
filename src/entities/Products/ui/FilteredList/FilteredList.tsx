@@ -20,7 +20,7 @@ import { SortType } from '../../../../pages/Private/Home/model/types/sort'
 interface FilteredListProps {
     className?: string
     title: string
-    variant?: 'quantity' | 'price' | 'category'
+    variant?: 'quantity' | 'price' | 'category' | 'none'
     data: {
         type: SortType
         items: ProductType[]
@@ -124,6 +124,25 @@ export const FilteredList: FC<FilteredListProps> = ({
                             <Text className={s.subtitle} mediumText={'Owner'} />
                         </div>
                     )}
+                    {variant === 'none' && !!data.items.length && (
+                        <div className={cls(s.heading)}>
+                            <Text className={s.subtitle} mediumText={'Code'} />
+                            <Text
+                                className={s.subtitle}
+                                mediumText={'Price,$'}
+                            />
+                            <Text
+                                className={s.subtitle}
+                                mediumText={'Category'}
+                            />
+                            <Text className={s.subtitle} mediumText={'Name'} />
+                            <Text
+                                className={s.subtitle}
+                                mediumText={'Quantity'}
+                            />
+                            <Text className={s.subtitle} mediumText={'Owner'} />
+                        </div>
+                    )}
 
                     <div className={s.items}>
                         {!data.items.length && (
@@ -175,6 +194,20 @@ export const FilteredList: FC<FilteredListProps> = ({
                                         }}
                                     />
                                     <Text text={item.art ? item.art : 'none'} />
+                                    <Text text={item.category[0]} />
+                                    <Text text={item.name} />
+                                    <Text text={item.quantity.toString()} />
+                                    <Text text={item.owner} />
+                                </div>
+                            ))}
+                        {variant === 'none' &&
+                            data.items.map(item => (
+                                <div
+                                    key={item._id}
+                                    className={cls(s.row, s[variant])}
+                                >
+                                    <Text text={item.art ? item.art : 'none'} />
+                                    <Text text={item.price.toString()} />
                                     <Text text={item.category[0]} />
                                     <Text text={item.name} />
                                     <Text text={item.quantity.toString()} />

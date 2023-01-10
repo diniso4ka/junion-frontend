@@ -123,6 +123,9 @@ const HomePage: FC = () => {
             setSelectedSort(sortProducts(allProductsList, selectedSort.type))
         }
     }, [productsList])
+    useEffect(() => {
+        console.log(selectedSort)
+    }, [selectedSort])
 
     const date = getDate()
 
@@ -165,7 +168,10 @@ const HomePage: FC = () => {
                         variant={
                             selectedSort?.type === SortType.WITHOUT_PRICE
                                 ? 'price'
-                                : 'category'
+                                : selectedSort?.type ===
+                                  SortType.WITHOUT_CATEGORY
+                                ? 'category'
+                                : 'none'
                         }
                         modalIsOpen={changeModalIsOpen}
                         modalOnClose={() => setChangeModalIsOpen(false)}
