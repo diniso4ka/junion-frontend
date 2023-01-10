@@ -26,6 +26,9 @@
     font-style: normal;
     font-weight: 300;
     font-size: var(--font-size-s);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .date {

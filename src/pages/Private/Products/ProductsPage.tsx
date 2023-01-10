@@ -137,6 +137,7 @@ const ProductsPage: FC = () => {
                         isOpened={filterIsOpen}
                         onClear={() => onClear()}
                         advanced={true}
+                        className={s.productsSearch}
                     >
                         <FilterMenu
                             isLoading={status}

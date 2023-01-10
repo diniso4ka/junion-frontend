@@ -25,7 +25,7 @@
     cursor: pointer;
 }
 .table {
-    padding: 70px 20px 30px 20px;
+    padding: 70px 20px 5px 20px;
     .title {
         margin-bottom: 27px;
     }
@@ -46,6 +46,9 @@
     border-bottom: 1px solid #dedede;
     padding-top: 24px;
     padding-bottom: 5px;
+}
+
+.items {
 }
 
 .price {

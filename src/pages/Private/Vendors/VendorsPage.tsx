@@ -77,6 +77,7 @@ const VendorsPage: FC = () => {
                         onClick={e => e.stopPropagation()}
                         canClear={!!searchValue}
                         onClear={() => onClear()}
+                        className={s.vendorsSearch}
                     >
                         <FilterMenu />
                     </AdvancedSearch>

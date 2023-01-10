@@ -36,7 +36,11 @@ export const Text: FC<TextProps> = ({
             {mediumText && (
                 <p className={cls(className, s.mediumText)}>{mediumText}</p>
             )}
-            {text && <p className={cls(className, s.text, s[theme])}>{text}</p>}
+            {text && (
+                <p className={cls(className, s.text, s[theme])} title={text}>
+                    {text}
+                </p>
+            )}
             {date && <p className={cls(className, s.date)}>{date}</p>}
         </span>
     )

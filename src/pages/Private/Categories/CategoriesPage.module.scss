@@ -14,7 +14,7 @@
 
 .navigation .title {
     width: 109px;
-    margin-right: 77px;
+    margin-right: clamp(0.938rem, -5.951rem + 14.35vw, 4.813rem);
 }
 
 .navigation button {
@@ -26,5 +26,7 @@
     max-width: 550px;
 }
 .date {
+    padding-left: 5px;
+    width: 95px;
     margin-left: auto;
 }
