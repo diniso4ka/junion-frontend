@@ -5,6 +5,7 @@
     width: calc(100vw - var(--sidebar-width));
     font-family: var(--font-family-main);
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .header {
@@ -49,6 +50,10 @@
 
 .error {
     text-align: center;
+}
+.tableWrapper {
+    max-width: calc(100vw - var(--sidebar-width));
+    overflow-x: scroll;
 }
 
 @media (max-width: 1340px) {

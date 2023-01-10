@@ -156,12 +156,14 @@ const ProductsPage: FC = () => {
                         date={`${date.mounth} ${date.number}, ${date.year}`}
                     />
                 </div>
-                <ProductsTable
-                    isLoading={status}
-                    items={filteredItems}
-                    className={s.table}
-                    error={!!error}
-                />
+                <div className={s.tableWrapper}>
+                    <ProductsTable
+                        isLoading={status}
+                        items={filteredItems}
+                        className={s.table}
+                        error={!!error}
+                    />
+                </div>
                 {modalIsOpen && (
                     <CreateProductModal
                         isOpen={modalIsOpen}
