@@ -36,13 +36,11 @@ export function sortProducts(state, type) {
             }
         case SortType.ADDED_TODAY:
             return {
-                items: filteredList.filter(item => {
-                    console.log(item.createdAt.split('').splice(0, 10).join(''))
-                    return (
+                items: filteredList.filter(
+                    item =>
                         formattedDate() ===
                         item.createdAt.split('').splice(0, 10).join('')
-                    )
-                }),
+                ),
                 type: SortType.ADDED_TODAY,
             }
     }

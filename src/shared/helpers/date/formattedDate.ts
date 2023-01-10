@@ -7,6 +7,5 @@ export function formattedDate() {
     const month =
         correctMonth.toString().length === 1 ? `0${correctMonth}` : correctMonth
     const formattedDate = `${date.toString().split(' ')[3]}-${month}-${day}`
-    console.log(formattedDate)
     return formattedDate
 }

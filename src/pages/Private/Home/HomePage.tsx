@@ -123,9 +123,6 @@ const HomePage: FC = () => {
             setSelectedSort(sortProducts(allProductsList, selectedSort.type))
         }
     }, [productsList])
-    useEffect(() => {
-        console.log(selectedSort)
-    }, [selectedSort])
 
     const date = getDate()
 

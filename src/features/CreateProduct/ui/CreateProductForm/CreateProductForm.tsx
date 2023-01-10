@@ -24,7 +24,6 @@ import { getCreateProductVendorName } from '../../model/selectors/getCreateProdu
 import { getCreateProductUnit } from '../../model/selectors/getCreateProductUnit/getCreateProductUnit'
 import { getCreateProductPrice } from '../../model/selectors/getCreateProductPrice/getCreateProductPrice'
 import { getCreateProductQuantity } from '../../model/selectors/getCreateProductQuantity/getCreateProductQuantity'
-import { getCreateProductDiscountPrice } from '../../model/selectors/getCreateProductDiscountPrice/getCreateProductDiscountPrice'
 
 interface CreateProductFormProps {
     className?: string

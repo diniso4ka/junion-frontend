@@ -5,6 +5,7 @@ import cls from 'classnames'
 import { Checkbox } from 'shared/ui/index'
 import { DiscountTag } from '../../DiscountTag/DiscountTag'
 import { discountConvertInPercent } from '../../../helpers/math/discountPrice'
+import { Link } from 'react-router-dom'
 
 interface TableRow {
     className?: string
@@ -70,10 +71,13 @@ export const TableRow: FC<TableRow> = ({
                 </ul>
             )}
             {type === 'categories' && (
-                <ul className={cls(s.items, s[type])}>
+                <Link
+                    to={`/products?category=${item._id}`}
+                    className={cls(s.items, s[type])}
+                >
                     <li className={s.item}>{item._id}</li>
                     <li className={s.item}>{item.quantity}</li>
-                </ul>
+                </Link>
             )}
             {type === 'vendors' && (
                 <ul className={cls(s.items, s[type])}>
