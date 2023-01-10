@@ -32,6 +32,9 @@
 .item {
     font-size: var(--font-size-m);
     list-style: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
     .discount {
         display: flex;
         flex-direction: row;

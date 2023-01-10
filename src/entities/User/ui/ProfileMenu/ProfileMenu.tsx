@@ -26,7 +26,9 @@ export const ProfileMenu: FC<ProfileMenuProps> = ({
                 <label className={s.role}>
                     {data.role.charAt(0).toUpperCase() + data.role.slice(1)}
                 </label>
-                <label className={s.mail}>{data.email}</label>
+                <label className={s.mail} title={data.email}>
+                    {data.email}
+                </label>
                 <Link
                     className={s.changePassBtn}
                     to={routeConfig.CHANGE_PASSWORD}

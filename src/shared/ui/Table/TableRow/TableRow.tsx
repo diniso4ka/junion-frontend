@@ -64,7 +64,9 @@ export const TableRow: FC<TableRow> = ({
                     </li>
                     <li className={s.item}>{item.quantity}</li>
                     <li className={s.item}>{item.unit ? item.unit : ''}</li>
-                    <li className={s.item}>{item.owner}</li>
+                    <li className={s.item} title={item.owner}>
+                        {item.owner}
+                    </li>
                 </ul>
             )}
             {type === 'categories' && (
