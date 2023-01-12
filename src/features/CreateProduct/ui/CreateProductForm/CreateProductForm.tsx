@@ -106,9 +106,11 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
     }
     const onChangeVendor = e => {
         dispatch(createProductActions.setVendor(e.target.value))
+        dispatch(createProductActions.setRegCode(''))
     }
     const onChangeRegCode = e => {
         dispatch(createProductActions.setRegCode(e.target.value))
+        dispatch(createProductActions.setVendor(''))
     }
     const onChangePrice = e => {
         dispatch(createProductActions.setPrice(e.target.value))
@@ -119,7 +121,13 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
     const onChangeQuantity = e => {
         dispatch(createProductActions.setQuantity(e.target.value))
     }
-    console.log(selectedVendor)
+
+    useEffect(() => {
+        if (selectedVendor) {
+            dispatch(createProductActions.setRegCode(selectedVendor.code))
+            dispatch(createProductActions.setVendor(selectedVendor.name))
+        }
+    }, [regCode, vendor])
 
     return (
         <DynamicModuleLoader reducers={initialState} removeAfterUnmount={true}>
@@ -209,7 +217,7 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
                             <InputWithHint
                                 disabled={status}
                                 onChange={onChangeVendor}
-                                value={selectedVendor?.name || vendor}
+                                value={vendor}
                                 className={s.input}
                                 hint={vendorsList.map(item => item.name)}
                                 onFocus={() => setVendorsFocus(true)}
@@ -227,7 +235,7 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
                             <Input
                                 onChange={onChangeRegCode}
                                 disabled={status}
-                                value={selectedVendor?.code || regCode}
+                                value={regCode}
                                 variant={'outline'}
                                 className={s.inputMedium}
                             />
