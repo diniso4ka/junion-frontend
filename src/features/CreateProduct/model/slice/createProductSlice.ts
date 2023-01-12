@@ -12,6 +12,7 @@ const initialState: CreateProductSchema = {
         discountPrice: '',
         unit: '',
         vendor: '',
+        regCode: '',
     },
     isLoading: false,
 }
@@ -46,6 +47,9 @@ export const createProductSlice = createSlice({
         },
         setVendor: (state, action: PayloadAction<string>) => {
             state.form.vendor = action.payload
+        },
+        setRegCode: (state, action: PayloadAction<string>) => {
+            state.form.regCode = action.payload
         },
     },
     extraReducers: builder => {

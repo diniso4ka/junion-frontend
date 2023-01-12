@@ -13,4 +13,5 @@ export interface CreateProductForm {
     status: string
     discountPrice: string
     vendor: string
+    regCode: string
 }

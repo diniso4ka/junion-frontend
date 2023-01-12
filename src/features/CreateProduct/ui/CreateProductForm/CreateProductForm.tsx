@@ -24,6 +24,7 @@ import { getCreateProductVendorName } from '../../model/selectors/getCreateProdu
 import { getCreateProductUnit } from '../../model/selectors/getCreateProductUnit/getCreateProductUnit'
 import { getCreateProductPrice } from '../../model/selectors/getCreateProductPrice/getCreateProductPrice'
 import { getCreateProductQuantity } from '../../model/selectors/getCreateProductQuantity/getCreateProductQuantity'
+import { getCreateProductRegCode } from '../../model/selectors/getCreateProductRegCode/getCreateProductRegCode'
 
 interface CreateProductFormProps {
     className?: string
@@ -49,6 +50,7 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
     const unit = useAppSelector(getCreateProductUnit)
     const price = useAppSelector(getCreateProductPrice)
     const quantity = useAppSelector(getCreateProductQuantity)
+    const regCode = useAppSelector(getCreateProductRegCode)
 
     const productsList = useAppSelector(getProductsList)
     const categoriesList = useAppSelector(getCategoryList)
@@ -57,7 +59,9 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
     const error = useAppSelector(getCreateProductError)
     const dispatch = useAppDispatch()
 
-    const selectedVendor = vendorsList.find(item => item.name === vendor)
+    const selectedVendor = vendorsList.find(
+        item => item.name === vendor || item.code === regCode
+    )
 
     const onSubmitForm = async () => {
         setValidationError(false)
@@ -103,6 +107,9 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
     const onChangeVendor = e => {
         dispatch(createProductActions.setVendor(e.target.value))
     }
+    const onChangeRegCode = e => {
+        dispatch(createProductActions.setRegCode(e.target.value))
+    }
     const onChangePrice = e => {
         dispatch(createProductActions.setPrice(e.target.value))
     }
@@ -112,6 +119,7 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
     const onChangeQuantity = e => {
         dispatch(createProductActions.setQuantity(e.target.value))
     }
+    console.log(selectedVendor)
 
     return (
         <DynamicModuleLoader reducers={initialState} removeAfterUnmount={true}>
@@ -201,7 +209,7 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
                             <InputWithHint
                                 disabled={status}
                                 onChange={onChangeVendor}
-                                value={vendor}
+                                value={selectedVendor?.name || vendor}
                                 className={s.input}
                                 hint={vendorsList.map(item => item.name)}
                                 onFocus={() => setVendorsFocus(true)}
@@ -217,10 +225,9 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
                                 Reg Code
                             </label>
                             <Input
+                                onChange={onChangeRegCode}
                                 disabled={status}
-                                value={
-                                    selectedVendor ? selectedVendor.code : ''
-                                }
+                                value={selectedVendor?.code || regCode}
                                 variant={'outline'}
                                 className={s.inputMedium}
                             />
