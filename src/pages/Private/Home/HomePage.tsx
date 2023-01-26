@@ -72,7 +72,6 @@ const HomePage: FC = () => {
         employee: {
             title: 'Users information:',
             items: [
-                { label: 'All users:', value: 'NR', type: SortType.NONE },
                 {
                     label: 'Products added today:',
                     value: `${
