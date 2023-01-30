@@ -7,7 +7,7 @@
 .items {
     max-height: calc(80vh - var(--header-height-desktop));
     background-color: var(--white-color);
-    overflow-y: auto;
+    overflow: auto;
     -webkit-scrollbar: none;
 }
 .error {

@@ -5,7 +5,7 @@
 }
 
 .input {
-    width: 408px;
+    width: 100%;
 }
 .line {
     padding: 10px 0 0 8px;
@@ -62,11 +62,11 @@
 }
 
 .rightWrapper {
-    padding: 10px;
+    padding: 10px 0 10px 10px;
     position: absolute;
     top: -15px;
-    right: -480px;
-    width: 440px;
+    right: -430px;
+    width: 390px;
     max-height: 260px;
     background-color: #fff;
     border-radius: 8px;
@@ -78,9 +78,14 @@
         right: -340px;
     }
 
-    @media (max-width: 1280px) {
-        width: 250px;
-        right: -290px;
+    @media (max-width: 1340px) {
+        top: 105%;
+        right: 25%;
+        box-shadow: 0 0 7px rgba(0, 0, 0, 0.25);
+    }
+
+    @media (max-width: 800px) {
+        right: 20%;
     }
 
     .hint {
@@ -125,6 +130,10 @@
         box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.25);
         transform: rotate(45deg);
         overflow: hidden;
+
+        @media (max-width: 1340px) {
+            display: none;
+        }
     }
 }
 

@@ -26,6 +26,11 @@
     }
     &.vendors {
         grid-template-columns: 5% 14% 15% 19% 48%;
+
+        @media (max-width: 900px) {
+            column-gap: 5px;
+            grid-template-columns: 5% 16% 17% 21% 40%;
+        }
     }
 }
 
