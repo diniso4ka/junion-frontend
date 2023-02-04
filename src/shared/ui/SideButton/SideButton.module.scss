@@ -1,33 +1,34 @@
 .button {
-    display: grid;
-    place-items: center;
-    width: 60px;
-    height: 60px;
-    cursor: pointer;
-    background-color: var(--bg-third-color);
-    border: none;
-    border-radius: 32px 0 0 32px;
-    box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
+	display: grid;
+	place-items: center;
+	width: 60px;
+	height: 60px;
+	cursor: pointer;
+	background-color: var(--bg-third-color);
+	border: none;
+	border-radius: 32px 0 0 32px;
+	box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
 
-    div {
-        display: grid;
-        place-items: center;
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-    }
+	div {
+		display: grid;
+		place-items: center;
+		width: 45px;
+		height: 45px;
+		border-radius: 50%;
+	}
 }
 
 .button.disabled * {
-    fill: #bbb;
+	fill: #bbb;
+	cursor: default;
 }
 
 .button.active {
-    div {
-        background-color: #fff;
-    }
+	div {
+		background-color: #fff;
+	}
 
-    div * {
-        fill: var(--bg-third-color);
-    }
+	div * {
+		fill: var(--bg-third-color);
+	}
 }

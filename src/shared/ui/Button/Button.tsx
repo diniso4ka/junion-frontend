@@ -1,6 +1,8 @@
 import cls from 'classnames';
 import React, { ButtonHTMLAttributes, FC, memo } from 'react';
 
+import { useAppSelector } from '../../../app/store';
+import { getAuthData } from '../../../entities/User';
 import { Preloader } from '../Preloader/Preloader';
 
 import s from './Button.module.scss';
@@ -34,12 +36,15 @@ export const Button = memo(
 			e.preventDefault();
 			onClick?.();
 		};
+		const isTestAccount = useAppSelector(getAuthData);
+		const disable = isTestAccount.name === 'Test' || disabled;
 		const classnames = cls(s.button, s[variant], s[theme], s[size], className, {
-			[s.disabled]: isLoading || disabled,
+			[s.disabled]: isLoading || disable,
 		});
+
 		return (
 			<button
-				disabled={isLoading || disabled}
+				disabled={isLoading || disable}
 				type={type}
 				className={classnames}
 				onClick={(e) => onToggleClick(e)}

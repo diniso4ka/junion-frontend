@@ -2,6 +2,9 @@
 import cls from 'classnames';
 import React, { ButtonHTMLAttributes } from 'react';
 
+import { useAppSelector } from '../../../app/store';
+import { getAuthData } from '../../../entities/User';
+
 import { ReactComponent as Pencil } from 'shared/assets/images/icons/pencil.svg';
 import { ReactComponent as Trashcan } from 'shared/assets/images/icons/trashcan.svg';
 
@@ -22,13 +25,15 @@ export const SideButton: React.FC<ISideButtonProps> = React.memo(
 			e.preventDefault();
 			onClick?.();
 		};
+		const isTestAccount = useAppSelector(getAuthData);
+		const disabled = isTestAccount.name === 'Test' || disable;
 		const classnames = cls(s.button, className, {
-			[s.disabled]: isLoading || disable,
+			[s.disabled]: isLoading || disabled,
 			[s.active]: active,
 		});
 		return (
 			<button
-				disabled={isLoading || disable}
+				disabled={isLoading || disabled}
 				type='button'
 				title={variant}
 				className={classnames}

@@ -1,29 +1,30 @@
 .ProfileMenu {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-items: center;
-    width: 100%;
-    height: 100%;
-    padding: 0 5px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-items: center;
+	width: 100%;
+	height: 100%;
+	padding: 0 5px;
 }
 
 .role {
-    width: 132px;
-    padding-bottom: 4px;
-    margin: 24px 0 8px;
-    text-align: center;
-    border-bottom: 1px solid #dedede;
+	width: 132px;
+	padding-bottom: 4px;
+	margin: 24px 0 8px;
+	text-align: center;
+	border-bottom: 1px solid #dedede;
 }
 
 .mail {
-    width: 100%;
-    margin: 0 0 40px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+	width: 100%;
+	margin: 0 0 40px;
+	text-align: center;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .changePassBtn {
-    font-weight: 400;
+	font-weight: 400;
 }
