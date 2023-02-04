@@ -1,145 +1,146 @@
-import React, { FC, useEffect, useState } from 'react'
-import s from './VendorsPage.module.scss'
-import { AdvancedSearch, Button } from 'shared/ui'
-import { CreateVendorModal } from 'features/CreateVendor'
-import { FilterMenu, productFiltersActions } from 'features/ProductFilters'
-import { getDate } from 'shared/helpers/date/getDate'
-import { Text } from 'shared/ui'
-import { VendorsTable } from 'entities/Vendors/ui/VendorsTable/VendorsTable'
-import { useAppDispatch, useAppSelector } from 'app/store'
-import { getVendorsList } from 'entities/Vendors/model/selectors/getVendorsList/getVendorsList'
+import React, { FC, useEffect, useState } from 'react';
 
-import { getVendorsFilteredList } from '../../../entities/Vendors/model/selectors/getVendorsFilteredList/getVendorsFilteredList'
-import { getVendorsStatus, vendorsActions } from '../../../entities/Vendors'
-import { SideButton } from '../../../shared/ui/SideButton'
+import { useAppDispatch, useAppSelector } from 'app/store';
+import { getVendorsError } from 'entities/Vendors/model/selectors/getVendorsError/getVendorsError';
+import { getVendorsList } from 'entities/Vendors/model/selectors/getVendorsList/getVendorsList';
+import { VendorsTable } from 'entities/Vendors/ui/VendorsTable/VendorsTable';
+import { CreateVendorModal } from 'features/CreateVendor';
+import { FilterMenu, productFiltersActions } from 'features/ProductFilters';
+import { getDate } from 'shared/helpers/date/getDate';
+import { AdvancedSearch, Button, Text } from 'shared/ui';
 
-import { getVendorsError } from 'entities/Vendors/model/selectors/getVendorsError/getVendorsError'
-import { searchVendorsByIncludes } from '../../../shared/helpers/filters/search'
 import {
-    DynamicModuleLoader,
-    ReducersList,
-} from '../../../shared/config/components/DynamicModuleLoader'
-import { updateVendorReducer } from '../../../features/UpdateVendor/model/slice/updateVendorSlice'
+	DynamicModuleLoader,
+	ReducersList,
+} from '../../../shared/config/components/DynamicModuleLoader';
+
+import { getVendorsStatus, vendorsActions } from '../../../entities/Vendors';
+import { getVendorsFilteredList } from '../../../entities/Vendors/model/selectors/getVendorsFilteredList/getVendorsFilteredList';
 import {
-    getUpdateVendorSelectedList,
-    UpdateVendorModal,
-} from '../../../features/UpdateVendor'
-import { ConfirmModal } from '../../../shared/ui/ConfirmModal/ConfirmModal'
-import { thunkDeleteVendor } from '../../../features/UpdateVendor/model/services/thunkDeleteVendor'
+	getUpdateVendorSelectedList,
+	UpdateVendorModal,
+} from '../../../features/UpdateVendor';
+import { thunkDeleteVendor } from '../../../features/UpdateVendor/model/services/thunkDeleteVendor';
+import { updateVendorReducer } from '../../../features/UpdateVendor/model/slice/updateVendorSlice';
+import { searchVendorsByIncludes } from '../../../shared/helpers/filters/search';
+import { ConfirmModal } from '../../../shared/ui/ConfirmModal/ConfirmModal';
+import { SideButton } from '../../../shared/ui/SideButton';
+
+import s from './VendorsPage.module.scss';
 
 const initialState: ReducersList = {
-    updateVendor: updateVendorReducer,
-}
+	updateVendor: updateVendorReducer,
+};
 
 const VendorsPage: FC = () => {
-    const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
-    const [searchValue, setSearchValue] = useState<string>('')
-    const [confirmModalIsOpen, setConfirmModalIsOpen] = useState(false)
-    const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false)
+	const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+	const [searchValue, setSearchValue] = useState<string>('');
+	const [confirmModalIsOpen, setConfirmModalIsOpen] = useState(false);
+	const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false);
 
-    const dispatch = useAppDispatch()
-    const vendorsList = useAppSelector(getVendorsList)
-    const selectedItems = useAppSelector(getUpdateVendorSelectedList)
-    const status = useAppSelector(getVendorsStatus)
-    const error = useAppSelector(getVendorsError)
-    const vendorsFilteredList = useAppSelector(getVendorsFilteredList)
+	const dispatch = useAppDispatch();
+	const vendorsList = useAppSelector(getVendorsList);
+	const selectedItems = useAppSelector(getUpdateVendorSelectedList);
+	const status = useAppSelector(getVendorsStatus);
+	const error = useAppSelector(getVendorsError);
+	const vendorsFilteredList = useAppSelector(getVendorsFilteredList);
 
-    const date = getDate()
-    const filteredItems = searchVendorsByIncludes(
-        vendorsFilteredList ? vendorsFilteredList : vendorsList,
-        searchValue
-    ).reverse()
+	const date = getDate();
+	const filteredItems = searchVendorsByIncludes(
+		vendorsFilteredList ? vendorsFilteredList : vendorsList,
+		searchValue,
+	).reverse();
 
-    const onClear = () => {
-        setSearchValue('')
-    }
+	const onClear = () => {
+		setSearchValue('');
+	};
 
-    const onHandleDelete = async () => {
-        selectedItems.forEach(item => {
-            dispatch(thunkDeleteVendor(item._id))
-        })
-        setConfirmModalIsOpen(false)
-    }
+	const onHandleDelete = async () => {
+		selectedItems.forEach((item) => {
+			dispatch(thunkDeleteVendor(item._id));
+		});
+		setConfirmModalIsOpen(false);
+	};
 
-    useEffect(() => {
-        return () => {
-            dispatch(vendorsActions.clearSort())
-        }
-    }, [])
-    return (
-        <DynamicModuleLoader reducers={initialState} removeAfterUnmount={true}>
-            <div className={s.VendorsPage}>
-                <div className={s.header}>
-                    <Text className={s.title} title='Vendors' />
-                    <AdvancedSearch
-                        value={searchValue}
-                        onChange={e => setSearchValue(e)}
-                        onClick={e => e.stopPropagation()}
-                        canClear={!!searchValue}
-                        onClear={() => onClear()}
-                        className={s.vendorsSearch}
-                    >
-                        <FilterMenu />
-                    </AdvancedSearch>
-                    <Button
-                        onClick={() => setModalIsOpen(true)}
-                        variant={'rounded'}
-                        theme={'orange'}
-                    >
-                        Add new vendor
-                    </Button>
-                    <Text
-                        className={s.date}
-                        date={`${date.mounth} ${date.number}, ${date.year}`}
-                    />
-                </div>
-                <VendorsTable
-                    isLoading={status}
-                    error={!!error}
-                    items={filteredItems}
-                />
-                {!(selectedItems.length < 1) && (
-                    <div className={s.btns}>
-                        <SideButton
-                            active={modalIsOpen}
-                            disable={selectedItems.length !== 1}
-                            variant='update'
-                            className={s.update}
-                            onClick={() => setUpdateModalIsOpen(true)}
-                        />
-                        <SideButton
-                            disable={selectedItems.length < 1}
-                            variant='delete'
-                            className={s.delete}
-                            onClick={() => setConfirmModalIsOpen(true)}
-                        />
-                    </div>
-                )}
-                {modalIsOpen && (
-                    <CreateVendorModal
-                        isOpen={modalIsOpen}
-                        onClose={() => setModalIsOpen(false)}
-                    />
-                )}
-                {updateModalIsOpen && (
-                    <UpdateVendorModal
-                        isOpen={updateModalIsOpen}
-                        onClose={() => setUpdateModalIsOpen(false)}
-                        data={selectedItems[0]}
-                    />
-                )}
-                {confirmModalIsOpen && (
-                    <ConfirmModal
-                        onConfirm={onHandleDelete}
-                        isOpen={confirmModalIsOpen}
-                        onClose={() => setConfirmModalIsOpen(false)}
-                        text={'Do you really want to remove it?'}
-                        isLoading={status}
-                    />
-                )}
-            </div>
-        </DynamicModuleLoader>
-    )
-}
+	useEffect(() => {
+		return () => {
+			dispatch(vendorsActions.clearSort());
+		};
+	}, []);
+	return (
+		<DynamicModuleLoader reducers={initialState} removeAfterUnmount={true}>
+			<div className={s.VendorsPage}>
+				<div className={s.header}>
+					<Text className={s.title} title='Vendors' />
+					<AdvancedSearch
+						value={searchValue}
+						onChange={(e) => setSearchValue(e)}
+						onClick={(e) => e.stopPropagation()}
+						canClear={!!searchValue}
+						onClear={() => onClear()}
+						className={s.vendorsSearch}
+					>
+						<FilterMenu />
+					</AdvancedSearch>
+					<Button
+						onClick={() => setModalIsOpen(true)}
+						variant={'rounded'}
+						theme={'orange'}
+					>
+						Add new vendor
+					</Button>
+					<Text
+						className={s.date}
+						date={`${date.mounth} ${date.number}, ${date.year}`}
+					/>
+				</div>
+				<VendorsTable
+					isLoading={status}
+					error={!!error}
+					items={filteredItems}
+				/>
+				{!(selectedItems.length < 1) && (
+					<div className={s.btns}>
+						<SideButton
+							active={modalIsOpen}
+							disable={selectedItems.length !== 1}
+							variant='update'
+							className={s.update}
+							onClick={() => setUpdateModalIsOpen(true)}
+						/>
+						<SideButton
+							disable={selectedItems.length < 1}
+							variant='delete'
+							className={s.delete}
+							onClick={() => setConfirmModalIsOpen(true)}
+						/>
+					</div>
+				)}
+				{modalIsOpen && (
+					<CreateVendorModal
+						isOpen={modalIsOpen}
+						onClose={() => setModalIsOpen(false)}
+					/>
+				)}
+				{updateModalIsOpen && (
+					<UpdateVendorModal
+						isOpen={updateModalIsOpen}
+						onClose={() => setUpdateModalIsOpen(false)}
+						data={selectedItems[0]}
+					/>
+				)}
+				{confirmModalIsOpen && (
+					<ConfirmModal
+						onConfirm={onHandleDelete}
+						isOpen={confirmModalIsOpen}
+						onClose={() => setConfirmModalIsOpen(false)}
+						text={'Do you really want to remove it?'}
+						isLoading={status}
+					/>
+				)}
+			</div>
+		</DynamicModuleLoader>
+	);
+};
 
-export default VendorsPage
+export default VendorsPage;

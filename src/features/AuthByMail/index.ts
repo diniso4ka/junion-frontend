@@ -1,2 +1,2 @@
-export { getLoginState } from './model/selectors/getLoginState/getLoginState'
-export { loginReducer } from './model/slice/loginSlice'
+export { getLoginState } from './model/selectors/getLoginState/getLoginState';
+export { loginReducer } from './model/slice/loginSlice';

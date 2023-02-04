@@ -1,3 +1,3 @@
-export * from './TableHeading'
-export * from './TableRow'
-export * from './List'
+export * from './TableHeading';
+export * from './TableRow';
+export * from './List';

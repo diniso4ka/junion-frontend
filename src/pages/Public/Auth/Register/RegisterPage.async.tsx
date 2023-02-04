@@ -1,3 +1,3 @@
-import React from 'react'
+import React from 'react';
 
-export const RegisterPageAsync = React.lazy(() => import('./RegisterPage'))
+export const RegisterPageAsync = React.lazy(() => import('./RegisterPage'));

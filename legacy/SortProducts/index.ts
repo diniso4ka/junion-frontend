@@ -1,4 +1,4 @@
 export {
-    sortProductsSliceActions,
-    sortProductsSliceReducer,
-} from './model/slice/sortProductsSlice'
+	sortProductsSliceActions,
+	sortProductsSliceReducer,
+} from './model/slice/sortProductsSlice';

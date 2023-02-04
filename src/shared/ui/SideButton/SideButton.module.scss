@@ -1,13 +1,13 @@
 .button {
+    display: grid;
+    place-items: center;
     width: 60px;
     height: 60px;
+    cursor: pointer;
     background-color: var(--bg-third-color);
     border: none;
     border-radius: 32px 0 0 32px;
-    cursor: pointer;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    display: grid;
-    place-items: center;
+    box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
 
     div {
         display: grid;

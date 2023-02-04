@@ -1,6 +1,6 @@
 export {
-    createVendorReducer,
-    createVendorActions,
-} from './model/slice/createVendorSlice'
+	createVendorReducer,
+	createVendorActions,
+} from './model/slice/createVendorSlice';
 
-export { CreateVendorModal } from './ui/CreateVendorModal/CreateVendorModal'
+export { CreateVendorModal } from './ui/CreateVendorModal/CreateVendorModal';

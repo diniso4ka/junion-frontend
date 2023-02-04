@@ -1,11 +1,11 @@
 .wrapper {
-    padding-top: var(--margin-top-form-l);
-    width: 100vw;
+    position: relative;
     display: flex;
     justify-content: center;
-    background-color: var(--bg-third-color);
-    position: relative;
+    width: 100vw;
+    padding-top: var(--margin-top-form-l);
     overflow: hidden;
+    background-color: var(--bg-third-color);
 }
 
 .image {

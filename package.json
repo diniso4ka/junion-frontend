@@ -5,12 +5,11 @@
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
-		"deploy": "gh-pages -d build",
-		"storybook": "start-storybook -p 6006 ./.storybook",
 		"lint:ts": "eslint \"**/*.{ts,tsx}\"",
 		"lint:ts:fix": "eslint \"**/*.{ts,tsx}\" --fix",
 		"lint:scss": "npx stylelint \"**/*.scss\"",
-		"lint:scss:fix": "npx stylelint \"**/*.scss\" --fix"
+		"lint:scss:fix": "npx stylelint \"**/*.scss\" --fix",
+		"prepare": "husky install"
 	},
 	"browserslist": {
 		"production": [
@@ -48,7 +47,7 @@
 	},
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^5.50.0",
-		"eslint": "^8.33.0",
+		"eslint": "^8.22.0",
 		"eslint-config-prettier": "^8.6.0",
 		"eslint-config-standard-with-typescript": "^34.0.0",
 		"eslint-import-resolver-typescript": "^3.5.3",
@@ -60,6 +59,7 @@
 		"eslint-plugin-react": "^7.32.2",
 		"eslint-plugin-simple-import-sort": "^10.0.0",
 		"gh-pages": "^4.0.0",
+		"husky": "^8.0.3",
 		"prettier": "2.7.1",
 		"sass": "^1.55.0",
 		"stylelint": "^14.14.1",

@@ -1,7 +1,7 @@
 .CategoriesTable {
     max-width: 1200px;
-    margin-left: auto;
     margin-right: auto;
+    margin-left: auto;
 }
 
 .items {
@@ -10,8 +10,9 @@
     -webkit-scrollbar: none;
     background-color: var(--white-color);
 }
+
 .error {
-    text-align: center;
     margin-top: 10vh;
     font-size: 20px;
+    text-align: center;
 }

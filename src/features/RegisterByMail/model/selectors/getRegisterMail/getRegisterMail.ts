@@ -1,4 +1,4 @@
-import { StateSchema } from 'app/store/config/StateSchema'
+import { StateSchema } from 'app/store/config/StateSchema';
 
 export const getRegisterMail = (state: StateSchema) =>
-    state?.registerForm?.mail || ''
+	state?.registerForm?.mail || '';

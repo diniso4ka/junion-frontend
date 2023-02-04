@@ -1,9 +1,9 @@
 export interface User {
-    name: string
-    email: string
-    role: string
+	name: string;
+	email: string;
+	role: string;
 }
 export interface UserSchema {
-    authData?: User
-    initialize: boolean
+	authData?: User;
+	initialize: boolean;
 }

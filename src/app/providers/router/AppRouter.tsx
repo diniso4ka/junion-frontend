@@ -1,38 +1,38 @@
-import { Route, Routes } from 'react-router-dom'
-import React from 'react'
-import NotFound from 'pages/NotFound/NotFound'
+import React from 'react';
 
+import { Route, Routes } from 'react-router-dom';
+import { useAppSelector } from 'app/store/config/StateSchema';
+import { getAuthData } from 'entities/User';
+import NotFound from 'pages/NotFound/NotFound';
 import {
-    privateRoutes,
-    publicRoutes,
-} from 'shared/config/routeConfig/routeConfig'
+	privateRoutes,
+	publicRoutes,
+} from 'shared/config/routeConfig/routeConfig';
 
-import { useAppSelector } from 'app/store/config/StateSchema'
-import { getAuthData } from 'entities/User'
-import { PageLoader } from 'widgets/PageLoader/PageLoader'
+import { PageLoader } from 'widgets/PageLoader/PageLoader';
 
 const AppRouter = () => {
-    const authData = useAppSelector(getAuthData)
+	const authData = useAppSelector(getAuthData);
 
-    return authData ? (
-        <React.Suspense fallback={<PageLoader />}>
-            <Routes>
-                {privateRoutes.map(({ path, Component }) => (
-                    <Route key={path} path={path} element={<Component />} />
-                ))}
-                <Route path={'*'} element={<NotFound />} />
-            </Routes>
-        </React.Suspense>
-    ) : (
-        <React.Suspense fallback={<PageLoader />}>
-            <Routes>
-                {publicRoutes.map(({ path, Component }) => (
-                    <Route key={path} path={path} element={<Component />} />
-                ))}
-                <Route path={'*'} element={<NotFound />} />
-            </Routes>
-        </React.Suspense>
-    )
-}
+	return authData ? (
+		<React.Suspense fallback={<PageLoader />}>
+			<Routes>
+				{privateRoutes.map(({ path, Component }) => (
+					<Route key={path} path={path} element={<Component />} />
+				))}
+				<Route path={'*'} element={<NotFound />} />
+			</Routes>
+		</React.Suspense>
+	) : (
+		<React.Suspense fallback={<PageLoader />}>
+			<Routes>
+				{publicRoutes.map(({ path, Component }) => (
+					<Route key={path} path={path} element={<Component />} />
+				))}
+				<Route path={'*'} element={<NotFound />} />
+			</Routes>
+		</React.Suspense>
+	);
+};
 
-export default AppRouter
+export default AppRouter;

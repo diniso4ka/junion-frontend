@@ -1,4 +1,4 @@
-import { StateSchema } from 'app/store/config/StateSchema'
+import { StateSchema } from 'app/store/config/StateSchema';
 
 export const getUpdateProductId = (state: StateSchema) =>
-    state?.updateProduct?.form?._id || ''
+	state?.updateProduct?.form?._id || '';

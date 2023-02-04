@@ -1,15 +1,15 @@
 .VendorsPage {
-    margin: 0 auto;
-    padding: 25px 35px;
-    max-width: 1200px;
     width: calc(100vw - var(--sidebar-width));
+    max-width: 1200px;
+    padding: 25px 35px;
+    margin: 0 auto;
     font-family: var(--font-family-main);
 }
 
 .header {
-    margin-bottom: 22px;
     display: flex;
     align-items: center;
+    margin-bottom: 22px;
 }
 
 .header button {
@@ -23,9 +23,9 @@
 
 .date {
     margin-left: auto;
+    font-size: var(--font-size-l);
     font-style: normal;
     font-weight: 400;
-    font-size: var(--font-size-l);
 }
 
 .btns {
@@ -40,8 +40,8 @@
 @media (max-width: 1340px) {
     .header {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
         grid-template-rows: 1fr 1fr;
+        grid-template-columns: repeat(3, 1fr);
         row-gap: 14px;
     }
 
@@ -49,12 +49,12 @@
         grid-row-start: 2;
         grid-column-start: 1;
         grid-column-end: 4;
-        max-width: 550px !important;
         justify-self: center;
+        max-width: 550px !important;
     }
 
     .header button {
-        margin-left: 0;
         justify-self: center;
+        margin-left: 0;
     }
 }

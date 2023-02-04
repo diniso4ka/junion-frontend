@@ -1,3 +1,3 @@
-import React from 'react'
+import React from 'react';
 
-export const AsyncCategoriesPage = React.lazy(() => import('./CategoriesPage'))
+export const AsyncCategoriesPage = React.lazy(() => import('./CategoriesPage'));

@@ -1,17 +1,17 @@
 .wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
     width: calc(100vw - var(--sidebar-width));
+    max-width: 1200px;
     height: calc(100vh - var(--header-height-desktop));
-    background-color: var(--bg-color);
+    margin: 0 auto;
     overflow-y: scroll;
+    background-color: var(--bg-color);
 }
 
 .HomePage {
-    margin: 0 auto;
-    padding: 25px 35px;
-    max-width: 1200px;
     width: calc(100vw - var(--sidebar-width));
+    max-width: 1200px;
+    padding: 25px 35px;
+    margin: 0 auto;
     font-family: var(--font-family-main);
 }
 
@@ -20,16 +20,16 @@
     flex-direction: row;
     justify-content: space-between;
     max-width: 1200px;
-    margin: 0 auto 35px auto;
+    margin: 0 auto 35px;
 }
 
 .items {
-    max-width: 1200px;
-    margin: 0 auto;
     display: flex;
+    flex: 1 1 auto;
     row-gap: 50px;
     justify-content: space-between;
-    flex: 1 1 auto;
+    max-width: 1200px;
+    margin: 0 auto;
 
     @media (max-width: 1200px) {
         flex-direction: column;
@@ -41,7 +41,7 @@
     width: 445px;
     height: 245px;
     border-radius: 10px;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
 }
 
 .btns {

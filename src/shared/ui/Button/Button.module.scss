@@ -1,13 +1,13 @@
 .button {
     height: 48px;
-    border-radius: 12px;
-    border: none;
-    background-color: var(--button-primary-color);
 
     font-family: var(--font-family-main);
     font-size: var(--font-size-l);
     color: var(--white-color);
     cursor: pointer;
+    background-color: var(--button-primary-color);
+    border: none;
+    border-radius: 12px;
 }
 
 .large {
@@ -41,10 +41,11 @@
     background-color: var(--bg-third-color);
     border: 2px solid var(--bg-third-color);
 }
+
 .orange {
-    background-color: var(--orange);
-    color: var(--bg-secondary-color);
     font-weight: 500;
+    color: var(--bg-secondary-color);
+    background-color: var(--orange);
     border: 1px solid var(--bg-secondary-color);
 }
 
@@ -53,8 +54,8 @@
 }
 
 .outline {
-    background-color: transparent;
     color: var(--bg-third-color);
+    background-color: transparent;
 }
 
 .rounded {
@@ -63,18 +64,18 @@
 }
 
 .text {
+    color: var(--black-color);
     background-color: transparent;
     border: none;
-    color: var(--black-color);
 }
 
 .hint {
-    background: none;
-    color: var(--primary-color);
-    border: none;
-    height: auto;
     width: auto;
+    height: auto;
+    font-size: 12px;
     font-style: normal;
     font-weight: 300;
-    font-size: 12px;
+    color: var(--primary-color);
+    background: none;
+    border: none;
 }

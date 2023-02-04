@@ -1,4 +1,4 @@
-import { StateSchema } from 'app/store/config/StateSchema'
+import { StateSchema } from 'app/store/config/StateSchema';
 
 export const getCreateVendorError = (state: StateSchema) =>
-    state?.createVendor?.error
+	state?.createVendor?.error;

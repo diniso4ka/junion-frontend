@@ -1,7 +1,5 @@
 .loaderWrapper {
     height: calc(80vh - var(--header-height-desktop));
-    animation: shimmer 1.5s linear infinite;
-    background-size: 400%;
     background-image: linear-gradient(
         to right,
         #f2f2f2 0%,
@@ -11,12 +9,15 @@
         #f2f2f2 60%,
         #f2f2f2 100%
     );
+    background-size: 400%;
+    animation: shimmer 1.5s linear infinite;
 }
 
 @keyframes shimmer {
     0% {
         background-position: 100%;
     }
+
     100% {
         background-position: 0;
     }

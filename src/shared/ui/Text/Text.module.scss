@@ -1,40 +1,42 @@
 .title {
     font-family: var(--font-family-main);
+    font-size: 20px;
     font-style: normal;
     font-weight: 500;
-    font-size: 20px;
     line-height: 24px;
     color: var(--black-color);
 }
+
 .subtitle {
+    height: fit-content;
     font-family: var(--font-family-main);
+    font-size: var(--font-size-l);
     font-style: normal;
     font-weight: 500;
-    font-size: var(--font-size-l);
     color: var(--black-color);
-    height: fit-content;
 }
+
 .mediumText {
     font-family: var(--font-family-main);
+    font-size: var(--font-size-m);
     font-style: normal;
     font-weight: 300;
-    font-size: var(--font-size-m);
 }
 
 .text {
+    overflow: hidden;
     font-family: var(--font-family-main);
+    font-size: var(--font-size-s);
     font-style: normal;
     font-weight: 300;
-    font-size: var(--font-size-s);
-    white-space: nowrap;
     text-overflow: ellipsis;
-    overflow: hidden;
+    white-space: nowrap;
 }
 
 .date {
+    font-size: var(--font-size-l);
     font-style: normal;
     font-weight: 400;
-    font-size: var(--font-size-l);
     text-align: right;
 }
 
@@ -45,6 +47,7 @@
 .medium {
     font-weight: 400;
 }
+
 .light {
     font-weight: 300;
 }

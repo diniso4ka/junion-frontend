@@ -1,3 +1,3 @@
-import { StateSchema } from 'app/store/config/StateSchema'
+import { StateSchema } from 'app/store/config/StateSchema';
 
-export const getVendorsError = (state: StateSchema) => state?.vendors?.error
+export const getVendorsError = (state: StateSchema) => state?.vendors?.error;

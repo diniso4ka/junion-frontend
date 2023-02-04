@@ -1,11 +1,11 @@
 .DiscountTag {
-    background: #ff1f00;
-    border-radius: 15px;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     width: 45px;
     padding: 2px 4px;
     font-size: var(--font-size-s);
     color: var(--white-color);
+    background: #ff1f00;
+    border-radius: 15px;
 }

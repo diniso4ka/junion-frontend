@@ -8,28 +8,30 @@ html {
 }
 
 .app {
-    font-family: var(--font-family-main);
-    font: var(--font-m);
-    background: var(--bg-color);
-    color: var(--black-color);
     min-height: 100vh;
+    font: var(--font-m);
+    font-family: var(--font-family-main);
+    color: var(--black-color);
+    background: var(--bg-color);
 }
 
 .pageWrapper {
-    min-height: calc(100vh - var(--header-height-desktop));
-    width: 100%;
     display: flex;
+    width: 100%;
+    min-height: calc(100vh - var(--header-height-desktop));
 }
 
 ::-webkit-scrollbar {
     width: 14px;
     height: 10%;
 }
+
 ::-webkit-scrollbar-track {
     background-color: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
+    min-height: 50px;
     background-color: #d9d9d9;
     border-radius: 8px;
-    min-height: 50px;
 }

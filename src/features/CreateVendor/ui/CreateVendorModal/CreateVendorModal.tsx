@@ -1,20 +1,22 @@
-import { FC } from 'react'
-import { CreateVendorForm } from '../CreateVendorForm/CreateVendorForm'
-import { Modal } from 'shared/ui'
+import { FC } from 'react';
+
+import { Modal } from 'shared/ui';
+
+import { CreateVendorForm } from '../CreateVendorForm/CreateVendorForm';
 
 interface CreateProductModalProps {
-    className?: string
-    isOpen: boolean
-    onClose: () => void
+	className?: string;
+	isOpen: boolean;
+	onClose: () => void;
 }
 
 export const CreateVendorModal: FC<CreateProductModalProps> = ({
-    isOpen,
-    onClose,
+	isOpen,
+	onClose,
 }) => {
-    return (
-        <Modal isOpen={isOpen} onClose={onClose}>
-            <CreateVendorForm onClose={onClose} />
-        </Modal>
-    )
-}
+	return (
+		<Modal isOpen={isOpen} onClose={onClose}>
+			<CreateVendorForm onClose={onClose} />
+		</Modal>
+	);
+};

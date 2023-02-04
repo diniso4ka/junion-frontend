@@ -1,3 +1,3 @@
-export { useAppDispatch, useAppSelector } from './config/StateSchema'
+export { useAppDispatch, useAppSelector } from './config/StateSchema';
 
-export { StoreProvider } from './ui/StoreProvider'
+export { StoreProvider } from './ui/StoreProvider';

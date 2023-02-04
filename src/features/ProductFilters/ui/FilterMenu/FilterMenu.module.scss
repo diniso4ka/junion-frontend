@@ -17,12 +17,12 @@
 }
 
 .filterItem {
-    height: 50px;
-    align-items: center;
-    width: 100%;
-    list-style: none;
     display: grid;
     grid-template-columns: (20% 80%);
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    list-style: none;
 }
 
 .buttonWrapper {

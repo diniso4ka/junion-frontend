@@ -1,4 +1,4 @@
-import { StateSchema } from 'app/store/config/StateSchema'
+import { StateSchema } from 'app/store/config/StateSchema';
 
 export const getProductFiltersPriceMin = (state: StateSchema) =>
-    state?.productsFilters?.filters?.price_min || ''
+	state?.productsFilters?.filters?.price_min || '';

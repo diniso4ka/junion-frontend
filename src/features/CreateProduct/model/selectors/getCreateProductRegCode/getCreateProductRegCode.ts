@@ -1,4 +1,4 @@
-import { StateSchema } from 'app/store/config/StateSchema'
+import { StateSchema } from 'app/store/config/StateSchema';
 
 export const getCreateProductRegCode = (state: StateSchema) =>
-    state?.createProduct?.form?.regCode || ''
+	state?.createProduct?.form?.regCode || '';

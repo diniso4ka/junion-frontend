@@ -1,9 +1,9 @@
-import { FC } from 'react'
+import { FC } from 'react';
 
-import LoginForm from 'features/AuthByMail/ui/LoginForm/LoginForm'
+import LoginForm from 'features/AuthByMail/ui/LoginForm/LoginForm';
 
 const LoginPage: FC = () => {
-    return <LoginForm />
-}
+	return <LoginForm />;
+};
 
-export default LoginPage
+export default LoginPage;

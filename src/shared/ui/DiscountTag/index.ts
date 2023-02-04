@@ -1,1 +1,1 @@
-export * from './DiscountTag'
+export * from './DiscountTag';

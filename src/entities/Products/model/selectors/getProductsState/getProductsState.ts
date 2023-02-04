@@ -1,3 +1,3 @@
-import { StateSchema } from 'app/store/config/StateSchema'
+import { StateSchema } from 'app/store/config/StateSchema';
 
-export const getProductsState = (state: StateSchema) => state.products
+export const getProductsState = (state: StateSchema) => state.products;

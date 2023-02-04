@@ -1,3 +1,3 @@
-import { StateSchema } from 'app/store/config/StateSchema'
+import { StateSchema } from 'app/store/config/StateSchema';
 
-export const getRegisterState = (state: StateSchema) => state?.registerForm
+export const getRegisterState = (state: StateSchema) => state?.registerForm;

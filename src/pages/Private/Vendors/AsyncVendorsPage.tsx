@@ -1,3 +1,3 @@
-import React from 'react'
+import React from 'react';
 
-export const AsyncVendorsPage = React.lazy(() => import('./VendorsPage'))
+export const AsyncVendorsPage = React.lazy(() => import('./VendorsPage'));

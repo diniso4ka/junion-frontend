@@ -1,4 +1,4 @@
-import { StateSchema } from 'app/store/config/StateSchema'
+import { StateSchema } from 'app/store/config/StateSchema';
 
 export const getProductsInitialize = (state: StateSchema) =>
-    state.products.productInitialize
+	state.products.productInitialize;

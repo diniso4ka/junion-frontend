@@ -1,15 +1,15 @@
 .List {
     max-width: 450px;
-    background-color: var(--white-color);
     padding: 21px 20px;
-    border-radius: 10px;
     font-family: var(--font-family-main);
+    background-color: var(--white-color);
+    border-radius: 10px;
 }
 
 .loading {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     height: 280px;
 }
 
@@ -26,23 +26,24 @@
 }
 
 .titleWrapper {
-    height: 45px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 45px;
     margin-bottom: 15px;
     font-weight: 500;
 }
 
 .value {
-    width: 45px;
-    height: 45px;
     display: grid;
     place-items: center;
-    border-radius: 50%;
+    width: 45px;
+    height: 45px;
     font-size: var(--font-size-xl);
     cursor: pointer;
+    border-radius: 50%;
     transition: transform 0.2s ease-in-out;
+
     &:hover {
         transform: scale(1.2);
     }

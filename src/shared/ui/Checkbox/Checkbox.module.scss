@@ -7,40 +7,41 @@
 .custom {
     position: relative;
     display: inline-block;
+    vertical-align: sub;
     background-color: transparent;
     border: 1px solid #757575;
     border-radius: 4px;
-    vertical-align: sub;
-}
-.dark {
-    border: 1px solid #ffffff;
 }
 
-.custom:before {
-    content: '';
+.dark {
+    border: 1px solid #fff;
+}
+
+.custom::before {
     position: absolute;
     top: 53%;
     left: 52%;
-    transform: translate(-50%, -50%) scale(0);
     display: inline-block;
     width: 13px;
     height: 9.6px;
+    content: '';
     background-image: url('/shared/assets/images/icons/checkbox.svg');
-    background-size: contain;
     background-repeat: no-repeat;
+    background-size: contain;
     transition: transform 0.2s ease-in-out;
+    transform: translate(-50%, -50%) scale(0);
 }
 
-.real:checked + .custom:before {
+.real:checked + .custom::before {
     transform: translate(-50%, -50%) scale(1);
 }
 
 .real {
+    position: absolute;
+    z-index: -1;
     width: 0;
     height: 0;
     opacity: 0;
-    position: absolute;
-    z-index: -1;
 }
 
 .label {

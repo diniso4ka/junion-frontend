@@ -1,1 +1,1 @@
-export * from './TableHeading'
+export * from './TableHeading';

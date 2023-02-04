@@ -1,4 +1,4 @@
-import { StateSchema } from 'app/store/config/StateSchema'
+import { StateSchema } from 'app/store/config/StateSchema';
 
 export const getUpdateProductQuantity = (state: StateSchema) =>
-    state?.updateProduct?.form?.quantity || ''
+	state?.updateProduct?.form?.quantity || '';

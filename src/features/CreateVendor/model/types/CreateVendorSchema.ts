@@ -1,11 +1,11 @@
 export interface CreateVendorSchema {
-    form: CreateVendorForm
-    isLoading: boolean
-    error?: boolean
+	form: CreateVendorForm;
+	isLoading: boolean;
+	error?: boolean;
 }
 
 export interface CreateVendorForm {
-    name: string
-    regCode: string
-    address: string
+	name: string;
+	regCode: string;
+	address: string;
 }

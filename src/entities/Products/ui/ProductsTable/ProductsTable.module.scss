@@ -1,8 +1,8 @@
 .ProductsTable {
-    max-width: 1200px;
     min-width: 1060px;
-    margin-left: auto;
+    max-width: 1200px;
     margin-right: auto;
+    margin-left: auto;
 }
 
 .items {
@@ -13,7 +13,7 @@
 }
 
 .error {
-    text-align: center;
     margin-top: 10vh;
     font-size: 20px;
+    text-align: center;
 }

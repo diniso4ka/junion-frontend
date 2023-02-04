@@ -1,13 +1,13 @@
 .wrapper {
-    margin-top: var(--margin-top-form-l);
-    width: 100vw;
     display: flex;
     justify-content: center;
+    width: 100vw;
+    margin-top: var(--margin-top-form-l);
 }
 
 .contentWrapper {
-    color: var(--primary-color);
     width: var(--form-width-desktop);
+    color: var(--primary-color);
 }
 
 .message {
@@ -15,19 +15,19 @@
 }
 
 .formItem {
-    margin: 0 0 14px 0;
     height: 70px;
+    margin: 0 0 14px;
 }
 
 .formButton {
-    margin-top: 15px;
     float: right;
+    margin-top: 15px;
 }
 
 .helper {
+    padding-left: 18px;
     font-size: var(--font-size-l);
     background-repeat: no-repeat;
-    padding-left: 18px;
 }
 
 .helperError {

@@ -1,4 +1,4 @@
 export {
-    categoryFiltersActions,
-    categoryFiltersReducer,
-} from './model/slice/categoryFiltersSlice'
+	categoryFiltersActions,
+	categoryFiltersReducer,
+} from './model/slice/categoryFiltersSlice';

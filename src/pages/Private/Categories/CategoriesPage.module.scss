@@ -1,15 +1,15 @@
 .CategoriesPage {
-    margin: 0 auto;
-    padding: 25px 35px;
-    max-width: 1200px;
     width: calc(100vw - var(--sidebar-width));
+    max-width: 1200px;
+    padding: 25px 35px;
+    margin: 0 auto;
     font-family: var(--font-family-main);
 }
 
 .navigation {
-    margin-bottom: 22px;
     display: flex;
     align-items: center;
+    margin-bottom: 22px;
 }
 
 .navigation .title {
@@ -25,8 +25,9 @@
     width: 100%;
     max-width: 550px;
 }
+
 .date {
-    padding-left: 5px;
     min-width: 100px;
+    padding-left: 5px;
     margin-left: auto;
 }

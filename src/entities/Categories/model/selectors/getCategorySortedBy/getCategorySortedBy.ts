@@ -1,4 +1,4 @@
-import { StateSchema } from 'app/store/config/StateSchema'
+import { StateSchema } from 'app/store/config/StateSchema';
 
 export const getCategorySortedBy = (state: StateSchema) =>
-    state.categories.sortedBy
+	state.categories.sortedBy;

@@ -1,4 +1,4 @@
-import { StateSchema } from 'app/store/config/StateSchema'
+import { StateSchema } from 'app/store/config/StateSchema';
 
 export const getProductFiltersOwner = (state: StateSchema) =>
-    state?.productsFilters?.filters?.owner || ''
+	state?.productsFilters?.filters?.owner || '';

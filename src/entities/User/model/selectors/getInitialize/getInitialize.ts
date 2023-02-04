@@ -1,3 +1,3 @@
-import { StateSchema } from 'app/store/config/StateSchema'
+import { StateSchema } from 'app/store/config/StateSchema';
 
-export const getInitialize = (state: StateSchema) => state.user.initialize
+export const getInitialize = (state: StateSchema) => state.user.initialize;

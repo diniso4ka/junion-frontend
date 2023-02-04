@@ -1,9 +1,9 @@
 .PageLoader {
-    max-width: 1200px;
-    margin: 0 auto;
-    width: calc(100vw - var(--sidebar-width));
-    height: calc(80vh - var(--header-height-desktop));
     display: flex;
     align-items: center;
     justify-content: center;
+    width: calc(100vw - var(--sidebar-width));
+    max-width: 1200px;
+    height: calc(80vh - var(--header-height-desktop));
+    margin: 0 auto;
 }

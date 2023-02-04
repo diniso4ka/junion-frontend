@@ -48,25 +48,25 @@
 
     h1 {
         font-family: var(--font-family-main);
+        font-size: 20px;
         font-style: normal;
         font-weight: 500;
-        font-size: 20px;
         color: var(--black-color);
     }
 
     h2 {
         font-family: var(--font-family-main);
+        font-size: var(--font-size-l);
         font-style: normal;
         font-weight: 500;
-        font-size: var(--font-size-l);
         color: var(--black-color);
     }
 
     h4 {
         font-family: var(--font-family-main);
+        font-size: var(--font-size-m);
         font-style: normal;
         font-weight: 400;
-        font-size: var(--font-size-m);
         color: var(--black-color);
     }
 }

@@ -1,3 +1,4 @@
-import { StateSchema } from 'app/store/config/StateSchema'
+import { StateSchema } from 'app/store/config/StateSchema';
 
-export const getLoginMail = (state: StateSchema) => state?.loginForm?.mail || ''
+export const getLoginMail = (state: StateSchema) =>
+	state?.loginForm?.mail || '';

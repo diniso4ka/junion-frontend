@@ -1,4 +1,4 @@
 export {
-    createProductReducer,
-    createProductActions,
-} from './model/slice/createProductSlice'
+	createProductReducer,
+	createProductActions,
+} from './model/slice/createProductSlice';

@@ -4,54 +4,54 @@
 }
 
 .contentWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 380px;
     height: 100%;
     margin: 0 auto;
-    color: var(--primary-color);
     font-family: var(--font-family-main);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    color: var(--primary-color);
 }
 
 .formItem {
-    margin: 0 0 14px 0;
-    height: 70px;
-    width: fit-content;
     display: flex;
+    width: fit-content;
+    height: 70px;
+    margin: 0 0 14px;
 }
 
 .formButton {
-    margin-top: 15px;
-    width: 100%;
     display: flex;
     justify-content: right;
+    width: 100%;
+    margin-top: 15px;
 }
 
 .title {
+    margin-bottom: 56px;
     font-size: var(--font-size-xl);
     font-weight: 600;
     text-align: center;
-    margin-bottom: 56px;
 }
 
 .label {
-    white-space: nowrap;
-    font-size: var(--font-size-vs);
-    margin-right: 16px;
-    padding-top: 20px;
     width: 140px;
+    padding-top: 20px;
+    margin-right: 16px;
+    font-size: var(--font-size-vs);
     text-align: end;
+    white-space: nowrap;
 }
 
 .helper {
-    font-size: var(--font-size-s);
-    background-repeat: no-repeat;
+    width: 100%;
     padding-left: 18px;
     margin-bottom: 8px;
-    width: 100%;
+    font-size: var(--font-size-s);
     text-align: left;
+    background-repeat: no-repeat;
 }
 
 .helperHint {

@@ -1,1 +1,1 @@
-export * from './SideButton'
+export * from './SideButton';

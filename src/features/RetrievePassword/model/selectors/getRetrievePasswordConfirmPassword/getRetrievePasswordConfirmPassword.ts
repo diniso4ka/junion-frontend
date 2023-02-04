@@ -1,4 +1,4 @@
-import { StateSchema } from 'app/store/config/StateSchema'
+import { StateSchema } from 'app/store/config/StateSchema';
 
 export const getRetrievePasswordConfirmPassword = (state: StateSchema) =>
-    state?.retrievePassword?.form?.confirmPassword || ''
+	state?.retrievePassword?.form?.confirmPassword || '';

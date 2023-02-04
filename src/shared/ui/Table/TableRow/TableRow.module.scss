@@ -1,45 +1,50 @@
 .TableRow {
-    background-color: var(--white-color);
     font-family: var(--font-family-main);
+    background-color: var(--white-color);
 }
 
 .active {
-    background: rgba(249, 170, 85, 0.5);
+    background: rgb(249 170 85 / 50%);
 }
+
 .items {
     display: grid;
-    padding: 5px 0 3px 0;
-    margin: 20px 18px 0 18px;
+    padding: 5px 0 3px;
+    margin: 20px 18px 0;
 
     border-bottom: 1px solid #dedede;
+
     &.products {
         grid-template-columns: 4% 13.5% 16% 22.5% 9% 9% 9% 17%;
     }
+
     &.categories {
-        padding-left: 7px;
         grid-template-columns: 278px 78px;
         gap: 10px;
+        padding-left: 7px;
 
         & li:nth-child(2) {
             text-align: center;
         }
     }
+
     &.vendors {
         grid-template-columns: 5% 14% 15% 19% 48%;
 
         @media (max-width: 900px) {
-            column-gap: 5px;
             grid-template-columns: 5% 16% 17% 21% 40%;
+            column-gap: 5px;
         }
     }
 }
 
 .item {
-    font-size: var(--font-size-m);
-    list-style: none;
-    white-space: nowrap;
-    text-overflow: ellipsis;
     overflow: hidden;
+    font-size: var(--font-size-m);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    list-style: none;
+
     .discount {
         display: flex;
         flex-direction: row;

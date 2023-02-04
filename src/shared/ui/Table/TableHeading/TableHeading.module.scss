@@ -1,36 +1,41 @@
 .TableHeading {
-    background-color: var(--bg-third-color);
     font-family: var(--font-family-main);
+    background-color: var(--bg-third-color);
 }
+
 .items {
     display: grid;
     padding: 8px 36px 8px 18px;
-    color: #ffffff;
+    color: #fff;
+
     &.products {
         grid-template-columns: 4% 13.5% 16.5% 22.5% 9.5% 9% 9% 17%;
     }
+
     &.categories {
-        padding-left: 25px;
         grid-template-columns: 278px 78px;
         gap: 10px;
+        padding-left: 25px;
     }
+
     &.vendors {
         grid-template-columns: 5% 14% 15% 19% 48%;
 
         @media (max-width: 900px) {
-            column-gap: 5px;
             grid-template-columns: 5% 16% 17% 21% 40%;
+            column-gap: 5px;
         }
     }
 }
 
 .item {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-size: var(--font-size-m);
     text-decoration: none;
     list-style: none;
-    font-size: var(--font-size-m);
-    display: flex;
-    align-items: center;
-    gap: 6px;
+
     div {
         display: grid;
         place-items: center;
@@ -38,13 +43,13 @@
 }
 
 .sortIcon {
-    height: 15px;
-    width: 15px;
-    margin-left: 6px;
-    fill: #ffffff;
-    cursor: pointer;
-    transition: 0.2s ease-in-out;
     z-index: 1;
+    width: 15px;
+    height: 15px;
+    margin-left: 6px;
+    cursor: pointer;
+    fill: #fff;
+    transition: 0.2s ease-in-out;
 }
 
 .activeArrow path {

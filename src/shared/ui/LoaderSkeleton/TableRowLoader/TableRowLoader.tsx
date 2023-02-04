@@ -1,6 +1,7 @@
-import React from 'react'
-import s from './TableRowLoader.module.scss'
+import React from 'react';
 
-const TableRowLoader: React.FC = () => <div className={s.loaderWrapper}></div>
+import s from './TableRowLoader.module.scss';
 
-export default TableRowLoader
+const TableRowLoader: React.FC = () => <div className={s.loaderWrapper}></div>;
+
+export default TableRowLoader;

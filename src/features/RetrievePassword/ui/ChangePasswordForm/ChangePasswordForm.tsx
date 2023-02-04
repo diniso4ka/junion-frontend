@@ -1,98 +1,98 @@
-import { FC, useCallback } from 'react'
-import s from './ChangePasswordForm.module.scss'
-import cls from 'classnames'
-import { Button, Input } from 'shared/ui'
-import { Text } from 'shared/ui'
+import cls from 'classnames';
+import { FC, useCallback } from 'react';
+
+import { Button, Input, Text } from 'shared/ui';
+
 import {
-    DynamicModuleLoader,
-    ReducersList,
-} from 'shared/config/components/DynamicModuleLoader'
+	DynamicModuleLoader,
+	ReducersList,
+} from 'shared/config/components/DynamicModuleLoader';
+
+import { useAppDispatch, useAppSelector } from '../../../../app/store';
+import { getRetrievePasswordConfirmPassword } from '../../model/selectors/getRetrievePasswordConfirmPassword/getRetrievePasswordConfirmPassword';
+import { getRetrievePasswordPassword } from '../../model/selectors/getRetrievePasswordPassword/getRetrievePasswordPassword';
+import { getRetrievePasswordStatus } from '../../model/selectors/getRetrievePasswordStatus/getRetrievePasswordStatus';
+import { thunkChangePassword } from '../../model/services/thunkChangePassword';
 import {
-    retrievePasswordActions,
-    retrievePasswordReducer,
-} from '../../model/slice/retrievePasswordSlice'
-import { useAppDispatch, useAppSelector } from '../../../../app/store'
-import { getRetrievePasswordPassword } from '../../model/selectors/getRetrievePasswordPassword/getRetrievePasswordPassword'
-import { getRetrievePasswordConfirmPassword } from '../../model/selectors/getRetrievePasswordConfirmPassword/getRetrievePasswordConfirmPassword'
-import { thunkChangePassword } from '../../model/services/thunkChangePassword'
-import { getRetrievePasswordStatus } from '../../model/selectors/getRetrievePasswordStatus/getRetrievePasswordStatus'
+	retrievePasswordActions,
+	retrievePasswordReducer,
+} from '../../model/slice/retrievePasswordSlice';
+
+import s from './ChangePasswordForm.module.scss';
 
 interface ChangePasswordFormProps {
-    className?: string
+	className?: string;
 }
 const initialState: ReducersList = {
-    retrievePassword: retrievePasswordReducer,
-}
+	retrievePassword: retrievePasswordReducer,
+};
 
 export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
-    className,
+	className,
 }) => {
-    const password = useAppSelector(getRetrievePasswordPassword)
-    const confirmPassword = useAppSelector(getRetrievePasswordConfirmPassword)
-    const status = useAppSelector(getRetrievePasswordStatus)
-    const dispatch = useAppDispatch()
+	const password = useAppSelector(getRetrievePasswordPassword);
+	const confirmPassword = useAppSelector(getRetrievePasswordConfirmPassword);
+	const status = useAppSelector(getRetrievePasswordStatus);
+	const dispatch = useAppDispatch();
 
-    const onPasswordChange = useCallback(
-        e => {
-            dispatch(retrievePasswordActions.setPassword(e.target.value))
-        },
-        [password]
-    )
-    const onConfirmPasswordChange = useCallback(
-        e => {
-            dispatch(retrievePasswordActions.setConfirmPassword(e.target.value))
-        },
-        [confirmPassword]
-    )
+	const onPasswordChange = useCallback(
+		(e) => {
+			dispatch(retrievePasswordActions.setPassword(e.target.value));
+		},
+		[password],
+	);
+	const onConfirmPasswordChange = useCallback(
+		(e) => {
+			dispatch(retrievePasswordActions.setConfirmPassword(e.target.value));
+		},
+		[confirmPassword],
+	);
 
-    const onSubmitForm = () => {
-        if (password === confirmPassword && password && confirmPassword) {
-            dispatch(thunkChangePassword({ password }))
-        }
-    }
+	const onSubmitForm = () => {
+		if (password === confirmPassword && password && confirmPassword) {
+			dispatch(thunkChangePassword({ password }));
+		}
+	};
 
-    return (
-        <DynamicModuleLoader reducers={initialState} removeAfterUnmount={true}>
-            <form className={cls(s.ChangePasswordForm, className)}>
-                <Text className={s.Title} title={'Change password'} />
-                <div className={s.formItem}>
-                    <Text className={s.label} mediumText={'New password'} />
-                    <Input
-                        type={'password'}
-                        disabled={status}
-                        className={s.formInput}
-                        sizeContainer={'adaptive'}
-                        value={password}
-                        onChange={onPasswordChange}
-                    />
-                </div>
-                <div className={s.formItem}>
-                    <Text
-                        className={s.label}
-                        mediumText={'Confirm new password'}
-                    />
-                    <Input
-                        type={'password'}
-                        disabled={status}
-                        onChange={onConfirmPasswordChange}
-                        className={s.formInput}
-                        sizeContainer={'adaptive'}
-                        value={confirmPassword}
-                    />
-                </div>
-                <div className={s.buttonWrapper}>
-                    <span />
-                    <div className={s.changeBtn}>
-                        <Button
-                            isLoading={status}
-                            onClick={onSubmitForm}
-                            className={s.button}
-                        >
-                            Change
-                        </Button>
-                    </div>
-                </div>
-            </form>
-        </DynamicModuleLoader>
-    )
-}
+	return (
+		<DynamicModuleLoader reducers={initialState} removeAfterUnmount={true}>
+			<form className={cls(s.ChangePasswordForm, className)}>
+				<Text className={s.Title} title={'Change password'} />
+				<div className={s.formItem}>
+					<Text className={s.label} mediumText={'New password'} />
+					<Input
+						type={'password'}
+						disabled={status}
+						className={s.formInput}
+						sizeContainer={'adaptive'}
+						value={password}
+						onChange={onPasswordChange}
+					/>
+				</div>
+				<div className={s.formItem}>
+					<Text className={s.label} mediumText={'Confirm new password'} />
+					<Input
+						type={'password'}
+						disabled={status}
+						onChange={onConfirmPasswordChange}
+						className={s.formInput}
+						sizeContainer={'adaptive'}
+						value={confirmPassword}
+					/>
+				</div>
+				<div className={s.buttonWrapper}>
+					<span />
+					<div className={s.changeBtn}>
+						<Button
+							isLoading={status}
+							onClick={onSubmitForm}
+							className={s.button}
+						>
+							Change
+						</Button>
+					</div>
+				</div>
+			</form>
+		</DynamicModuleLoader>
+	);
+};

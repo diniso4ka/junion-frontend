@@ -1,4 +1,4 @@
 export enum Units {
-    KG = 'kg',
-    PCS = 'pcs',
+	KG = 'kg',
+	PCS = 'pcs',
 }
