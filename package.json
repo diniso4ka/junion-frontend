@@ -1,54 +1,72 @@
 {
-  "name": "junion-project",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@reduxjs/toolkit": "^1.8.6",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^29.2.1",
-    "@types/node": "^18.11.9",
-    "@types/react": "^18.0.24",
-    "@types/react-dom": "^18.0.8",
-    "@types/react-redux": "^7.1.24",
-    "axios": "^1.1.3",
-    "classnames": "^2.3.2",
-    "i18next": "^21.10.0",
-    "i18next-browser-languagedetector": "^6.1.8",
-    "i18next-http-backend": "^1.4.4",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-i18next": "^11.18.6",
-    "react-redux": "^8.0.4",
-    "react-router-dom": "^6.4.2",
-    "react-scripts": "^5.0.1",
-    "typescript": "^4.8.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "deploy": "gh-pages -d build",
-    "storybook": "start-storybook -p 6006 ./.storybook"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "eslint-plugin-jsx-a11y": "^6.6.1",
-    "eslint-plugin-react": "^7.31.10",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "gh-pages": "^4.0.0",
-    "prettier": "2.7.1",
-    "sass": "^1.55.0"
-  }
+	"name": "junion-project",
+	"version": "1.0.0",
+	"private": true,
+	"scripts": {
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"deploy": "gh-pages -d build",
+		"storybook": "start-storybook -p 6006 ./.storybook",
+		"lint:ts": "eslint \"**/*.{ts,tsx}\"",
+		"lint:ts:fix": "eslint \"**/*.{ts,tsx}\" --fix",
+		"lint:scss": "npx stylelint \"**/*.scss\"",
+		"lint:scss:fix": "npx stylelint \"**/*.scss\" --fix"
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"dependencies": {
+		"@reduxjs/toolkit": "^1.8.6",
+		"@testing-library/jest-dom": "^5.16.5",
+		"@testing-library/react": "^13.4.0",
+		"@testing-library/user-event": "^13.5.0",
+		"@types/jest": "^29.2.1",
+		"@types/node": "^18.11.9",
+		"@types/react": "^18.0.24",
+		"@types/react-dom": "^18.0.8",
+		"@types/react-redux": "^7.1.24",
+		"axios": "^1.1.3",
+		"classnames": "^2.3.2",
+		"i18next": "^21.10.0",
+		"i18next-browser-languagedetector": "^6.1.8",
+		"i18next-http-backend": "^1.4.4",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-i18next": "^11.18.6",
+		"react-redux": "^8.0.4",
+		"react-router-dom": "^6.4.2",
+		"react-scripts": "^5.0.1"
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^5.50.0",
+		"eslint": "^8.33.0",
+		"eslint-config-prettier": "^8.6.0",
+		"eslint-config-standard-with-typescript": "^34.0.0",
+		"eslint-import-resolver-typescript": "^3.5.3",
+		"eslint-plugin-i18next": "^6.0.0-6",
+		"eslint-plugin-import": "^2.27.5",
+		"eslint-plugin-n": "^15.6.1",
+		"eslint-plugin-prettier": "^4.2.1",
+		"eslint-plugin-promise": "^6.1.1",
+		"eslint-plugin-react": "^7.32.2",
+		"eslint-plugin-simple-import-sort": "^10.0.0",
+		"gh-pages": "^4.0.0",
+		"prettier": "2.7.1",
+		"sass": "^1.55.0",
+		"stylelint": "^14.14.1",
+		"stylelint-config-prettier": "^9.0.3",
+		"stylelint-config-recess-order": "^3.0.0",
+		"stylelint-config-standard-scss": "^6.1.0",
+		"stylelint-order": "^5.0.0",
+		"typescript": "^4.9.5"
+	}
 }
