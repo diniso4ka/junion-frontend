@@ -38,7 +38,7 @@ const CategoriesPage: FC = () => {
 		return () => {
 			dispatch(categoriesActions.clearSort());
 		};
-	}, []);
+	}, [dispatch]);
 	return (
 		<div className={s.CategoriesPage}>
 			<div className={s.navigation}>

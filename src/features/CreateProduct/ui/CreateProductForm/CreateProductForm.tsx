@@ -132,7 +132,7 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
 			dispatch(createProductActions.setRegCode(selectedVendor.code));
 			dispatch(createProductActions.setVendor(selectedVendor.name));
 		}
-	}, [regCode, vendor]);
+	}, [regCode, vendor, dispatch, selectedVendor]);
 
 	return (
 		<DynamicModuleLoader reducers={initialState} removeAfterUnmount={true}>

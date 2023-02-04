@@ -54,7 +54,7 @@ export const registerSlice = createSlice({
 			})
 			.addCase(thunkRegisterByMail.rejected, (state, action) => {
 				state.isLoading = false;
-				// @ts-ignore
+				// @ts-ignore //TODO ts-ignore
 				const response = action.payload?.response.data.message;
 				if (response.includes('email')) {
 					state.asyncErrors.mail = mailValidationMessages.already;

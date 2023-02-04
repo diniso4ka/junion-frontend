@@ -1,7 +1,6 @@
 import cls from 'classnames';
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 
-import { useNavigate } from 'react-router';
 import { useAppDispatch, useAppSelector } from 'app/store/config/StateSchema';
 import {
 	getProductsList,
@@ -10,7 +9,7 @@ import {
 } from 'entities/Products';
 import { FilteredList } from 'entities/Products/ui/FilteredList/FilteredList';
 import { getDate } from 'shared/helpers/date/getDate';
-import { Button, List, Text } from 'shared/ui';
+import { List, Text } from 'shared/ui';
 
 import { getProductsAllList } from '../../../entities/Products/model/selectors/getProductsAllList/getProductsAllList';
 import { getProductsInitialize } from '../../../entities/Products/model/selectors/getProductsInitialize/getProductsInitialize';
@@ -93,14 +92,17 @@ const HomePage: FC = () => {
 	const onHandleClose = () => {
 		setListIsOpen(false);
 	};
-	const onHandleOpen = (action, title, open) => {
-		setSelectedSort(sortProducts(allProductsList, action));
-		setClearListError(getListError(action));
-		setTitle(action);
-		if (open) {
-			setListIsOpen(true);
-		}
-	};
+	const onHandleOpen = useCallback(
+		(action, title, open) => {
+			setSelectedSort(sortProducts(allProductsList, action));
+			setClearListError(getListError(action));
+			setTitle(action);
+			if (open) {
+				setListIsOpen(true);
+			}
+		},
+		[allProductsList],
+	);
 
 	const onHandleDelete = () => {
 		selectedItems.forEach((item) => {
@@ -113,14 +115,19 @@ const HomePage: FC = () => {
 		if (productsStatus === false) {
 			onHandleOpen(SortType.WITHOUT_PRICE, title, false);
 		}
-	}, [productsStatus]);
+		// eslint-disable-next-line
+	}, [productsStatus, onHandleOpen]);
 
 	useEffect(() => {
 		if (selectedSort.items.length) {
 			setSelectedSort(sortProducts(allProductsList, selectedSort.type));
 		}
-	}, [productsList]);
-
+	}, [
+		productsList,
+		allProductsList,
+		selectedSort.items.length,
+		selectedSort.type,
+	]);
 	const date = getDate();
 
 	return (

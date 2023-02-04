@@ -38,7 +38,6 @@ const sortProductsSlice = createSlice({
 					formattedDate() === item.updatedAt.split('').splice(0, 10).join(''),
 			);
 		},
-		selectSort: () => {},
 	},
 });
 

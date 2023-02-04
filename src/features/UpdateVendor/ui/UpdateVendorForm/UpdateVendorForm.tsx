@@ -51,31 +51,30 @@ export const UpdateVendorForm: FC<CreateVendorFormProps> = ({
 				id: data._id,
 			}),
 		);
-		console.log(response);
-		//@ts-ignore
+		//@ts-ignore //TODO ts-ignore
 		if (response.payload.status === 200) {
 			dispatch(thunkGetVendorsList());
 			onClose();
 		}
-	}, [name, regCode, address]);
+	}, [name, regCode, address, data?._id, data?.code, dispatch, onClose]);
 
 	const onChangeName = useCallback(
 		(e) => {
 			dispatch(updateVendorActions.setName(e.target.value));
 		},
-		[name, dispatch],
+		[dispatch],
 	);
 	const onChangeAddress = useCallback(
 		(e) => {
 			dispatch(updateVendorActions.setAddress(e.target.value));
 		},
-		[address, dispatch],
+		[dispatch],
 	);
 	const onChangeRegCode = useCallback(
 		(e) => {
 			dispatch(updateVendorActions.setRegCode(e.target.value));
 		},
-		[regCode, dispatch],
+		[dispatch],
 	);
 
 	useEffect(() => {
@@ -84,7 +83,7 @@ export const UpdateVendorForm: FC<CreateVendorFormProps> = ({
 			dispatch(updateVendorActions.setAddress(data.address));
 			dispatch(updateVendorActions.setRegCode(data.regCode));
 		}
-	}, []);
+	}, [data, dispatch]);
 	return (
 		<div className={cls(s.UpdateVendorForm, className)}>
 			<img onClick={onClose} className={s.closeIcon} src={closeIcon} />

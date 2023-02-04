@@ -116,7 +116,7 @@ export const vendorsSlice = createSlice({
 			})
 			.addCase(thunkGetVendorsList.fulfilled, (state, action) => {
 				state.isLoading = false;
-				// @ts-ignore
+				// @ts-ignore  //TODO ts-ignore
 			})
 			.addCase(thunkGetVendorsList.rejected, (state) => {
 				state.isLoading = false;

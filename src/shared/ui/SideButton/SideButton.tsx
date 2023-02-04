@@ -1,4 +1,3 @@
-//@ts-nocheck
 import cls from 'classnames';
 import React, { ButtonHTMLAttributes } from 'react';
 
@@ -19,14 +18,22 @@ interface ISideButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	active?: boolean;
 }
 
-export const SideButton: React.FC<ISideButtonProps> = React.memo(
-	({ className, onClick, variant, isLoading, disable, active, ...rest }) => {
+export const SideButton = React.memo(
+	({
+		className,
+		onClick,
+		variant,
+		isLoading,
+		disable,
+		active,
+		...rest
+	}: ISideButtonProps) => {
 		const onToggleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 			e.preventDefault();
 			onClick?.();
 		};
 		const isTestAccount = useAppSelector(getAuthData);
-		const disabled = isTestAccount.name === 'Test' || disable;
+		const disabled = isTestAccount?.name === 'Test' || disable;
 		const classnames = cls(s.button, className, {
 			[s.disabled]: isLoading || disabled,
 			[s.active]: active,

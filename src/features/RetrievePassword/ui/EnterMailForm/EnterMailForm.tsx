@@ -48,7 +48,7 @@ export const EnterMailForm: FC<EnterEmailFormProps> = ({ className }) => {
 				setEmailValidation(' Your email address  is incorrect');
 			} else {
 				const response = await dispatch(thunkEnterMail(mail));
-				// @ts-ignore
+				// @ts-ignore //TODO ts-ignore
 				if (response?.payload?.data) {
 					setSuccess(() => true);
 				}

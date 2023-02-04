@@ -60,13 +60,16 @@ module.exports = {
 		'no-debugger': 'warn',
 		'no-console': 'error',
 		'react/react-in-jsx-scope': 'off',
-		'i18next/no-literal-string': [
-			'error',
-			{
-				markupOnly: true,
-				ignoreAttribute: ['to'],
-			},
-		],
+		// 'i18next/no-literal-string': [
+		// 	'error',
+		// 	{
+		// 		markupOnly: true,
+		// 		ignoreAttribute: ['to'],
+		// 	},
+		// ],
+		'i18next/no-literal-string': 'off', //TODO Добавить переводы
+		'@typescript-eslint/ban-ts-comment': 'off', //TODO Убрать все игноры
+		'react/no-unescaped-entities': 'off',
 		'quotes': ['error', 'single'],
 		'react-hooks/rules-of-hooks': 'error',
 		'react-hooks/exhaustive-deps': 'error',

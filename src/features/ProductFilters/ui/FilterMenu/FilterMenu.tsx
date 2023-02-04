@@ -40,8 +40,8 @@ const initialState: ReducersList = {
 	productsFilters: productFiltersReducer,
 };
 
-export const FilterMenu: FC<ProfileMenuProps> = memo(
-	({ className, onClose, isLoading }) => {
+export const FilterMenu = memo(
+	({ className, onClose, isLoading }: ProfileMenuProps) => {
 		const categories = useAppSelector(getCategoryList);
 		const productsList = useAppSelector(getProductsList);
 		const name = useAppSelector(getProductFiltersName);
@@ -107,7 +107,7 @@ export const FilterMenu: FC<ProfileMenuProps> = memo(
 								onChange={onChangeName}
 								value={name}
 								onFocus={() => setProductsFocus(true)}
-								// @ts-ignore
+								// @ts-ignore //TODO ts-ignore
 								hint={productsList.map((item) => item.name)}
 								isHintOpen={productsFocus}
 								onCloseHint={() => setProductsFocus(false)}

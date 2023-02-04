@@ -1,5 +1,5 @@
 import cls from 'classnames';
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 
 import { useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'app/store/config/StateSchema';
@@ -77,17 +77,20 @@ const ProductsPage: FC = () => {
 		setConfirmModalIsOpen(false);
 	};
 
-	const autoSetFilters = async (objParams) => {
-		const response = await dispatch(
-			thunkGetFilteredProductsList(createQueryParams(objParams)),
-		);
-		// @ts-ignore
-		if (response.payload.data) {
-			// @ts-ignore
-			setItems(response.payload.data.result);
-		}
-		await dispatch(productFiltersActions.setFilters(objParams));
-	};
+	const autoSetFilters = useCallback(
+		async (objParams) => {
+			const response = await dispatch(
+				thunkGetFilteredProductsList(createQueryParams(objParams)),
+			);
+			// @ts-ignore //TODO ts-ignore
+			if (response.payload.data) {
+				// @ts-ignore //TODO ts-ignore
+				setItems(response.payload.data.result);
+			}
+			await dispatch(productFiltersActions.setFilters(objParams));
+		},
+		[dispatch],
+	);
 
 	useEffect(() => {
 		// @ts-ignore
@@ -104,7 +107,7 @@ const ProductsPage: FC = () => {
 			dispatch(productsActions.clearFilteredProductsList());
 			dispatch(productsActions.clearSort());
 		};
-	}, []);
+	}, [dispatch, autoSetFilters, productsList, searchParams]);
 
 	useEffect(() => {
 		if (filters) {

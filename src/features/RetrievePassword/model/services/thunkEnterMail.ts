@@ -8,7 +8,7 @@ export const thunkEnterMail = createAsyncThunk(
 	async (mail: thunkEnterMailProps, thunkAPI) => {
 		try {
 			const response = await fetchSendMail(mail);
-			// @ts-ignore
+			// @ts-ignore //TODO ts-ignore
 			if (!response.status === 200) {
 				throw new Error();
 			}

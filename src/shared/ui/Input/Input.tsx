@@ -28,7 +28,7 @@ interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
 	onHandleSelect?: (hint: string) => void;
 }
 
-export const Input: FC<IInputProps> = memo(
+export const Input = memo(
 	({
 		type = 'text',
 		variant = 'primary',
@@ -40,7 +40,7 @@ export const Input: FC<IInputProps> = memo(
 		helperClass = 'error',
 		placeHolder,
 		...rest
-	}) => {
+	}: IInputProps) => {
 		const [visible, setVisible] = useState<boolean>(false);
 		const helperTextClass = cls({
 			[s.helperError]: helperClass === 'error',

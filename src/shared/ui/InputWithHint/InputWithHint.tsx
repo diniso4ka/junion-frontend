@@ -49,7 +49,7 @@ export const InputWithHint = memo(
 		};
 		useEffect(() => {
 			if (rest.value) {
-				// @ts-ignore
+				// @ts-ignore  //TODO ts-ignore
 				setValue(rest.value);
 			} else {
 				setValue('');

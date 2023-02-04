@@ -37,7 +37,7 @@ export const Modal: FC<ModalProps> = ({
 		return () => {
 			document.removeEventListener('keydown', listener);
 		};
-	}, []);
+	}, [onClose]);
 	return (
 		<Portal>
 			<div

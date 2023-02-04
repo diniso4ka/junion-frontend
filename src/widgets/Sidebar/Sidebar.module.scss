@@ -1,55 +1,52 @@
 .sidebar {
-    height: calc(100vh - var(--header-height-desktop));
-    overflow: hidden;
-    background-color: var(--bg-third-color);
-    transition: width 0.2s ease-in-out;
-}
+	width: var(--sidebar-width);
+	height: calc(100vh - var(--header-height-desktop));
+	overflow: hidden;
+	background-color: var(--bg-third-color);
+	transition: width 0.2s ease-in-out;
 
-.sidebar {
-    width: var(--sidebar-width);
-
-    &.collapsed {
-        width: var(--sidebar-width-collapsed);
-    }
+	&.collapsed {
+		width: var(--sidebar-width-collapsed);
+	}
 }
 
 .menu {
-    padding-top: 37px;
-    padding-left: 5px;
+	padding-top: 37px;
+	padding-left: 5px;
 }
 
 .list {
-    display: flex;
-    flex-direction: column;
-    gap: 37px;
+	display: flex;
+	flex-direction: column;
+	gap: 37px;
 }
 
 .link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
 }
 
 .link.active {
-    background-color: #f3f3f3;
+	background-color: #f3f3f3;
 }
 
 .linkItem {
-    color: white;
+	color: white;
 }
 
 .burger {
-    background-color: transparent;
-    transition: background-color 0.2s ease-in-out;
+	background-color: transparent;
+	transition: background-color 0.2s ease-in-out;
 }
 
 .sidebar.collapsed .burger {
-    background-color: #f3f3f3;
+	background-color: #f3f3f3;
 }
 
 .image.active * {
-    fill: var(--bg-third-color);
+	fill: var(--bg-third-color);
 }

@@ -39,13 +39,13 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
 		(e) => {
 			dispatch(retrievePasswordActions.setPassword(e.target.value));
 		},
-		[password],
+		[dispatch],
 	);
 	const onConfirmPasswordChange = useCallback(
 		(e) => {
 			dispatch(retrievePasswordActions.setConfirmPassword(e.target.value));
 		},
-		[confirmPassword],
+		[dispatch],
 	);
 
 	const onSubmitForm = () => {

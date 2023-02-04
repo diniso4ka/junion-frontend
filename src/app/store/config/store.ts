@@ -30,7 +30,7 @@ export function createReduxStore(
 
 	const store = configureStore<StateSchema>({
 		reducer: reducerManager.reduce,
-		// @ts-ignore
+		// @ts-ignore //TODO ts-ignore
 		middleware: (getDefaultMiddleware) =>
 			getDefaultMiddleware({
 				serializableCheck: false,
@@ -40,7 +40,7 @@ export function createReduxStore(
 			}),
 	});
 
-	// @ts-ignore
+	// @ts-ignore //TODO ts-ignore
 	store.reducerManager = reducerManager;
 
 	return store;

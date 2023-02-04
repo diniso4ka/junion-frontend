@@ -96,7 +96,7 @@ export const UpdateProductForm: FC<UpdateProductFormProps> = ({
 				id: _id,
 			}),
 		);
-		// @ts-ignore
+		// @ts-ignore //TODO ts-ignore
 		if (response.payload?.data) {
 			onClose();
 		}
@@ -152,7 +152,7 @@ export const UpdateProductForm: FC<UpdateProductFormProps> = ({
 				}),
 			);
 		}
-	}, []);
+	}, [dispatch, item, vendorsList]);
 
 	return (
 		<div className={cls(s.CreateProductForm, className)}>

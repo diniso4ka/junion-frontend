@@ -23,7 +23,7 @@ export const thunkUpdateProduct = createAsyncThunk(
 			if (!response.data) {
 				throw new Error();
 			}
-			// @ts-ignore
+			// @ts-ignore //TODO ts-ignore
 			await thunkAPI.dispatch(productsActions.updateProduct(response)); //TODO RESPONSE TYPE
 			await thunkAPI.dispatch(updateProductActions.clearSelect());
 			return response;

@@ -15,7 +15,6 @@ export const thunkCheckToken = createAsyncThunk<
 	ThunkConfig<string>
 >('retrieve/CheckToken ', async (verificationToken, thunkAPI) => {
 	try {
-		console.log(thunkAPI.extra);
 		const response = await fetchCheckToken(verificationToken);
 		if (!response.data) {
 			throw new Error();

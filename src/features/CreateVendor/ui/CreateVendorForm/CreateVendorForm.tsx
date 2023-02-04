@@ -59,25 +59,25 @@ export const CreateVendorForm: FC<CreateVendorFormProps> = ({
 			dispatch(thunkGetVendorsList());
 			onClose();
 		}
-	}, [name, regCode, address]);
+	}, [name, regCode, address, dispatch, onClose]);
 
 	const onChangeName = useCallback(
 		(e) => {
 			dispatch(createVendorActions.setName(e.target.value));
 		},
-		[name, dispatch],
+		[dispatch],
 	);
 	const onChangeAddress = useCallback(
 		(e) => {
 			dispatch(createVendorActions.setAddress(e.target.value));
 		},
-		[address, dispatch],
+		[dispatch],
 	);
 	const onChangeRegCode = useCallback(
 		(e) => {
 			dispatch(createVendorActions.setRegCode(e.target.value));
 		},
-		[regCode, dispatch],
+		[dispatch],
 	);
 	return (
 		<DynamicModuleLoader reducers={initialState} removeAfterUnmount={true}>

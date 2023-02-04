@@ -25,7 +25,7 @@ const App: FC = () => {
 
 	useEffect(() => {
 		dispatch(thunkCheckAuthMe());
-	}, []);
+	}, [dispatch]);
 
 	useEffect(() => {
 		if (authData) {
@@ -33,7 +33,7 @@ const App: FC = () => {
 			dispatch(thunkGetCategoriesList());
 			dispatch(thunkGetVendorsList());
 		}
-	}, [authData]);
+	}, [dispatch, authData]);
 
 	return (
 		<div className={cls('app', theme === Theme.LIGHT ? 'default' : 'dark')}>

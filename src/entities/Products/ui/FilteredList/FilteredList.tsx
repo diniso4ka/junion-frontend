@@ -72,7 +72,7 @@ export const FilteredList: FC<FilteredListProps> = ({
 	};
 	useEffect(() => {
 		dispatch(updateProductActions.clearSelect());
-	}, [data]);
+	}, [data, dispatch]);
 	return (
 		<DynamicModuleLoader reducers={initialState} removeAfterUnmount={true}>
 			<div

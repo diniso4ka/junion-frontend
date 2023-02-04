@@ -21,13 +21,12 @@ interface HeaderProps {
 	onClick?: (e) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onClick }) => {
+const Header = ({ onClick }: HeaderProps) => {
 	const [profileIsOpen, setProfileIsOpen] = useState(false);
 	const navigate = useNavigate();
 	const authData = useAppSelector(getAuthData);
 	const initialize = useAppSelector(getInitialize);
 	const dispatch = useAppDispatch();
-	const location = useLocation();
 	const links = [
 		{ label: 'Log In', path: routeConfig.LOGIN },
 		{ label: 'Sign Up', path: routeConfig.REGISTER },

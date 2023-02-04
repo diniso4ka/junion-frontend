@@ -37,7 +37,7 @@ export const Button = memo(
 			onClick?.();
 		};
 		const isTestAccount = useAppSelector(getAuthData);
-		const disable = isTestAccount.name === 'Test' || disabled;
+		const disable = isTestAccount?.name === 'Test' || disabled;
 		const classnames = cls(s.button, s[variant], s[theme], s[size], className, {
 			[s.disabled]: isLoading || disable,
 		});

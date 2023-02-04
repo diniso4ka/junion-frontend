@@ -66,7 +66,7 @@ const VendorsPage: FC = () => {
 		return () => {
 			dispatch(vendorsActions.clearSort());
 		};
-	}, []);
+	}, [dispatch]);
 	return (
 		<DynamicModuleLoader reducers={initialState} removeAfterUnmount={true}>
 			<div className={s.VendorsPage}>

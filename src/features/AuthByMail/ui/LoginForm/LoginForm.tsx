@@ -45,13 +45,13 @@ const LoginPage: FC = () => {
 		(value) => {
 			dispatch(loginActions.setMail(value.target.value));
 		},
-		[dispatch, mail],
+		[dispatch],
 	);
 	const onChangePassword = useCallback(
 		(value) => {
 			dispatch(loginActions.setPassword(value.target.value));
 		},
-		[dispatch, password],
+		[dispatch],
 	);
 
 	const onSubmitForm = useCallback(async () => {
@@ -65,7 +65,7 @@ const LoginPage: FC = () => {
 				await navigate(routeConfig.HOME);
 			}
 		}
-	}, [dispatch, mail, password, errors]);
+	}, [dispatch, mail, password, navigate]);
 
 	return (
 		<DynamicModuleLoader reducers={initialReducers} removeAfterUnmount={true}>

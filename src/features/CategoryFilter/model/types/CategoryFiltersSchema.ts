@@ -5,4 +5,5 @@ export interface CategoryFiltersSchema {
 	error?: string;
 }
 
-export interface CategoryFilter {}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface CategoryFilter {} //TODO eslint-ignore

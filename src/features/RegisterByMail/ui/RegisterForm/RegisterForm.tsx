@@ -69,75 +69,75 @@ export const RegisterForm: FC<RegisterFormProps> = ({ className }) => {
 		(value) => {
 			dispatch(registerActions.setMail(value.target.value));
 		},
-		[dispatch, mail],
+		[dispatch],
 	);
 	const onChangePassword = useCallback(
 		(value) => {
 			dispatch(registerActions.setPassword(value.target.value));
 		},
-		[dispatch, password],
+		[dispatch],
 	);
 	const onChangeConfirmPassword = useCallback(
 		(value) => {
 			dispatch(registerActions.setConfirmPassword(value.target.value));
 		},
-		[dispatch, confirmPassword],
+		[dispatch],
 	);
 	const onChangeUsername = useCallback(
 		(value) => {
 			dispatch(registerActions.setName(value.target.value));
 		},
-		[dispatch, name],
+		[dispatch],
 	);
 	const onChangeSupercode = useCallback(
 		(value) => {
 			dispatch(registerActions.setSuperCode(value.target.value));
 		},
-		[dispatch, superCode],
+		[dispatch],
 	);
 
 	//onFocus
 	const onMailFocus = useCallback(() => {
 		setMailFocus(true);
-	}, [mailFocus]);
+	}, []);
 	const onPasswordFocus = useCallback(() => {
 		setPasswordFocus(true);
-	}, [passwordFocus]);
+	}, []);
 	const onConfirmPasswordFocus = useCallback(() => {
 		setConfirmPasswordFocus(true);
-	}, [confirmPasswordFocus]);
+	}, []);
 	const onNameFocus = useCallback(() => {
 		setNameFocus(true);
-	}, [nameFocus]);
+	}, []);
 	const onSuperCodeFocus = useCallback(() => {
 		setSuperCodeFocus(true);
-	}, [superCodeFocus]);
+	}, []);
 
 	//onBlur
 	const onMailBlur = useCallback(() => {
 		dispatch(registerActions.setMail(mail.trimEnd().trimStart()));
 		setMailFocus(false);
-	}, [mailFocus, mail]);
+	}, [mail, dispatch]);
 	const onPasswordBlur = useCallback(() => {
 		dispatch(registerActions.setPassword(password.trimEnd().trimStart()));
 		setPasswordFocus(false);
-	}, [passwordFocus, password]);
+	}, [password, dispatch]);
 	const onConfirmPasswordBlur = useCallback(() => {
 		dispatch(
 			registerActions.setConfirmPassword(confirmPassword.trimEnd().trimStart()),
 		);
 		setConfirmPasswordFocus(false);
-	}, [confirmPasswordFocus, confirmPassword]);
+	}, [confirmPassword, dispatch]);
 	const onNameBlur = useCallback(() => {
 		dispatch(
 			registerActions.setName(name.replace(/\s+/g, ' ').trimEnd().trimStart()),
 		);
 		setNameFocus(false);
-	}, [nameFocus, name]);
+	}, [name, dispatch]);
 	const onSuperCodeBlur = useCallback(() => {
 		dispatch(registerActions.setSuperCode(superCode.trimEnd().trimStart()));
 		setSuperCodeFocus(false);
-	}, [superCodeFocus, superCode]);
+	}, [superCode, dispatch]);
 
 	const onSubmitForm = useCallback(async () => {
 		setFormSubmit(true);
@@ -153,38 +153,38 @@ export const RegisterForm: FC<RegisterFormProps> = ({ className }) => {
 			const response = await dispatch(
 				thunkRegisterByMail({ email: mail, password, name, superCode }),
 			);
-			// @ts-ignore
+			// @ts-ignore //TODO ts-ignore
 			if (response.payload.status === 201) {
 				await navigate(routeConfig.HOME);
 			}
 		}
-	}, [mail, password, confirmPassword, name, superCode]);
+	}, [mail, password, confirmPassword, name, superCode, dispatch, navigate]);
 
-	const passwordValidationFunc = () => {
+	const passwordValidationFunc = useCallback(() => {
 		const error = passwordValidation(password);
 		if (error) {
 			setErrors((prev) => ({ ...prev, password: error }));
 		} else {
 			setErrors((prev) => ({ ...prev, password: '' }));
 		}
-	};
+	}, [password]);
 
-	const correctPasswordValidationFunc = () => {
+	const correctPasswordValidationFunc = useCallback(() => {
 		const error = correctPasswordValidation(password, confirmPassword);
 		if (error) {
 			setErrors((prev) => ({ ...prev, confirmPassword: error }));
 		} else {
 			setErrors((prev) => ({ ...prev, confirmPassword: '' }));
 		}
-	};
+	}, [confirmPassword, password]);
 
 	useEffect(() => {
 		passwordValidationFunc();
-	}, [password]);
+	}, [password, passwordValidationFunc]);
 
 	useEffect(() => {
 		correctPasswordValidationFunc();
-	}, [confirmPassword]);
+	}, [confirmPassword, correctPasswordValidationFunc]);
 
 	return (
 		<DynamicModuleLoader reducers={initialState} removeAfterUnmount={true}>
