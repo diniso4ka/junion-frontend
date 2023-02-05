@@ -57,8 +57,6 @@ export const FilterMenu = memo(
 		const [categoriesFocus, setCategoriesFocus] = useState(false);
 		const [productsFocus, setProductsFocus] = useState(false);
 
-		const [searchParams, setSearchParams] = useSearchParams();
-
 		const onHandleProductHint = (hint) => {
 			dispatch(productFiltersActions.setName(hint));
 		};
@@ -89,7 +87,6 @@ export const FilterMenu = memo(
 			const params = createQueryParams(productFilters);
 			if (params) {
 				dispatch(thunkGetFilteredProductsList(params));
-				setSearchParams(params);
 			}
 			onClose();
 		};
