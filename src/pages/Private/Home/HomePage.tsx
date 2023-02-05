@@ -115,8 +115,9 @@ const HomePage: FC = () => {
 		if (productsStatus === false) {
 			onHandleOpen(SortType.WITHOUT_PRICE, title, false);
 		}
+		//TODO eslint-ignore
 		// eslint-disable-next-line
-	}, [productsStatus, onHandleOpen]);
+	}, [productsStatus]);
 
 	useEffect(() => {
 		if (selectedSort.items.length) {
