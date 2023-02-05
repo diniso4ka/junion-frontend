@@ -5,7 +5,7 @@ export const createQueryParams = (data) => {
 			ret.push(encodeURIComponent(d) + '=' + encodeURIComponent(data[d]));
 		}
 	}
-	return ret.join('&').toLowerCase();
+	return ret.join('&');
 };
 
 export const convertQueryParamsInObj = (params) => {
