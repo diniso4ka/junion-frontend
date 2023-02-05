@@ -169,7 +169,8 @@ const HomePage: FC = () => {
 						variant={
 							selectedSort?.type === SortType.WITHOUT_PRICE
 								? 'price'
-								: selectedSort?.type === SortType.WITHOUT_CATEGORY
+								: selectedSort?.type === SortType.WITHOUT_CATEGORY ||
+								  selectedSort?.type === SortType.WITHOUT_QUANTITY
 								? 'category'
 								: 'none'
 						}

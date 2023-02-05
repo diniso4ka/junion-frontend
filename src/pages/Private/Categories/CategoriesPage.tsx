@@ -58,7 +58,7 @@ const CategoriesPage: FC = () => {
 			<CategoriesTable
 				isLoading={status}
 				error={!!error}
-				items={filteredItems}
+				items={filteredItems.filter((category) => category.quantity)}
 			/>
 		</div>
 	);
