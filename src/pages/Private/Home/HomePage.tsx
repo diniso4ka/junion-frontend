@@ -123,12 +123,9 @@ const HomePage: FC = () => {
 		if (selectedSort.items.length) {
 			setSelectedSort(sortProducts(allProductsList, selectedSort.type));
 		}
-	}, [
-		productsList,
-		allProductsList,
-		selectedSort.items.length,
-		selectedSort.type,
-	]);
+		//TODO eslint-ignore
+		// eslint-disable-next-line
+	}, [productsList, allProductsList]);
 	const date = getDate();
 
 	return (

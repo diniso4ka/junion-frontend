@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, current, PayloadAction } from '@reduxjs/toolkit';
 
+import { formattedDate } from '../../../../shared/helpers/date/formattedDate';
 import { sortByAlphabet } from '../../../../shared/helpers/sort/byAlphabet';
 import { thunkGetFilteredProductsList } from '../services/thunkGetFilteredProductsList';
 import { thunkFetchProductList } from '../services/thunkGetProductsList';
@@ -25,7 +26,7 @@ export const productsSlice = createSlice({
 	name: 'products',
 	initialState,
 	reducers: {
-		setProducts: (state, action) => {
+		setProducts(state, action) {
 			state.allItems = action.payload.data.result;
 			state.items = action.payload.data.result.filter(
 				(product) => product.status !== 'deleted',
@@ -35,7 +36,7 @@ export const productsSlice = createSlice({
 				state.productInitialize = true;
 			}
 		},
-		updateProduct: (state, action) => {
+		updateProduct(state, action) {
 			state.allItems = state.allItems.map((product) => {
 				if (product._id === action.payload.data.newData._id) {
 					return action.payload.data.newData;
@@ -52,26 +53,40 @@ export const productsSlice = createSlice({
 			});
 			state.filteredItems = state.items.map((product) => {
 				if (product._id === action.payload.data.newData._id) {
+					if (
+						product.category[0] === 'unSorted' &&
+						action.payload.data.newData.category.length
+					) {
+						return {
+							...action.payload.data.newData,
+							category: action.payload.data.newData.category,
+						};
+					}
 					return action.payload.data.newData;
 				} else {
 					return product;
 				}
 			});
 		},
-		deleteProduct: (state, action) => {
-			state.allItems = state.allItems.filter(
-				(product) => product._id !== action.payload,
-			);
+		deleteProduct(state, action) {
+			state.allItems = state.allItems.map((product) => {
+				if (product._id === action.payload) {
+					return { ...product, status: 'deleted', updatedAt: formattedDate() };
+				} else {
+					return product;
+				}
+			});
+
 			state.items = state.items.filter(
 				(product) => product._id !== action.payload,
 			);
 			state.filteredItems = state.items;
 		},
-		setFilteredProductsList: (state, action) => {
+		setFilteredProductsList(state, action) {
 			state.filteredItems = action.payload.data.result;
 		},
 
-		clearFilteredProductsList: (state) => {
+		clearFilteredProductsList(state) {
 			state.filteredItems = [...state.items];
 		},
 
