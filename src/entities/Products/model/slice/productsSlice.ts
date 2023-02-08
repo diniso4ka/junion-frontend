@@ -59,7 +59,9 @@ export const productsSlice = createSlice({
 					) {
 						return {
 							...action.payload.data.newData,
-							category: action.payload.data.newData.category,
+							category: action.payload.data.newData.category.filter(
+								(category) => category !== 'unSorted',
+							),
 						};
 					}
 					return action.payload.data.newData;

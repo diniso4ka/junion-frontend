@@ -85,7 +85,7 @@ export const UpdateProductForm: FC<UpdateProductFormProps> = ({
 		const response = await dispatch(
 			thunkUpdateProduct({
 				name: name || '',
-				category: category.replace(/\s/g, '') || '',
+				category: category.replace(/\s/g, '') || 'unSorted',
 				vendor: selectedVendor?.code || '000',
 				unit: unit || '',
 				price: Number(price) || 0,
@@ -146,6 +146,7 @@ export const UpdateProductForm: FC<UpdateProductFormProps> = ({
 			dispatch(
 				updateProductActions.setValues({
 					...item,
+					category: item.category.filter((category) => category !== 'unSorted'),
 					vendor:
 						vendorsList.find((vendor) => item.vendor === vendor.code)?.name ||
 						'',
