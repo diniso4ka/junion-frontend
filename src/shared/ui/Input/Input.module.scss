@@ -1,123 +1,122 @@
 .wrapper {
-    font-family: var(--font-family-main);
+	font-family: var(--font-family-main);
 }
 
 .inputWrapper {
-    position: relative;
-    height: 48px;
-    margin-bottom: 8px;
+	position: relative;
+	margin-bottom: 8px;
 }
 
 .input {
-    width: 380px;
-    height: 48px;
-    padding: 10px 0 0 8px;
-    font-size: var(--font-size-m);
-    border: none;
-    border-radius: 8px;
+	width: 380px;
+	height: 48px;
+	padding: 10px 0 0 8px;
+	font-size: var(--font-size-m);
+	border: none;
+	border-radius: 8px;
 
-    &.primary:focus {
-    }
+	&.primary:focus {
+	}
 
-    &.secondary:focus {
-        border: none;
-        border-bottom: 1px solid var(--black-color);
-        outline: none;
-    }
+	&.secondary:focus {
+		border: none;
+		border-bottom: 1px solid var(--black-color);
+		outline: none;
+	}
 }
 
 .primary {
-    border: 1px solid var(--button-border-color);
+	border: 1px solid var(--button-border-color);
 }
 
 .outline {
-    width: 100%;
-    height: 38px;
-    padding: 10px 0 0 20px;
-    font-size: var(--font-size-m);
-    border: 1px solid #757575;
-    border-radius: 10px;
+	width: 100%;
+	height: 38px;
+	padding: 10px 0 0 20px;
+	font-size: var(--font-size-m);
+	border: 1px solid #757575;
+	border-radius: 10px;
 
-    &:focus {
-        outline: none;
-    }
+	&:focus {
+		outline: none;
+	}
 }
 
 .secondary {
-    height: 40px;
-    border-bottom: 1px solid #dedede;
-    border-radius: 0;
+	height: 40px;
+	border-bottom: 1px solid #dedede;
+	border-radius: 0;
 }
 
 .adaptive {
-    width: 100%;
+	width: 100%;
 }
 
 .medium {
-    width: 380px;
+	width: 380px;
 }
 
 .small {
-    width: 172px;
+	width: 172px;
 }
 
 .input:focus {
-    border: 1px solid rgb(54 52 52 / 70%);
-    outline: none;
+	border: 1px solid rgb(54 52 52 / 70%);
+	outline: none;
 }
 
 .rightImage {
-    position: absolute;
-    top: 16px;
-    right: 10px;
-    height: 16px;
-    cursor: pointer;
-    transition: opacity 0.2s ease-in-out;
+	position: absolute;
+	top: 16px;
+	right: 10px;
+	height: 16px;
+	cursor: pointer;
+	transition: opacity 0.2s ease-in-out;
 }
 
 .rightImage:hover {
-    opacity: 0.7;
+	opacity: 0.7;
 }
 
 .error {
-    border: 1px solid var(--button-border-error-color);
+	border: 1px solid var(--button-border-error-color);
 }
 
 .helper {
-    padding-left: 18px;
-    font-size: var(--font-size-s);
-    white-space: nowrap;
-    background-repeat: no-repeat;
+	padding-left: 18px;
+	font-size: var(--font-size-s);
+	white-space: nowrap;
+	background-repeat: no-repeat;
 }
 
 .helperError {
-    background-image: url('/shared/assets/images/helpers/error.svg');
+	background-image: url('/shared/assets/images/helpers/error.svg');
 }
 
 .helperHint {
-    background-image: url('/shared/assets/images/helpers/hint.svg');
+	background-image: url('/shared/assets/images/helpers/hint.svg');
 }
 
 .helperSuccess {
-    background-image: url('/shared/assets/images/helpers/success.svg');
+	background-image: url('/shared/assets/images/helpers/success.svg');
 }
 
 .helperWrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 }
 
 .hint {
-    margin: 10px;
+	margin: 10px;
 }
 
 .hintItem {
-    padding: 8px 0;
-    cursor: pointer;
-    border-bottom: 2px solid rgb(0 0 0 / 20%);
+	padding: 8px 0;
+	cursor: pointer;
+	border-bottom: 2px solid rgb(0 0 0 / 20%);
 
-    &:hover {
-        background-color: #fafafa;
-    }
+	&:hover {
+		background-color: #fafafa;
+	}
 }

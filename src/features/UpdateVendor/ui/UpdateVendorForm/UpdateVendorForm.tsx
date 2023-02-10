@@ -6,6 +6,10 @@ import { thunkGetVendorsList } from 'entities/Vendors';
 import { Button, Input, Text } from 'shared/ui';
 
 import { Vendor } from '../../../../entities/Vendors/model/types/VendorsSchema';
+import {
+	createVendorValidateErrors,
+	validate,
+} from '../../../CreateVendor/model/services/validate/validate';
 import { getUpdateVendorAddress } from '../../model/selectors/getUpdateVendorAddress/getUpdateVendorAddress';
 import { getUpdateVendorError } from '../../model/selectors/getUpdateVendorError/getUpdateVendorError';
 import { getUpdateVendorName } from '../../model/selectors/getUpdateVendorName/getUpdateVendorName';
@@ -34,13 +38,14 @@ export const UpdateVendorForm: FC<CreateVendorFormProps> = ({
 	const address = useAppSelector(getUpdateVendorAddress);
 	const status = useAppSelector(getUpdateVendorStatus);
 	const error = useAppSelector(getUpdateVendorError);
-	const [validationError, setValidationError] = useState(false);
+	const [validationError, setValidationError] =
+		useState<createVendorValidateErrors>();
 	const dispatch = useAppDispatch();
 
 	const onSubmitForm = useCallback(async () => {
-		setValidationError(false);
-		if (!name && !address && !regCode) {
-			return setValidationError(true);
+		const errors = validate({ name, address, regCode });
+		if (errors) {
+			return setValidationError(() => errors);
 		}
 		const response = await dispatch(
 			thunkUpdateVendor({
@@ -99,6 +104,8 @@ export const UpdateVendorForm: FC<CreateVendorFormProps> = ({
 							value={name}
 							disabled={status}
 							variant={'outline'}
+							error={!!validationError?.name}
+							helperText={validationError?.name}
 						/>
 					</li>
 					<li className={s.inputItem}>
@@ -113,6 +120,8 @@ export const UpdateVendorForm: FC<CreateVendorFormProps> = ({
 							value={address}
 							disabled={status}
 							variant={'outline'}
+							error={!!validationError?.address}
+							helperText={validationError?.address}
 						/>
 					</li>
 					<li className={s.inputItem}>
@@ -127,6 +136,8 @@ export const UpdateVendorForm: FC<CreateVendorFormProps> = ({
 							onChange={onChangeRegCode}
 							value={regCode}
 							disabled={status}
+							error={!!validationError?.regCode}
+							helperText={validationError?.regCode}
 						/>
 					</li>
 				</ul>
@@ -141,8 +152,7 @@ export const UpdateVendorForm: FC<CreateVendorFormProps> = ({
 					Change
 				</Button>
 			</div>
-			{error && <p>Server Error</p>}
-			{validationError && <p>Validation Error</p>}
+			{error && <Text theme={'error'} text={'Server error'} />}
 		</div>
 	);
 };

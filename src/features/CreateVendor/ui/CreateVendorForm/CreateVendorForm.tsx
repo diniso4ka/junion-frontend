@@ -17,6 +17,10 @@ import { getCreateVendorRegCode } from '../../model/selectors/getCreateVendorReg
 import { getCreateVendorStatus } from '../../model/selectors/getCreateVendorStatus/getCreateVendorStatus';
 import { thunkCreateVendor } from '../../model/services/thunkCreateVendor';
 import {
+	createVendorValidateErrors,
+	validate,
+} from '../../model/services/validate/validate';
+import {
 	createVendorActions,
 	createVendorReducer,
 } from '../../model/slice/createVendorSlice';
@@ -43,13 +47,14 @@ export const CreateVendorForm: FC<CreateVendorFormProps> = ({
 	const address = useAppSelector(getCreateVendorAddress);
 	const status = useAppSelector(getCreateVendorStatus);
 	const error = useAppSelector(getCreateVendorError);
-	const [validationError, setValidationError] = useState(false);
+	const [validationError, setValidationError] =
+		useState<createVendorValidateErrors>();
 	const dispatch = useAppDispatch();
 
 	const onSubmitForm = useCallback(async () => {
-		setValidationError(false);
-		if (!name && !address && !regCode) {
-			return setValidationError(true);
+		const errors = validate({ name, address, regCode });
+		if (errors) {
+			return setValidationError(() => errors);
 		}
 		const response = await dispatch(
 			thunkCreateVendor({ name, address, regCode }),
@@ -95,6 +100,8 @@ export const CreateVendorForm: FC<CreateVendorFormProps> = ({
 								value={name}
 								disabled={status}
 								variant={'outline'}
+								error={!!validationError?.name}
+								helperText={validationError?.name}
 							/>
 						</li>
 						<li className={s.inputItem}>
@@ -109,6 +116,8 @@ export const CreateVendorForm: FC<CreateVendorFormProps> = ({
 								value={address}
 								disabled={status}
 								variant={'outline'}
+								error={!!validationError?.address}
+								helperText={validationError?.address}
 							/>
 						</li>
 						<li className={s.inputItem}>
@@ -123,6 +132,8 @@ export const CreateVendorForm: FC<CreateVendorFormProps> = ({
 								onChange={onChangeRegCode}
 								value={regCode}
 								disabled={status}
+								error={!!validationError?.regCode}
+								helperText={validationError?.regCode}
 							/>
 						</li>
 					</ul>
@@ -137,8 +148,7 @@ export const CreateVendorForm: FC<CreateVendorFormProps> = ({
 						Create
 					</Button>
 				</div>
-				{error && <p>Server Error</p>}
-				{validationError && <p>Validation Error</p>}
+				{error && <Text theme={'error'} text={'Server error'} />}
 			</div>
 		</DynamicModuleLoader>
 	);
