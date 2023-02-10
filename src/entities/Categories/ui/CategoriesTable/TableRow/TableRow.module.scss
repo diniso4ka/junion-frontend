@@ -1,14 +1,14 @@
 .TableRow {
-	font-family: var(--font-family-main);
-	background-color: var(--white-color);
 	display: grid;
-	padding: 5px 0 3px;
-	margin: 20px 18px 0;
-	border-bottom: 1px solid #dedede;
 
 	grid-template-columns: 278px 78px;
 	gap: 10px;
+	padding: 5px 0 3px;
 	padding-left: 7px;
+	margin: 20px 18px 0;
+	font-family: var(--font-family-main);
+	background-color: var(--white-color);
+	border-bottom: 1px solid #dedede;
 
 	& li:nth-child(2) {
 		text-align: center;

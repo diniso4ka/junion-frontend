@@ -1,30 +1,29 @@
 import React, { FC, useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'app/store';
+import { getVendorsStatus, vendorsActions } from 'entities/Vendors';
 import { getVendorsError } from 'entities/Vendors/model/selectors/getVendorsError/getVendorsError';
+import { getVendorsFilteredList } from 'entities/Vendors/model/selectors/getVendorsFilteredList/getVendorsFilteredList';
 import { getVendorsList } from 'entities/Vendors/model/selectors/getVendorsList/getVendorsList';
 import { VendorsTable } from 'entities/Vendors/ui/VendorsTable/VendorsTable';
 import { CreateVendorModal } from 'features/CreateVendor';
 import { FilterMenu, productFiltersActions } from 'features/ProductFilters';
+import {
+	getUpdateVendorSelectedList,
+	UpdateVendorModal,
+} from 'features/UpdateVendor';
+import { thunkDeleteVendor } from 'features/UpdateVendor/model/services/thunkDeleteVendor';
+import { updateVendorReducer } from 'features/UpdateVendor/model/slice/updateVendorSlice';
 import { getDate } from 'shared/helpers/date/getDate';
+import { searchVendorsByIncludes } from 'shared/helpers/filters/search';
 import { AdvancedSearch, Button, Text } from 'shared/ui';
+import { ConfirmModal } from 'shared/ui/ConfirmModal/ConfirmModal';
+import { SideButton } from 'shared/ui/SideButton';
 
 import {
 	DynamicModuleLoader,
 	ReducersList,
-} from '../../../shared/config/components/DynamicModuleLoader';
-
-import { getVendorsStatus, vendorsActions } from '../../../entities/Vendors';
-import { getVendorsFilteredList } from '../../../entities/Vendors/model/selectors/getVendorsFilteredList/getVendorsFilteredList';
-import {
-	getUpdateVendorSelectedList,
-	UpdateVendorModal,
-} from '../../../features/UpdateVendor';
-import { thunkDeleteVendor } from '../../../features/UpdateVendor/model/services/thunkDeleteVendor';
-import { updateVendorReducer } from '../../../features/UpdateVendor/model/slice/updateVendorSlice';
-import { searchVendorsByIncludes } from '../../../shared/helpers/filters/search';
-import { ConfirmModal } from '../../../shared/ui/ConfirmModal/ConfirmModal';
-import { SideButton } from '../../../shared/ui/SideButton';
+} from 'shared/config/components/DynamicModuleLoader';
 
 import s from './VendorsPage.module.scss';
 

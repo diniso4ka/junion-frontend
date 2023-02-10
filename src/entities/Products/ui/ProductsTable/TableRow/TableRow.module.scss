@@ -1,11 +1,11 @@
 .TableRow {
-	font-family: var(--font-family-main);
-	background-color: var(--white-color);
 	display: grid;
+	grid-template-columns: 4% 13.5% 16.5% 22.5% 9.5% 9% 9% 17%;
 	padding: 5px 0 3px;
 	margin: 20px 18px 0;
+	font-family: var(--font-family-main);
+	background-color: var(--white-color);
 	border-bottom: 1px solid #dedede;
-	grid-template-columns: 4% 13.5% 16.5% 22.5% 9.5% 9% 9% 17%;
 }
 
 .active {
