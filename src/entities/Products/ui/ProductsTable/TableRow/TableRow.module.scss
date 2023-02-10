@@ -1,0 +1,27 @@
+.TableRow {
+	font-family: var(--font-family-main);
+	background-color: var(--white-color);
+	display: grid;
+	padding: 5px 0 3px;
+	margin: 20px 18px 0;
+	border-bottom: 1px solid #dedede;
+	grid-template-columns: 4% 13.5% 16.5% 22.5% 9.5% 9% 9% 17%;
+}
+
+.active {
+	background: rgb(249 170 85 / 50%);
+}
+
+.item {
+	overflow: hidden;
+	font-size: var(--font-size-m);
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	list-style: none;
+
+	.discount {
+		display: flex;
+		flex-direction: row;
+		column-gap: 5px;
+	}
+}

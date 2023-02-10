@@ -1,7 +1,7 @@
 import cls from 'classnames';
 import { FC } from 'react';
 
-import { TableHeading, TableRow, Text } from 'shared/ui';
+import { TableHeading, Text } from 'shared/ui';
 
 import { useAppDispatch, useAppSelector } from '../../../../app/store';
 import { getUpdateVendorSelectedList } from '../../../../features/UpdateVendor';
@@ -9,6 +9,7 @@ import { updateVendorActions } from '../../../../features/UpdateVendor/model/sli
 import TableRowLoader from '../../../../shared/ui/LoaderSkeleton/TableRowLoader/TableRowLoader';
 import { vendorsActions } from '../../model/slice/vendorsSlice';
 import { Vendor, VendorsSortType } from '../../model/types/VendorsSchema';
+import { TableRow } from './TableRow/TableRow';
 
 import s from './VendorsTable.module.scss';
 
@@ -94,7 +95,6 @@ export const VendorsTable: FC<VendorsTableProps> = ({
 					{items.map((vendor) => (
 						<TableRow
 							key={vendor._id}
-							type={'vendors'}
 							item={vendor}
 							selected={!!selectedItems.find((item) => item._id === vendor._id)}
 							onSelect={onHandleSelect}

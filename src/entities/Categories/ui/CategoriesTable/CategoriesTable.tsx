@@ -1,7 +1,7 @@
 import cls from 'classnames';
 import { FC } from 'react';
 
-import { TableHeading, TableRow, Text } from 'shared/ui';
+import { TableHeading, Text } from 'shared/ui';
 import TableRowLoader from 'shared/ui/LoaderSkeleton/TableRowLoader/TableRowLoader';
 
 import { useAppDispatch } from '../../../../app/store';
@@ -10,6 +10,7 @@ import {
 	CategoriesSortType,
 	Category,
 } from '../../model/types/CategoriesSchema';
+import { TableRow } from './TableRow/TableRow';
 
 import s from './CategoriesTable.module.scss';
 
@@ -63,7 +64,7 @@ export const CategoriesTable: FC<CategoriesTableProps> = ({
 			{!isLoading && (
 				<div className={s.items}>
 					{items.map((category) => (
-						<TableRow key={category._id} type={'categories'} item={category} />
+						<TableRow key={category._id} item={category} />
 					))}
 				</div>
 			)}

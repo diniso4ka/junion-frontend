@@ -1,60 +1,65 @@
 .VendorsPage {
-    width: calc(100vw - var(--sidebar-width));
-    max-width: 1200px;
-    padding: 25px 35px;
-    margin: 0 auto;
-    font-family: var(--font-family-main);
+	width: calc(100vw - var(--sidebar-width));
+	max-width: 1200px;
+	padding: 25px 35px;
+	margin: 0 auto;
+	font-family: var(--font-family-main);
 }
 
 .header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 22px;
+	display: flex;
+	align-items: center;
+	margin-bottom: 22px;
 }
 
 .header button {
-    margin-left: 40px;
+	margin-left: 40px;
 }
 
 .title {
-    width: 109px;
-    margin-right: 77px;
+	width: 109px;
+	margin-right: 77px;
 }
 
 .date {
-    margin-left: auto;
-    font-size: var(--font-size-l);
-    font-style: normal;
-    font-weight: 400;
+	margin-left: auto;
+	font-size: var(--font-size-l);
+	font-style: normal;
+	font-weight: 400;
 }
 
 .btns {
-    position: fixed;
-    top: 200px;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+	position: fixed;
+	top: 200px;
+	right: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.tableWrapper {
+	max-width: calc(100vw - var(--sidebar-width));
+	overflow-x: scroll;
 }
 
 @media (max-width: 1340px) {
-    .header {
-        display: grid;
-        grid-template-rows: 1fr 1fr;
-        grid-template-columns: repeat(3, 1fr);
-        row-gap: 14px;
-    }
+	.header {
+		display: grid;
+		grid-template-rows: 1fr 1fr;
+		grid-template-columns: repeat(3, 1fr);
+		row-gap: 14px;
+	}
 
-    .vendorsSearch {
-        grid-row-start: 2;
-        grid-column-start: 1;
-        grid-column-end: 4;
-        justify-self: center;
-        max-width: 550px !important;
-    }
+	.vendorsSearch {
+		grid-row-start: 2;
+		grid-column-start: 1;
+		grid-column-end: 4;
+		justify-self: center;
+		max-width: 550px !important;
+	}
 
-    .header button {
-        justify-self: center;
-        margin-left: 0;
-    }
+	.header button {
+		justify-self: center;
+		margin-left: 0;
+	}
 }

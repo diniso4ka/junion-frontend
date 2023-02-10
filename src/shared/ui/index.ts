@@ -11,3 +11,4 @@ export * from './AdvancedSearch/AdvancedSearch';
 export * from './Modal/Modal';
 export * from './Text';
 export * from './DiscountTag';
+export * from './List';

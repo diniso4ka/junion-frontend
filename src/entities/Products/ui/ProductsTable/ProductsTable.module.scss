@@ -1,19 +1,19 @@
 .ProductsTable {
-    min-width: 1060px;
-    max-width: 1200px;
-    margin-right: auto;
-    margin-left: auto;
+	min-width: 1060px;
+	max-width: 1200px;
+	margin-right: auto;
+	margin-left: auto;
 }
 
 .items {
-    max-height: calc(80vh - var(--header-height-desktop));
-    overflow-y: auto;
-    -webkit-scrollbar: none;
-    background-color: var(--white-color);
+	max-height: calc(80vh - var(--header-height-desktop));
+	overflow-y: scroll;
+	-webkit-scrollbar: none;
+	background-color: var(--white-color);
 }
 
 .error {
-    margin-top: 10vh;
-    font-size: 20px;
-    text-align: center;
+	margin-top: 10vh;
+	font-size: 20px;
+	text-align: center;
 }

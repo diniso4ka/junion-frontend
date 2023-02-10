@@ -1,7 +1,7 @@
 import cls from 'classnames';
 import { FC } from 'react';
 
-import { TableHeading, TableRow } from 'shared/ui';
+import { TableHeading } from 'shared/ui';
 import { Text } from 'shared/ui/Text/Text';
 
 import { useAppDispatch, useAppSelector } from '../../../../app/store';
@@ -10,6 +10,7 @@ import { updateProductActions } from '../../../../features/UpdateProduct/model/s
 import TableRowLoader from '../../../../shared/ui/LoaderSkeleton/TableRowLoader/TableRowLoader';
 import { productsActions } from '../../model/slice/productsSlice';
 import { ProductSortType, ProductType } from '../../model/types/ProductsSchema';
+import { TableRow } from './TableRow/TableRow';
 
 import s from './ProductsTable.module.scss';
 
@@ -117,7 +118,6 @@ export const ProductsTable: FC<ProductsTableProps> = ({
 							}
 							onSelect={onHandleSelect}
 							key={product._id}
-							type={'products'}
 							item={product}
 						/>
 					))}

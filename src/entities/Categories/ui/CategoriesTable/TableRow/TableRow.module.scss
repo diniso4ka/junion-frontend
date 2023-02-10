@@ -1,0 +1,30 @@
+.TableRow {
+	font-family: var(--font-family-main);
+	background-color: var(--white-color);
+	display: grid;
+	padding: 5px 0 3px;
+	margin: 20px 18px 0;
+	border-bottom: 1px solid #dedede;
+
+	grid-template-columns: 278px 78px;
+	gap: 10px;
+	padding-left: 7px;
+
+	& li:nth-child(2) {
+		text-align: center;
+	}
+}
+
+.item {
+	overflow: hidden;
+	font-size: var(--font-size-m);
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	list-style: none;
+
+	.discount {
+		display: flex;
+		flex-direction: row;
+		column-gap: 5px;
+	}
+}

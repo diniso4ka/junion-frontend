@@ -94,11 +94,13 @@ const VendorsPage: FC = () => {
 						date={`${date.mounth} ${date.number}, ${date.year}`}
 					/>
 				</div>
-				<VendorsTable
-					isLoading={status}
-					error={!!error}
-					items={filteredItems}
-				/>
+				<div className={s.tableWrapper}>
+					<VendorsTable
+						isLoading={status}
+						error={!!error}
+						items={filteredItems}
+					/>
+				</div>
 				{!(selectedItems.length < 1) && (
 					<div className={s.btns}>
 						<SideButton

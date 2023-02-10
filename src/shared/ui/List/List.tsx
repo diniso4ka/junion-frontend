@@ -4,8 +4,8 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Preloader, Text } from 'shared/ui/index';
 
-import { SortType } from '../../../../pages/Private/Home/model/types/sort';
-import { routeConfig } from '../../../config/routeConfig/routeConfig';
+import { SortType } from '../../../pages/Private/Home/model/types/sort';
+import { routeConfig } from '../../config/routeConfig/routeConfig';
 
 import s from './List.module.scss';
 
