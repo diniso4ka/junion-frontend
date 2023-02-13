@@ -12,6 +12,7 @@ import {
 	ReducersList,
 } from 'shared/config/components/DynamicModuleLoader';
 
+import { popupInfoActions } from '../../../PopupInfo';
 import { getCreateProductCategories } from '../../model/selectors/getCreateProductCategories/getCreateProductCategories';
 import { getCreateProductError } from '../../model/selectors/getCreateProductError/getCreateProductError';
 import { getCreateProductName } from '../../model/selectors/getCreateProductName/getCreateProductName';
@@ -87,6 +88,19 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
 		if (response.payload?.data) {
 			dispatch(thunkFetchProductList());
 			onClose();
+			dispatch(
+				popupInfoActions.setPopupInfo({
+					text: 'Product was created',
+					type: 'success',
+				}),
+			);
+		} else {
+			dispatch(
+				popupInfoActions.setPopupInfo({
+					text: 'Failed to create a product',
+					type: 'error',
+				}),
+			);
 		}
 	};
 
