@@ -102,6 +102,10 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
 				}),
 			);
 		}
+
+		setTimeout(() => {
+			dispatch(popupInfoActions.unmountPopup());
+		}, 1800);
 	};
 
 	const onHandleNameHint = (hint) => {
