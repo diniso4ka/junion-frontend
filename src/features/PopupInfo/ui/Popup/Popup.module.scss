@@ -1,0 +1,56 @@
+.wrapper {
+	padding: 5px 15px 5px 40px;
+	position: fixed;
+	top: 25px;
+	left: 50%;
+	width: fit-content;
+	height: 70px;
+	border-radius: 5px;
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+	z-index: 201;
+	background-color: #efedf4;
+	display: grid;
+	place-items: center;
+	transform: translateY(-150%) translateX(-50%);
+	animation: move 1.7s linear;
+}
+
+.text {
+	color: rgba(0, 0, 0, 0.8);
+}
+
+.icon {
+	position: fixed;
+	top: 50%;
+	transform: translateY(-50%);
+	left: 15px;
+	width: 17px;
+	height: 17px;
+}
+
+.icon * {
+	fill: green;
+}
+
+.icon.error * {
+	fill: tomato;
+}
+
+@keyframes move {
+	0% {
+		transform: translateY(-150%) translateX(-50%);
+	}
+
+	15% {
+		transform: translateY(0%) translateX(-50%);
+	}
+	50% {
+		transform: translateY(0%) translateX(-50%);
+	}
+	70% {
+		transform: translateY(0%) translateX(-50%);
+	}
+	100% {
+		transform: translateY(-150%) translateX(-50%);
+	}
+}

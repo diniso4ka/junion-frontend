@@ -10,6 +10,7 @@ import {
 	createVendorValidateErrors,
 	validate,
 } from '../../../CreateVendor/model/services/validate/validate';
+import { popupInfoActions } from '../../../PopupInfo';
 import { getUpdateVendorAddress } from '../../model/selectors/getUpdateVendorAddress/getUpdateVendorAddress';
 import { getUpdateVendorError } from '../../model/selectors/getUpdateVendorError/getUpdateVendorError';
 import { getUpdateVendorName } from '../../model/selectors/getUpdateVendorName/getUpdateVendorName';
@@ -60,7 +61,24 @@ export const UpdateVendorForm: FC<CreateVendorFormProps> = ({
 		if (response.payload.status === 200) {
 			dispatch(thunkGetVendorsList());
 			onClose();
+			dispatch(
+				popupInfoActions.setPopupInfo({
+					text: 'Vendor was updated',
+					type: 'success',
+				}),
+			);
+		} else {
+			dispatch(
+				popupInfoActions.setPopupInfo({
+					text: 'Failed to update a vendor',
+					type: 'error',
+				}),
+			);
 		}
+
+		setTimeout(() => {
+			dispatch(popupInfoActions.unmountPopup());
+		}, 1800);
 	}, [name, regCode, address, data?._id, data?.code, dispatch, onClose]);
 
 	const onChangeName = useCallback(

@@ -1,6 +1,7 @@
 import cls from 'classnames';
 import { FC, useCallback } from 'react';
 
+import { useNavigate } from 'react-router';
 import { Button, Input, Text } from 'shared/ui';
 
 import {
@@ -9,6 +10,7 @@ import {
 } from 'shared/config/components/DynamicModuleLoader';
 
 import { useAppDispatch, useAppSelector } from '../../../../app/store';
+import { popupInfoActions } from '../../../PopupInfo';
 import { getRetrievePasswordConfirmPassword } from '../../model/selectors/getRetrievePasswordConfirmPassword/getRetrievePasswordConfirmPassword';
 import { getRetrievePasswordPassword } from '../../model/selectors/getRetrievePasswordPassword/getRetrievePasswordPassword';
 import { getRetrievePasswordStatus } from '../../model/selectors/getRetrievePasswordStatus/getRetrievePasswordStatus';
@@ -23,6 +25,7 @@ import s from './ChangePasswordForm.module.scss';
 interface ChangePasswordFormProps {
 	className?: string;
 }
+
 const initialState: ReducersList = {
 	retrievePassword: retrievePasswordReducer,
 };
@@ -30,6 +33,7 @@ const initialState: ReducersList = {
 export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
 	className,
 }) => {
+	const navigate = useNavigate();
 	const password = useAppSelector(getRetrievePasswordPassword);
 	const confirmPassword = useAppSelector(getRetrievePasswordConfirmPassword);
 	const status = useAppSelector(getRetrievePasswordStatus);
@@ -48,9 +52,30 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
 		[dispatch],
 	);
 
-	const onSubmitForm = () => {
+	const onSubmitForm = async () => {
 		if (password === confirmPassword && password && confirmPassword) {
-			dispatch(thunkChangePassword({ password }));
+			const response = await dispatch(thunkChangePassword({ password }));
+			//@ts-ignore //TODO ts-ignore
+			if (response.payload?.data) {
+				dispatch(
+					popupInfoActions.setPopupInfo({
+						text: 'Password changed',
+						type: 'success',
+					}),
+				);
+				navigate('/');
+			} else {
+				dispatch(
+					popupInfoActions.setPopupInfo({
+						text: 'Failed to change a password',
+						type: 'error',
+					}),
+				);
+			}
+
+			setTimeout(() => {
+				dispatch(popupInfoActions.unmountPopup());
+			}, 1800);
 		}
 	};
 

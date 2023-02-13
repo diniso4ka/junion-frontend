@@ -31,7 +31,7 @@ export const Link = memo(
 		return (
 			<div className={classes}>
 				<LinkButton className={s.linkWrapper} {...rest}>
-					<div className={s.iconContainer}>
+					<div className={s.iconContainer} title={`${children}`}>
 						{Icon && (
 							<Icon
 								className={cls(s.icon, {

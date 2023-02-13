@@ -4,6 +4,7 @@ import { FC, useEffect } from 'react';
 import { thunkGetCategoriesList } from 'entities/Categories/model/services/thunkGetCategoriesList';
 import { thunkFetchProductList } from 'entities/Products/model/services/thunkGetProductsList';
 import { getAuthData, getInitialize, thunkCheckAuthMe } from 'entities/User';
+import { getPopupInfo, Popup } from 'features/PopupInfo';
 
 import Header from 'widgets/Header/Header';
 import { PageLoader } from 'widgets/PageLoader/PageLoader';
@@ -18,6 +19,7 @@ import { useAppDispatch, useAppSelector } from './store/config/StateSchema';
 import './styles/index.scss';
 
 const App: FC = () => {
+	const popupInfo = useAppSelector(getPopupInfo);
 	const authData = useAppSelector(getAuthData);
 	const initialize = useAppSelector(getInitialize);
 	const dispatch = useAppDispatch();
@@ -45,6 +47,7 @@ const App: FC = () => {
 					<AppRouter />
 				</div>
 			)}
+			{popupInfo.visible && <Popup />}
 		</div>
 	);
 };
