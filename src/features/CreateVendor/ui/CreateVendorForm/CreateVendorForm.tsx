@@ -10,6 +10,7 @@ import {
 	ReducersList,
 } from 'shared/config/components/DynamicModuleLoader';
 
+import { popupInfoActions } from '../../../PopupInfo';
 import { getCreateVendorAddress } from '../../model/selectors/getCreateVendorAddress/getCreateVendorAddress';
 import { getCreateVendorError } from '../../model/selectors/getCreateVendorError/getCreateVendorError';
 import { getCreateVendorName } from '../../model/selectors/getCreateVendorName/getCreateVendorName';
@@ -63,7 +64,24 @@ export const CreateVendorForm: FC<CreateVendorFormProps> = ({
 		if (response.payload.status === 201) {
 			dispatch(thunkGetVendorsList());
 			onClose();
+			dispatch(
+				popupInfoActions.setPopupInfo({
+					text: 'Vendor was created',
+					type: 'success',
+				}),
+			);
+		} else {
+			dispatch(
+				popupInfoActions.setPopupInfo({
+					text: 'Failed to create a vendor',
+					type: 'error',
+				}),
+			);
 		}
+
+		setTimeout(() => {
+			dispatch(popupInfoActions.unmountPopup());
+		}, 1800);
 	}, [name, regCode, address, dispatch, onClose]);
 
 	const onChangeName = useCallback(

@@ -5,6 +5,7 @@ import { categoriesReducer } from 'entities/Categories';
 import { productsReducer } from 'entities/Products';
 import { userReducer } from 'entities/User';
 import { vendorsReducer } from 'entities/Vendors';
+import { popupInfoReducer } from 'features/PopupInfo/model/slice/popupInfoSlice';
 
 import { createReducerManager } from './reducerManager';
 import { StateSchema, ThunkExtraArg } from './StateSchema';
@@ -20,6 +21,7 @@ export function createReduxStore(
 		products: productsReducer,
 		categories: categoriesReducer,
 		vendors: vendorsReducer,
+		popupInfo: popupInfoReducer,
 	};
 
 	const reducerManager = createReducerManager(rootReducers);

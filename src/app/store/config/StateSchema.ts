@@ -19,6 +19,7 @@ import { CreateVendorSchema } from 'features/CreateVendor/model/types/CreateVend
 import { ProductFiltersSchema } from 'features/ProductFilters/model/types/ProductFiltersSchema';
 import { RegisterSchema } from 'features/RegisterByMail/model/types/RegisterSchema';
 
+import { PopupInfoSchema } from '../../../features/PopupInfo/model/types/PopupInfoSchema';
 import { RetrievePasswordSchema } from '../../../features/RetrievePassword/model/types/RetrievePasswordSchema';
 import { UpdateProductSchema } from '../../../features/UpdateProduct/model/types/UpdateProductSchema';
 import { UpdateVendorSchema } from '../../../features/UpdateVendor/model/types/UpdateVendorSchema';
@@ -29,6 +30,7 @@ export interface StateSchema {
 	products: ProductsSchema;
 	categories: CategoriesSchema;
 	vendors: VendorsSchema;
+	popupInfo: PopupInfoSchema;
 
 	// Ассинхронные редюсеры
 	loginForm?: LoginSchema;

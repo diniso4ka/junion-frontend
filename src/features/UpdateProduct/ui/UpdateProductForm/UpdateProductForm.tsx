@@ -10,6 +10,7 @@ import { getVendorsList } from '../../../../entities/Vendors/model/selectors/get
 import closeIcon from '../../../../shared/assets/images/icons/close.svg';
 import { discountConvertInNumber } from '../../../../shared/helpers/math/discountPrice';
 import { Button, Checkbox, Input, InputWithHint } from '../../../../shared/ui';
+import { popupInfoActions } from '../../../PopupInfo';
 import { getUpdateProductCategories } from '../../model/selectors/getUpdateProductCategories/getUpdateProductCategories';
 import { getUpdateProductDiscountPrice } from '../../model/selectors/getUpdateProductDiscountPrice/getUpdateProductDiscountPrice';
 import { getUpdateProductError } from '../../model/selectors/getUpdateProductError/getUpdateProductError';
@@ -99,7 +100,25 @@ export const UpdateProductForm: FC<UpdateProductFormProps> = ({
 		// @ts-ignore //TODO ts-ignore
 		if (response.payload?.data) {
 			onClose();
+
+			dispatch(
+				popupInfoActions.setPopupInfo({
+					text: 'Product was updated',
+					type: 'success',
+				}),
+			);
+		} else {
+			dispatch(
+				popupInfoActions.setPopupInfo({
+					text: 'Failed to update a product',
+					type: 'error',
+				}),
+			);
 		}
+
+		setTimeout(() => {
+			dispatch(popupInfoActions.unmountPopup());
+		}, 1800);
 	};
 
 	const onHandleChangeDiscountCheckbox = () => {
