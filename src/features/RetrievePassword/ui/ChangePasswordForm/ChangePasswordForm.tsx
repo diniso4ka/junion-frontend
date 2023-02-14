@@ -10,7 +10,7 @@ import {
 } from 'shared/config/components/DynamicModuleLoader';
 
 import { useAppDispatch, useAppSelector } from '../../../../app/store';
-import { popupInfoActions } from '../../../PopupInfo';
+import { showPopupWithInfo } from '../../../PopupInfo/model/services/showPopupWithInfo';
 import { getRetrievePasswordConfirmPassword } from '../../model/selectors/getRetrievePasswordConfirmPassword/getRetrievePasswordConfirmPassword';
 import { getRetrievePasswordPassword } from '../../model/selectors/getRetrievePasswordPassword/getRetrievePasswordPassword';
 import { getRetrievePasswordStatus } from '../../model/selectors/getRetrievePasswordStatus/getRetrievePasswordStatus';
@@ -57,25 +57,16 @@ export const ChangePasswordForm: FC<ChangePasswordFormProps> = ({
 			const response = await dispatch(thunkChangePassword({ password }));
 			//@ts-ignore //TODO ts-ignore
 			if (response.payload?.data) {
-				dispatch(
-					popupInfoActions.setPopupInfo({
-						text: 'Password changed',
-						type: 'success',
-					}),
-				);
 				navigate('/');
-			} else {
-				dispatch(
-					popupInfoActions.setPopupInfo({
-						text: 'Failed to change a password',
-						type: 'error',
-					}),
-				);
 			}
 
-			setTimeout(() => {
-				dispatch(popupInfoActions.unmountPopup());
-			}, 1800);
+			showPopupWithInfo({
+				dispatch,
+				// @ts-ignore TODO
+				status: response.payload.status,
+				unit: 'password',
+				option: 'change',
+			});
 		}
 	};
 

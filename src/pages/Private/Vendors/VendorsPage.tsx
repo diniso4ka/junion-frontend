@@ -7,7 +7,7 @@ import { getVendorsFilteredList } from 'entities/Vendors/model/selectors/getVend
 import { getVendorsList } from 'entities/Vendors/model/selectors/getVendorsList/getVendorsList';
 import { VendorsTable } from 'entities/Vendors/ui/VendorsTable/VendorsTable';
 import { CreateVendorModal } from 'features/CreateVendor';
-import { FilterMenu, productFiltersActions } from 'features/ProductFilters';
+import { FilterMenu } from 'features/ProductFilters';
 import {
 	getUpdateVendorSelectedList,
 	UpdateVendorModal,
@@ -24,6 +24,8 @@ import {
 	DynamicModuleLoader,
 	ReducersList,
 } from 'shared/config/components/DynamicModuleLoader';
+
+import { showPopupWithInfo } from '../../../features/PopupInfo/model/services/showPopupWithInfo';
 
 import s from './VendorsPage.module.scss';
 
@@ -55,10 +57,27 @@ const VendorsPage: FC = () => {
 	};
 
 	const onHandleDelete = async () => {
-		selectedItems.forEach((item) => {
-			dispatch(thunkDeleteVendor(item._id));
-		});
 		setConfirmModalIsOpen(false);
+
+		let fulfilledQty = 0,
+			rejectedQty = 0;
+
+		for (const item of selectedItems) {
+			const response = await dispatch(thunkDeleteVendor(item._id));
+			// @ts-ignore TODO
+			response.payload.status === 200
+				? (fulfilledQty += 1)
+				: (rejectedQty += 1);
+		}
+
+		showPopupWithInfo({
+			dispatch,
+			// @ts-ignore TODO
+			unit: 'vendor',
+			option: 'delete',
+			fulfilledQty,
+			rejectedQty,
+		});
 	};
 
 	useEffect(() => {

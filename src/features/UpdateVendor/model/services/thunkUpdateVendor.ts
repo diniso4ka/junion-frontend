@@ -1,10 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { vendorsActions } from '../../../../entities/Vendors';
-import {
-	fetchDeleteVendor,
-	fetchUpdateVendor,
-} from '../../../../shared/api/requests/vendors';
+import { fetchUpdateVendor } from '../../../../shared/api/requests/vendors';
 import { updateVendorActions } from '../slice/updateVendorSlice';
 
 export interface thunkCreateVendorProps {
@@ -24,7 +21,7 @@ export const thunkUpdateVendor = createAsyncThunk(
 				throw new Error();
 			}
 			thunkAPI.dispatch(updateVendorActions.clearSelect());
-			thunkAPI.dispatch(vendorsActions.updateVendor(vendorData));
+			thunkAPI.dispatch(vendorsActions.updateVendor(response.data.newData));
 			return response;
 		} catch (err) {
 			return thunkAPI.rejectWithValue(err);

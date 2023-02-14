@@ -8,15 +8,17 @@
 	width: fit-content;
 	height: 70px;
 	padding: 5px 15px 5px 40px;
-	background-color: #efedf4;
+	background-color: var(--bg-third-color);
 	border-radius: 5px;
-	box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
-	transform: translateY(-150%) translateX(-50%);
-	animation: move 1.7s linear;
+	box-shadow: 0 4px 4px var(--button-primary-color);
+	opacity: 0;
+	transition: opacity 0.2s ease-in-out;
+	transform: perspective(600px) translate(-50%, -160%) rotateX(45deg);
+	animation: move 2s linear;
 }
 
 .text {
-	color: rgb(0 0 0 / 80%);
+	color: #f9fafc;
 }
 
 .icon {
@@ -29,31 +31,31 @@
 }
 
 .icon * {
-	fill: green;
+	fill: lightgreen;
 }
 
 .icon.error * {
-	fill: tomato;
+	fill: var(--button-border-error-color);
 }
 
 @keyframes move {
-	0% {
-		transform: translateY(-150%) translateX(-50%);
-	}
-
 	15% {
-		transform: translateY(0%) translateX(-50%);
+		opacity: 1;
+		transform: perspective(600px) translate(-50%, 0) rotateX(0deg);
 	}
 
 	50% {
-		transform: translateY(0%) translateX(-50%);
+		opacity: 1;
+		transform: perspective(600px) translate(-50%, 0) rotateX(0deg);
 	}
 
 	70% {
-		transform: translateY(0%) translateX(-50%);
+		opacity: 1;
+		transform: perspective(600px) translate(-50%, 0) rotateX(0deg);
 	}
 
 	100% {
-		transform: translateY(-150%) translateX(-50%);
+		opacity: 0;
+		transform: perspective(600px) translate(-50%, -160%) rotateX(45deg);
 	}
 }
