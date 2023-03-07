@@ -5,6 +5,7 @@ import { thunkGetCategoriesList } from 'entities/Categories/model/services/thunk
 import { thunkFetchProductList } from 'entities/Products/model/services/thunkGetProductsList';
 import { getAuthData, getInitialize, thunkCheckAuthMe } from 'entities/User';
 import { getPopupInfo, Popup } from 'features/PopupInfo';
+import { useMountEffect } from 'shared/hooks/useMountEffect';
 
 import Header from 'widgets/Header/Header';
 import { PageLoader } from 'widgets/PageLoader/PageLoader';
@@ -25,9 +26,9 @@ const App: FC = () => {
 	const dispatch = useAppDispatch();
 	const { theme } = useTheme();
 
-	useEffect(() => {
+	useMountEffect(() => {
 		dispatch(thunkCheckAuthMe());
-	}, [dispatch]);
+	});
 
 	useEffect(() => {
 		if (authData) {

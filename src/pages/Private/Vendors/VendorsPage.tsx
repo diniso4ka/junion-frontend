@@ -25,6 +25,8 @@ import {
 	ReducersList,
 } from 'shared/config/components/DynamicModuleLoader';
 
+import { useMountEffect } from '../../../shared/hooks/useUnmountEffect';
+
 import s from './VendorsPage.module.scss';
 
 const initialState: ReducersList = {
@@ -60,12 +62,9 @@ const VendorsPage: FC = () => {
 		});
 		setConfirmModalIsOpen(false);
 	};
-
-	useEffect(() => {
-		return () => {
-			dispatch(vendorsActions.clearSort());
-		};
-	}, [dispatch]);
+	useMountEffect(() => {
+		dispatch(vendorsActions.clearSort());
+	});
 	return (
 		<DynamicModuleLoader reducers={initialState} removeAfterUnmount={true}>
 			<div className={s.VendorsPage}>
