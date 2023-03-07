@@ -14,6 +14,7 @@ import {
 import { getProductsError } from 'entities/Products/model/selectors/getProductsError/getProductsError';
 import { ProductType } from 'entities/Products/model/types/ProductsSchema';
 import { CreateProductModal } from 'features/CreateProduct/ui/CreateProductModal/CreateProductModal';
+import { showPopupWithInfo } from 'features/PopupInfo/model/services/showPopupWithInfo';
 import { FilterMenu, productFiltersActions } from 'features/ProductFilters';
 import { getProductFiltersData } from 'features/ProductFilters/model/selectors/getProductFiltersData/getProductFiltersData';
 import { getUpdateProductSelectedList } from 'features/UpdateProduct/model/selectors/getUpdateProductSelectedList/getUpdateProductSelectedList';
@@ -70,11 +71,28 @@ const ProductsPage: FC = () => {
 		setFilterIsOpen(false);
 	};
 
-	const onHandleDelete = () => {
-		selectedItems.forEach((item) => {
-			dispatch(thunkDeleteProduct(item._id));
-		});
+	const onHandleDelete = async () => {
 		setConfirmModalIsOpen(false);
+
+		let fulfilledQty = 0;
+		let rejectedQty = 0;
+
+		for (const item of selectedItems) {
+			const response = await dispatch(thunkDeleteProduct(item._id));
+			// @ts-ignore TODO
+			response.payload.status === 200
+				? (fulfilledQty += 1)
+				: (rejectedQty += 1);
+		}
+
+		showPopupWithInfo({
+			dispatch,
+			// @ts-ignore TODO
+			unit: 'product',
+			option: 'delete',
+			fulfilledQty,
+			rejectedQty,
+		});
 	};
 
 	const autoSetFilters = useCallback(
