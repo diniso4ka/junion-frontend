@@ -1,5 +1,5 @@
 import cls from 'classnames';
-import React, { ButtonHTMLAttributes, FC, memo } from 'react';
+import React, { ButtonHTMLAttributes, memo } from 'react';
 
 import { useAppSelector } from '../../../app/store';
 import { getAuthData } from '../../../entities/User';

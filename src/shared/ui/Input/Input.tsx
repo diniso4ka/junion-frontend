@@ -1,11 +1,5 @@
 import cls from 'classnames';
-import React, {
-	FC,
-	InputHTMLAttributes,
-	memo,
-	useEffect,
-	useState,
-} from 'react';
+import React, { InputHTMLAttributes, memo, useState } from 'react';
 
 import eye from 'shared/assets/images/password-icons/codicon_eye.svg';
 import eyeClosed from 'shared/assets/images/password-icons/codicon_eye-closed.svg';

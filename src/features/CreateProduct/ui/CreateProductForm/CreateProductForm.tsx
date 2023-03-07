@@ -1,18 +1,18 @@
 import cls from 'classnames';
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'app/store/config/StateSchema';
 import { getCategoryList } from 'entities/Categories';
 import { getProductsList, thunkFetchProductList } from 'entities/Products';
 import { getVendorsList } from 'entities/Vendors/model/selectors/getVendorsList/getVendorsList';
-import { Button, Checkbox, Input, InputWithHint } from 'shared/ui';
+import { Button, Input, InputWithHint } from 'shared/ui';
 
 import {
 	DynamicModuleLoader,
 	ReducersList,
 } from 'shared/config/components/DynamicModuleLoader';
 
-import { popupInfoActions } from '../../../PopupInfo';
+import { showPopupWithInfo } from '../../../PopupInfo/model/services/showPopupWithInfo';
 import { getCreateProductCategories } from '../../model/selectors/getCreateProductCategories/getCreateProductCategories';
 import { getCreateProductError } from '../../model/selectors/getCreateProductError/getCreateProductError';
 import { getCreateProductName } from '../../model/selectors/getCreateProductName/getCreateProductName';
@@ -78,34 +78,25 @@ export const CreateProductForm: FC<CreateProductFormProps> = ({
 			thunkCreateProduct({
 				name,
 				category: category || 'unSorted',
-				vendor: selectedVendor?.code || '000',
+				vendor: selectedVendor?.code || '001',
 				unit: unit ? unit : 'pcs',
 				price: Number(price) || 0,
 				quantity: Number(quantity) || 0,
 			}),
 		);
-		// @ts-ignore
+		// @ts-ignore Todo
 		if (response.payload?.data) {
 			dispatch(thunkFetchProductList());
 			onClose();
-			dispatch(
-				popupInfoActions.setPopupInfo({
-					text: 'Product was created',
-					type: 'success',
-				}),
-			);
-		} else {
-			dispatch(
-				popupInfoActions.setPopupInfo({
-					text: 'Failed to create a product',
-					type: 'error',
-				}),
-			);
 		}
 
-		setTimeout(() => {
-			dispatch(popupInfoActions.unmountPopup());
-		}, 1800);
+		showPopupWithInfo({
+			dispatch,
+			// @ts-ignore Todo
+			status: response.payload.status,
+			unit: 'product',
+			option: 'create',
+		});
 	};
 
 	const onHandleNameHint = (hint) => {
